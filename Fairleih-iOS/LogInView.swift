@@ -14,20 +14,22 @@ struct LoginView: View {
     
     let handle = Auth.auth().addStateDidChangeListener { (auth, user) in
         print("Current User: \(user?.displayName) (\(user?.email)) with ID\(user?.uid)")
-      }
+    }
     
     var body: some View {
-        VStack(alignment: .center, spacing: 1, content: {
+        VStack(alignment: .trailing, spacing: 20, content: {
+            Spacer()
+                .frame(height:10)
             TextField("mail address", text: $mail)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .disableAutocorrection(true)
                 .autocapitalization(.none)
-                .padding()
+                .padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
             TextField("password", text: $password)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .disableAutocorrection(true)
                 .autocapitalization(.none)
-                .padding()
+                .padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
             Button("Log in") {
                 Auth.auth().signIn(withEmail: mail.lowercased(), password: password) { authResult, error in
                     let username = authResult?.additionalUserInfo?.username ?? "unknown"
@@ -36,7 +38,10 @@ struct LoginView: View {
                     print(error.debugDescription)
                 }
             }
+            .padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+            Spacer()
         })
+        .navigationTitle("Log in")
     }
 }
 
