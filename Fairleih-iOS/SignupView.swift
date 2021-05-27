@@ -14,9 +14,7 @@ struct SignupView: View {
     @State var password = ""
     @State var password_confirmed = ""
     
-    let handle = Auth.auth().addStateDidChangeListener { (auth, user) in
-        print("Current User: \(user?.displayName) (\(user?.email)) with ID\(user?.uid)")
-    }
+    @ObservedObject var authenticationManager: AuthenticationManager = AuthenticationManager.shared
     
     var body: some View {
         NavigationView {
@@ -29,13 +27,13 @@ struct SignupView: View {
                     .autocapitalization(.none)
                     .padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                 TextField("password", text: $password)
-                    .textContentType(.password)
+                    .textContentType(.newPassword)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .disableAutocorrection(true)
                     .autocapitalization(.none)
                     .padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                 TextField("confirm password", text: $password_confirmed)
-                    .textContentType(.password)
+                    .textContentType(.newPassword)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .disableAutocorrection(true)
                     .autocapitalization(.none)
@@ -57,6 +55,8 @@ struct SignupView: View {
                     NavigationLink("Already have an Account?", destination: LoginView())
                     Spacer()
                 }
+                
+                NavigationLink("", destination: ContentView().navigationBarHidden(true), isActive: $authenticationManager.loggedIn).hidden()
             })
             
             

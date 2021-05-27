@@ -12,9 +12,7 @@ struct LoginView: View {
     @State var mail = ""
     @State var password = ""
     
-    let handle = Auth.auth().addStateDidChangeListener { (auth, user) in
-        print("Current User: \(user?.displayName) (\(user?.email)) with ID\(user?.uid)")
-    }
+    @ObservedObject var authenticationManager = AuthenticationManager.shared
     
     var body: some View {
         VStack(alignment: .trailing, spacing: 20, content: {
@@ -26,6 +24,7 @@ struct LoginView: View {
                 .autocapitalization(.none)
                 .padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
             TextField("password", text: $password)
+                .textContentType(.password)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .disableAutocorrection(true)
                 .autocapitalization(.none)
@@ -40,6 +39,7 @@ struct LoginView: View {
             }
             .padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
             Spacer()
+            NavigationLink("", destination: ContentView(), isActive: $authenticationManager.loggedIn).hidden()
         })
         .navigationTitle("Log in")
     }
