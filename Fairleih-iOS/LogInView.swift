@@ -39,7 +39,7 @@ struct LoginView: View {
             }
             .padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
             Spacer()
-            NavigationLink("", destination: ContentView(), isActive: $authenticationManager.loggedIn).hidden()
+            NavigationLink("", destination: MainView(), isActive: $authenticationManager.loggedIn).hidden()
         })
         .navigationTitle("Log in")
     }

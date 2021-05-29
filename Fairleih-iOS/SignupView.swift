@@ -56,7 +56,7 @@ struct SignupView: View {
                     Spacer()
                 }
                 
-                NavigationLink("", destination: ContentView().navigationBarHidden(true), isActive: $authenticationManager.loggedIn).hidden()
+                NavigationLink("", destination: MainView().navigationBarHidden(true), isActive: $authenticationManager.loggedIn).hidden()
             })
             
             
