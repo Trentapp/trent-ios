@@ -17,6 +17,13 @@ struct MainView: View {
                 .tabItem {
                     Label("Map", systemImage: "map")
                 }
+            
+            AccountView()
+                .navigationBarTitle("")
+                .navigationBarHidden(true)
+                .tabItem {
+                    Label("Account", systemImage: "person")
+                }
         }
         .navigationBarTitle("")
         .navigationBarHidden(true)
