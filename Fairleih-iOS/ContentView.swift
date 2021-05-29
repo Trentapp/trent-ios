@@ -20,17 +20,10 @@ struct ContentView: View {
         NavigationView {
             ZStack(alignment: Alignment(horizontal: .center, vertical: .top), content: {
                 Map(coordinateRegion: $region, annotationItems: products, annotationContent: { item in
-                    MapMarker(coordinate: item.location?.coordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000))
-//                    MapAnnotation(coordinate: item.location?.coordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000)) {
-//                        ZStack {
-//                            Circle()
-//                                .foregroundColor(.blue)
-//                                .frame(width: 10, height: 10)
-//                            Circle()
-//                                .foregroundColor(.black)
-//                                .frame(width: 25, height: 25)
-//                        }
-//                    }
+//                    MapMarker(coordinate: item.location?.coordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000))
+                    MapAnnotation(coordinate: item.location?.coordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000)) {
+                        MapAnnotationButton(item: item)
+                    }
                 })
                     .edgesIgnoringSafeArea(.all)
                 RoundedRectangle(cornerRadius: 20)
