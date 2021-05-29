@@ -11,6 +11,8 @@
 		B029AD012662313400279911 /* MapAnnotationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B029AD002662313400279911 /* MapAnnotationButton.swift */; };
 		B029AD03266237E200279911 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B029AD02266237E200279911 /* MainView.swift */; };
 		B029AD0526623C9500279911 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B029AD0426623C9500279911 /* AccountView.swift */; };
+		B029AD0826623EBD00279911 /* AddProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B029AD0726623EBD00279911 /* AddProductView.swift */; };
+		B029AD0A2662545800279911 /* PercentEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B029AD092662545800279911 /* PercentEncoding.swift */; };
 		B06F7978264A6B5500049EF2 /* Fairleih_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F7977264A6B5500049EF2 /* Fairleih_iOSApp.swift */; };
 		B06F797A264A6B5500049EF2 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F7979264A6B5500049EF2 /* MapView.swift */; };
 		B06F797C264A6B5700049EF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B06F797B264A6B5700049EF2 /* Assets.xcassets */; };
@@ -29,6 +31,8 @@
 		B029AD002662313400279911 /* MapAnnotationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationButton.swift; sourceTree = "<group>"; };
 		B029AD02266237E200279911 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		B029AD0426623C9500279911 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		B029AD0726623EBD00279911 /* AddProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductView.swift; sourceTree = "<group>"; };
+		B029AD092662545800279911 /* PercentEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentEncoding.swift; sourceTree = "<group>"; };
 		B06F7974264A6B5500049EF2 /* Fairleih-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fairleih-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B06F7977264A6B5500049EF2 /* Fairleih_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fairleih_iOSApp.swift; sourceTree = "<group>"; };
 		B06F7979264A6B5500049EF2 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
@@ -75,6 +79,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B029AD0626623E2D00279911 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B06F7979264A6B5500049EF2 /* MapView.swift */,
+				B029AD02266237E200279911 /* MainView.swift */,
+				B029AD0426623C9500279911 /* AccountView.swift */,
+				B029AD002662313400279911 /* MapAnnotationButton.swift */,
+				B0F37CC2265ECC7000D7905E /* LoginView.swift */,
+				B0F37CC6265EDAD400D7905E /* SignupView.swift */,
+				B029AD0726623EBD00279911 /* AddProductView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		B06F796B264A6B5500049EF2 = {
 			isa = PBXGroup;
 			children = (
@@ -97,16 +115,12 @@
 			isa = PBXGroup;
 			children = (
 				B06F7977264A6B5500049EF2 /* Fairleih_iOSApp.swift */,
-				B06F7979264A6B5500049EF2 /* MapView.swift */,
-				B029AD02266237E200279911 /* MainView.swift */,
-				B029AD0426623C9500279911 /* AccountView.swift */,
-				B029AD002662313400279911 /* MapAnnotationButton.swift */,
-				B0F37CC2265ECC7000D7905E /* LoginView.swift */,
-				B0F37CC6265EDAD400D7905E /* SignupView.swift */,
+				B029AD0626623E2D00279911 /* Views */,
 				B06F7986264A6E2800049EF2 /* BackendClient.swift */,
 				B06F798C264A76D700049EF2 /* LocationManager.swift */,
 				B0F37CC8265EE8AA00D7905E /* AuthenticationManager.swift */,
 				B0F01F60265FAFA300BDFA18 /* Product.swift */,
+				B029AD092662545800279911 /* PercentEncoding.swift */,
 				B06F797B264A6B5700049EF2 /* Assets.xcassets */,
 				B06F7980264A6B5700049EF2 /* Info.plist */,
 				B0F37CC4265ECFFC00D7905E /* GoogleService-Info.plist */,
@@ -237,6 +251,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B029AD0826623EBD00279911 /* AddProductView.swift in Sources */,
 				B029AD012662313400279911 /* MapAnnotationButton.swift in Sources */,
 				B0F37CC3265ECC7000D7905E /* LoginView.swift in Sources */,
 				B0F01F61265FAFA300BDFA18 /* Product.swift in Sources */,
@@ -244,6 +259,7 @@
 				B029AD0526623C9500279911 /* AccountView.swift in Sources */,
 				B06F798D264A76D700049EF2 /* LocationManager.swift in Sources */,
 				B0F37CC9265EE8AA00D7905E /* AuthenticationManager.swift in Sources */,
+				B029AD0A2662545800279911 /* PercentEncoding.swift in Sources */,
 				B06F7987264A6E2800049EF2 /* BackendClient.swift in Sources */,
 				B06F797A264A6B5500049EF2 /* MapView.swift in Sources */,
 				B06F7978264A6B5500049EF2 /* Fairleih_iOSApp.swift in Sources */,

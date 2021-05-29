@@ -9,11 +9,12 @@ import SwiftUI
 
 struct AccountView: View {
     
+    @State var showAddProduct = false
+    
     var body: some View {
-        
         Button("Offer new item") {
-            print("Button pressed")
+            showAddProduct.toggle()
         }
-        
+        .sheet(isPresented: $showAddProduct, content: { AddProductView() })
     }
 }

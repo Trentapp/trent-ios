@@ -30,13 +30,44 @@ class BackendClient: ObservableObject {
         }
     }
     
-//    func checkStatus(){
-//        do {
-//            let response = try String(contentsOf: server_url)//.appendingPathComponent("status"))
-//            status = response
-//            print("Server response: \(response)")
-//        } catch {
-//            print("Error while retrieving status")
-//        }
-//    }
+    func postNewItem(parameters: [String : Any], completionHandler: @escaping (Bool) -> Void) {
+        let postPath = serverPath + "/products/create"
+        let postURL = URL(string: postPath)!
+        var request = URLRequest(url: postURL)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.httpMethod = "POST"
+//        request.httpBody = parameters.percentEncoded()!
+        
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .withoutEscapingSlashes)
+        } catch let error {
+            print(error.localizedDescription)
+            completionHandler(false)
+        }
+        
+        print(request.description)
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let response = response as? HTTPURLResponse,
+                  error == nil else{
+                completionHandler(false)
+                return
+            }
+            
+            guard (200 ... 299) ~= response.statusCode else {
+                print("HTTP response status code: \(response.statusCode)")
+                print("response: \(response)")
+                completionHandler(false)
+                return
+            }
+            
+            completionHandler(true)
+            let responseString = String(data: data, encoding: .utf8)
+            print("responseString: \(responseString)")
+        }
+        
+        task.resume()
+    }
 }
