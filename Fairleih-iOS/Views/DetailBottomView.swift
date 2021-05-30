@@ -35,7 +35,7 @@ struct DetailBottomView: View {
             })
             .frame(width: 280, height: 55)
             
-        }//.hidden(controler.currentlyFocusedItem == nil)
+        }.hidden(controler.currentlyFocusedItem == nil)
         
     }
 }
