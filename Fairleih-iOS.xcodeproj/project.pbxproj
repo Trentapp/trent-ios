@@ -16,6 +16,7 @@
 		B029AD0C2662925700279911 /* DetailBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B029AD0B2662925700279911 /* DetailBottomView.swift */; };
 		B029AD1026629C0D00279911 /* HiddenViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B029AD0F26629C0D00279911 /* HiddenViewExtension.swift */; };
 		B029AD122662ACA500279911 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B029AD112662ACA500279911 /* MapViewController.swift */; };
+		B029AD142663A02900279911 /* ItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B029AD132663A02900279911 /* ItemDetailView.swift */; };
 		B06F7978264A6B5500049EF2 /* Fairleih_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F7977264A6B5500049EF2 /* Fairleih_iOSApp.swift */; };
 		B06F797A264A6B5500049EF2 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F7979264A6B5500049EF2 /* MapView.swift */; };
 		B06F797C264A6B5700049EF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B06F797B264A6B5700049EF2 /* Assets.xcassets */; };
@@ -39,6 +40,7 @@
 		B029AD0B2662925700279911 /* DetailBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBottomView.swift; sourceTree = "<group>"; };
 		B029AD0F26629C0D00279911 /* HiddenViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenViewExtension.swift; sourceTree = "<group>"; };
 		B029AD112662ACA500279911 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		B029AD132663A02900279911 /* ItemDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailView.swift; sourceTree = "<group>"; };
 		B06F7974264A6B5500049EF2 /* Fairleih-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fairleih-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B06F7977264A6B5500049EF2 /* Fairleih_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fairleih_iOSApp.swift; sourceTree = "<group>"; };
 		B06F7979264A6B5500049EF2 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 			children = (
 				B06F7979264A6B5500049EF2 /* MapView.swift */,
 				B029AD0B2662925700279911 /* DetailBottomView.swift */,
+				B029AD132663A02900279911 /* ItemDetailView.swift */,
 				B029AD0F26629C0D00279911 /* HiddenViewExtension.swift */,
 				B029AD02266237E200279911 /* MainView.swift */,
 				B029AD0426623C9500279911 /* AccountView.swift */,
@@ -268,6 +271,7 @@
 				B029AD0526623C9500279911 /* AccountView.swift in Sources */,
 				B029AD0C2662925700279911 /* DetailBottomView.swift in Sources */,
 				B06F798D264A76D700049EF2 /* LocationManager.swift in Sources */,
+				B029AD142663A02900279911 /* ItemDetailView.swift in Sources */,
 				B0F37CC9265EE8AA00D7905E /* AuthenticationManager.swift in Sources */,
 				B029AD0A2662545800279911 /* PercentEncoding.swift in Sources */,
 				B029AD1026629C0D00279911 /* HiddenViewExtension.swift in Sources */,

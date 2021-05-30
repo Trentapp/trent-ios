@@ -10,7 +10,7 @@ import Foundation
 class BackendClient: ObservableObject {
     static let shared = BackendClient()
     
-    let serverPath = "http://localhost:8000/api"
+    let serverPath = "http://192.168.2.101:8000/api"
     
     
     func query(keyword: String) -> [Product]{
