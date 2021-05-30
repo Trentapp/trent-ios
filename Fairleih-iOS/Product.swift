@@ -36,7 +36,7 @@ struct Product: Codable, Identifiable {
             var images: [UIImage] = []
             
             for base64String in pictures! {
-                let data = Data(base64Encoded: thumbnail ?? "")
+                let data = Data(base64Encoded: base64String ?? "")
                 if data == nil { continue }
                 
                 let image = UIImage(data: data!)
