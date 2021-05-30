@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		39E57575F84E119D00DC7BE9 /* Pods_Fairleih_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 318B097968CCF6E60254836B /* Pods_Fairleih_iOS.framework */; };
 		B029AD012662313400279911 /* MapAnnotationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B029AD002662313400279911 /* MapAnnotationButton.swift */; };
 		B029AD03266237E200279911 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B029AD02266237E200279911 /* MainView.swift */; };
 		B029AD0526623C9500279911 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B029AD0426623C9500279911 /* AccountView.swift */; };
@@ -28,10 +27,10 @@
 		B0F37CC5265ECFFC00D7905E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0F37CC4265ECFFC00D7905E /* GoogleService-Info.plist */; };
 		B0F37CC7265EDAD500D7905E /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F37CC6265EDAD400D7905E /* SignupView.swift */; };
 		B0F37CC9265EE8AA00D7905E /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F37CC8265EE8AA00D7905E /* AuthenticationManager.swift */; };
+		B20921BBE41D51D41EF5AA64 /* Pods_Fairleih_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E465A03291B4E422354D3C /* Pods_Fairleih_iOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		318B097968CCF6E60254836B /* Pods_Fairleih_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fairleih_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B029AD002662313400279911 /* MapAnnotationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationButton.swift; sourceTree = "<group>"; };
 		B029AD02266237E200279911 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		B029AD0426623C9500279911 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
@@ -49,13 +48,14 @@
 		B06F7980264A6B5700049EF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B06F7986264A6E2800049EF2 /* BackendClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendClient.swift; sourceTree = "<group>"; };
 		B06F798C264A76D700049EF2 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		B081380AB492BBBE384940D6 /* Pods-Fairleih-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fairleih-iOS.release.xcconfig"; path = "Target Support Files/Pods-Fairleih-iOS/Pods-Fairleih-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		B0F01F60265FAFA300BDFA18 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		B0F37CC2265ECC7000D7905E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		B0F37CC4265ECFFC00D7905E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B0F37CC6265EDAD400D7905E /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		B0F37CC8265EE8AA00D7905E /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
-		E029A5B48F6AB066644BB79D /* Pods-Fairleih-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fairleih-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Fairleih-iOS/Pods-Fairleih-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		B18970A9C174AD27CC4B537B /* Pods-Fairleih-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fairleih-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Fairleih-iOS/Pods-Fairleih-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		C9E465A03291B4E422354D3C /* Pods_Fairleih_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fairleih_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED20EF8E80C52037F01618E3 /* Pods-Fairleih-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fairleih-iOS.release.xcconfig"; path = "Target Support Files/Pods-Fairleih-iOS/Pods-Fairleih-iOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,28 +63,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				39E57575F84E119D00DC7BE9 /* Pods_Fairleih_iOS.framework in Frameworks */,
+				B20921BBE41D51D41EF5AA64 /* Pods_Fairleih_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		731D49436CA373D7ABEDA15D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C9E465A03291B4E422354D3C /* Pods_Fairleih_iOS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		78E16584038F1B578A98B2AF /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				E029A5B48F6AB066644BB79D /* Pods-Fairleih-iOS.debug.xcconfig */,
-				B081380AB492BBBE384940D6 /* Pods-Fairleih-iOS.release.xcconfig */,
+				B18970A9C174AD27CC4B537B /* Pods-Fairleih-iOS.debug.xcconfig */,
+				ED20EF8E80C52037F01618E3 /* Pods-Fairleih-iOS.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		8424BED45762B7EFD13D124E /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				318B097968CCF6E60254836B /* Pods_Fairleih_iOS.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		B029AD0626623E2D00279911 /* Views */ = {
@@ -110,7 +110,7 @@
 				B06F7976264A6B5500049EF2 /* Fairleih-iOS */,
 				B06F7975264A6B5500049EF2 /* Products */,
 				78E16584038F1B578A98B2AF /* Pods */,
-				8424BED45762B7EFD13D124E /* Frameworks */,
+				731D49436CA373D7ABEDA15D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -156,11 +156,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B06F7983264A6B5700049EF2 /* Build configuration list for PBXNativeTarget "Fairleih-iOS" */;
 			buildPhases = (
-				26EFC4A7C7921FCB95B5195E /* [CP] Check Pods Manifest.lock */,
+				82016D4655FCFEA947401BE6 /* [CP] Check Pods Manifest.lock */,
 				B06F7970264A6B5500049EF2 /* Sources */,
 				B06F7971264A6B5500049EF2 /* Frameworks */,
 				B06F7972264A6B5500049EF2 /* Resources */,
-				6F297A8F7AC39F78AE5CD3EE /* [CP] Embed Pods Frameworks */,
+				7AA1B7C07ECBC377E48DC3AC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -217,7 +217,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		26EFC4A7C7921FCB95B5195E /* [CP] Check Pods Manifest.lock */ = {
+		7AA1B7C07ECBC377E48DC3AC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Fairleih-iOS/Pods-Fairleih-iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Fairleih-iOS/Pods-Fairleih-iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Fairleih-iOS/Pods-Fairleih-iOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		82016D4655FCFEA947401BE6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -237,23 +254,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6F297A8F7AC39F78AE5CD3EE /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Fairleih-iOS/Pods-Fairleih-iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Fairleih-iOS/Pods-Fairleih-iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Fairleih-iOS/Pods-Fairleih-iOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -404,7 +404,7 @@
 		};
 		B06F7984264A6B5700049EF2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E029A5B48F6AB066644BB79D /* Pods-Fairleih-iOS.debug.xcconfig */;
+			baseConfigurationReference = B18970A9C174AD27CC4B537B /* Pods-Fairleih-iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -427,7 +427,7 @@
 		};
 		B06F7985264A6B5700049EF2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B081380AB492BBBE384940D6 /* Pods-Fairleih-iOS.release.xcconfig */;
+			baseConfigurationReference = ED20EF8E80C52037F01618E3 /* Pods-Fairleih-iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

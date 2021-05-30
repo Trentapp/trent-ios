@@ -5,6 +5,7 @@ target 'Fairleih-iOS' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
   pod 'Firebase/Auth'
+  pod 'Introspect'
 
   # Pods for Fairleih-iOS
 
