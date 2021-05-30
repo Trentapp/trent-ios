@@ -12,7 +12,7 @@ struct MapView: View {
     
     @State var keyword = ""
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 49.4, longitude: 8.675), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
-    @State var products: [Product] = []
+    @State var products: [Product] = [Product(_id: "000", name: "Kärcher High Pressure Washer", desc: "Super Kärcher High Pressure Washer. Cleans surfaces amazingly. Lorem ipsum dolor sit amit", address: Address(street: "Some Street", houseNumber: "42c", zipcode: "69115", city: "Heidelberg", country: "Germany"), location: Coordinates(lat: 49.47, lng: 7.8), prices: Prices(pricePerHour: 7.5, pricePerDay: 20))]
     
     @ObservedObject var backendClient = BackendClient.shared
     
@@ -26,24 +26,31 @@ struct MapView: View {
                     }
                 })
                     .edgesIgnoringSafeArea(.all)
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(lineWidth: 1)
-                    .foregroundColor(.black)
-                    .background(RoundedRectangle(cornerRadius: 20).fill(Color.white))
-                    .frame(width: 250, height: 33, alignment: .center)
-                    .overlay(
-                        TextField("\(Image(systemName: "magnifyingglass")) What are you looking for?", text: $keyword, onEditingChanged: { editing in
-                            print("editing: \(editing)")
-                        }, onCommit: {
-                            print("Did commit: \(keyword)")
-                            products = backendClient.query(keyword: keyword)
-                        })
-                            .font(.system(size: 15, weight: .regular, design: .default))
-                            .multilineTextAlignment(.center)
-                            .frame(width: 250, height: 20, alignment: .center)
-                            .padding(5)
-                        
-                    )
+                
+                VStack {
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(lineWidth: 1)
+                        .foregroundColor(.black)
+                        .background(RoundedRectangle(cornerRadius: 20).fill(Color.white))
+                        .frame(width: 250, height: 33, alignment: .center)
+                        .overlay(
+                            TextField("\(Image(systemName: "magnifyingglass")) What are you looking for?", text: $keyword, onEditingChanged: { editing in
+                                print("editing: \(editing)")
+                            }, onCommit: {
+                                print("Did commit: \(keyword)")
+                                products = backendClient.query(keyword: keyword)
+                            })
+                                .font(.system(size: 15, weight: .regular, design: .default))
+                                .multilineTextAlignment(.center)
+                                .frame(width: 250, height: 20, alignment: .center)
+                                .padding(5)
+                        )
+                    
+                    Spacer()
+                    DetailBottomView()
+                }
+                
+                
                 
                     
             })
