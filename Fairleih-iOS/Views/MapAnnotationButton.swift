@@ -16,14 +16,19 @@ struct MapAnnotationButton: View {
     
     @State var item: Product
     @State var focused = false {
+        
         willSet {
-            if MapAnnotationButton.currentlyFocused != nil{
-                if !MapAnnotationButton.currentlyFocused!.focused {
-                    MapAnnotationButton.currentlyFocused?.focused = false
-                }
+            if !focused && MapAnnotationButton.currentlyFocused?.focused != nil {
+                MapAnnotationButton.currentlyFocused?.focused = false
             }
-            MapAnnotationButton.currentlyFocused = self
         }
+        
+        didSet{
+            if(focused) {
+                MapAnnotationButton.currentlyFocused = self
+            }
+        }
+        
     }
         
     var body: some View {
@@ -35,7 +40,7 @@ struct MapAnnotationButton: View {
                 RoundedRectangle(cornerRadius: 12.5)
                     .foregroundColor(focused ? .black : .white)
                     .frame(width: 50, height: 25)
-                Text("\(Int(item.prices?.pricePerHour ?? 0))€")
+                Text("\(Int(item.prices?.perHour ?? 0))€")
                     .font(.system(size: 15, weight: .bold, design: .default))
                     .foregroundColor(focused ? .white : .black)
             }

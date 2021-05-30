@@ -31,11 +31,11 @@ struct DetailBottomView: View {
                 })
                 Spacer()
 //                Text((item.prices?.pricePerHour == nil) ? ((item.prices?.pricePerDay == nil) ? "?/hr" : "\(item.prices?.pricePerDay!)/day") : item.prices?.pricePerHour!)
-                Text("\(Int(controler.currentlyFocusedItem?.prices?.pricePerHour ?? 0))/hr")
+                Text("\(Int(controler.currentlyFocusedItem?.prices?.perHour ?? 0))/hr")
             })
             .frame(width: 280, height: 55)
             
-        }//.hidden(item == nil)
+        }//.hidden(controler.currentlyFocusedItem == nil)
         
     }
 }

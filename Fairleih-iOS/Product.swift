@@ -19,8 +19,8 @@ struct Product: Codable, Identifiable {
 }
 
 struct Prices: Codable {
-    var pricePerHour: Double
-    var pricePerDay: Double
+    var perHour: Double
+    var perDay: Double
 }
 
 struct Address: Codable {
