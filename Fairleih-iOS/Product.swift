@@ -16,6 +16,37 @@ struct Product: Codable, Identifiable {
     var address: Address?
     var location: Coordinates?
     var prices: Prices?
+    var thumbnail: String?
+    var pictures: [String]?
+    
+    var thumbnailUIImage: UIImage? {
+        get {
+            let data = Data(base64Encoded: thumbnail ?? "")
+            if data == nil { return nil }
+            
+            let image = UIImage(data: data!)
+            return image
+        }
+    }
+    
+    var picturesUIImage: [UIImage] {
+        get {
+            if pictures == nil || pictures?.count == 0 { return [] }
+            
+            var images: [UIImage] = []
+            
+            for base64String in pictures! {
+                let data = Data(base64Encoded: thumbnail ?? "")
+                if data == nil { continue }
+                
+                let image = UIImage(data: data!)
+                if image == nil { continue }
+                images.append(image!)
+            }
+            
+            return images
+        }
+    }
 }
 
 struct Prices: Codable {

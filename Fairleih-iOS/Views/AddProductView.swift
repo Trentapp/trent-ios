@@ -67,11 +67,11 @@ struct AddProductView: View {
                     var prices: [String : Any] = [:]
                     
                     if let priceHourNumber = Double(priceHour) {
-                        prices["pricePerHour"] = priceHourNumber
+                        prices["perHour"] = priceHourNumber
                     }
                     
                     if let priceDayNumber = Double(priceDay) {
-                        prices["pricePerDay"] = priceDayNumber
+                        prices["perDay"] = priceDayNumber
                     }
                     
                     let parameters: [String : Any] = [
@@ -106,8 +106,8 @@ struct AddProductView: View {
 
             })
             
-            .alert(isPresented: $showAlert) {
-                Alert(title: Text("Error"), message: Text("An error occured when trying to add your item. Pleas try again later."), dismissButton: .default(Text("Cancel")))
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Error"), message: Text("An error occured when trying to add your item. Please try again later."), dismissButton: .default(Text("Cancel")))
             }
         
             

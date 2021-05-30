@@ -11,6 +11,11 @@ struct ItemDetailView: View {
     @State var item: Product?
     
     var body: some View {
-        Text(item?.name ?? "Untitled item")
+        VStack {
+            Rectangle()
+                .frame(height: 200)
+            Text(item?.name ?? "Untitled item")
+            Text(item?.name ?? "Untitled item")
+        }
     }
 }
