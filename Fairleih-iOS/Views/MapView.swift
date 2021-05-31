@@ -40,8 +40,11 @@ struct MapView: View {
                             TextField("\(Image(systemName: "magnifyingglass")) What are you looking for?", text: $keyword, onEditingChanged: { editing in
                                 print("editing: \(editing)")
                             }, onCommit: {
+                                UIApplication.shared.endEditing()
                                 print("Did commit: \(keyword)")
-                                products = backendClient.query(keyword: keyword)
+                                DispatchQueue.main.async {
+                                    products = backendClient.query(keyword: keyword)
+                                }
                             })
                                 .font(.system(size: 15, weight: .regular, design: .default))
                                 .multilineTextAlignment(.center)
@@ -73,5 +76,11 @@ struct MapView: View {
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
         MapView()
+    }
+}
+
+extension UIApplication {
+    func endEditing() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }

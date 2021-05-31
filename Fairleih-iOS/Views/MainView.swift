@@ -18,6 +18,11 @@ struct MainView: View {
                     Label("Map", systemImage: "map")
                 }
             
+            InventoryView()
+                .tabItem {
+                    Label("Inventory", systemImage: "books.vertical")
+                }
+            
             AccountView()
                 .navigationBarTitle("")
                 .navigationBarHidden(true)
@@ -25,7 +30,5 @@ struct MainView: View {
                     Label("Account", systemImage: "person")
                 }
         }
-        .navigationBarTitle("")
-        .navigationBarHidden(true)
     }
 }

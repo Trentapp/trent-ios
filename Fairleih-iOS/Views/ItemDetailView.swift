@@ -82,7 +82,8 @@ struct ItemDetailView: View {
                     destination: Map(coordinateRegion: $coordinateRegion)
                         .ignoresSafeArea(.container, edges: .bottom)
                         .navigationBarTitle("\(item?.address?.street ?? "Street")  \(item?.address?.houseNumber ?? "0")")
-                        .navigationBarTitleDisplayMode(.inline),
+//                        .navigationBarTitleDisplayMode(.inline)
+                        .navigationBarHidden(false),
                     label: {
                         Map(coordinateRegion: $coordinateRegion, interactionModes: [], showsUserLocation: false, userTrackingMode: .none)
                             .frame(width: 200, height: 150)

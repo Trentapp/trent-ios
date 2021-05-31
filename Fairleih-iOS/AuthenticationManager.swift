@@ -5,8 +5,6 @@
 //  Created by Fynn Kiwitt on 26.05.21.
 //
 
-import SwiftUI
-import Combine
 import Firebase
 
 class AuthenticationManager: ObservableObject {
@@ -17,17 +15,15 @@ class AuthenticationManager: ObservableObject {
         print("Current User: \(user?.displayName) (\(user?.email)) with ID\(user?.uid)")
     }
     
-    @Published var loggedIn = false
+    @Published var loggedIn = false {
+        didSet {
+            UserObjectManager.shared.loggedIn = loggedIn
+        }
+    }
+    
     @Published var currentUser: User? = nil {
         didSet{
-            print("loggedIn will be set to \(AuthenticationManager.shared.loggedIn) because user is \(currentUser). \(currentUser != nil)")
-            if currentUser != nil {
-                AuthenticationManager.shared.loggedIn = true
-                print("Set the value to true. Value: \(AuthenticationManager.shared.loggedIn)")
-            } else {
-                AuthenticationManager.shared.loggedIn = false
-                print("Set the value to false. Value: \(AuthenticationManager.shared.loggedIn)")
-            }
+            AuthenticationManager.shared.loggedIn = (currentUser != nil)
         }
     }
 }

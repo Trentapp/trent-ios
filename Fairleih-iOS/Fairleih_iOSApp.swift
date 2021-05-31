@@ -19,9 +19,15 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct Fairleih_iOSApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @ObservedObject var userObjectManager = UserObjectManager.shared
+    
     var body: some Scene {
         WindowGroup {
-            SignupView()
+            if userObjectManager.loggedIn {
+                MainView()
+            } else {
+                SignupView()
+            }
         }
         
     }
