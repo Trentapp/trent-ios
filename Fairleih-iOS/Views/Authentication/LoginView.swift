@@ -23,7 +23,7 @@ struct LoginView: View {
                 .disableAutocorrection(true)
                 .autocapitalization(.none)
                 .padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-            TextField("password", text: $password)
+            SecureField("password", text: $password)
                 .textContentType(.password)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .disableAutocorrection(true)

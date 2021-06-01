@@ -11,4 +11,5 @@ struct UserObject {
     var name: String
     var mail: String
     var inventory: [Product]
+    var address: Address
 }

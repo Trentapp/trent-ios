@@ -15,12 +15,6 @@ struct AddProductView: View {
     @State var priceHour = ""
     @State var priceDay = ""
     
-    @State var street = ""
-    @State var houseNumber = ""
-    @State var zipcode = ""
-    @State var city = ""
-    @State var country = ""
-    
     @State var showAlert = false
     
     var body: some View {
@@ -36,33 +30,8 @@ struct AddProductView: View {
                     .keyboardType(.numbersAndPunctuation)
                 TextField("Price per hour", text: $priceDay)
                     .padding(.horizontal, 10)
-                TextField("street", text: $street)
-                    .padding(.horizontal, 10)
-                    .textContentType(.streetAddressLine1)
-                TextField("houseNumber", text: $houseNumber)
-                    .padding(.horizontal, 10)
-                TextField("zipcode", text: $zipcode)
-                    .padding(.horizontal, 10)
-                    .textContentType(.postalCode)
-                TextField("city", text: $city)
-                    .padding(.horizontal, 10)
-                    .textContentType(.addressCity)
-                TextField("country", text: $country)
-                    .padding(.horizontal, 10)
-                    .textContentType(.countryName)
+                
                 Button {
-                    let address: [String : Any] = [
-                        "street" : street,
-                        "houseNumber" : houseNumber,
-                        "zipcode" : Int(zipcode) ?? 00000,
-                        "city" : city,
-                        "country" : country
-                    ]
-                    
-                    let location = [
-                        "lat" : 48,
-                        "lng" : 7.5
-                    ]
                     
                     var prices: [String : Any] = [:]
                     
@@ -74,11 +43,12 @@ struct AddProductView: View {
                         prices["perDay"] = priceDayNumber
                     }
                     
+                    let address = UserObjectManager.shared.user?.address
+                    
                     let parameters: [String : Any] = [
                         "name" : name,
                         "desc" : description,
                         "address" : address,
-                        "location" : location,
                         "prices" : prices
                     ]
                     

@@ -10,25 +10,31 @@ import SwiftUI
 struct MainView: View {
     
     var body: some View {
-        TabView {
-            MapView()
-                .navigationBarTitle("")
-                .navigationBarHidden(true)
-                .tabItem {
-                    Label("Map", systemImage: "map")
+            TabView {
+                NavigationView {
+                    MapView()
+                    .navigationBarTitle("")
+                    .navigationBarHidden(true)
                 }
-            
-            InventoryView()
-                .tabItem {
-                    Label("Inventory", systemImage: "books.vertical")
+                    .tabItem {
+                        Label("Map", systemImage: "map")
+                    }
+                
+                
+                NavigationView {
+                    InventoryView()
                 }
-            
-            AccountView()
-                .navigationBarTitle("")
-                .navigationBarHidden(true)
-                .tabItem {
-                    Label("Account", systemImage: "person")
-                }
-        }
+                    .tabItem {
+                        Label("Inventory", systemImage: "books.vertical")
+                    }
+                
+                
+                AccountView()
+                    .navigationBarTitle("")
+                    .navigationBarHidden(true)
+                    .tabItem {
+                        Label("Account", systemImage: "person")
+                    }
+            }
     }
 }

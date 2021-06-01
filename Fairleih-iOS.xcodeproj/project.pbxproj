@@ -18,6 +18,8 @@
 		B029AD142663A02900279911 /* ItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B029AD132663A02900279911 /* ItemDetailView.swift */; };
 		B051EAD62664CF2A002CF297 /* UserObjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B051EAD52664CF2A002CF297 /* UserObjectManager.swift */; };
 		B051EAD82664D05A002CF297 /* UserObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B051EAD72664D05A002CF297 /* UserObject.swift */; };
+		B051EADA26662E2B002CF297 /* InventoryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B051EAD926662E2B002CF297 /* InventoryCollectionView.swift */; };
+		B051EADF26662FBE002CF297 /* InventoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B051EADE26662FBE002CF297 /* InventoryItemView.swift */; };
 		B06F7978264A6B5500049EF2 /* Fairleih_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F7977264A6B5500049EF2 /* Fairleih_iOSApp.swift */; };
 		B06F797A264A6B5500049EF2 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F7979264A6B5500049EF2 /* MapView.swift */; };
 		B06F797C264A6B5700049EF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B06F797B264A6B5700049EF2 /* Assets.xcassets */; };
@@ -45,6 +47,8 @@
 		B029AD132663A02900279911 /* ItemDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailView.swift; sourceTree = "<group>"; };
 		B051EAD52664CF2A002CF297 /* UserObjectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserObjectManager.swift; sourceTree = "<group>"; };
 		B051EAD72664D05A002CF297 /* UserObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserObject.swift; sourceTree = "<group>"; };
+		B051EAD926662E2B002CF297 /* InventoryCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryCollectionView.swift; sourceTree = "<group>"; };
+		B051EADE26662FBE002CF297 /* InventoryItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryItemView.swift; sourceTree = "<group>"; };
 		B06F7974264A6B5500049EF2 /* Fairleih-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fairleih-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B06F7977264A6B5500049EF2 /* Fairleih_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fairleih_iOSApp.swift; sourceTree = "<group>"; };
 		B06F7979264A6B5500049EF2 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
@@ -96,19 +100,44 @@
 		B029AD0626623E2D00279911 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B06F7979264A6B5500049EF2 /* MapView.swift */,
-				B029AD0B2662925700279911 /* DetailBottomView.swift */,
-				B029AD132663A02900279911 /* ItemDetailView.swift */,
-				B029AD0F26629C0D00279911 /* HiddenViewExtension.swift */,
 				B029AD02266237E200279911 /* MainView.swift */,
-				B0E182162664140300F20D27 /* InventoryView.swift */,
 				B029AD0426623C9500279911 /* AccountView.swift */,
-				B029AD002662313400279911 /* MapAnnotationButton.swift */,
-				B0F37CC2265ECC7000D7905E /* LoginView.swift */,
-				B0F37CC6265EDAD400D7905E /* SignupView.swift */,
-				B029AD0726623EBD00279911 /* AddProductView.swift */,
+				B051EADB26662F39002CF297 /* MapView */,
+				B051EADC26662F60002CF297 /* InventoryView */,
+				B051EADD26662F72002CF297 /* Authentication */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		B051EADB26662F39002CF297 /* MapView */ = {
+			isa = PBXGroup;
+			children = (
+				B06F7979264A6B5500049EF2 /* MapView.swift */,
+				B029AD0B2662925700279911 /* DetailBottomView.swift */,
+				B029AD002662313400279911 /* MapAnnotationButton.swift */,
+				B029AD132663A02900279911 /* ItemDetailView.swift */,
+			);
+			path = MapView;
+			sourceTree = "<group>";
+		};
+		B051EADC26662F60002CF297 /* InventoryView */ = {
+			isa = PBXGroup;
+			children = (
+				B0E182162664140300F20D27 /* InventoryView.swift */,
+				B051EAD926662E2B002CF297 /* InventoryCollectionView.swift */,
+				B051EADE26662FBE002CF297 /* InventoryItemView.swift */,
+				B029AD0726623EBD00279911 /* AddProductView.swift */,
+			);
+			path = InventoryView;
+			sourceTree = "<group>";
+		};
+		B051EADD26662F72002CF297 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				B0F37CC6265EDAD400D7905E /* SignupView.swift */,
+				B0F37CC2265ECC7000D7905E /* LoginView.swift */,
+			);
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 		B06F796B264A6B5500049EF2 = {
@@ -141,6 +170,7 @@
 				B06F798C264A76D700049EF2 /* LocationManager.swift */,
 				B0F37CC8265EE8AA00D7905E /* AuthenticationManager.swift */,
 				B0F01F60265FAFA300BDFA18 /* Product.swift */,
+				B029AD0F26629C0D00279911 /* HiddenViewExtension.swift */,
 				B029AD092662545800279911 /* PercentEncoding.swift */,
 				B06F797B264A6B5700049EF2 /* Assets.xcassets */,
 				B06F7980264A6B5700049EF2 /* Info.plist */,
@@ -281,12 +311,14 @@
 				B029AD0526623C9500279911 /* AccountView.swift in Sources */,
 				B029AD0C2662925700279911 /* DetailBottomView.swift in Sources */,
 				B051EAD82664D05A002CF297 /* UserObject.swift in Sources */,
+				B051EADA26662E2B002CF297 /* InventoryCollectionView.swift in Sources */,
 				B06F798D264A76D700049EF2 /* LocationManager.swift in Sources */,
 				B029AD142663A02900279911 /* ItemDetailView.swift in Sources */,
 				B0F37CC9265EE8AA00D7905E /* AuthenticationManager.swift in Sources */,
 				B029AD0A2662545800279911 /* PercentEncoding.swift in Sources */,
 				B029AD1026629C0D00279911 /* HiddenViewExtension.swift in Sources */,
 				B06F7987264A6E2800049EF2 /* BackendClient.swift in Sources */,
+				B051EADF26662FBE002CF297 /* InventoryItemView.swift in Sources */,
 				B06F797A264A6B5500049EF2 /* MapView.swift in Sources */,
 				B06F7978264A6B5500049EF2 /* Fairleih_iOSApp.swift in Sources */,
 				B0F37CC7265EDAD500D7905E /* SignupView.swift in Sources */,
