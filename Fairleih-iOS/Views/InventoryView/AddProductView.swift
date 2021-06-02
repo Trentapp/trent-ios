@@ -121,7 +121,7 @@ struct AddProductView: View {
                         "desc" : description,
                         "address" : address,
                         "prices" : prices,
-                        "pictures" : [photos_b64]
+                        "pictures" : photos_b64.first
                     ]
                     
 //                    print("parameters: \(parameters)")

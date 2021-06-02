@@ -66,8 +66,7 @@ struct MapView: View {
                 self.tabBar = UITabBarController.tabBar
             }
             .onAppear() {
-                self.tabBar?.isHidden = false
-            }
+                self.tabBar?.isHidden = false            }
         }
     }
 }

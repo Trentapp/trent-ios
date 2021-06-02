@@ -13,6 +13,7 @@ struct ItemDetailView: View {
     @State var item: Product?
     @State var coordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 0, longitude: 0), latitudinalMeters: 750, longitudinalMeters: 750)
     
+    @State var tabBar: UITabBar?
     @Environment(\.presentationMode) var presentation
     
     var body: some View {
@@ -34,10 +35,16 @@ struct ItemDetailView: View {
             .frame(height: 45)
             .padding(.vertical, -10)
             
-            Rectangle()
-                .frame(height: 250)
-//                .padding(.bottom, -35)
-//                .ignoresSafeArea(.container, edges: .top)
+            HStack {
+                Spacer()
+                Image(uiImage: UIImage(data: Data(base64Encoded: item?.pictures?.first ?? "") ?? Data()) ?? UIImage())
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: 250)
+    //                .padding(.bottom, -35)
+    //                .ignoresSafeArea(.container, edges: .top)
+                Spacer()
+            }
             
             HStack {
                 Text(item?.name ?? "Untitled item")
@@ -120,12 +127,17 @@ struct ItemDetailView: View {
                 .padding(.horizontal, 15)
             }
         })
+        .padding(.bottom, -50)
         .navigationBarTitle("")
         .navigationBarHidden(true)
         .introspectTabBarController { (UITabBarController) in
-                    UITabBarController.tabBar.isHidden = true
+            self.tabBar = UITabBarController.tabBar
+            self.tabBar?.isHidden = true
         }
-
+        
+        .onAppear(){
+            self.tabBar?.isHidden = true
+        }
     }
 }
 

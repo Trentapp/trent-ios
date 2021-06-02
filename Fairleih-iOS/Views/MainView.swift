@@ -17,7 +17,6 @@ struct MainView: View {
                     .navigationBarHidden(true)
                     .navigationViewStyle(StackNavigationViewStyle())
                 }
-                    .navigationViewStyle(StackNavigationViewStyle())
                     .tabItem {
                         Label("Map", systemImage: "map")
                     }
