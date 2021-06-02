@@ -15,7 +15,9 @@ struct MainView: View {
                     MapView()
                     .navigationBarTitle("")
                     .navigationBarHidden(true)
+                    .navigationViewStyle(StackNavigationViewStyle())
                 }
+                    .navigationViewStyle(StackNavigationViewStyle())
                     .tabItem {
                         Label("Map", systemImage: "map")
                     }
@@ -24,6 +26,7 @@ struct MainView: View {
                 NavigationView {
                     InventoryView()
                 }
+                    .navigationViewStyle(StackNavigationViewStyle())
                     .tabItem {
                         Label("Inventory", systemImage: "books.vertical")
                     }

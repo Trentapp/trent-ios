@@ -20,6 +20,7 @@
 		B051EAD82664D05A002CF297 /* UserObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B051EAD72664D05A002CF297 /* UserObject.swift */; };
 		B051EADA26662E2B002CF297 /* InventoryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B051EAD926662E2B002CF297 /* InventoryCollectionView.swift */; };
 		B051EADF26662FBE002CF297 /* InventoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B051EADE26662FBE002CF297 /* InventoryItemView.swift */; };
+		B05F67FE2667681300A58505 /* PhotoPickerViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05F67FD2667681300A58505 /* PhotoPickerViews.swift */; };
 		B06F7978264A6B5500049EF2 /* Fairleih_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F7977264A6B5500049EF2 /* Fairleih_iOSApp.swift */; };
 		B06F797A264A6B5500049EF2 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F7979264A6B5500049EF2 /* MapView.swift */; };
 		B06F797C264A6B5700049EF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B06F797B264A6B5700049EF2 /* Assets.xcassets */; };
@@ -49,6 +50,7 @@
 		B051EAD72664D05A002CF297 /* UserObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserObject.swift; sourceTree = "<group>"; };
 		B051EAD926662E2B002CF297 /* InventoryCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryCollectionView.swift; sourceTree = "<group>"; };
 		B051EADE26662FBE002CF297 /* InventoryItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryItemView.swift; sourceTree = "<group>"; };
+		B05F67FD2667681300A58505 /* PhotoPickerViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerViews.swift; sourceTree = "<group>"; };
 		B06F7974264A6B5500049EF2 /* Fairleih-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fairleih-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B06F7977264A6B5500049EF2 /* Fairleih_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fairleih_iOSApp.swift; sourceTree = "<group>"; };
 		B06F7979264A6B5500049EF2 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				B051EAD926662E2B002CF297 /* InventoryCollectionView.swift */,
 				B051EADE26662FBE002CF297 /* InventoryItemView.swift */,
 				B029AD0726623EBD00279911 /* AddProductView.swift */,
+				B05F67FD2667681300A58505 /* PhotoPickerViews.swift */,
 			);
 			path = InventoryView;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B05F67FE2667681300A58505 /* PhotoPickerViews.swift in Sources */,
 				B029AD0826623EBD00279911 /* AddProductView.swift in Sources */,
 				B029AD012662313400279911 /* MapAnnotationButton.swift in Sources */,
 				B0F37CC3265ECC7000D7905E /* LoginView.swift in Sources */,

@@ -44,7 +44,8 @@ struct InventoryView: View {
             }
         }
         .sheet(isPresented: $showAddProduct, content: { AddProductView() })
-    .navigationTitle("Inventory")
+        .navigationTitle("Inventory")
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

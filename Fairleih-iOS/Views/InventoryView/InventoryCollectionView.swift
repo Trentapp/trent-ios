@@ -10,21 +10,32 @@ import SwiftUI
 struct InventoryCollectionView: View {
     
     @State var items: [Product]
-    @State var screenWidth: Double = 300
+    @State var numberOfItemsPerRow = max(2, Int(UIScreen.screenWidth / 200))
     
     var body: some View {
         VStack {
-            ForEach((0..<Int(CGFloat(items.count) / 2)), id: \.self){ i in
+            ForEach((0..<Int(ceil(CGFloat(items.count) / CGFloat(numberOfItemsPerRow)))), id: \.self){ i in
                 HStack {
-                    ForEach((0..<2), id: \.self){ j in
-                        InventoryItemView(item: items[2*i+j])
-                            .frame(height: 250)
-                            .shadow(radius: 10)
-                            .padding()
-
+                    ForEach((0..<numberOfItemsPerRow), id: \.self){ j in
+                        if (2*i+j) < items.count{
+                            InventoryItemView(item: items[2*i+j])
+                                .frame(height: 250)
+                                .shadow(radius: 10)
+                                .padding()
+                        } else {
+                            Rectangle()
+                                .frame(height: 250)
+                                .padding()
+                        }
                     }
                 }
             }
         }
     }
+}
+
+extension UIScreen{
+   static let screenWidth = UIScreen.main.bounds.size.width
+   static let screenHeight = UIScreen.main.bounds.size.height
+   static let screenSize = UIScreen.main.bounds.size
 }
