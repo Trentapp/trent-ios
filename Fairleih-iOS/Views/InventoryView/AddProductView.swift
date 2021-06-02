@@ -76,7 +76,7 @@ struct AddProductView: View {
                 Toggle(isOn: $isAvailablePerDay, label: {
                     Text("Per day")
                         .foregroundColor(isAvailablePerDay ? .black : .gray)
-                    TextField("0", text: $priceHour)
+                    TextField("0", text: $priceDay)
                         .padding(.horizontal, 10)
                         .keyboardType(.numbersAndPunctuation)
                         .frame(width: 50)
@@ -105,12 +105,13 @@ struct AddProductView: View {
                         prices["perDay"] = priceDayNumber
                     }
                     
-                    let address = UserObjectManager.shared.user?.address
+                    let address = (try? JSONSerialization.jsonObject(with: JSONEncoder().encode(UserObjectManager.shared.user?.address))) as? [String: Any] ?? [:]
+                    
                     
                     var photos_b64: [String] = []
                     
                     for photo in photos {
-                        let photo_data = photo.pngData()
+                        let photo_data = resizeImage(image: photo, targetSize: CGSize(width: 100, height: 100)).jpegData(compressionQuality: 0)
                         let photo_b64 = photo_data?.base64EncodedString() ?? ""
                         photos_b64.append(photo_b64)
                     }
@@ -120,10 +121,10 @@ struct AddProductView: View {
                         "desc" : description,
                         "address" : address,
                         "prices" : prices,
-                        "pictures" : photos_b64
+                        "pictures" : [photos_b64]
                     ]
                     
-                    print("parameters: \(parameters)")
+//                    print("parameters: \(parameters)")
                     
                     BackendClient.shared.postNewItem(parameters: parameters) { successful in
                         print("successful: \(successful)")
@@ -133,7 +134,7 @@ struct AddProductView: View {
                             showAlert = true
                         }
                     }
-                    
+
                 }, label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 15)
@@ -208,6 +209,32 @@ struct PhotoView: View {
         Text("\(photos.count) image(s) selected")
                         
     }
+}
+
+func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+    let size = image.size
+    
+    let widthRatio  = targetSize.width  / size.width
+    let heightRatio = targetSize.height / size.height
+    
+    // Figure out what our orientation is, and use that to form the rectangle
+    var newSize: CGSize
+    if(widthRatio > heightRatio) {
+        newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+    } else {
+        newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+    }
+    
+    // This is the rect that we've calculated out and this is what is actually used below
+    let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+    
+    // Actually do the resizing to the rect using the ImageContext stuff
+    UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+    image.draw(in: rect)
+    let newImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    
+    return newImage!
 }
 
 

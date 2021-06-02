@@ -19,7 +19,7 @@ struct DetailBottomView: View {
                     .frame(width: 300, height: 75)
                     .padding()
                 HStack(alignment: .center, spacing: 10, content: {
-                    RoundedRectangle(cornerRadius: 7)
+                    Image(uiImage: UIImage(data: Data(base64Encoded: controler.currentlyFocusedItem?.pictures?.first ?? "") ?? Data()) ?? UIImage())
                         .frame(width: 55, height: 55)
                         .foregroundColor(.black)
                     VStack(alignment: .leading, spacing: 0, content: {
