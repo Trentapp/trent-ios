@@ -8,11 +8,14 @@
 import SwiftUI
 import Firebase
 
-struct SignupView: View {
+struct SignupView: View {
     
+    @State var name = ""
     @State var mail = ""
     @State var password = ""
     @State var password_confirmed = ""
+    
+    @State var isShownPasswordAlert = false
     
     @ObservedObject var authenticationManager: AuthenticationManager = AuthenticationManager.shared
     
@@ -21,6 +24,11 @@ struct SignupView: View {
             VStack(alignment: .trailing, spacing: 20, content: {
                 Spacer()
                     .frame(height:10)
+                TextField("name", text: $name)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .disableAutocorrection(true)
+                    .autocapitalization(.words)
+                    .padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                 TextField("mail address", text: $mail)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .disableAutocorrection(true)
@@ -40,11 +48,9 @@ struct SignupView: View {
                     .padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                 Button("Sign up") {
                     if(password == password_confirmed){
-                        Auth.auth().createUser(withEmail: mail, password: password) { authResult, error in
-                            print(authResult?.user)
-                        }
+                        authenticationManager.createNewUser(name: name, mail: mail, password: password)
                     } else {
-                        Alert(title: Text("Passwords doesn't match"), message: Text("Please make sure that you have entered the same password."), dismissButton: .default(Text("Okay")))
+                        isShownPasswordAlert.toggle()
                     }
                 }
                 .padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
@@ -59,7 +65,9 @@ struct SignupView: View {
                 NavigationLink("", destination: MainView().navigationBarHidden(true), isActive: $authenticationManager.loggedIn).hidden()
             })
             
-            
+            .alert(isPresented: $isShownPasswordAlert, content: {
+                Alert(title: Text("Passwords doesn't match"), message: Text("Please make sure that you have entered the same password."), dismissButton: .default(Text("Okay")))
+            })
             
             .navigationTitle("Sign up")
             .navigationBarHidden(false)
