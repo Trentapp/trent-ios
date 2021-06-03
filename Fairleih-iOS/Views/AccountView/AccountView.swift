@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AccountView: View {
     
-    @State var name = UserObjectManager.shared.user?.name ?? "user name"
+    @ObservedObject var userObjectManager = UserObjectManager.shared
 //    @State var image = UIImage(systemName: "person.crop.circle")!
     
     var body: some View {
@@ -20,7 +20,7 @@ struct AccountView: View {
                 .opacity(0.5)
                 .foregroundColor(.gray)
                 .frame(width: 100, height: 100)
-            Text(name)
+            Text(userObjectManager.user.name)
                 .font(.largeTitle)
                 .bold()
             List{
@@ -31,6 +31,7 @@ struct AccountView: View {
                         .foregroundColor(.gray)
                 }
             }
+            .listStyle(GroupedListStyle())
 //            Spacer()
         }
     }

@@ -65,11 +65,24 @@ class BackendClient: ObservableObject {
             }
             
             completionHandler(true)
-//            let responseString = String(data: data, encoding: .utf8)
-//            print("responseString: \(responseString)")
+            UserObjectManager.shared.refresh()
         }
         
         task.resume()
+    }
+    
+    func getProduct(for id: String) -> Product?{
+        do {
+            let queryPath = serverPath + "/products/product/" + id
+            let queryURL = URL(string: queryPath)!
+            let response = try String(contentsOf: queryURL)
+            let data = response.data(using: .utf8)!
+            let product = try JSONDecoder().decode(Product.self, from: data)
+            return product
+        } catch {
+            print("Error while retrieving product: \(error.localizedDescription)")
+            return nil
+        }
     }
     
     func getUserObject(for id: String) -> UserObject? {
@@ -77,10 +90,8 @@ class BackendClient: ObservableObject {
             let queryPath = serverPath + "/users/user/" + id
             let queryURL = URL(string: queryPath)!
             let response = try String(contentsOf: queryURL)
-            print("Server response: \(response)")
             let data = response.data(using: .utf8)!
             let user = try JSONDecoder().decode(UserObject.self, from: data)
-            print(user)
             return user
         } catch {
             print("Error while retrieving user: \(error.localizedDescription)")

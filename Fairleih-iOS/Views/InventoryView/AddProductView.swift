@@ -105,7 +105,7 @@ struct AddProductView: View {
                         prices["perDay"] = priceDayNumber
                     }
                     
-                    let address = (try? JSONSerialization.jsonObject(with: JSONEncoder().encode(UserObjectManager.shared.user?.address))) as? [String: Any] ?? [:]
+                    let address = (try? JSONSerialization.jsonObject(with: JSONEncoder().encode(UserObjectManager.shared.user.address))) as? [String: Any] ?? [:]
                     
                     
                     var photos_b64: [String] = []

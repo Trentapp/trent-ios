@@ -9,7 +9,7 @@ import SwiftUI
 
 struct InventoryView: View {
     
-    @State var inventory: [Product] = [Product(_id: "000", name: "Kärcher High Pressure Washer", desc: "Super Kärcher High Pressure Washer. Cleans surfaces amazingly. Lorem ipsum dolor sit amit", address: Address(street: "Some Street", houseNumber: "42c", zipcode: "69115", city: "Heidelberg", country: "Germany"), location: Coordinates(lat: 49.47, lng: 7.8), prices: Prices(perHour: 7.5, perDay: 20)), Product(_id: "000", name: "Kärcher High Pressure Washer", desc: "Super Kärcher High Pressure Washer. Cleans surfaces amazingly. Lorem ipsum dolor sit amit", address: Address(street: "Some Street", houseNumber: "42c", zipcode: "69115", city: "Heidelberg", country: "Germany"), location: Coordinates(lat: 49.47, lng: 7.8), prices: Prices(perHour: 7.5, perDay: 20)), Product(_id: "000", name: "Kärcher High Pressure Washer", desc: "Super Kärcher High Pressure Washer. Cleans surfaces amazingly. Lorem ipsum dolor sit amit", address: Address(street: "Some Street", houseNumber: "42c", zipcode: "69115", city: "Heidelberg", country: "Germany"), location: Coordinates(lat: 49.47, lng: 7.8), prices: Prices(perHour: 7.5, perDay: 20)), Product(_id: "000", name: "Kärcher High Pressure Washer", desc: "Super Kärcher High Pressure Washer. Cleans surfaces amazingly. Lorem ipsum dolor sit amit", address: Address(street: "Some Street", houseNumber: "42c", zipcode: "69115", city: "Heidelberg", country: "Germany"), location: Coordinates(lat: 49.47, lng: 7.8), prices: Prices(perHour: 7.5, perDay: 20)), Product(_id: "000", name: "Kärcher High Pressure Washer", desc: "Super Kärcher High Pressure Washer. Cleans surfaces amazingly. Lorem ipsum dolor sit amit", address: Address(street: "Some Street", houseNumber: "42c", zipcode: "69115", city: "Heidelberg", country: "Germany"), location: Coordinates(lat: 49.47, lng: 7.8), prices: Prices(perHour: 7.5, perDay: 20)), Product(_id: "000", name: "Kärcher High Pressure Washer", desc: "Super Kärcher High Pressure Washer. Cleans surfaces amazingly. Lorem ipsum dolor sit amit", address: Address(street: "Some Street", houseNumber: "42c", zipcode: "69115", city: "Heidelberg", country: "Germany"), location: Coordinates(lat: 49.47, lng: 7.8), prices: Prices(perHour: 7.5, perDay: 20)), Product(_id: "000", name: "Kärcher High Pressure Washer", desc: "Super Kärcher High Pressure Washer. Cleans surfaces amazingly. Lorem ipsum dolor sit amit", address: Address(street: "Some Street", houseNumber: "42c", zipcode: "69115", city: "Heidelberg", country: "Germany"), location: Coordinates(lat: 49.47, lng: 7.8), prices: Prices(perHour: 7.5, perDay: 20))]
+    @ObservedObject var userObjectManager = UserObjectManager.shared
     @State var showAddProduct = false
     
     var body: some View {
@@ -39,13 +39,16 @@ struct InventoryView: View {
                 })
                 .frame(height: 50)
                 .padding()
-                InventoryCollectionView(items: inventory)
+                InventoryCollectionView(items: $userObjectManager.inventory)
                 Spacer()
             }
         }
         .sheet(isPresented: $showAddProduct, content: { AddProductView() })
         .navigationTitle("Inventory")
         .navigationViewStyle(StackNavigationViewStyle())
+        .onAppear() {
+            UserObjectManager.shared.refresh()
+        }
     }
 }
 

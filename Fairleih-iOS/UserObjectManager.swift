@@ -15,8 +15,8 @@ class UserObjectManager: ObservableObject {
             UserDefaults.standard.set(loggedIn, forKey: "loggedIn") //Bool
         }
     }
-    @Published var user: UserObject? //= UserObject(name: "Fynn Kiwitt", mail: "FynnKiwitt@yahoo.de", inventory: [], address: Address(street: "Bergheimerstraße", houseNumber: "88", zipcode: "69115", city: "Heidelberg", country: "Germany"))
-    
+    @Published var user = UserObject(name: "user name", mail: "mail", inventory: [], address: Address(street: "street", houseNumber: "houseNumber", zipcode: "000000", city: "city", country: "country"))
+    @Published var inventory: [Product] = []
     init() {
         self.loggedIn = UserDefaults.standard.bool(forKey: "loggedIn")
     }
@@ -24,6 +24,25 @@ class UserObjectManager: ObservableObject {
     func refresh() {
         let uid = AuthenticationManager.shared.currentUser?.uid ?? ""
         let user = BackendClient.shared.getUserObject(for: uid)
-        self.user = user
+        DispatchQueue.main.async {
+            if user != nil { UserObjectManager.shared.user = user! }
+            self.refreshInventory()
+        }
+        
+        
+    }
+    
+    private func refreshInventory() {
+        var newInventory = [Product]()
+        
+        DispatchQueue.global().async {
+            for productId in self.user.inventory {
+                let product = BackendClient.shared.getProduct(for: productId)
+                if product != nil { newInventory.append(product!) }
+            }
+            DispatchQueue.main.async {
+                UserObjectManager.shared.inventory = newInventory
+            }
+        }
     }
 }
