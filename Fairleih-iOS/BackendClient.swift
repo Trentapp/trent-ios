@@ -71,4 +71,8 @@ class BackendClient: ObservableObject {
         
         task.resume()
     }
+    
+    func getUserObject(for id: String) -> UserObject {
+        return UserObject(name: "Fynn Kiwitt", mail: "FynnKiwitt@yahoo.de", inventory: [], address: Address(street: "Bergheimerstraße", houseNumber: "88", zipcode: "69115", city: "Heidelberg", country: "Germany"))
+    }
 }

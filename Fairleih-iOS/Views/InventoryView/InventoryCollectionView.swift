@@ -24,6 +24,7 @@ struct InventoryCollectionView: View {
                                 .padding()
                         } else {
                             Rectangle()
+                                .foregroundColor(.clear)
                                 .frame(height: 250)
                                 .padding()
                         }
