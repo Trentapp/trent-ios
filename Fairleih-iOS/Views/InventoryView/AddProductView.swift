@@ -36,6 +36,7 @@ struct AddProductView: View {
     
     var body: some View {
         NavigationView {
+            ScrollView([], showsIndicators: false) {
             VStack(alignment: .leading, spacing: 0, content: {
                 Spacer()
                     .frame(height: 10)
@@ -92,6 +93,7 @@ struct AddProductView: View {
                 
                 
                 Spacer()
+                
                 
                 Button(action: {
                     
@@ -153,7 +155,7 @@ struct AddProductView: View {
                 .padding(.all, 10)
 
             })
-            
+            }
             .alert(isPresented: $showAlert) {
                 Alert(title: Text("Error"), message: Text("An error occured when trying to add your item. Please try again later."), dismissButton: .default(Text("Cancel")))
             }
@@ -181,7 +183,9 @@ struct AddProductView: View {
             }
             
             .navigationBarTitle("Add Product", displayMode: .inline)
-            .navigationBarItems(trailing: Button("Cancel", action: {}))
+            .navigationBarItems(trailing: Button("Cancel", action: {
+                presentationMode.wrappedValue.dismiss()
+            }))
         }
     }
 }
