@@ -124,9 +124,14 @@ struct AddProductView: View {
                         "pictures" : photos_b64.first
                     ]
                     
-//                    print("parameters: \(parameters)")
+                    let uid = AuthenticationManager.shared.currentUser?.uid ?? ""
                     
-                    BackendClient.shared.postNewItem(parameters: parameters) { successful in
+                    let request: [String : Any] = [
+                        "uid" : uid,
+                        "product" : parameters
+                    ]
+                    
+                    BackendClient.shared.postNewItem(parameters: request) { successful in
                         print("successful: \(successful)")
                         if successful {
                             presentationMode.wrappedValue.dismiss()

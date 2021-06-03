@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct UserObject {
+struct UserObject: Codable {
     var name: String
     var mail: String
-    var inventory: [Product]
+    var inventory: [String]
     var address: Address
 }

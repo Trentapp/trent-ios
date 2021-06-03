@@ -72,7 +72,19 @@ class BackendClient: ObservableObject {
         task.resume()
     }
     
-    func getUserObject(for id: String) -> UserObject {
-        return UserObject(name: "Fynn Kiwitt", mail: "FynnKiwitt@yahoo.de", inventory: [], address: Address(street: "Bergheimerstraße", houseNumber: "88", zipcode: "69115", city: "Heidelberg", country: "Germany"))
+    func getUserObject(for id: String) -> UserObject? {
+        do {
+            let queryPath = serverPath + "/users/user/" + id
+            let queryURL = URL(string: queryPath)!
+            let response = try String(contentsOf: queryURL)
+            print("Server response: \(response)")
+            let data = response.data(using: .utf8)!
+            let user = try JSONDecoder().decode(UserObject.self, from: data)
+            print(user)
+            return user
+        } catch {
+            print("Error while retrieving user: \(error.localizedDescription)")
+            return nil
+        }
     }
 }

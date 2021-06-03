@@ -24,9 +24,7 @@ class AuthenticationManager: ObservableObject {
     @Published var currentUser: User? = nil {
         didSet{
             AuthenticationManager.shared.loggedIn = (currentUser != nil)
-            let userID = currentUser?.uid ?? ""
-            let userObject = BackendClient.shared.getUserObject(for: userID)
-            UserObjectManager.shared.user = userObject
+            UserObjectManager.shared.refresh()
         }
     }
 }

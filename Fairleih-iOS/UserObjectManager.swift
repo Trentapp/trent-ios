@@ -15,9 +15,15 @@ class UserObjectManager: ObservableObject {
             UserDefaults.standard.set(loggedIn, forKey: "loggedIn") //Bool
         }
     }
-    @Published var user: UserObject? = UserObject(name: "Fynn Kiwitt", mail: "FynnKiwitt@yahoo.de", inventory: [], address: Address(street: "Bergheimerstraße", houseNumber: "88", zipcode: "69115", city: "Heidelberg", country: "Germany"))
+    @Published var user: UserObject? //= UserObject(name: "Fynn Kiwitt", mail: "FynnKiwitt@yahoo.de", inventory: [], address: Address(street: "Bergheimerstraße", houseNumber: "88", zipcode: "69115", city: "Heidelberg", country: "Germany"))
     
     init() {
         self.loggedIn = UserDefaults.standard.bool(forKey: "loggedIn")
+    }
+    
+    func refresh() {
+        let uid = AuthenticationManager.shared.currentUser?.uid ?? ""
+        let user = BackendClient.shared.getUserObject(for: uid)
+        self.user = user
     }
 }

@@ -31,9 +31,13 @@ struct MainView: View {
                     }
                 
                 
-                AccountView()
-                    .navigationBarTitle("")
-                    .navigationBarHidden(true)
+                NavigationView {
+                    AccountView()
+                        .navigationTitle("")
+                        .navigationBarHidden(true)
+//                        .navigationBarTitle("Account")
+//                        .navigationBarHidden(false)
+                }
                     .tabItem {
                         Label("Account", systemImage: "person")
                     }

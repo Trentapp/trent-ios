@@ -103,9 +103,9 @@
 			isa = PBXGroup;
 			children = (
 				B029AD02266237E200279911 /* MainView.swift */,
-				B029AD0426623C9500279911 /* AccountView.swift */,
 				B051EADB26662F39002CF297 /* MapView */,
 				B051EADC26662F60002CF297 /* InventoryView */,
+				B0DAC6CE2668D156005A33DA /* AccountView */,
 				B051EADD26662F72002CF297 /* Authentication */,
 			);
 			path = Views;
@@ -189,6 +189,14 @@
 				B06F797E264A6B5700049EF2 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		B0DAC6CE2668D156005A33DA /* AccountView */ = {
+			isa = PBXGroup;
+			children = (
+				B029AD0426623C9500279911 /* AccountView.swift */,
+			);
+			path = AccountView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
