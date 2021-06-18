@@ -32,8 +32,10 @@ struct ItemDetailView: View {
                 Divider()
                 Spacer()
             }
-            .frame(height: 45)
-            .padding(.vertical, -10)
+                .frame(height: 45)
+                .padding(.vertical, -10)
+            Divider()
+                .padding(.bottom, -20)
             
             HStack {
                 Spacer()
@@ -45,6 +47,7 @@ struct ItemDetailView: View {
     //                .ignoresSafeArea(.container, edges: .top)
                 Spacer()
             }
+            .padding(.top, -10)
             
             HStack {
                 Text(item?.name ?? "Untitled item")
@@ -143,7 +146,7 @@ struct ItemDetailView: View {
 
 struct ItemDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ItemDetailView(item: Product(_id: "000", name: "Kärcher High Pressure Washer", desc: "Super Kärcher High Pressure Washer. Cleans surfaces amazingly. Lorem ipsum dolor sit amit", address: Address(street: "Some Street", houseNumber: "42c", zipcode: "69115", city: "Heidelberg", country: "Germany"), location: Coordinates(lat: 49.47, lng: 7.8), prices: Prices(perHour: 7.5, perDay: 20)))
+        ItemDetailView(item: Product(_id: "000", name: "Kärcher High Pressure Washer", desc: "Super Kärcher High Pressure Washer. Cleans surfaces amazingly. Lorem ipsum dolor sit amit", address: Address(street: "Some Street", houseNumber: "42c", zipcode: "69115", city: "Heidelberg", country: "Germany"), location: Coordinates(coordinates: [7.8, 49.47]), prices: Prices(perHour: 7.5, perDay: 20)))
     }
 }
 

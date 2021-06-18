@@ -30,8 +30,9 @@ class UserObjectManager: ObservableObject {
     
     func refresh() {
         let uid = AuthenticationManager.shared.currentUser?.uid ?? ""
-        let user = BackendClient.shared.getUserObject(for: uid)
+        
         DispatchQueue.main.async {
+            let user = BackendClient.shared.getUserObject(for: uid)
             if user != nil { UserObjectManager.shared.user = user! }
             self.refreshInventory()
         }

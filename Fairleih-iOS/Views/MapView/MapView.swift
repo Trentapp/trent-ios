@@ -22,11 +22,11 @@ struct MapView: View {
     var body: some View {
         NavigationView {
             ZStack(alignment: Alignment(horizontal: .center, vertical: .top), content: {
-                Map(coordinateRegion: $region, annotationItems: products, annotationContent: { item in
-//                    MapMarker(coordinate: item.location?.coordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000))
-                    MapAnnotation(coordinate: item.location?.coordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000)) {
-                        MapAnnotationButton(item: item)
+                Map(coordinateRegion: $region, annotationItems: products, annotationContent: { current_item in
+                    MapAnnotation(coordinate: current_item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000)) {
+                        MapAnnotationButton(item: current_item)
                     }
+//                    MapMarker(coordinate: item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000))
                 })
                     .edgesIgnoringSafeArea(.all)
                 
@@ -42,7 +42,7 @@ struct MapView: View {
                             }, onCommit: {
                                 UIApplication.shared.endEditing()
                                 print("Did commit: \(keyword)")
-                                DispatchQueue.main.async {
+                                DispatchQueue.global().async {
                                     products = backendClient.query(keyword: keyword)
                                 }
                             })

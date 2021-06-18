@@ -29,14 +29,23 @@ struct LoginView: View {
                 .disableAutocorrection(true)
                 .autocapitalization(.none)
                 .padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-            Button("Log in") {
-                Auth.auth().signIn(withEmail: mail.lowercased(), password: password) { authResult, error in
-                    let username = authResult?.additionalUserInfo?.username ?? "unknown"
-                    let providerID = authResult?.additionalUserInfo?.providerID ?? "unknown"
-                    print("User with name \(username) has successfully logged in. Provider ID: \(providerID)")
-                    print(error.debugDescription)
+            HStack {
+                Button("Forgot password"){
+                    Auth.auth().sendPasswordReset(withEmail: mail) { error in
+                        // Your code here
+                    }
+                }
+                Spacer()
+                Button("Log in") {
+                    Auth.auth().signIn(withEmail: mail.lowercased(), password: password) { authResult, error in
+                        let username = authResult?.additionalUserInfo?.username ?? "unknown"
+                        let providerID = authResult?.additionalUserInfo?.providerID ?? "unknown"
+                        print("User with name \(username) has successfully logged in. Provider ID: \(providerID)")
+                        print(error.debugDescription)
+                    }
                 }
             }
+            
             .padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
             Spacer()
             NavigationLink("", destination: MainView(), isActive: $authenticationManager.loggedIn).hidden()

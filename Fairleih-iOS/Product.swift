@@ -63,12 +63,14 @@ struct Address: Codable {
 }
 
 struct Coordinates: Codable {
-    var lat: Double
-    var lng: Double
+    var coordinates: [Double]
     
-    var coordinates: CLLocationCoordinate2D {
+    var CLcoordinates: CLLocationCoordinate2D {
         get {
-            return CLLocationCoordinate2D(latitude: lat, longitude: lng)
+            if coordinates.count == 2 {
+                return CLLocationCoordinate2D(latitude: coordinates[1], longitude: coordinates[0])
+            }
+            return CLLocationCoordinate2D(latitude: 0, longitude: 0)
         }
     }
 }

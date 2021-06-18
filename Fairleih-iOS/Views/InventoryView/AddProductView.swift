@@ -129,7 +129,7 @@ struct AddProductView: View {
                     let uid = AuthenticationManager.shared.currentUser?.uid ?? ""
                     
                     let request: [String : Any] = [
-                        "uid" : uid,
+                        "user_uid" : uid,
                         "product" : parameters
                     ]
                     

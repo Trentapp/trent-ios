@@ -29,5 +29,15 @@ struct InventoryItemView: View {
             })
             .padding()
         }
+        .contextMenu(ContextMenu(menuItems: {
+            Button(action: {
+                BackendClient.shared.deleteProduct(with: item?._id ?? "")
+            }, label: {
+                Text("Delete")
+                    .foregroundColor(.red)
+                Image(systemName: "trash")
+                    .foregroundColor(.red)
+            })
+        }))
     }
 }

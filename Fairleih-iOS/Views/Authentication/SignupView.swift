@@ -61,6 +61,7 @@ struct SignupView: View {
                     NavigationLink("Already have an Account?", destination: LoginView())
                     Spacer()
                 }
+                .padding(.bottom, -20)
                 
                 NavigationLink("", destination: MainView().navigationBarHidden(true), isActive: $authenticationManager.loggedIn).hidden()
             })
