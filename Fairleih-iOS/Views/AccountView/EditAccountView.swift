@@ -39,6 +39,15 @@ struct EditAccountView: View {
                     TextField("New Password", text: $newPassword)
                     TextField("Repeat new password", text: $repeatNewPassword)
                 }
+                Section {
+                    Button {
+                        AuthenticationManager.shared.deleteAccount()
+                    } label: {
+                        Text("Delete Account")
+                            .foregroundColor(.red)
+                    }
+
+                }
             }
         }
         .navigationTitle("Edit Profile")

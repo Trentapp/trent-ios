@@ -46,4 +46,16 @@ class AuthenticationManager: ObservableObject {
             
         }
     }
+    
+    func deleteAccount() {
+        let uid = currentUser?.uid
+        if uid == nil { return }
+        AuthenticationManager.shared.currentUser?.delete(completion: { error in
+            if error == nil {
+                BackendClient.shared.deleteUserFromDB(with: uid!)
+            } else {
+                print("An error occurred deleting the account: \(error?.localizedDescription)")
+            }
+        })
+    }
 }

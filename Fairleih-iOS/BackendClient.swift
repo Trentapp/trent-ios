@@ -122,17 +122,18 @@ class BackendClient: ObservableObject {
     }
     
     func getUserObject(for id: String) -> UserObject? {
-        do {
-            let queryPath = serverPath + "/users/user/" + id
-            let queryURL = URL(string: queryPath)!
-            let response = try String(contentsOf: queryURL)
-            let data = response.data(using: .utf8)!
-            let user = try JSONDecoder().decode(UserObject.self, from: data)
-            return user
-        } catch {
-            print("Error while retrieving user: \(error.localizedDescription)")
-            return nil
-        }
+        
+            do {
+                let queryPath = serverPath + "/users/user/" + id
+                let queryURL = URL(string: queryPath)!
+                let response = try String(contentsOf: queryURL)
+                let data = response.data(using: .utf8)!
+                let user = try JSONDecoder().decode(UserObject.self, from: data)
+                return user
+            } catch {
+                print("Error while retrieving user: \(error.localizedDescription)")
+                return nil
+            }
     }
     
     func createNewUser(name: String, mail: String, uid: String) {
@@ -160,8 +161,6 @@ class BackendClient: ObservableObject {
             print(error.localizedDescription)
 //            return false
         }
-        
-        print(request.description)
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
@@ -222,8 +221,6 @@ class BackendClient: ObservableObject {
             }
         }
         
-        print(request.description)
-        
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let response = response as? HTTPURLResponse,
@@ -250,5 +247,47 @@ class BackendClient: ObservableObject {
         }
         
         task.resume()
+    }
+    
+    func deleteUserFromDB(with uid: String) {
+        DispatchQueue.global().async {
+            let postPath = self.serverPath + "/users/delete"
+            let postURL = URL(string: postPath)!
+            var request = URLRequest(url: postURL)
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            request.httpMethod = "DELETE"
+            
+            let parameters = [
+                "uid" : uid
+            ]
+            
+            do {
+                request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .withoutEscapingSlashes)
+            } catch let error {
+                print(error.localizedDescription)
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                guard let data = data,
+                      let response = response as? HTTPURLResponse,
+                      error == nil else{
+                    
+                    return
+                }
+                
+                guard (200 ... 299) ~= response.statusCode else {
+                    print("HTTP response status code: \(response.statusCode)")
+                    print("response: \(response)")
+                    print("Deleting user failed")
+                    return
+                }
+                
+                print("Deleting user succeeded")
+                UserObjectManager.shared.refresh()
+            }
+            
+            task.resume()
+        }
     }
 }
