@@ -38,6 +38,7 @@ struct MainView: View {
 //                        .navigationBarTitle("Account")
 //                        .navigationBarHidden(false)
                 }
+                .navigationViewStyle(DefaultNavigationViewStyle())
                     .tabItem {
                         Label("Account", systemImage: "person")
                     }

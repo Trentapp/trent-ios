@@ -26,11 +26,9 @@ struct AccountView: View {
                 .bold()
             List{
                 Section {
-                    HStack{
-                        Text("Edit Profile")
-                        Spacer()
-                        Image(systemName: "chevron.right")
-                            .foregroundColor(.gray)
+                    ZStack{
+                        Button(""){}
+                        NavigationLink("Edit Profile", destination: EditAccountView())
                     }
                 }
                 Section {

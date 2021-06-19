@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B01C1399267E63130078E584 /* CodableAsDictonary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01C1398267E63130078E584 /* CodableAsDictonary.swift */; };
 		B029AD012662313400279911 /* MapAnnotationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B029AD002662313400279911 /* MapAnnotationButton.swift */; };
 		B029AD03266237E200279911 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B029AD02266237E200279911 /* MainView.swift */; };
 		B029AD0526623C9500279911 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B029AD0426623C9500279911 /* AccountView.swift */; };
@@ -27,6 +28,7 @@
 		B06F797F264A6B5700049EF2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B06F797E264A6B5700049EF2 /* Preview Assets.xcassets */; };
 		B06F7987264A6E2800049EF2 /* BackendClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F7986264A6E2800049EF2 /* BackendClient.swift */; };
 		B06F798D264A76D700049EF2 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F798C264A76D700049EF2 /* LocationManager.swift */; };
+		B0D4FB12267D0DBB00BADF68 /* EditAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D4FB11267D0DBB00BADF68 /* EditAccountView.swift */; };
 		B0E182172664140300F20D27 /* InventoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E182162664140300F20D27 /* InventoryView.swift */; };
 		B0F01F61265FAFA300BDFA18 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F01F60265FAFA300BDFA18 /* Product.swift */; };
 		B0F37CC3265ECC7000D7905E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F37CC2265ECC7000D7905E /* LoginView.swift */; };
@@ -37,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B01C1398267E63130078E584 /* CodableAsDictonary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableAsDictonary.swift; sourceTree = "<group>"; };
 		B029AD002662313400279911 /* MapAnnotationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationButton.swift; sourceTree = "<group>"; };
 		B029AD02266237E200279911 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		B029AD0426623C9500279911 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
@@ -59,6 +62,7 @@
 		B06F7980264A6B5700049EF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B06F7986264A6E2800049EF2 /* BackendClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendClient.swift; sourceTree = "<group>"; };
 		B06F798C264A76D700049EF2 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		B0D4FB11267D0DBB00BADF68 /* EditAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountView.swift; sourceTree = "<group>"; };
 		B0E182162664140300F20D27 /* InventoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryView.swift; sourceTree = "<group>"; };
 		B0F01F60265FAFA300BDFA18 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		B0F37CC2265ECC7000D7905E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -171,6 +175,7 @@
 				B051EAD72664D05A002CF297 /* UserObject.swift */,
 				B029AD112662ACA500279911 /* MapViewController.swift */,
 				B06F798C264A76D700049EF2 /* LocationManager.swift */,
+				B01C1398267E63130078E584 /* CodableAsDictonary.swift */,
 				B0F37CC8265EE8AA00D7905E /* AuthenticationManager.swift */,
 				B0F01F60265FAFA300BDFA18 /* Product.swift */,
 				B029AD0F26629C0D00279911 /* HiddenViewExtension.swift */,
@@ -195,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				B029AD0426623C9500279911 /* AccountView.swift */,
+				B0D4FB11267D0DBB00BADF68 /* EditAccountView.swift */,
 			);
 			path = AccountView;
 			sourceTree = "<group>";
@@ -319,6 +325,7 @@
 				B0F37CC3265ECC7000D7905E /* LoginView.swift in Sources */,
 				B0E182172664140300F20D27 /* InventoryView.swift in Sources */,
 				B0F01F61265FAFA300BDFA18 /* Product.swift in Sources */,
+				B0D4FB12267D0DBB00BADF68 /* EditAccountView.swift in Sources */,
 				B029AD03266237E200279911 /* MainView.swift in Sources */,
 				B029AD0526623C9500279911 /* AccountView.swift in Sources */,
 				B029AD0C2662925700279911 /* DetailBottomView.swift in Sources */,
@@ -326,6 +333,7 @@
 				B051EADA26662E2B002CF297 /* InventoryCollectionView.swift in Sources */,
 				B06F798D264A76D700049EF2 /* LocationManager.swift in Sources */,
 				B029AD142663A02900279911 /* ItemDetailView.swift in Sources */,
+				B01C1399267E63130078E584 /* CodableAsDictonary.swift in Sources */,
 				B0F37CC9265EE8AA00D7905E /* AuthenticationManager.swift in Sources */,
 				B029AD0A2662545800279911 /* PercentEncoding.swift in Sources */,
 				B029AD1026629C0D00279911 /* HiddenViewExtension.swift in Sources */,

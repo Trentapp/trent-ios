@@ -184,4 +184,71 @@ class BackendClient: ObservableObject {
         
         task.resume()
     }
+    
+    func updateUserObject(name: String, street: String, houseNumber: String, zipcode: String, city: String, country: String, completionHandler: @escaping (Bool) -> Void) {
+        var userObject: [String : Any] = [
+            "uid" : AuthenticationManager.shared.currentUser?.uid ?? "",
+            "name" : name
+        ]
+        
+            if street != "" || houseNumber != "" || zipcode != "" || city != "" || country != "" {
+                let address = Address(street: street, houseNumber: houseNumber, zipcode: zipcode, city: city, country: country)
+                do {
+                    userObject["address"] = try address.asDictionary()
+                } catch {
+                    print("Error while convertig address to dict")
+                }
+                
+            }
+        
+        let parameters: [String: Any] = [
+            "user" : userObject
+        ]
+        
+        let postPath = self.serverPath + "/users/update"
+        let postURL = URL(string: postPath)!
+        var request = URLRequest(url: postURL)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.httpMethod = "PUT"
+//        request.httpBody = parameters.percentEncoded()!
+        
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .withoutEscapingSlashes)
+        } catch let error {
+            print(error.localizedDescription)
+            DispatchQueue.main.async {
+                completionHandler(false)
+            }
+        }
+        
+        print(request.description)
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let response = response as? HTTPURLResponse,
+                  error == nil else{
+                DispatchQueue.main.async {
+                    completionHandler(false)
+                }
+                return
+            }
+            
+            guard (200 ... 299) ~= response.statusCode else {
+                print("HTTP response status code: \(response.statusCode)")
+                print("response: \(response)")
+                DispatchQueue.main.async {
+                    completionHandler(false)
+                }
+                return
+            }
+            
+            DispatchQueue.main.async {
+                completionHandler(true)
+                UserObjectManager.shared.refresh()
+            }
+        }
+        
+        task.resume()
+    }
 }
