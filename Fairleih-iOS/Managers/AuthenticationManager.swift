@@ -58,4 +58,10 @@ class AuthenticationManager: ObservableObject {
             }
         })
     }
+    
+    func changePassword(newPassword: String, completingHandler: @escaping (Bool) -> Void) {
+        self.currentUser?.updatePassword(to: newPassword) { error in
+            completingHandler(error == nil)
+        }
+    }
 }

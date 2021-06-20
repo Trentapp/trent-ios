@@ -18,9 +18,12 @@ struct InventoryItemView: View {
             VStack(alignment: .center, spacing: 10, content: {
 //                Image(uiImage: item?.thumbnailUIImage ?? UIImage())
                 RoundedRectangle(cornerRadius: 10)
-                Text(item?.name ?? "Untitled item")
-                    .bold()
-                    .multilineTextAlignment(.leading)
+                HStack {
+                    Text(item?.name ?? "Untitled item")
+                        .bold()
+                        .multilineTextAlignment(.leading)
+                    Spacer()
+                }
                 HStack {
                     Spacer()
                     Text("\(String(format: "%.2f", round(100*(item?.prices?.perHour ?? 0))/100))€/hr")

@@ -36,8 +36,8 @@ struct EditAccountView: View {
                     TextField("Country", text: $country)
                 }
                 Section(header: Text("Change Password")) {
-                    TextField("New Password", text: $newPassword)
-                    TextField("Repeat new password", text: $repeatNewPassword)
+                    SecureField("New Password", text: $newPassword)
+                    SecureField("Repeat new password", text: $repeatNewPassword)
                 }
                 Section {
                     Button {
@@ -66,6 +66,17 @@ struct EditAccountView: View {
                     self.presentationMode.wrappedValue.dismiss()
                 } else {
                     print("Error updating user")
+                }
+            }
+            
+            if(newPassword != "" && newPassword == repeatNewPassword) {
+                AuthenticationManager.shared.changePassword(newPassword: newPassword) { success in
+                    if success {
+                        self.presentationMode.wrappedValue.dismiss()
+                    } else {
+                        // TODO: provide information about failure
+                        print("Error updating password")
+                    }
                 }
             }
         }, label: {

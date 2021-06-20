@@ -121,10 +121,9 @@ class BackendClient: ObservableObject {
         }
     }
     
-    func getUserObject(for id: String) -> UserObject? {
-        
+    func getUserObject(for uid: String) -> UserObject? {
             do {
-                let queryPath = serverPath + "/users/user/" + id
+                let queryPath = serverPath + "/users/user/" + uid
                 let queryURL = URL(string: queryPath)!
                 let response = try String(contentsOf: queryURL)
                 let data = response.data(using: .utf8)!
