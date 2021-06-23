@@ -36,70 +36,109 @@ struct ItemDetailView: View {
                 .padding(.vertical, -10)
             Divider()
                 .padding(.bottom, -20)
-            
-            HStack {
-                Spacer()
-                Image(uiImage: UIImage(data: Data(base64Encoded: item?.pictures?.first ?? "") ?? Data()) ?? UIImage())
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: 250)
-    //                .padding(.bottom, -35)
-    //                .ignoresSafeArea(.container, edges: .top)
-                Spacer()
-            }
-            .padding(.top, -10)
-            
-            HStack {
-                Text(item?.name ?? "Untitled item")
-                    .font(.system(size: 30, weight: .semibold, design: .default))
-                    .padding(.horizontal, 15)
-                Spacer()
+            ScrollView{
                 VStack(alignment: .leading, spacing: 10, content: {
-                    Text("\(String(format: "%.2f", round(100*(item?.prices?.perHour ?? 0))/100))€/hr")
-                        .font(.system(size: 23, weight: .medium, design: .default))
-                    HStack(alignment: .center, spacing: 0, content: {
-//                        Text("5/5")
-//                            .padding(.trailing, 5)
-                        ForEach(Range(uncheckedBounds: (lower: 0, upper: 5))) { index in
-                            Image(systemName: "star.fill")
-                                .foregroundColor(.yellow)
-                            
-                        }
-                    })
-                })
-                
-                    .padding(.horizontal, 15)
-            }
-            
-            Divider()
-                .padding(.bottom, 10)
-            
-            Text(item?.desc ?? "")
-                .font(.system(size: 22, weight: .regular, design: .default))
-                .padding(.horizontal, 15)
-            HStack{
-                VStack(alignment: .leading, spacing: 3, content: {
-                    Text((item?.address?.street ?? "Street") + " " + (item?.address?.houseNumber ?? "Number"))
-                        .minimumScaleFactor(0.6)
-                    Text((item?.address?.zipcode ?? "000000") + " " + (item?.address?.city ?? "City"))
-                        .minimumScaleFactor(0.6)
-                    Text(item?.address?.country ?? "Country")
-                        .minimumScaleFactor(0.6)
-                })
-                .padding()
-                Spacer()
-                NavigationLink(
-                    destination: Map(coordinateRegion: $coordinateRegion)
-                        .ignoresSafeArea(.container, edges: .bottom)
-                        .navigationBarTitle("\(item?.address?.street ?? "Street")  \(item?.address?.houseNumber ?? "0")")
-//                        .navigationBarTitleDisplayMode(.inline)
-                        .navigationBarHidden(false),
-                    label: {
-                        Map(coordinateRegion: $coordinateRegion, interactionModes: [], showsUserLocation: false, userTrackingMode: .none)
-                            .frame(width: 200, height: 150)
+                    HStack {
+                        Spacer()
+                        Image(uiImage: UIImage(data: Data(base64Encoded: item?.pictures?.first ?? "") ?? Data()) ?? UIImage())
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 250)
+            //                .padding(.bottom, -35)
+            //                .ignoresSafeArea(.container, edges: .top)
+                        Spacer()
+                    }
+                    .padding(.top, -10)
+                    
+                    HStack {
+                        Text(item?.name ?? "Untitled item")
+                            .font(.system(size: 30, weight: .semibold, design: .default))
+                            .padding(.horizontal, 15)
+                        Spacer()
+                        VStack(alignment: .leading, spacing: 10, content: {
+                            Spacer()
+                            Text("\(String(format: "%.2f", round(100*(item?.prices?.perHour ?? 0))/100))€/hr")
+                                .font(.system(size: 23, weight: .medium, design: .default))
+                        })
+                        
+                            .padding(.horizontal, 15)
+                    }
+                    
+                    Divider()
+                        .padding(.bottom, 10)
+                    
+                    Text(item?.desc ?? "")
+                        .font(.system(size: 22, weight: .regular, design: .default))
+                        .padding(.horizontal, 15)
+                    HStack{
+                        VStack(alignment: .leading, spacing: 3, content: {
+                            Text((item?.address?.street ?? "Street") + " " + (item?.address?.houseNumber ?? "Number"))
+                                .minimumScaleFactor(0.6)
+                            Text((item?.address?.zipcode ?? "000000") + " " + (item?.address?.city ?? "City"))
+                                .minimumScaleFactor(0.6)
+                            Text(item?.address?.country ?? "Country")
+                                .minimumScaleFactor(0.6)
+                        })
+                        .padding()
+                        Spacer()
+                        NavigationLink(
+                            destination: Map(coordinateRegion: $coordinateRegion)
+                                .ignoresSafeArea(.container, edges: .bottom)
+                                .navigationBarTitle("\(item?.address?.street ?? "Street")  \(item?.address?.houseNumber ?? "0")")
+        //                        .navigationBarTitleDisplayMode(.inline)
+                                .navigationBarHidden(false),
+                            label: {
+                    Map(coordinateRegion: $coordinateRegion, interactionModes: [], showsUserLocation: false, userTrackingMode: .none)
+                                    .frame(width: 200, height: 150)
+                                    .padding()
+                            })
+                    }
+                    
+                    HStack {
+                        Image(systemName: "person.crop.circle")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .opacity(0.5)
+                            .foregroundColor(.gray)
+                            .frame(width: 50, height: 50)
                             .padding()
-                    })
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Surname Name")
+                                .font(.system(size: 20, weight: .regular, design: .default))
+                            HStack(alignment: .center, spacing: 2, content: {
+        //                        Text("5/5")
+        //                            .padding(.trailing, 5)
+                                ForEach(Range(uncheckedBounds: (lower: 0, upper: 5))) { index in
+                                    Image(systemName: "star.fill")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .foregroundColor(.yellow)
+                                        .frame(width: 20, height: 20)
+//                                        .padding()
+                                    
+                                }
+                            })
+                        }
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            print("Requesting owner")
+                        }, label: {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.blue, lineWidth: 2)
+                                    .frame(width: 100, height:40)
+                                Text("Contact")
+                                    .bold()
+                                    .foregroundColor(.blue)
+                            }
+                        })
+                        .padding()
+                    }
+                })
             }
+            
             
             Spacer()
             Divider()
@@ -118,6 +157,9 @@ struct ItemDetailView: View {
                 Spacer()
                 Button(action: {
                     print("Requesting")
+                    DispatchQueue.global().async {
+                        BackendClient.shared.addTransaction(item_id: item?._id ?? "")
+                    }
                 }, label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 10)

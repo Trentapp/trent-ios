@@ -34,6 +34,10 @@ struct InventoryView: View {
                             Text("Add new item")
                                 .bold()
                                 .foregroundColor(.white)
+//                            RoundedRectangle(cornerRadius: 10)
+//                                .frame(width: 100, height:40)
+//                                .stroke(Color.purple, lineWidth: 5)
+                                
                         }
                     }
                 })

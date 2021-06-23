@@ -58,7 +58,7 @@ class BackendClient: ObservableObject {
             
             guard (200 ... 299) ~= response.statusCode else {
                 print("HTTP response status code: \(response.statusCode)")
-                print("response: \(response)")
+//                print("response: \(response)")
                 completionHandler(false)
                 return
             }
@@ -106,7 +106,7 @@ class BackendClient: ObservableObject {
                 
                 guard (200 ... 299) ~= response.statusCode else {
                     print("HTTP response status code: \(response.statusCode)")
-                    print("response: \(response)")
+//                    print("response: \(response)")
                     print("Deleting product failed")
                     return
                 }
@@ -171,7 +171,7 @@ class BackendClient: ObservableObject {
             
             guard (200 ... 299) ~= response.statusCode else {
                 print("HTTP response status code: \(response.statusCode)")
-                print("response: \(response)")
+//                print("response: \(response)")
 //                return false
                 return
             }
@@ -232,7 +232,7 @@ class BackendClient: ObservableObject {
             
             guard (200 ... 299) ~= response.statusCode else {
                 print("HTTP response status code: \(response.statusCode)")
-                print("response: \(response)")
+//                print("response: \(response)")
                 DispatchQueue.main.async {
                     completionHandler(false)
                 }
@@ -277,7 +277,7 @@ class BackendClient: ObservableObject {
                 
                 guard (200 ... 299) ~= response.statusCode else {
                     print("HTTP response status code: \(response.statusCode)")
-                    print("response: \(response)")
+//                    print("response: \(response)")
                     print("Deleting user failed")
                     return
                 }
@@ -289,4 +289,92 @@ class BackendClient: ObservableObject {
             task.resume()
         }
     }
+    
+    func addTransaction(item_id: String) {
+        let postPath = self.serverPath + "/transactions/add"
+        let postURL = URL(string: postPath)!
+        var request = URLRequest(url: postURL)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.httpMethod = "POST"
+        
+        let parameters = [
+            "user_uid" : AuthenticationManager.shared.currentUser?.uid ?? "",
+            "product_id" : item_id
+        ]
+        
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .withoutEscapingSlashes)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                  let response = response as? HTTPURLResponse,
+                  error == nil else{
+                
+                return
+            }
+            
+            guard (200 ... 299) ~= response.statusCode else {
+                print("HTTP response status code: \(response.statusCode)")
+//                print("response: \(response)")
+                print("Adding transaction failed")
+                return
+            }
+            
+            
+            print("Adding transaction succeeded")
+            let transaction_id = String(data: data, encoding: .utf8)
+            print(transaction_id)
+            UserObjectManager.shared.refresh()
+        }
+        
+        task.resume()
+    }
+    
+    
+//    func requestTransaction(transaction_id: String){
+//        DispatchQueue.global().async {
+//            let postPath = self.serverPath + "/transactions/add"
+//            let postURL = URL(string: postPath)!
+//            var request = URLRequest(url: postURL)
+//            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//            request.addValue("application/json", forHTTPHeaderField: "Accept")
+//            request.httpMethod = "DELETE"
+//            
+//            let parameters = [
+//                "user_uid" : AuthenticationManager.shared.currentUser?.uid ?? "",
+//                "product_id" : item_id
+//            ]
+//            
+//            do {
+//                request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .withoutEscapingSlashes)
+//            } catch let error {
+//                print(error.localizedDescription)
+//            }
+//            
+//            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+//                guard let data = data,
+//                      let response = response as? HTTPURLResponse,
+//                      error == nil else{
+//                    
+//                    return
+//                }
+//                
+//                guard (200 ... 299) ~= response.statusCode else {
+//                    print("HTTP response status code: \(response.statusCode)")
+//                    print("response: \(response)")
+//                    print("Deleting user failed")
+//                    return
+//                }
+//                
+//                print("Deleting user succeeded")
+//                UserObjectManager.shared.refresh()
+//            }
+//            
+//            task.resume()
+//        }
+//    }
 }

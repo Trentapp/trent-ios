@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B01C1399267E63130078E584 /* Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01C1398267E63130078E584 /* Encodable.swift */; };
+		B01C139E2680A7790078E584 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01C139D2680A7790078E584 /* MapViewController.swift */; };
 		B029AD012662313400279911 /* MapAnnotationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B029AD002662313400279911 /* MapAnnotationButton.swift */; };
 		B029AD03266237E200279911 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B029AD02266237E200279911 /* MainView.swift */; };
 		B029AD0526623C9500279911 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B029AD0426623C9500279911 /* AccountView.swift */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		B01C1398267E63130078E584 /* Encodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encodable.swift; sourceTree = "<group>"; };
+		B01C139D2680A7790078E584 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		B029AD002662313400279911 /* MapAnnotationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationButton.swift; sourceTree = "<group>"; };
 		B029AD02266237E200279911 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		B029AD0426623C9500279911 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 			children = (
 				B06F7979264A6B5500049EF2 /* MapView.swift */,
 				B029AD0B2662925700279911 /* DetailBottomView.swift */,
+				B01C139D2680A7790078E584 /* MapViewController.swift */,
 				B029AD002662313400279911 /* MapAnnotationButton.swift */,
 				B029AD132663A02900279911 /* ItemDetailView.swift */,
 			);
@@ -348,6 +351,7 @@
 				B0F01F61265FAFA300BDFA18 /* Product.swift in Sources */,
 				B0D4FB12267D0DBB00BADF68 /* EditAccountView.swift in Sources */,
 				B029AD03266237E200279911 /* MainView.swift in Sources */,
+				B01C139E2680A7790078E584 /* MapViewController.swift in Sources */,
 				B029AD0526623C9500279911 /* AccountView.swift in Sources */,
 				B029AD0C2662925700279911 /* DetailBottomView.swift in Sources */,
 				B051EAD82664D05A002CF297 /* UserObject.swift in Sources */,
