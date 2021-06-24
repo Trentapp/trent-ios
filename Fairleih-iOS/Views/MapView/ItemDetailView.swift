@@ -12,6 +12,7 @@ import Introspect
 struct ItemDetailView: View {
     @State var item: Product?
     @State var coordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 0, longitude: 0), latitudinalMeters: 750, longitudinalMeters: 750)
+//    @State var user
     
     @State var tabBar: UITabBar?
     @Environment(\.presentationMode) var presentation
@@ -32,8 +33,8 @@ struct ItemDetailView: View {
                 Divider()
                 Spacer()
             }
-                .frame(height: 45)
-                .padding(.vertical, -10)
+            .frame(height: 45)
+            .padding(.vertical, -10)
             Divider()
                 .padding(.bottom, -20)
             ScrollView{
@@ -44,8 +45,8 @@ struct ItemDetailView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(height: 250)
-            //                .padding(.bottom, -35)
-            //                .ignoresSafeArea(.container, edges: .top)
+                        //                .padding(.bottom, -35)
+                        //                .ignoresSafeArea(.container, edges: .top)
                         Spacer()
                     }
                     .padding(.top, -10)
@@ -61,7 +62,7 @@ struct ItemDetailView: View {
                                 .font(.system(size: 23, weight: .medium, design: .default))
                         })
                         
-                            .padding(.horizontal, 15)
+                        .padding(.horizontal, 15)
                     }
                     
                     Divider()
@@ -81,16 +82,21 @@ struct ItemDetailView: View {
                         })
                         .padding()
                         Spacer()
-                        NavigationLink(
-                            destination: Map(coordinateRegion: $coordinateRegion)
-                                .ignoresSafeArea(.container, edges: .bottom)
-                                .navigationBarTitle("\(item?.address?.street ?? "Street")  \(item?.address?.houseNumber ?? "0")")
-        //                        .navigationBarTitleDisplayMode(.inline)
-                                .navigationBarHidden(false),
-                            label: {
-                    Map(coordinateRegion: $coordinateRegion, interactionModes: [], showsUserLocation: false, userTrackingMode: .none)
-                                    .frame(width: 200, height: 150)
-                                    .padding()
+                        Button(action: {
+                            let place = MKPlacemark(coordinate: item?.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000))
+                                        
+                            let mapItem = MKMapItem(placemark: place)
+                            mapItem.name = (item?.address != nil) ?  "\(item?.address?.street ?? "") \(item?.address?.houseNumber ?? ""), \(item?.address?.zipcode ?? "") \(item?.address?.city ?? "")" : item?.name ?? ""
+                            mapItem.openInMaps(launchOptions: nil)
+                        }, label: {
+                                //                                Map(coordinateRegion: $coordinateRegion, interactionModes: [], showsUserLocation: false, userTrackingMode: .none)
+                                //                                    .frame(width: 200, height: 150)
+                                //                                    .padding()
+                                Map(coordinateRegion: $coordinateRegion, annotationItems: [item!], annotationContent: { current_item in
+                                    MapMarker(coordinate: current_item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000))
+                                })
+                                .frame(width: 150, height: 100)
+                                .padding()
                             })
                     }
                     
@@ -103,18 +109,18 @@ struct ItemDetailView: View {
                             .frame(width: 50, height: 50)
                             .padding()
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("Surname Name")
+                            Text("Vorname Name")
                                 .font(.system(size: 20, weight: .regular, design: .default))
                             HStack(alignment: .center, spacing: 2, content: {
-        //                        Text("5/5")
-        //                            .padding(.trailing, 5)
+                                //                        Text("5/5")
+                                //                            .padding(.trailing, 5)
                                 ForEach(Range(uncheckedBounds: (lower: 0, upper: 5))) { index in
                                     Image(systemName: "star.fill")
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
                                         .foregroundColor(.yellow)
                                         .frame(width: 20, height: 20)
-//                                        .padding()
+                                    //                                        .padding()
                                     
                                 }
                             })
@@ -126,11 +132,11 @@ struct ItemDetailView: View {
                             print("Requesting owner")
                         }, label: {
                             ZStack {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.blue, lineWidth: 2)
+                                RoundedRectangle(cornerRadius: 5)
+                                    .stroke(Color.blue, lineWidth: 1)
                                     .frame(width: 100, height:40)
                                 Text("Contact")
-                                    .bold()
+//                                    .bold()
                                     .foregroundColor(.blue)
                             }
                         })
@@ -171,8 +177,9 @@ struct ItemDetailView: View {
                 })
                 .padding(.horizontal, 15)
             }
+            .frame(height: 75)
         })
-        .padding(.bottom, -50)
+//        .padding(.bottom, -50)
         .navigationBarTitle("")
         .navigationBarHidden(true)
         .introspectTabBarController { (UITabBarController) in
@@ -182,6 +189,7 @@ struct ItemDetailView: View {
         
         .onAppear(){
             self.tabBar?.isHidden = true
+            self.coordinateRegion = MKCoordinateRegion(center: item?.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0), latitudinalMeters: 750, longitudinalMeters: 750)
         }
     }
 }
@@ -197,7 +205,7 @@ extension UINavigationController: UIGestureRecognizerDelegate {
         super.viewDidLoad()
         interactivePopGestureRecognizer?.delegate = self
     }
-
+    
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return viewControllers.count > 1
     }

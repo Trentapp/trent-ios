@@ -26,7 +26,6 @@ struct MapView: View {
                     MapAnnotation(coordinate: current_item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000)) {
                         MapAnnotationButton(item: current_item)
                     }
-//                    MapMarker(coordinate: item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000))
                 })
                     .edgesIgnoringSafeArea(.all)
                 
