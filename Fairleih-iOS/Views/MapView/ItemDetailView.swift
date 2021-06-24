@@ -128,9 +128,7 @@ struct ItemDetailView: View {
                         
                         Spacer()
                         
-                        Button(action: {
-                            print("Requesting owner")
-                        }, label: {
+                        NavigationLink(destination: ContactView(), label: {
                             ZStack {
                                 RoundedRectangle(cornerRadius: 5)
                                     .stroke(Color.blue, lineWidth: 1)
@@ -197,16 +195,5 @@ struct ItemDetailView: View {
 struct ItemDetailView_Previews: PreviewProvider {
     static var previews: some View {
         ItemDetailView(item: Product(_id: "000", name: "Kärcher High Pressure Washer", desc: "Super Kärcher High Pressure Washer. Cleans surfaces amazingly. Lorem ipsum dolor sit amit", address: Address(street: "Some Street", houseNumber: "42c", zipcode: "69115", city: "Heidelberg", country: "Germany"), location: Coordinates(coordinates: [7.8, 49.47]), prices: Prices(perHour: 7.5, perDay: 20)))
-    }
-}
-
-extension UINavigationController: UIGestureRecognizerDelegate {
-    override open func viewDidLoad() {
-        super.viewDidLoad()
-        interactivePopGestureRecognizer?.delegate = self
-    }
-    
-    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return viewControllers.count > 1
     }
 }

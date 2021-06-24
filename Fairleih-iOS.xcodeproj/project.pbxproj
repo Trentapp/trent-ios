@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		B01C1399267E63130078E584 /* Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01C1398267E63130078E584 /* Encodable.swift */; };
 		B01C139E2680A7790078E584 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01C139D2680A7790078E584 /* MapViewController.swift */; };
+		B01C13A02684CF810078E584 /* ContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01C139F2684CF810078E584 /* ContactView.swift */; };
+		B01C13A22684D0380078E584 /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01C13A12684D0380078E584 /* UINavigationController.swift */; };
 		B029AD012662313400279911 /* MapAnnotationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B029AD002662313400279911 /* MapAnnotationButton.swift */; };
 		B029AD03266237E200279911 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B029AD02266237E200279911 /* MainView.swift */; };
 		B029AD0526623C9500279911 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B029AD0426623C9500279911 /* AccountView.swift */; };
@@ -41,6 +43,8 @@
 /* Begin PBXFileReference section */
 		B01C1398267E63130078E584 /* Encodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encodable.swift; sourceTree = "<group>"; };
 		B01C139D2680A7790078E584 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		B01C139F2684CF810078E584 /* ContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactView.swift; sourceTree = "<group>"; };
+		B01C13A12684D0380078E584 /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 		B029AD002662313400279911 /* MapAnnotationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationButton.swift; sourceTree = "<group>"; };
 		B029AD02266237E200279911 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		B029AD0426623C9500279911 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
@@ -127,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				B01C1398267E63130078E584 /* Encodable.swift */,
+				B01C13A12684D0380078E584 /* UINavigationController.swift */,
 				B029AD0F26629C0D00279911 /* View.swift */,
 				B029AD092662545800279911 /* PercentEncoding.swift */,
 			);
@@ -153,6 +158,7 @@
 				B01C139D2680A7790078E584 /* MapViewController.swift */,
 				B029AD002662313400279911 /* MapAnnotationButton.swift */,
 				B029AD132663A02900279911 /* ItemDetailView.swift */,
+				B01C139F2684CF810078E584 /* ContactView.swift */,
 			);
 			path = MapView;
 			sourceTree = "<group>";
@@ -349,6 +355,7 @@
 				B0F37CC3265ECC7000D7905E /* LoginView.swift in Sources */,
 				B0E182172664140300F20D27 /* InventoryView.swift in Sources */,
 				B0F01F61265FAFA300BDFA18 /* Product.swift in Sources */,
+				B01C13A22684D0380078E584 /* UINavigationController.swift in Sources */,
 				B0D4FB12267D0DBB00BADF68 /* EditAccountView.swift in Sources */,
 				B029AD03266237E200279911 /* MainView.swift in Sources */,
 				B01C139E2680A7790078E584 /* MapViewController.swift in Sources */,
@@ -360,6 +367,7 @@
 				B029AD142663A02900279911 /* ItemDetailView.swift in Sources */,
 				B01C1399267E63130078E584 /* Encodable.swift in Sources */,
 				B0F37CC9265EE8AA00D7905E /* AuthenticationManager.swift in Sources */,
+				B01C13A02684CF810078E584 /* ContactView.swift in Sources */,
 				B029AD0A2662545800279911 /* PercentEncoding.swift in Sources */,
 				B029AD1026629C0D00279911 /* View.swift in Sources */,
 				B06F7987264A6E2800049EF2 /* BackendClient.swift in Sources */,
