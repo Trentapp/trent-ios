@@ -13,25 +13,33 @@ struct InventoryCollectionView: View {
     @State var numberOfItemsPerRow = max(2, Int(UIScreen.screenWidth / 200))
     
     var body: some View {
-        VStack {
-            ForEach((0..<Int(ceil(CGFloat(items.count) / CGFloat(numberOfItemsPerRow)))), id: \.self){ i in
-                HStack {
-                    ForEach((0..<numberOfItemsPerRow), id: \.self){ j in
-                        if (2*i+j) < items.count{
-                            InventoryItemView(item: items[2*i+j])
-                                .frame(height: 250)
-                                .shadow(radius: 10)
-                                .padding()
-                        } else {
-                            Rectangle()
-                                .foregroundColor(.clear)
-                                .frame(height: 250)
-                                .padding()
+        if (items.count > 0){
+            VStack {
+                ForEach((0..<Int(ceil(CGFloat(items.count) / CGFloat(numberOfItemsPerRow)))), id: \.self){ i in
+                    HStack {
+                        ForEach((0..<numberOfItemsPerRow), id: \.self){ j in
+                            if (2*i+j) < items.count{
+                                InventoryItemView(item: items[2*i+j])
+                                    .frame(height: 250)
+                                    .shadow(radius: 10)
+                                    .padding()
+                            } else {
+                                Rectangle()
+                                    .foregroundColor(.clear)
+                                    .frame(height: 250)
+                                    .padding()
+                            }
                         }
                     }
                 }
             }
+        } else {
+            Spacer()
+                .frame(height: 50)
+            Text("No products yet")
+                .foregroundColor(Color.gray)
         }
+        
     }
 }
 
