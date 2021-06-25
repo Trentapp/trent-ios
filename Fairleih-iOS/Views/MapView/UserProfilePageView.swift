@@ -23,7 +23,7 @@ struct UserProfilePageView: View {
                     Spacer()
                         .frame(width: 5)
                     ForEach(Range(uncheckedBounds: (lower: 0, upper: 5))) { index in
-                        let isStarFilled = (index+1) <= Int(round((userProfile?.rating)!))
+                        let isStarFilled = (index+1) <= Int(round((userProfile?.rating) ?? 0))
                         Image(systemName: isStarFilled ? "star.fill" : "star")
 
                             .resizable()
@@ -37,7 +37,7 @@ struct UserProfilePageView: View {
                 
                 HStack {
                     NavigationLink(
-                        destination: Text("Review"),
+                        destination: ReviewView(userProfile: userProfile),
                         label: {
                             Text("See \(userProfile?.numberOfRatings ?? 0) Reviews")
                         })

@@ -412,4 +412,19 @@ class BackendClient: ObservableObject {
 //            task.resume()
 //        }
 //    }
+    
+    // Reviews
+    func getReviews(user_id: String) -> [Review]? {
+        do {
+            let queryPath = serverPath + "/reviews/user/" + user_id
+            let queryURL = URL(string: queryPath)!
+            let response = try String(contentsOf: queryURL)
+            let data = response.data(using: .utf8)!
+            let reviews = try JSONDecoder().decode([Review].self, from: data)
+            return reviews
+        } catch {
+            print("Error while retrieving product: \(error.localizedDescription)")
+            return nil
+        }
+    }
 }
