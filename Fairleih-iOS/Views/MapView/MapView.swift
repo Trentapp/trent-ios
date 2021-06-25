@@ -42,7 +42,7 @@ struct MapView: View {
                                 UIApplication.shared.endEditing()
                                 print("Did commit: \(keyword)")
                                 DispatchQueue.global().async {
-                                    products = backendClient.query(keyword: keyword)
+                                    self.products = backendClient.query(keyword: keyword)
                                 }
                             })
                                 .font(.system(size: 15, weight: .regular, design: .default))

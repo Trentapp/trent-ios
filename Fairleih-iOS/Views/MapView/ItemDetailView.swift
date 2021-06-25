@@ -18,6 +18,8 @@ struct ItemDetailView: View {
     @Environment(\.presentationMode) var presentation
     
     var body: some View {
+        let isMe = (owner?._id ?? "") == (UserObjectManager.shared.user?._id ?? "0")
+        
         VStack(alignment: .leading, spacing: 10, content: {
             HStack{
                 Button(action: {
@@ -92,7 +94,7 @@ struct ItemDetailView: View {
                                 //                                Map(coordinateRegion: $coordinateRegion, interactionModes: [], showsUserLocation: false, userTrackingMode: .none)
                                 //                                    .frame(width: 200, height: 150)
                                 //                                    .padding()
-                                Map(coordinateRegion: $coordinateRegion, annotationItems: [item!], annotationContent: { current_item in
+                            Map(coordinateRegion: $coordinateRegion, interactionModes: [], annotationItems: [item!], annotationContent: { current_item in
                                     MapMarker(coordinate: current_item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000))
                                 })
                                 .frame(width: 150, height: 100)
@@ -109,7 +111,7 @@ struct ItemDetailView: View {
                             .frame(width: 50, height: 50)
                             .padding()
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(owner?.name ?? "Product owner")
+                            Text((owner?.name ?? "Product owner") + (isMe ? " (Me)" : ""))
                                 .font(.system(size: 20, weight: .regular, design: .default))
                             if (owner?.numberOfRatings ?? 0) >= 5 {
                                 HStack(alignment: .center, spacing: 2, content: {
@@ -149,6 +151,7 @@ struct ItemDetailView: View {
                             }
                         })
                         .padding()
+                        .hidden(isMe)
                     }
                 })
             }
