@@ -10,7 +10,7 @@ import Foundation
 class BackendClient: ObservableObject {
     static let shared = BackendClient()
     
-//    let serverPath = "http://192.168.2.101:8000/api"
+    //    let serverPath = "http://192.168.2.101:8000/api"
     let serverPath = "http://localhost:8000/api"
     
     
@@ -20,7 +20,7 @@ class BackendClient: ObservableObject {
             print("Querying: \(queryPath)")
             let queryURL = URL(string: queryPath)!
             let response = try String(contentsOf: queryURL)
-//            print("Server response: \(response)")
+            //            print("Server response: \(response)")
             let data = response.data(using: .utf8)!
             let products = try JSONDecoder().decode([Product].self, from: data)
             return products
@@ -37,7 +37,7 @@ class BackendClient: ObservableObject {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.httpMethod = "POST"
-//        request.httpBody = parameters.percentEncoded()!
+        //        request.httpBody = parameters.percentEncoded()!
         
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .withoutEscapingSlashes)
@@ -58,7 +58,7 @@ class BackendClient: ObservableObject {
             
             guard (200 ... 299) ~= response.statusCode else {
                 print("HTTP response status code: \(response.statusCode)")
-//                print("response: \(response)")
+                //                print("response: \(response)")
                 completionHandler(false)
                 return
             }
@@ -127,7 +127,7 @@ class BackendClient: ObservableObject {
                 
                 guard (200 ... 299) ~= response.statusCode else {
                     print("HTTP response status code: \(response.statusCode)")
-//                    print("response: \(response)")
+                    //                    print("response: \(response)")
                     print("Deleting product failed")
                     return
                 }
@@ -157,17 +157,17 @@ class BackendClient: ObservableObject {
     }
     
     func getUserObject(for uid: String) -> UserObject? {
-            do {
-                let queryPath = serverPath + "/users/user/" + uid
-                let queryURL = URL(string: queryPath)!
-                let response = try String(contentsOf: queryURL)
-                let data = response.data(using: .utf8)!
-                let user = try JSONDecoder().decode(UserObject.self, from: data)
-                return user
-            } catch {
-                print("Error while retrieving user: \(error.localizedDescription)")
-                return nil
-            }
+        do {
+            let queryPath = serverPath + "/users/user/" + uid
+            let queryURL = URL(string: queryPath)!
+            let response = try String(contentsOf: queryURL)
+            let data = response.data(using: .utf8)!
+            let user = try JSONDecoder().decode(UserObject.self, from: data)
+            return user
+        } catch {
+            print("Error while retrieving user: \(error.localizedDescription)")
+            return nil
+        }
     }
     
     func createNewUser(name: String, mail: String, uid: String) {
@@ -187,31 +187,31 @@ class BackendClient: ObservableObject {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.httpMethod = "POST"
-//        request.httpBody = parameters.percentEncoded()!
+        //        request.httpBody = parameters.percentEncoded()!
         
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .withoutEscapingSlashes)
         } catch let error {
             print(error.localizedDescription)
-//            return false
+            //            return false
         }
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let response = response as? HTTPURLResponse,
                   error == nil else{
-//                return false
+                //                return false
                 return
             }
             
             guard (200 ... 299) ~= response.statusCode else {
                 print("HTTP response status code: \(response.statusCode)")
-//                print("response: \(response)")
-//                return false
+                //                print("response: \(response)")
+                //                return false
                 return
             }
             
-//            return true
+            //            return true
             UserObjectManager.shared.refresh()
         }
         
@@ -224,15 +224,15 @@ class BackendClient: ObservableObject {
             "name" : name
         ]
         
-            if street != "" || houseNumber != "" || zipcode != "" || city != "" || country != "" {
-                let address = Address(street: street, houseNumber: houseNumber, zipcode: zipcode, city: city, country: country)
-                do {
-                    userObject["address"] = try address.asDictionary()
-                } catch {
-                    print("Error while convertig address to dict")
-                }
-                
+        if street != "" || houseNumber != "" || zipcode != "" || city != "" || country != "" {
+            let address = Address(street: street, houseNumber: houseNumber, zipcode: zipcode, city: city, country: country)
+            do {
+                userObject["address"] = try address.asDictionary()
+            } catch {
+                print("Error while convertig address to dict")
             }
+            
+        }
         
         let parameters: [String: Any] = [
             "user" : userObject
@@ -244,7 +244,7 @@ class BackendClient: ObservableObject {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.httpMethod = "PUT"
-//        request.httpBody = parameters.percentEncoded()!
+        //        request.httpBody = parameters.percentEncoded()!
         
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .withoutEscapingSlashes)
@@ -267,7 +267,7 @@ class BackendClient: ObservableObject {
             
             guard (200 ... 299) ~= response.statusCode else {
                 print("HTTP response status code: \(response.statusCode)")
-//                print("response: \(response)")
+                //                print("response: \(response)")
                 DispatchQueue.main.async {
                     completionHandler(false)
                 }
@@ -312,7 +312,7 @@ class BackendClient: ObservableObject {
                 
                 guard (200 ... 299) ~= response.statusCode else {
                     print("HTTP response status code: \(response.statusCode)")
-//                    print("response: \(response)")
+                    //                    print("response: \(response)")
                     print("Deleting user failed")
                     return
                 }
@@ -354,7 +354,7 @@ class BackendClient: ObservableObject {
             
             guard (200 ... 299) ~= response.statusCode else {
                 print("HTTP response status code: \(response.statusCode)")
-//                print("response: \(response)")
+                //                print("response: \(response)")
                 print("Adding transaction failed")
                 return
             }
@@ -370,48 +370,48 @@ class BackendClient: ObservableObject {
     }
     
     
-//    func requestTransaction(transaction_id: String){
-//        DispatchQueue.global().async {
-//            let postPath = self.serverPath + "/transactions/add"
-//            let postURL = URL(string: postPath)!
-//            var request = URLRequest(url: postURL)
-//            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-//            request.addValue("application/json", forHTTPHeaderField: "Accept")
-//            request.httpMethod = "DELETE"
-//            
-//            let parameters = [
-//                "user_uid" : AuthenticationManager.shared.currentUser?.uid ?? "",
-//                "product_id" : item_id
-//            ]
-//            
-//            do {
-//                request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .withoutEscapingSlashes)
-//            } catch let error {
-//                print(error.localizedDescription)
-//            }
-//            
-//            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-//                guard let data = data,
-//                      let response = response as? HTTPURLResponse,
-//                      error == nil else{
-//                    
-//                    return
-//                }
-//                
-//                guard (200 ... 299) ~= response.statusCode else {
-//                    print("HTTP response status code: \(response.statusCode)")
-//                    print("response: \(response)")
-//                    print("Deleting user failed")
-//                    return
-//                }
-//                
-//                print("Deleting user succeeded")
-//                UserObjectManager.shared.refresh()
-//            }
-//            
-//            task.resume()
-//        }
-//    }
+    //    func requestTransaction(transaction_id: String){
+    //        DispatchQueue.global().async {
+    //            let postPath = self.serverPath + "/transactions/add"
+    //            let postURL = URL(string: postPath)!
+    //            var request = URLRequest(url: postURL)
+    //            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    //            request.addValue("application/json", forHTTPHeaderField: "Accept")
+    //            request.httpMethod = "DELETE"
+    //
+    //            let parameters = [
+    //                "user_uid" : AuthenticationManager.shared.currentUser?.uid ?? "",
+    //                "product_id" : item_id
+    //            ]
+    //
+    //            do {
+    //                request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .withoutEscapingSlashes)
+    //            } catch let error {
+    //                print(error.localizedDescription)
+    //            }
+    //
+    //            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+    //                guard let data = data,
+    //                      let response = response as? HTTPURLResponse,
+    //                      error == nil else{
+    //
+    //                    return
+    //                }
+    //
+    //                guard (200 ... 299) ~= response.statusCode else {
+    //                    print("HTTP response status code: \(response.statusCode)")
+    //                    print("response: \(response)")
+    //                    print("Deleting user failed")
+    //                    return
+    //                }
+    //
+    //                print("Deleting user succeeded")
+    //                UserObjectManager.shared.refresh()
+    //            }
+    //
+    //            task.resume()
+    //        }
+    //    }
     
     // Reviews
     func getReviews(user_id: String) -> [Review]? {
@@ -426,5 +426,59 @@ class BackendClient: ObservableObject {
             print("Error while retrieving product: \(error.localizedDescription)")
             return nil
         }
+    }
+    
+    
+    // Chats
+    func getChats(completionHandler: @escaping (([Chat]) -> Void)) {
+        DispatchQueue.global().async {
+//            var chats = [Chat]()
+            
+            let parameters: [String: Any] = [
+                "uid" : AuthenticationManager.shared.currentUser?.uid ?? ""
+            ]
+            
+            let postPath = self.serverPath + "/chats/get"
+            let postURL = URL(string: postPath)!
+            var request = URLRequest(url: postURL)
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            request.httpMethod = "POST"
+            //        request.httpBody = parameters.percentEncoded()!
+            
+            do {
+                request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .withoutEscapingSlashes)
+            } catch let error {
+                completionHandler([])
+                print(error.localizedDescription)
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, err in
+                guard let data = data,
+                      let response = response as? HTTPURLResponse,
+                      err == nil else{
+                    completionHandler([])
+                    return
+                }
+                
+                guard (200 ... 299) ~= response.statusCode else {
+                    completionHandler([])
+                    return
+                }
+                
+                do {
+                    let chats = try JSONDecoder().decode([Chat].self, from: data)
+                    completionHandler(chats)
+                } catch {
+                    print("Error while decoding chat response: \(error)")
+                    completionHandler([])
+                }
+            }
+            
+            
+            task.resume()
+            
+        }
+        
     }
 }

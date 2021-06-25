@@ -32,6 +32,15 @@ struct MainView: View {
                 
                 
                 NavigationView {
+                    InboxView()
+                }
+                    .navigationViewStyle(StackNavigationViewStyle())
+                    .tabItem {
+                        Label("Inbox", systemImage: "tray.and.arrow.down")
+                    }
+                
+                
+                NavigationView {
                     AccountView()
                         .navigationTitle("")
                         .navigationBarHidden(true)
