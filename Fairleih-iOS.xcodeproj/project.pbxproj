@@ -31,6 +31,7 @@
 		B06F7987264A6E2800049EF2 /* BackendClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F7986264A6E2800049EF2 /* BackendClient.swift */; };
 		B06F798D264A76D700049EF2 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F798C264A76D700049EF2 /* LocationManager.swift */; };
 		B093B59A2685A0520051B7CC /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093B5992685A0520051B7CC /* UserProfile.swift */; };
+		B093B59C2685B6A90051B7CC /* UserProfilePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093B59B2685B6A90051B7CC /* UserProfilePageView.swift */; };
 		B0D4FB12267D0DBB00BADF68 /* EditAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D4FB11267D0DBB00BADF68 /* EditAccountView.swift */; };
 		B0E182172664140300F20D27 /* InventoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E182162664140300F20D27 /* InventoryView.swift */; };
 		B0F01F61265FAFA300BDFA18 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F01F60265FAFA300BDFA18 /* Product.swift */; };
@@ -68,6 +69,7 @@
 		B06F7986264A6E2800049EF2 /* BackendClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendClient.swift; sourceTree = "<group>"; };
 		B06F798C264A76D700049EF2 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		B093B5992685A0520051B7CC /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		B093B59B2685B6A90051B7CC /* UserProfilePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePageView.swift; sourceTree = "<group>"; };
 		B0D4FB11267D0DBB00BADF68 /* EditAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountView.swift; sourceTree = "<group>"; };
 		B0E182162664140300F20D27 /* InventoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryView.swift; sourceTree = "<group>"; };
 		B0F01F60265FAFA300BDFA18 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 				B01C139D2680A7790078E584 /* MapViewController.swift */,
 				B029AD002662313400279911 /* MapAnnotationButton.swift */,
 				B029AD132663A02900279911 /* ItemDetailView.swift */,
+				B093B59B2685B6A90051B7CC /* UserProfilePageView.swift */,
 				B01C139F2684CF810078E584 /* ContactView.swift */,
 			);
 			path = MapView;
@@ -379,6 +382,7 @@
 				B06F797A264A6B5500049EF2 /* MapView.swift in Sources */,
 				B06F7978264A6B5500049EF2 /* Fairleih_iOSApp.swift in Sources */,
 				B0F37CC7265EDAD500D7905E /* SignupView.swift in Sources */,
+				B093B59C2685B6A90051B7CC /* UserProfilePageView.swift in Sources */,
 				B051EAD62664CF2A002CF297 /* UserObjectManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

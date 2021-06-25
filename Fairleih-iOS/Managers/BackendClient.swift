@@ -85,6 +85,17 @@ class BackendClient: ObservableObject {
         }
     }
     
+    func getInventory(inventory: [String]) -> [Product]{
+        var newInventory = [Product]()
+        
+        for productId in inventory {
+            let product = self.getProduct(for: productId)
+            if product != nil { newInventory.append(product!) }
+        }
+        
+        return newInventory
+    }
+    
     func deleteProduct(with id: String) {
         DispatchQueue.global().async {
             let postPath = self.serverPath + "/products/product/delete/" + id

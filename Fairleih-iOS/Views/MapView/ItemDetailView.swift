@@ -12,13 +12,17 @@ import Introspect
 struct ItemDetailView: View {
     @State var item: Product?
     @State var coordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 0, longitude: 0), latitudinalMeters: 750, longitudinalMeters: 750)
-    @State var owner: UserProfile?
+    @State var owner: UserProfile? {
+        didSet {
+            isMe = (owner?._id ?? "") == (UserObjectManager.shared.user?._id ?? "0")
+        }
+    }
+    @State var isMe = false
     
     @State var tabBar: UITabBar?
     @Environment(\.presentationMode) var presentation
     
     var body: some View {
-        let isMe = (owner?._id ?? "") == (UserObjectManager.shared.user?._id ?? "0")
         
         VStack(alignment: .leading, spacing: 10, content: {
             HStack{
@@ -103,40 +107,43 @@ struct ItemDetailView: View {
                     }
                     
                     HStack {
-                        Image(systemName: "person.crop.circle")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .opacity(0.5)
-                            .foregroundColor(.gray)
-                            .frame(width: 50, height: 50)
-                            .padding()
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text((owner?.name ?? "Product owner") + (isMe ? " (Me)" : ""))
-                                .font(.system(size: 20, weight: .regular, design: .default))
-                            if (owner?.numberOfRatings ?? 0) >= 5 {
-                                HStack(alignment: .center, spacing: 2, content: {
-                                    //                        Text("5/5")
-                                    //                            .padding(.trailing, 5)
-                                    ForEach(Range(uncheckedBounds: (lower: 0, upper: 5))) { index in
-                                        let isStarFilled = (index+1) <= Int(round((owner?.rating)!))
-                                        Image(systemName: isStarFilled ? "star.fill" : "star")
+                        NavigationLink(destination: UserProfilePageView(userProfile: owner), label: {
+                            Image(systemName: "person.crop.circle")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .opacity(0.5)
+                                .foregroundColor(.gray)
+                                .frame(width: 50, height: 50)
+                                .padding()
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text((owner?.name ?? "Product owner") + (isMe ? " (Me)" : ""))
+                                    .font(.system(size: 20, weight: .regular, design: .default))
+                                    .foregroundColor(Color.black)
+                                if (owner?.numberOfRatings ?? 0) >= 5 {
+                                    HStack(alignment: .center, spacing: 2, content: {
+                                        //                        Text("5/5")
+                                        //                            .padding(.trailing, 5)
+                                        ForEach(Range(uncheckedBounds: (lower: 0, upper: 5))) { index in
+                                            let isStarFilled = (index+1) <= Int(round((owner?.rating)!))
+                                            Image(systemName: isStarFilled ? "star.fill" : "star")
 
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .foregroundColor(.yellow)
-                                            .frame(width: 20, height: 20)
-                                        //                                        .padding()
-                                        
-                                    }
-                                })
-                            } else {
-                               Text("Not enough ratings")
-                                .italic()
-                                .font(.system(size: 13, weight: .regular, design: .default))
-                                .foregroundColor(Color.gray)
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                                .foregroundColor(.yellow)
+                                                .frame(width: 20, height: 20)
+                                            //                                        .padding()
+                                            
+                                        }
+                                    })
+                                } else {
+                                   Text("Not enough ratings")
+                                    .italic()
+                                    .font(.system(size: 13, weight: .regular, design: .default))
+                                    .foregroundColor(Color.gray)
+                                }
+                                
                             }
-                            
-                        }
+                        })
                         
                         Spacer()
                         

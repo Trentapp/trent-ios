@@ -44,10 +44,7 @@ class UserObjectManager: ObservableObject {
         var newInventory = [Product]()
         
         DispatchQueue.global().async {
-            for productId in self.user?.inventory ?? [] {
-                let product = BackendClient.shared.getProduct(for: productId)
-                if product != nil { newInventory.append(product!) }
-            }
+            newInventory = BackendClient.shared.getInventory(inventory: self.user?.inventory ?? [])
             DispatchQueue.main.async {
                 UserObjectManager.shared.inventory = newInventory
             }
