@@ -111,19 +111,29 @@ struct ItemDetailView: View {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(owner?.name ?? "Product owner")
                                 .font(.system(size: 20, weight: .regular, design: .default))
-                            HStack(alignment: .center, spacing: 2, content: {
-                                //                        Text("5/5")
-                                //                            .padding(.trailing, 5)
-                                ForEach(Range(uncheckedBounds: (lower: 0, upper: 5))) { index in
-                                    Image(systemName: "star.fill")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .foregroundColor(.yellow)
-                                        .frame(width: 20, height: 20)
-                                    //                                        .padding()
-                                    
-                                }
-                            })
+                            if (owner?.numberOfRatings ?? 0) >= 5 {
+                                HStack(alignment: .center, spacing: 2, content: {
+                                    //                        Text("5/5")
+                                    //                            .padding(.trailing, 5)
+                                    ForEach(Range(uncheckedBounds: (lower: 0, upper: 5))) { index in
+                                        let isStarFilled = (index+1) <= Int(round((owner?.rating)!))
+                                        Image(systemName: isStarFilled ? "star.fill" : "star")
+
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .foregroundColor(.yellow)
+                                            .frame(width: 20, height: 20)
+                                        //                                        .padding()
+                                        
+                                    }
+                                })
+                            } else {
+                               Text("Not enough ratings")
+                                .italic()
+                                .font(.system(size: 13, weight: .regular, design: .default))
+                                .foregroundColor(Color.gray)
+                            }
+                            
                         }
                         
                         Spacer()
