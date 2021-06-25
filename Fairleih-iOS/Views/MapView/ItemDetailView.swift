@@ -157,7 +157,7 @@ struct ItemDetailView: View {
                         .foregroundColor(.green)
                 })
                 .padding(.horizontal, 15)
-                
+
                 Spacer()
                 Button(action: {
                     print("Requesting")
@@ -175,9 +175,9 @@ struct ItemDetailView: View {
                 })
                 .padding(.horizontal, 15)
             }
-            .frame(height: 75)
+            .padding(.bottom, 30)
         })
-//        .padding(.bottom, -50)
+        .ignoresSafeArea(.container, edges: .bottom)
         .navigationBarTitle("")
         .navigationBarHidden(true)
         .introspectTabBarController { (UITabBarController) in
