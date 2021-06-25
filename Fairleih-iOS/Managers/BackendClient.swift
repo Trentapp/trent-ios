@@ -96,6 +96,16 @@ class BackendClient: ObservableObject {
             
             print(request.description)
             
+            let parameters = [
+                "uid" : AuthenticationManager.shared.currentUser?.uid ?? ""
+            ]
+            
+            do {
+                request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .withoutEscapingSlashes)
+            } catch let error {
+                print(error.localizedDescription)
+            }
+            
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 guard let data = data,
                       let response = response as? HTTPURLResponse,
@@ -118,6 +128,20 @@ class BackendClient: ObservableObject {
             task.resume()
             
             UserObjectManager.shared.refresh()
+        }
+    }
+    
+    func getUserProfile(for id: String) -> UserProfile? {
+        do {
+            let queryPath = serverPath + "/users/user-profile/" + id
+            let queryURL = URL(string: queryPath)!
+            let response = try String(contentsOf: queryURL)
+            let data = response.data(using: .utf8)!
+            let user = try JSONDecoder().decode(UserProfile.self, from: data)
+            return user
+        } catch {
+            print("Error while retrieving user profile: \(error.localizedDescription)")
+            return nil
         }
     }
     

@@ -13,4 +13,6 @@ struct UserObject: Codable {
     var mail: String
     var inventory: [String]
     var address: Address?
+    var rating: Double?
+    var numberOfRatings: Int?
 }

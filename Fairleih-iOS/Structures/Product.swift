@@ -11,6 +11,7 @@ import MapKit
 struct Product: Codable, Identifiable {
     let id = UUID()
     var _id: String
+    var user_id: String
     var name: String?
     var desc: String?
     var address: Address?
