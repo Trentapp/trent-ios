@@ -481,4 +481,53 @@ class BackendClient: ObservableObject {
         }
         
     }
+    
+    func sendMessage(chat_id: String, content: String) {
+        DispatchQueue.global().async {
+            //            var chats = [Chat]()
+            
+            let parameters: [String: Any] = [
+                "user_uid" : AuthenticationManager.shared.currentUser?.uid ?? "",
+                "chat_id" : chat_id,
+                "content" : content
+            ]
+            
+            let postPath = self.serverPath + "/chats/sendMessage"
+            let postURL = URL(string: postPath)!
+            var request = URLRequest(url: postURL)
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            request.httpMethod = "POST"
+            //        request.httpBody = parameters.percentEncoded()!
+            
+            do {
+                request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .withoutEscapingSlashes)
+            } catch let error {
+                print(error.localizedDescription)
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, err in
+                guard let data = data,
+                      let response = response as? HTTPURLResponse,
+                      err == nil else {
+                    return
+                }
+                
+                guard (200 ... 299) ~= response.statusCode else {
+                    return
+                }
+                
+//                do {
+//                    let chats = try JSONDecoder().decode([Chat].self, from: data)
+//                } catch {
+//                    print("Error while decoding chat response: \(error)")
+//                }
+            }
+            
+            
+            task.resume()
+            
+        }
+        
+    }
 }

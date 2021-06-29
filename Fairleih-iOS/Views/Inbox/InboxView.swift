@@ -29,7 +29,7 @@ struct InboxView: View {
                 List {
                     ForEach(chats ?? [] , id: \.self) { chat in
                         NavigationLink(
-                            destination: ChatView(),
+                            destination: ChatView(chat: chat),
                             label: {
                                 Text(chat.lender)
                             })
