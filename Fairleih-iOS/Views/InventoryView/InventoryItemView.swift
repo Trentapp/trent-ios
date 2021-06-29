@@ -12,37 +12,42 @@ struct InventoryItemView: View {
     @State var item: Product?
     
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 15)
-                .foregroundColor(.white)
-            VStack(alignment: .center, spacing: 10, content: {
-//                Image(uiImage: item?.thumbnailUIImage ?? UIImage())
-                RoundedRectangle(cornerRadius: 10)
-                HStack {
-                    Text(item?.name ?? "Untitled item")
-                        .bold()
-                        .multilineTextAlignment(.leading)
-                    Spacer()
-                }
-                HStack {
-                    Spacer()
-                    Text("\(String(format: "%.2f", round(100*(item?.prices?.perHour ?? 0))/100))€/hr")
-                        .multilineTextAlignment(.trailing)
-                }
-            })
-            .padding()
-        }
-        .contextMenu(ContextMenu(menuItems: {
-            if(item?.user_id == UserObjectManager.shared.user?._id) {
-                Button(action: {
-                    BackendClient.shared.deleteProduct(with: item?._id ?? "")
-                }, label: {
-                    Text("Delete")
-                        .foregroundColor(.red)
-                    Image(systemName: "trash")
-                        .foregroundColor(.red)
+        NavigationLink(destination: ItemDetailView(item: item), label: {
+            ZStack {
+                RoundedRectangle(cornerRadius: 15)
+                    .foregroundColor(.white)
+                VStack(alignment: .center, spacing: 10, content: {
+    //                Image(uiImage: item?.thumbnailUIImage ?? UIImage())
+                    RoundedRectangle(cornerRadius: 10)
+                        .foregroundColor(.black)
+                    HStack {
+                        Text(item?.name ?? "Untitled item")
+                            .bold()
+                            .multilineTextAlignment(.leading)
+                            .foregroundColor(.black)
+                        Spacer()
+                    }
+                    HStack {
+                        Spacer()
+                        Text("\(String(format: "%.2f", round(100*(item?.prices?.perHour ?? 0))/100))€/hr")
+                            .multilineTextAlignment(.trailing)
+                            .foregroundColor(.black)
+                    }
                 })
+                .padding()
             }
-        }))
+            .contextMenu(ContextMenu(menuItems: {
+                if(item?.user_id == UserObjectManager.shared.user?._id) {
+                    Button(action: {
+                        BackendClient.shared.deleteProduct(with: item?._id ?? "")
+                    }, label: {
+                        Text("Delete")
+                            .foregroundColor(.red)
+                        Image(systemName: "trash")
+                            .foregroundColor(.red)
+                    })
+                }
+            }))
+        })
     }
 }

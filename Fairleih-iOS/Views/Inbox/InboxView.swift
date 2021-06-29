@@ -6,11 +6,16 @@
 //
 
 import SwiftUI
+import Introspect
 
 struct InboxView: View {
     
     @State var chats: [Chat]?
     @State var isLoading = true
+    
+    @State private var selectedSection = 0
+    
+    @State var tabBar: UITabBar?
     
     var body: some View {
         ZStack {
@@ -23,17 +28,34 @@ struct InboxView: View {
             } else {
                 List {
                     ForEach(chats ?? [] , id: \.self) { chat in
-                        Text(chat.lender)
+                        NavigationLink(
+                            destination: ChatView(),
+                            label: {
+                                Text(chat.lender)
+                            })
                     }
+                    
                 }
             }
         }
-            .navigationBarTitle("Inbox", displayMode: .large)
-            .onAppear() {
-                BackendClient.shared.getChats { chats in
-                    self.chats = chats
-                    isLoading = false
-                }
+        .navigationBarTitle("Inbox", displayMode: .large)
+        .onAppear() {
+            BackendClient.shared.getChats { chats in
+                self.chats = chats
+                isLoading = false
             }
+            self.tabBar?.isHidden = false
+        }
+        .introspectTabBarController { (UITabBarController) in
+            self.tabBar = UITabBarController.tabBar
+        }
     }
 }
+
+
+//Picker(selection: $selectedSection, label: Text("Picker"), content: {
+//    Text("Lenders").tag(0)
+//    Text("Borrowers").tag(1)
+//})
+//.pickerStyle(SegmentedPickerStyle())
+//.frame(width: 300)

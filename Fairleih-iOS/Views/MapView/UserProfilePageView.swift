@@ -11,6 +11,7 @@ struct UserProfilePageView: View {
     
     @State var userProfile: UserProfile?
     @State var inventory = [Product]()
+    @State var updated = false
     
     var body: some View {
         ScrollView {
@@ -55,7 +56,10 @@ struct UserProfilePageView: View {
         }
             .navigationBarTitle(userProfile?.name ?? "User Profile", displayMode: .large)
             .onAppear(){
-                self.inventory = BackendClient.shared.getInventory(inventory: userProfile?.inventory ?? [])
+                if !updated {
+                    self.inventory = BackendClient.shared.getInventory(inventory: userProfile?.inventory ?? [])
+                    self.updated = true
+                }
             }
     }
 }

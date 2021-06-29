@@ -432,7 +432,7 @@ class BackendClient: ObservableObject {
     // Chats
     func getChats(completionHandler: @escaping (([Chat]) -> Void)) {
         DispatchQueue.global().async {
-//            var chats = [Chat]()
+            //            var chats = [Chat]()
             
             let parameters: [String: Any] = [
                 "uid" : AuthenticationManager.shared.currentUser?.uid ?? ""

@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import Introspect
 
 struct InventoryView: View {
     
     @ObservedObject var userObjectManager = UserObjectManager.shared
     @State var showAddProduct = false
+    
+    @State var tabBar: UITabBar?
     
     var body: some View {
         
@@ -50,9 +53,14 @@ struct InventoryView: View {
         .sheet(isPresented: $showAddProduct, content: { AddProductView() })
         .navigationTitle("Inventory")
         .navigationViewStyle(StackNavigationViewStyle())
-        .onAppear() {
-            UserObjectManager.shared.refresh()
+        .introspectTabBarController { (UITabBarController) in
+            self.tabBar = UITabBarController.tabBar
         }
+        .onAppear() {
+            self.tabBar?.isHidden = false
+//            UserObjectManager.shared.refresh()
+        }
+        
     }
 }
 
