@@ -52,5 +52,53 @@
             landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B2CB890E-57A6-423A-9CE0-BD256B780EA6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Fairleih-iOS/Views/InventoryView/InventoryItemView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "B2CB890E-57A6-423A-9CE0-BD256B780EA6 - 561105a2d9e4c97a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Fairleih_iOS.InventoryItemView.body.getter : some"
+                  moduleName = "Fairleih-iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fynnkiwitt/Desktop/Fairleih-iOS/Fairleih-iOS/Views/InventoryView/InventoryItemView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "921">
+               </Location>
+               <Location
+                  uuid = "B2CB890E-57A6-423A-9CE0-BD256B780EA6 - 36d3c6d8079f2edc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 () -&gt; Fairleih_iOS.AddProductView in Fairleih_iOS.InventoryItemView.body.getter : some"
+                  moduleName = "Fairleih-iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fynnkiwitt/Desktop/Fairleih-iOS/Fairleih-iOS/Views/InventoryView/InventoryItemView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "219">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

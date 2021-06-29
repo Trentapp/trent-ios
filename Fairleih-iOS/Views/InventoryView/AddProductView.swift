@@ -30,131 +30,145 @@ struct AddProductView: View {
     
     @State var photos: [UIImage] = []
     
-    init() {
+    @State var isSaving = false
+    
+    var item: Product?
+    
+    init(item: Product? = nil) {
         UITextView.appearance().backgroundColor = .clear
+        self.item = item
     }
     
     var body: some View {
         NavigationView {
             ScrollView([], showsIndicators: false) {
-            VStack(alignment: .leading, spacing: 0, content: {
-                Spacer()
-                    .frame(height: 10)
-                TextField("Name", text: $name)
-                    .minimumScaleFactor(0.6)
-                    .font(.largeTitle)
-                    .padding(.horizontal, 20)
-                    .padding(.vertical)
-                ZStack(alignment: .leading) {
-                    if(description.isEmpty) {
-                        TextEditor(text: $placeholder)
-                            .foregroundColor(.gray)
-                            .opacity(0.5)
-                    }
-                    TextEditor(text: $description)
-                }
-                .padding(.horizontal, 15)
-                .frame(height: 200)
-                
-                Divider()
-                
-                Text("Prices")
-                    .padding()
-                    .font(.system(size: 25, weight: .bold, design: .default))
-                
-                Toggle(isOn: $isAvailablePerHour, label: {
-                    Text("Per hour")
-                        .foregroundColor(isAvailablePerHour ? .black : .gray)
-                    TextField("0", text: $priceHour)
-                        .padding(.horizontal, 10)
-                        .keyboardType(.numbersAndPunctuation)
-                        .frame(width: 50)
-                    Text("€")
-                        .foregroundColor(isAvailablePerHour ? .black : .gray)
-                })
-                .padding(.horizontal)
-                
-                Toggle(isOn: $isAvailablePerDay, label: {
-                    Text("Per day")
-                        .foregroundColor(isAvailablePerDay ? .black : .gray)
-                    TextField("0", text: $priceDay)
-                        .padding(.horizontal, 10)
-                        .keyboardType(.numbersAndPunctuation)
-                        .frame(width: 50)
-                    Text("€")
-                        .foregroundColor(isAvailablePerDay ? .black : .gray)
-                })
-                .padding(.horizontal)
-                .padding(.vertical, 10)
-                
-                
-                // Extremly ugly hack, plz fix @Apple
-                PhotoView(isShowActionSheet: $isShowActionSheet, photos: $photos)
-                
-                
-                Spacer()
-                
-                
-                Button(action: {
-                    
-                    var prices: [String : Any] = [:]
-                    
-                    if let priceHourNumber = Double(priceHour) {
-                        prices["perHour"] = priceHourNumber
-                    }
-                    
-                    if let priceDayNumber = Double(priceDay) {
-                        prices["perDay"] = priceDayNumber
-                    }
-                    
-                    let address = (try? JSONSerialization.jsonObject(with: JSONEncoder().encode(UserObjectManager.shared.user?.address))) as? [String: Any] ?? [:]
-                    
-                    
-                    var photos_b64: [String] = []
-                    
-                    for photo in photos {
-                        let photo_data = resizeImage(image: photo, targetSize: CGSize(width: 100, height: 100)).jpegData(compressionQuality: 0)
-                        let photo_b64 = photo_data?.base64EncodedString() ?? ""
-                        photos_b64.append(photo_b64)
-                    }
-                    
-                    let parameters: [String : Any] = [
-                        "name" : name,
-                        "desc" : description,
-                        "address" : address,
-                        "prices" : prices,
-                        "pictures" : photos_b64.first
-                    ]
-                    
-                    let uid = AuthenticationManager.shared.currentUser?.uid ?? ""
-                    
-                    let request: [String : Any] = [
-                        "user_uid" : uid,
-                        "product" : parameters
-                    ]
-                    
-                    BackendClient.shared.postNewItem(parameters: request) { successful in
-                        print("successful: \(successful)")
-                        if successful {
-                            presentationMode.wrappedValue.dismiss()
-                        } else {
-                            showAlert = true
+                VStack(alignment: .leading, spacing: 0, content: {
+                    Spacer()
+                        .frame(height: 10)
+                    TextField("Name", text: $name)
+                        .minimumScaleFactor(0.6)
+                        .font(.largeTitle)
+                        .padding(.horizontal, 20)
+                        .padding(.vertical)
+                    ZStack(alignment: .leading) {
+                        if(description.isEmpty) {
+                            TextEditor(text: $placeholder)
+                                .foregroundColor(.gray)
+                                .opacity(0.5)
                         }
+                        TextEditor(text: $description)
                     }
-
-                }, label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 15)
-                            .foregroundColor(.blue)
-                            .frame(height: 50)
-                        Text("Publish")
-                            .foregroundColor(.white)
-                            .bold()
+                    .padding(.horizontal, 15)
+                    .frame(height: 200)
+                    
+                    Divider()
+                    
+                    Text("Prices")
+                        .padding()
+                        .font(.system(size: 25, weight: .bold, design: .default))
+                    
+                    Toggle(isOn: $isAvailablePerHour, label: {
+                        Text("Per hour")
+                            .foregroundColor(isAvailablePerHour ? .black : .gray)
+                        TextField("0", text: $priceHour)
+                            .multilineTextAlignment(.trailing)
+                            .padding(.horizontal, 10)
+                            .keyboardType(.numbersAndPunctuation)
+                            .frame(width: 100)
+                        Text("€")
+                            .foregroundColor(isAvailablePerHour ? .black : .gray)
+                    })
+                    .padding(.horizontal)
+                    
+                    Toggle(isOn: $isAvailablePerDay, label: {
+                        Text("Per day")
+                            .foregroundColor(isAvailablePerDay ? .black : .gray)
+                        TextField("0", text: $priceDay)
+                            .multilineTextAlignment(.trailing)
+                            .padding(.horizontal, 10)
+                            .keyboardType(.numbersAndPunctuation)
+                            .frame(width: 100)
+                        Text("€")
+                            .foregroundColor(isAvailablePerDay ? .black : .gray)
+                    })
+                    .padding(.horizontal)
+                    .padding(.vertical, 10)
+                    
+                    
+                    // Extremly ugly hack, plz fix @Apple
+                    PhotoView(isShowActionSheet: $isShowActionSheet, photos: $photos)
+                    
+                    
+                    Spacer()
+                    
+                    if(item == nil){
+                        Button(action: {
+                            
+                            var prices: [String : Any] = [:]
+                            
+                            if let priceHourNumber = Double(priceHour) {
+                                prices["perHour"] = priceHourNumber
+                            }
+                            
+                            if let priceDayNumber = Double(priceDay) {
+                                prices["perDay"] = priceDayNumber
+                            }
+                            
+                            let address = (try? JSONSerialization.jsonObject(with: JSONEncoder().encode(UserObjectManager.shared.user?.address))) as? [String: Any] ?? [:]
+                            
+                            
+                            var photos_b64: [String] = []
+                            
+                            for photo in photos {
+                                let photo_data = resizeImage(image: photo, targetSize: CGSize(width: 100, height: 100)).jpegData(compressionQuality: 0)
+                                let photo_b64 = photo_data?.base64EncodedString() ?? ""
+                                photos_b64.append(photo_b64)
+                            }
+                            
+                            let parameters: [String : Any] = [
+                                "name" : name,
+                                "desc" : description,
+                                "address" : address,
+                                "prices" : prices,
+                                "pictures" : photos_b64.first
+                            ]
+                            
+                            let uid = AuthenticationManager.shared.currentUser?.uid ?? ""
+                            
+                            let request: [String : Any] = [
+                                "user_uid" : uid,
+                                "product" : parameters
+                            ]
+                            
+                            if item != nil {
+                                // TODO: Update
+                                presentationMode.wrappedValue.dismiss()
+                            } else {
+                                isSaving = true
+                                BackendClient.shared.postNewItem(parameters: request) { successful in
+                                    isSaving = false
+                                    print("successful: \(successful)")
+                                    if successful {
+                                        presentationMode.wrappedValue.dismiss()
+                                    } else {
+                                        showAlert = true
+                                    }
+                                }
+                            }
+                            
+                        }, label: {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 15)
+                                    .foregroundColor(.blue)
+                                    .frame(height: 50)
+                                Text("Publish")
+                                    .foregroundColor(.white)
+                                    .bold()
+                            }
+                        })
+                        .padding(.all, 10)
                     }
                 })
-                .padding(.all, 10)
-
-            })
             }
             .alert(isPresented: $showAlert) {
                 Alert(title: Text("Error"), message: Text("An error occured when trying to add your item. Please try again later."), dismissButton: .default(Text("Cancel")))
@@ -171,7 +185,7 @@ struct AddProductView: View {
                     Alert.Button.cancel()
                 ])
             })
-        
+            
             .sheet(isPresented: $isShowPhotoLibrary) {
                 //ImagePicker(sourceType: .photoLibrary)
                 PHPicker(selectedPhotos: $photos)
@@ -183,9 +197,39 @@ struct AddProductView: View {
             }
             
             .navigationBarTitle("Add Product", displayMode: .inline)
-            .navigationBarItems(trailing: Button("Cancel", action: {
+            .navigationBarItems(leading: Button(action: {
                 presentationMode.wrappedValue.dismiss()
-            }))
+            }, label: {
+                Text("Cancel")
+                    .fontWeight(Font.Weight.regular)
+            }),
+            trailing:
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }, label:{
+                    if isSaving {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle())
+                    } else {
+                        (self.item != nil) ? Text("Update") : Text("Save")
+                    }
+                })
+            )
+            .onAppear(){
+                if item != nil {
+                    self.name = self.item!.name!
+                    self.description = self.item!.desc!
+                    
+                    if item?.prices?.perHour != nil {
+                        self.priceHour = "\(item!.prices!.perHour!)"
+                    } else { self.isAvailablePerHour = false }
+                    
+                    if item?.prices?.perDay != nil {
+                        self.priceDay = "\(item!.prices!.perDay!)"
+                    } else { self.isAvailablePerDay = false }
+                    
+                }
+            }
         }
     }
 }
@@ -196,11 +240,11 @@ struct PhotoView: View {
     
     var body: some View {
         Divider()
-
+        
         Text("Photos")
             .padding()
             .font(.system(size: 25, weight: .bold, design: .default))
-
+        
         Button(action: {
             isShowActionSheet.toggle()
         }, label: {
@@ -216,7 +260,7 @@ struct PhotoView: View {
         .padding()
         
         Text("\(photos.count) image(s) selected")
-                        
+        
     }
 }
 
