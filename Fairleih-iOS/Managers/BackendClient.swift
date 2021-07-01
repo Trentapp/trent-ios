@@ -530,4 +530,22 @@ class BackendClient: ObservableObject {
         }
         
     }
+    
+    
+    // Requests
+    func getTransactionsAsLender() -> [Transaction]? {
+        do {
+            let queryPath = serverPath + "/transactions/findByLender/" + (UserObjectManager.shared.user?._id ?? "")
+            print("Querying: \(queryPath)")
+            let queryURL = URL(string: queryPath)!
+            let response = try String(contentsOf: queryURL)
+            let data = response.data(using: .utf8)!
+            let transactions = try JSONDecoder().decode([Transaction].self, from: data)
+            return transactions
+        } catch {
+            print("Error while retrieving user: \(error.localizedDescription)")
+            return nil
+        }
+    }
+    
 }

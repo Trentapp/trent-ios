@@ -11,6 +11,7 @@ import Introspect
 struct InboxView: View {
     
     @State var chats: [Chat]?
+    @State var transactions: [Transaction]?
     @State var isLoading = true
     
     @State private var selectedSection = 0
@@ -27,14 +28,66 @@ struct InboxView: View {
                     .foregroundColor(.gray)
             } else {
                 List {
-                    ForEach(chats ?? [] , id: \.self) { chat in
-                        NavigationLink(
-                            destination: ChatView(chat: chat),
-                            label: {
-                                Text(chat.lender)
-                            })
+                    Section(header: Text("Requests")) {
+                        if transactions == nil {
+                            Text("No requests yet")
+                                .foregroundColor(.gray)
+                        }
+                        ForEach(transactions ?? [] , id: \.self) { transaction in
+                            HStack{
+                                VStack {
+                                    Text(transaction.borrower)
+                                    Text(transaction.item)
+                                }
+                                Spacer()
+                                if transaction.granted == 2 {
+                                    Text("Accepted")
+                                        .foregroundColor(.green)
+                                } else if transaction.granted == 1 {
+                                    Text("Rejected")
+                                        .foregroundColor(.green)
+                                } else {
+                                    Button(action: {}, label: {
+                                        ZStack {
+                                            Circle()
+                                                .foregroundColor(.green)
+                                                .opacity(0.5)
+                                            Image(systemName: "checkmark")
+                                                .foregroundColor(.green)
+                                        }
+                                        .frame(width: 30, height: 30)
+                                    })
+                                    .buttonStyle(PlainButtonStyle())
+                                    Button(action: {}, label: {
+                                        ZStack {
+                                            Circle()
+                                                .foregroundColor(.red)
+                                                .opacity(0.5)
+                                            Image(systemName: "xmark")
+                                                .foregroundColor(.red)
+                                        }
+                                        .frame(width: 30, height: 30)
+                                    })
+                                    .buttonStyle(PlainButtonStyle())
+                                }
+                            }
+                            
+                        }
                     }
                     
+                    Section(header: Text("Messages")) {
+                        if chats == nil {
+                            Text("No chats yet")
+                                .foregroundColor(.gray)
+                        }
+                        ForEach(chats ?? [] , id: \.self) { chat in
+                            NavigationLink(
+                                destination: ChatView(chat: chat),
+                                label: {
+                                    Text(chat.lender)
+                                })
+                        }
+                    }
                 }
             }
         }
@@ -43,6 +96,12 @@ struct InboxView: View {
             BackendClient.shared.getChats { chats in
                 self.chats = chats
                 isLoading = false
+            }
+            DispatchQueue.global().async {
+                let transactions = BackendClient.shared.getTransactionsAsLender()
+                DispatchQueue.main.async {
+                    self.transactions = transactions
+                }
             }
             self.tabBar?.isHidden = false
         }
