@@ -24,7 +24,7 @@
 		B051EADA26662E2B002CF297 /* InventoryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B051EAD926662E2B002CF297 /* InventoryCollectionView.swift */; };
 		B051EADF26662FBE002CF297 /* InventoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B051EADE26662FBE002CF297 /* InventoryItemView.swift */; };
 		B05F67FE2667681300A58505 /* PhotoPickerViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05F67FD2667681300A58505 /* PhotoPickerViews.swift */; };
-		B06F7978264A6B5500049EF2 /* Fairleih_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F7977264A6B5500049EF2 /* Fairleih_iOSApp.swift */; };
+		B06F7978264A6B5500049EF2 /* TrentApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F7977264A6B5500049EF2 /* TrentApp.swift */; };
 		B06F797A264A6B5500049EF2 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F7979264A6B5500049EF2 /* MapView.swift */; };
 		B06F797C264A6B5700049EF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B06F797B264A6B5700049EF2 /* Assets.xcassets */; };
 		B06F797F264A6B5700049EF2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B06F797E264A6B5700049EF2 /* Preview Assets.xcassets */; };
@@ -67,8 +67,8 @@
 		B051EAD926662E2B002CF297 /* InventoryCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryCollectionView.swift; sourceTree = "<group>"; };
 		B051EADE26662FBE002CF297 /* InventoryItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryItemView.swift; sourceTree = "<group>"; };
 		B05F67FD2667681300A58505 /* PhotoPickerViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerViews.swift; sourceTree = "<group>"; };
-		B06F7974264A6B5500049EF2 /* Fairleih-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fairleih-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B06F7977264A6B5500049EF2 /* Fairleih_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fairleih_iOSApp.swift; sourceTree = "<group>"; };
+		B06F7974264A6B5500049EF2 /* Trent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trent.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B06F7977264A6B5500049EF2 /* TrentApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrentApp.swift; sourceTree = "<group>"; };
 		B06F7979264A6B5500049EF2 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		B06F797B264A6B5700049EF2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B06F797E264A6B5700049EF2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -213,7 +213,7 @@
 		B06F796B264A6B5500049EF2 = {
 			isa = PBXGroup;
 			children = (
-				B06F7976264A6B5500049EF2 /* Fairleih-iOS */,
+				B06F7976264A6B5500049EF2 /* Trent */,
 				B06F7975264A6B5500049EF2 /* Products */,
 				78E16584038F1B578A98B2AF /* Pods */,
 				731D49436CA373D7ABEDA15D /* Frameworks */,
@@ -223,15 +223,15 @@
 		B06F7975264A6B5500049EF2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B06F7974264A6B5500049EF2 /* Fairleih-iOS.app */,
+				B06F7974264A6B5500049EF2 /* Trent.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B06F7976264A6B5500049EF2 /* Fairleih-iOS */ = {
+		B06F7976264A6B5500049EF2 /* Trent */ = {
 			isa = PBXGroup;
 			children = (
-				B06F7977264A6B5500049EF2 /* Fairleih_iOSApp.swift */,
+				B06F7977264A6B5500049EF2 /* TrentApp.swift */,
 				B029AD0626623E2D00279911 /* Views */,
 				B01C139A267FE1390078E584 /* Managers */,
 				B01C139B267FE17E0078E584 /* Structures */,
@@ -241,7 +241,7 @@
 				B0F37CC4265ECFFC00D7905E /* GoogleService-Info.plist */,
 				B06F797D264A6B5700049EF2 /* Preview Content */,
 			);
-			path = "Fairleih-iOS";
+			path = Trent;
 			sourceTree = "<group>";
 		};
 		B06F797D264A6B5700049EF2 /* Preview Content */ = {
@@ -281,9 +281,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B06F7973264A6B5500049EF2 /* Fairleih-iOS */ = {
+		B06F7973264A6B5500049EF2 /* Trent */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B06F7983264A6B5700049EF2 /* Build configuration list for PBXNativeTarget "Fairleih-iOS" */;
+			buildConfigurationList = B06F7983264A6B5700049EF2 /* Build configuration list for PBXNativeTarget "Trent" */;
 			buildPhases = (
 				82016D4655FCFEA947401BE6 /* [CP] Check Pods Manifest.lock */,
 				B06F7970264A6B5500049EF2 /* Sources */,
@@ -295,9 +295,9 @@
 			);
 			dependencies = (
 			);
-			name = "Fairleih-iOS";
+			name = Trent;
 			productName = "Fairleih-iOS";
-			productReference = B06F7974264A6B5500049EF2 /* Fairleih-iOS.app */;
+			productReference = B06F7974264A6B5500049EF2 /* Trent.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -314,7 +314,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B06F796F264A6B5500049EF2 /* Build configuration list for PBXProject "Fairleih-iOS" */;
+			buildConfigurationList = B06F796F264A6B5500049EF2 /* Build configuration list for PBXProject "Trent" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -327,7 +327,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B06F7973264A6B5500049EF2 /* Fairleih-iOS */,
+				B06F7973264A6B5500049EF2 /* Trent */,
 			);
 		};
 /* End PBXProject section */
@@ -423,7 +423,7 @@
 				B051EADF26662FBE002CF297 /* InventoryItemView.swift in Sources */,
 				B093B5A02685CA310051B7CC /* Review.swift in Sources */,
 				B06F797A264A6B5500049EF2 /* MapView.swift in Sources */,
-				B06F7978264A6B5500049EF2 /* Fairleih_iOSApp.swift in Sources */,
+				B06F7978264A6B5500049EF2 /* TrentApp.swift in Sources */,
 				B0F37CC7265EDAD500D7905E /* SignupView.swift in Sources */,
 				B093B59C2685B6A90051B7CC /* UserProfilePageView.swift in Sources */,
 				B093B5A426860D220051B7CC /* InboxView.swift in Sources */,
@@ -557,10 +557,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Fairleih-iOS/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Trent/Preview Content\"";
 				DEVELOPMENT_TEAM = KVCPY3737Z;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "Fairleih-iOS/Info.plist";
+				INFOPLIST_FILE = Trent/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -580,10 +580,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Fairleih-iOS/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Trent/Preview Content\"";
 				DEVELOPMENT_TEAM = KVCPY3737Z;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "Fairleih-iOS/Info.plist";
+				INFOPLIST_FILE = Trent/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -599,7 +599,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B06F796F264A6B5500049EF2 /* Build configuration list for PBXProject "Fairleih-iOS" */ = {
+		B06F796F264A6B5500049EF2 /* Build configuration list for PBXProject "Trent" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B06F7981264A6B5700049EF2 /* Debug */,
@@ -608,7 +608,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B06F7983264A6B5700049EF2 /* Build configuration list for PBXNativeTarget "Fairleih-iOS" */ = {
+		B06F7983264A6B5700049EF2 /* Build configuration list for PBXNativeTarget "Trent" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B06F7984264A6B5700049EF2 /* Debug */,
