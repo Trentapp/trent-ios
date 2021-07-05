@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>571275392945-atetsbgppjrl1d03udk8ggb8eglml4as.apps.googleusercontent.com</string>
+	<string>571275392945-5h1006cba1k2hm91dssf59jlhe2dt1g9.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.571275392945-atetsbgppjrl1d03udk8ggb8eglml4as</string>
+	<string>com.googleusercontent.apps.571275392945-5h1006cba1k2hm91dssf59jlhe2dt1g9</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCNOw_IVrkyPV3MRURbknxgerc7fXLaUnU</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>fynnkiwitt.Fairleih-iOS</string>
+	<string>fynnkiwitt.Trent</string>
 	<key>PROJECT_ID</key>
 	<string>fairleih-82ffa</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:571275392945:ios:0216864cdbcf037b952f90</string>
+	<string>1:571275392945:ios:79696fe8cbc0f200952f90</string>
 </dict>
 </plist>

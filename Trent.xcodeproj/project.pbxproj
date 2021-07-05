@@ -37,12 +37,12 @@
 		B093B5A226860C750051B7CC /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093B5A126860C750051B7CC /* Chat.swift */; };
 		B093B5A426860D220051B7CC /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093B5A326860D220051B7CC /* InboxView.swift */; };
 		B093B5A726861FAD0051B7CC /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093B5A626861FAD0051B7CC /* ChatView.swift */; };
+		B09698E0269396C400068BA3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B09698DF269396C400068BA3 /* GoogleService-Info.plist */; };
 		B0989253268B319200574719 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0989252268B319200574719 /* Transaction.swift */; };
 		B0D4FB12267D0DBB00BADF68 /* EditAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D4FB11267D0DBB00BADF68 /* EditAccountView.swift */; };
 		B0E182172664140300F20D27 /* InventoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E182162664140300F20D27 /* InventoryView.swift */; };
 		B0F01F61265FAFA300BDFA18 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F01F60265FAFA300BDFA18 /* Product.swift */; };
 		B0F37CC3265ECC7000D7905E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F37CC2265ECC7000D7905E /* LoginView.swift */; };
-		B0F37CC5265ECFFC00D7905E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0F37CC4265ECFFC00D7905E /* GoogleService-Info.plist */; };
 		B0F37CC7265EDAD500D7905E /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F37CC6265EDAD400D7905E /* SignupView.swift */; };
 		B0F37CC9265EE8AA00D7905E /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F37CC8265EE8AA00D7905E /* AuthenticationManager.swift */; };
 		B0FD5576268DE09300460CBA /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FD5575268DE09300460CBA /* DashboardView.swift */; };
@@ -82,12 +82,12 @@
 		B093B5A126860C750051B7CC /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		B093B5A326860D220051B7CC /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
 		B093B5A626861FAD0051B7CC /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		B09698DF269396C400068BA3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B0989252268B319200574719 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		B0D4FB11267D0DBB00BADF68 /* EditAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountView.swift; sourceTree = "<group>"; };
 		B0E182162664140300F20D27 /* InventoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryView.swift; sourceTree = "<group>"; };
 		B0F01F60265FAFA300BDFA18 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		B0F37CC2265ECC7000D7905E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		B0F37CC4265ECFFC00D7905E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B0F37CC6265EDAD400D7905E /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		B0F37CC8265EE8AA00D7905E /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		B0FD5575268DE09300460CBA /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
@@ -238,7 +238,7 @@
 				B01C139C267FE18F0078E584 /* Extensions */,
 				B06F797B264A6B5700049EF2 /* Assets.xcassets */,
 				B06F7980264A6B5700049EF2 /* Info.plist */,
-				B0F37CC4265ECFFC00D7905E /* GoogleService-Info.plist */,
+				B09698DF269396C400068BA3 /* GoogleService-Info.plist */,
 				B06F797D264A6B5700049EF2 /* Preview Content */,
 			);
 			path = Trent;
@@ -339,7 +339,7 @@
 			files = (
 				B06F797F264A6B5700049EF2 /* Preview Assets.xcassets in Resources */,
 				B06F797C264A6B5700049EF2 /* Assets.xcassets in Resources */,
-				B0F37CC5265ECFFC00D7905E /* GoogleService-Info.plist in Resources */,
+				B09698E0269396C400068BA3 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -566,7 +566,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "fynnkiwitt.Fairleih-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = fynnkiwitt.Trent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -589,7 +589,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "fynnkiwitt.Fairleih-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = fynnkiwitt.Trent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
