@@ -26,6 +26,7 @@ struct Fairleih_iOSApp: App {
         WindowGroup {
             if userObjectManager.loggedIn {
                 MainView()
+//                DashboardView()
             } else {
                 SignupView()
             }

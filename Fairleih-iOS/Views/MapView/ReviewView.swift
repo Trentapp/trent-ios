@@ -40,7 +40,7 @@ struct ReviewView: View {
                                 }
                                 Spacer()
                             })
-                            Text("From \(review.posterId)")
+                            Text("From \(review.poster.name)")
                                 .foregroundColor(.gray)
                                 .font(.system(size: 15))
                             Text(review.comment)

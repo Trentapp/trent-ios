@@ -19,7 +19,7 @@ struct DetailBottomView: View {
                     .frame(width: 300, height: 75)
                     .padding()
                 HStack(alignment: .center, spacing: 10, content: {
-                    Image(uiImage: UIImage(data: Data(base64Encoded: controler.currentlyFocusedItem?.pictures?.first ?? "") ?? Data()) ?? UIImage())
+                    Image(uiImage: controler.currentlyFocusedItem?.picturesUIImage.first ?? UIImage())
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 55, height: 55)

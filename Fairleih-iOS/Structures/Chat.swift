@@ -11,7 +11,7 @@ struct Chat: Codable, Hashable {
     var _id: String
     var lender: String
     var borrower: String
-    var item_id: String
+    var item: Product
     var messages: [Message]
 }
 

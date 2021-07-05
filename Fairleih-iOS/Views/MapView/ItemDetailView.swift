@@ -47,7 +47,7 @@ struct ItemDetailView: View {
                 VStack(alignment: .leading, spacing: 10, content: {
                     HStack {
                         Spacer()
-                        Image(uiImage: UIImage(data: Data(base64Encoded: item?.pictures?.first ?? "") ?? Data()) ?? UIImage())
+                        Image(uiImage: item?.picturesUIImage.first ?? UIImage())
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(height: 250)
@@ -208,13 +208,13 @@ struct ItemDetailView: View {
         .onAppear(){
             self.tabBar?.isHidden = true
             self.coordinateRegion = MKCoordinateRegion(center: item?.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0), latitudinalMeters: 750, longitudinalMeters: 750)
-            self.owner = BackendClient.shared.getUserProfile(for: item?.user_id ?? "")
+            self.owner = BackendClient.shared.getUserProfile(for: item?.user?._id ?? "")
         }
     }
 }
 
 struct ItemDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ItemDetailView(item: Product(_id: "000", user_id: "", name: "Kärcher High Pressure Washer", desc: "Super Kärcher High Pressure Washer. Cleans surfaces amazingly. Lorem ipsum dolor sit amit", address: Address(street: "Some Street", houseNumber: "42c", zipcode: "69115", city: "Heidelberg", country: "Germany"), location: Coordinates(coordinates: [7.8, 49.47]), prices: Prices(perHour: 7.5, perDay: 20)))
+        ItemDetailView(item: Product(_id: "000", user: UserProfile(_id: "", name: ""), name: "Kärcher High Pressure Washer", desc: "Super Kärcher High Pressure Washer. Cleans surfaces amazingly. Lorem ipsum dolor sit amit", address: Address(street: "Some Street", houseNumber: "42c", zipcode: "69115", city: "Heidelberg", country: "Germany"), location: Coordinates(coordinates: [7.8, 49.47]), prices: Prices(perHour: 7.5, perDay: 20)))
     }
 }

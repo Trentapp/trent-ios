@@ -40,7 +40,7 @@ struct InventoryItemView: View {
             
         })
         .contextMenu(ContextMenu(menuItems: {
-            if(item?.user_id == UserObjectManager.shared.user?._id) {
+            if(item?.user?._id == UserObjectManager.shared.user?._id) {
                 Button( action: { self.showEditProduct.toggle() },
                         label: {
                             Text("Edit")

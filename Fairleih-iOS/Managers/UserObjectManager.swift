@@ -18,7 +18,7 @@ class UserObjectManager: ObservableObject {
     @Published var user: UserObject? = nil {
         didSet {
             if user == nil {
-                UserObjectManager.shared.loggedIn = false
+                self.loggedIn = false
             }
         }
     }
