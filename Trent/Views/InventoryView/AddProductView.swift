@@ -164,7 +164,7 @@ struct AddProductView: View {
                                     }
 
                                     multipartFormData.append(bodyData, withName: "product", fileName: "product")
-                                }, to: "http://localhost:8000/api/products/create2")
+                                }, to: serverBaseURL + "/api/products/create2")
                                 .response { dataResponse in
                                     UserObjectManager.shared.refresh()
                                     isSaving = false
