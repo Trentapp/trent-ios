@@ -6,6 +6,7 @@ target 'Fairleih-iOS' do
   use_frameworks!
   pod 'Firebase/Auth'
   pod 'Introspect'
+  pod 'Alamofire', '~> 5.4'
 
   # Pods for Fairleih-iOS
 

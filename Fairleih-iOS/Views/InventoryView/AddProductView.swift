@@ -8,6 +8,7 @@
 import SwiftUI
 import UIKit
 import PhotosUI
+import Alamofire
 
 struct AddProductView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -105,55 +106,88 @@ struct AddProductView: View {
                         Button(action: {
                             
                             var prices: [String : Any] = [:]
-                            
+
                             if let priceHourNumber = Double(priceHour) {
                                 prices["perHour"] = priceHourNumber
                             }
-                            
+
                             if let priceDayNumber = Double(priceDay) {
                                 prices["perDay"] = priceDayNumber
                             }
                             
+//                            let prices = Prices(perHour: Double(priceHour), perDay: Double(priceDay))
+                            
                             let address = (try? JSONSerialization.jsonObject(with: JSONEncoder().encode(UserObjectManager.shared.user?.address))) as? [String: Any] ?? [:]
                             
                             
-                            var photos_b64: [String] = []
+                            var photosData: [Data] = []
                             
                             for photo in photos {
-                                let photo_data = resizeImage(image: photo, targetSize: CGSize(width: 100, height: 100)).jpegData(compressionQuality: 0)
-                                let photo_b64 = photo_data?.base64EncodedString() ?? ""
-                                photos_b64.append(photo_b64)
+//                                let photo_data = resizeImage(image: photo, targetSize: CGSize(width: 100, height: 100)).jpegData(compressionQuality: 0)
+//                                let photo_b64 = photo_data?.base64EncodedString() ?? ""
+                                let photoData = photo.jpegData(compressionQuality: 0)
+                                if photoData == nil { continue }
+                                photosData.append(photoData!)
                             }
+                            
+                            let uid = AuthenticationManager.shared.currentUser?.uid ?? ""
                             
                             let parameters: [String : Any] = [
                                 "name" : name,
                                 "desc" : description,
                                 "address" : address,
-                                "prices" : prices,
-                                "pictures" : photos_b64.first
+                                "prices" : prices
                             ]
                             
-                            let uid = AuthenticationManager.shared.currentUser?.uid ?? ""
-                            
-                            let request: [String : Any] = [
-                                "user_uid" : uid,
-                                "product" : parameters
+                            let body: [String : Any] = [
+                                "product" : parameters,
+                                "user_uid" : uid
                             ]
+                            
+//                            let parametersJSON = (try? JSONSerialization.jsonObject(with: JSONEncoder().encode(parameters)))
+                            let bodyData = ((try? JSONSerialization.data(withJSONObject: body, options: [])) ?? Data())
+                            
+//                            let request: [String : Any] = [
+//                                "user_uid" : uid,
+//                                "product" : parameters
+//                            ]
                             
                             if item != nil {
                                 // TODO: Update
                                 presentationMode.wrappedValue.dismiss()
                             } else {
                                 isSaving = true
-                                BackendClient.shared.postNewItem(parameters: request) { successful in
+                                
+                                AF.upload(multipartFormData: { multipartFormData in
+                                    for photo in photosData {
+                                        multipartFormData.append(photo, withName: "image", fileName: "image")
+                                    }
+
+                                    multipartFormData.append(bodyData, withName: "product", fileName: "product")
+                                }, to: "http://localhost:8000/api/products/create2")
+                                .response { dataResponse in
+                                    UserObjectManager.shared.refresh()
                                     isSaving = false
-                                    print("successful: \(successful)")
-                                    if successful {
+                                    
+                                    switch dataResponse.result {
+                                    case .success :
                                         presentationMode.wrappedValue.dismiss()
-                                    } else {
+                                    
+                                    default:
                                         showAlert = true
                                     }
+                                    print(dataResponse.debugDescription)
                                 }
+                                
+//                                BackendClient.shared.postNewItem(parameters: request) { successful in
+//                                    isSaving = false
+//                                    print("successful: \(successful)")
+//                                    if successful {
+//                                        presentationMode.wrappedValue.dismiss()
+//                                    } else {
+//                                        showAlert = true
+//                                    }
+//                                }
                             }
                             
                         }, label: {
@@ -211,9 +245,10 @@ struct AddProductView: View {
                         ProgressView()
                             .progressViewStyle(CircularProgressViewStyle())
                     } else {
-                        (self.item != nil) ? Text("Update") : Text("Save")
+                        (self.item != nil) ? Text("Update") : Text("")
                     }
                 })
+                .disabled(self.item != nil)
             )
             .onAppear(){
                 if item != nil {
