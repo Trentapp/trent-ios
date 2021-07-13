@@ -39,6 +39,7 @@
 		B093B5A726861FAD0051B7CC /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093B5A626861FAD0051B7CC /* ChatView.swift */; };
 		B09698E22693B18000068BA3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B09698E12693B18000068BA3 /* GoogleService-Info.plist */; };
 		B09698E52693B23100068BA3 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09698E42693B23100068BA3 /* Global.swift */; };
+		B09698E726948DC000068BA3 /* Launchscreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09698E626948DC000068BA3 /* Launchscreen.swift */; };
 		B0989253268B319200574719 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0989252268B319200574719 /* Transaction.swift */; };
 		B0D4FB12267D0DBB00BADF68 /* EditAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D4FB11267D0DBB00BADF68 /* EditAccountView.swift */; };
 		B0E182172664140300F20D27 /* InventoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E182162664140300F20D27 /* InventoryView.swift */; };
@@ -85,6 +86,7 @@
 		B093B5A626861FAD0051B7CC /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		B09698E12693B18000068BA3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B09698E42693B23100068BA3 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		B09698E626948DC000068BA3 /* Launchscreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Launchscreen.swift; sourceTree = "<group>"; };
 		B0989252268B319200574719 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		B0D4FB11267D0DBB00BADF68 /* EditAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountView.swift; sourceTree = "<group>"; };
 		B0E182162664140300F20D27 /* InventoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryView.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				B029AD02266237E200279911 /* MainView.swift */,
+				B09698E626948DC000068BA3 /* Launchscreen.swift */,
 				B0FD5574268DE08500460CBA /* Dashboard */,
 				B051EADB26662F39002CF297 /* MapView */,
 				B051EADC26662F60002CF297 /* InventoryView */,
@@ -421,6 +424,7 @@
 				B029AD0526623C9500279911 /* AccountView.swift in Sources */,
 				B0989253268B319200574719 /* Transaction.swift in Sources */,
 				B029AD0C2662925700279911 /* DetailBottomView.swift in Sources */,
+				B09698E726948DC000068BA3 /* Launchscreen.swift in Sources */,
 				B051EAD82664D05A002CF297 /* UserObject.swift in Sources */,
 				B051EADA26662E2B002CF297 /* InventoryCollectionView.swift in Sources */,
 				B06F798D264A76D700049EF2 /* LocationManager.swift in Sources */,

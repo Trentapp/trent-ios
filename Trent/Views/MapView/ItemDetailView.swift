@@ -45,18 +45,9 @@ struct ItemDetailView: View {
                 .padding(.bottom, -20)
             ScrollView{
                 VStack(alignment: .leading, spacing: 10, content: {
-                    HStack {
-                        Spacer()
-                        Image(uiImage: item?.picturesUIImage.first ?? UIImage())
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(height: 250)
-                        //                .padding(.bottom, -35)
-                        //                .ignoresSafeArea(.container, edges: .top)
-                        Spacer()
-                    }
+                    ImageView(images: [item?.picturesUIImage.first ?? UIImage()])
                     .padding(.top, -10)
-                    
+
                     HStack {
                         Text(item?.name ?? "Untitled item")
                             .font(.system(size: 30, weight: .semibold, design: .default))
@@ -67,30 +58,23 @@ struct ItemDetailView: View {
                             Text("\(String(format: "%.2f", round(100*(item?.prices?.perHour ?? 0))/100))€/hr")
                                 .font(.system(size: 23, weight: .medium, design: .default))
                         })
-                        
+
                         .padding(.horizontal, 15)
                     }
-                    
+
                     Divider()
                         .padding(.bottom, 10)
-                    
+
                     Text(item?.desc ?? "")
                         .font(.system(size: 22, weight: .regular, design: .default))
                         .padding(.horizontal, 15)
                     HStack{
-                        VStack(alignment: .leading, spacing: 3, content: {
-                            Text((item?.address?.street ?? "Street") + " " + (item?.address?.houseNumber ?? "Number"))
-                                .minimumScaleFactor(0.6)
-                            Text((item?.address?.zipcode ?? "000000") + " " + (item?.address?.city ?? "City"))
-                                .minimumScaleFactor(0.6)
-                            Text(item?.address?.country ?? "Country")
-                                .minimumScaleFactor(0.6)
-                        })
+                        AddressView(address: item?.address)
                         .padding()
                         Spacer()
                         Button(action: {
                             let place = MKPlacemark(coordinate: item?.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000))
-                                        
+
                             let mapItem = MKMapItem(placemark: place)
                             mapItem.name = (item?.address != nil) ?  "\(item?.address?.street ?? "") \(item?.address?.houseNumber ?? ""), \(item?.address?.zipcode ?? "") \(item?.address?.city ?? "")" : item?.name ?? ""
                             mapItem.openInMaps(launchOptions: nil)
@@ -210,6 +194,41 @@ struct ItemDetailView: View {
             self.coordinateRegion = MKCoordinateRegion(center: item?.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0), latitudinalMeters: 750, longitudinalMeters: 750)
             self.owner = BackendClient.shared.getUserProfile(for: item?.user?._id ?? "")
         }
+    }
+}
+
+struct ImageView: View {
+    
+    var images: [UIImage]
+    
+    var body: some View {
+        HStack {
+            Spacer()
+            Image(uiImage: self.images.first ?? UIImage())
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(height: 250)
+            //                .padding(.bottom, -35)
+            //                .ignoresSafeArea(.container, edges: .top)
+            Spacer()
+        }
+    }
+}
+
+struct AddressView: View {
+    
+    @State var address: Address?
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 3, content: {
+            Text(address?.firstLine ?? "")
+                .minimumScaleFactor(0.6)
+            Text(address?.secondLine ?? "")
+                .minimumScaleFactor(0.6)
+            Text(address?.thirdLine ?? "")
+                .minimumScaleFactor(0.6)
+        })
+
     }
 }
 
