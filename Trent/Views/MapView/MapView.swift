@@ -29,25 +29,39 @@ struct MapView: View {
             .edgesIgnoringSafeArea(.all)
             
             VStack {
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(lineWidth: 1)
-                    .foregroundColor(.black)
-                    .background(RoundedRectangle(cornerRadius: 20).fill(Color.white))
-                    .frame(width: 250, height: 33, alignment: .center)
+                RoundedRectangle(cornerRadius: 5)
+                    .stroke(lineWidth: 0.25)
+                    .foregroundColor(.gray)
+                    .background(RoundedRectangle(cornerRadius: 5).fill(Color.white))
+                    .frame(width: 350, height: 50, alignment: .center)
+                    .shadow(radius: 5)
                     .overlay(
-                        TextField("\(Image(systemName: "magnifyingglass")) What are you looking for?", text: $keyword, onEditingChanged: { editing in
-                            print("editing: \(editing)")
-                        }, onCommit: {
-                            UIApplication.shared.endEditing()
-                            print("Did commit: \(keyword)")
-                            DispatchQueue.global().async {
-                                self.products = backendClient.query(keyword: keyword)
-                            }
-                        })
-                        .font(.system(size: 15, weight: .regular, design: .default))
-                        .multilineTextAlignment(.center)
-                        .frame(width: 250, height: 20, alignment: .center)
-                        .padding(5)
+                        HStack {
+                            Spacer()
+                                .frame(width: 15)
+                            TextField("\(Image(systemName: "magnifyingglass")) What are you looking for?", text: $keyword, onEditingChanged: { editing in
+                                print("editing: \(editing)")
+                            }, onCommit: {
+                                UIApplication.shared.endEditing()
+                                print("Did commit: \(keyword)")
+                                DispatchQueue.global().async {
+                                    self.products = backendClient.query(keyword: keyword)
+                                }
+                            })
+                            .font(.system(size: 15, weight: .regular, design: .default))
+                            .multilineTextAlignment(.leading)
+                            //                            .frame(width: 250, height: 20, alignment: .center)
+                            .padding(5)
+                            Divider()
+                            Spacer()
+                                .frame(width: 15)
+                            Button(action: {}, label: {
+                                Image(systemName: "slider.horizontal.3")
+                                    .foregroundColor(.gray)
+                            })
+                            Spacer()
+                                .frame(width: 15)
+                        }
                     )
                 
                 Spacer()
