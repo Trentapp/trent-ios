@@ -7,7 +7,7 @@
 
 import SwiftUI
 import MapKit
-import Introspect
+//import Introspect
 
 struct ItemDetailView: View {
     @State var item: Product?
@@ -19,7 +19,7 @@ struct ItemDetailView: View {
     }
     @State var isMe = false
     
-    @State var tabBar: UITabBar?
+//    @State var tabBar: UITabBar?
     @Environment(\.presentationMode) var presentation
     
     var body: some View {
@@ -184,13 +184,13 @@ struct ItemDetailView: View {
         .ignoresSafeArea(.container, edges: .bottom)
         .navigationBarTitle("")
         .navigationBarHidden(true)
-        .introspectTabBarController { (UITabBarController) in
-            self.tabBar = UITabBarController.tabBar
-            self.tabBar?.isHidden = true
-        }
+//        .introspectTabBarController { (UITabBarController) in
+//            self.tabBar = UITabBarController.tabBar
+//            self.tabBar?.isHidden = true
+//        }
         
         .onAppear(){
-            self.tabBar?.isHidden = true
+//            self.tabBar?.isHidden = true
             self.coordinateRegion = MKCoordinateRegion(center: item?.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0), latitudinalMeters: 750, longitudinalMeters: 750)
             self.owner = BackendClient.shared.getUserProfile(for: item?.user?._id ?? "")
         }

@@ -6,14 +6,14 @@
 //
 
 import SwiftUI
-import Introspect
+//import Introspect
 
 struct InventoryView: View {
     
     @ObservedObject var userObjectManager = UserObjectManager.shared
     @State var showAddProduct = false
     
-    @State var tabBar: UITabBar?
+//    @State var tabBar: UITabBar?
     
     var body: some View {
         ScrollView{
@@ -52,11 +52,11 @@ struct InventoryView: View {
         .sheet(isPresented: $showAddProduct, content: { AddProductView() })
         .navigationBarTitle(Text("Inventory"), displayMode: .large)
         .navigationViewStyle(StackNavigationViewStyle())
-        .introspectTabBarController { (UITabBarController) in
-            self.tabBar = UITabBarController.tabBar
-        }
+//        .introspectTabBarController { (UITabBarController) in
+//            self.tabBar = UITabBarController.tabBar
+//        }
         .onAppear() {
-            self.tabBar?.isHidden = false
+//            self.tabBar?.isHidden = false
 //            UserObjectManager.shared.refresh()
         }
         

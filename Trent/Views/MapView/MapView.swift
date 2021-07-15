@@ -7,7 +7,7 @@
 
 import SwiftUI
 import MapKit
-import Introspect
+//import Introspect
 
 struct MapView: View {
     
@@ -17,7 +17,7 @@ struct MapView: View {
     
     @ObservedObject var backendClient = BackendClient.shared
     
-    @State var tabBar: UITabBar?
+//    @State var tabBar: UITabBar?
     
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .top), content: {
@@ -26,6 +26,7 @@ struct MapView: View {
                     MapAnnotationButton(item: current_item)
                 }
             })
+            .gesture(DragGesture().onChanged{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)})
             .edgesIgnoringSafeArea(.all)
             
             VStack {
@@ -75,12 +76,16 @@ struct MapView: View {
         .navigationBarTitle("")
         .navigationBarHidden(true)
         .navigationViewStyle(StackNavigationViewStyle())
-        .introspectTabBarController { (UITabBarController) in
-            self.tabBar = UITabBarController.tabBar
+        .onTapGesture {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
-        .onAppear() {
-            self.tabBar?.isHidden = false
-        }
+        
+//        .introspectTabBarController { (UITabBarController) in
+//            self.tabBar = UITabBarController.tabBar
+//        }
+//        .onAppear() {
+//            self.tabBar?.isHidden = false
+//        }
     }
 }
 
