@@ -210,38 +210,6 @@
             endingLineNumber = "48"
             landmarkName = "refreshInventory()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "2A90E91E-25F1-471B-B52D-D821621953B0 - aafb11fe2da87701"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in Fairleih_iOS.UserObjectManager.refreshInventory() -&gt; ()"
-                  moduleName = "Fairleih-iOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/fynnkiwitt/Desktop/Fairleih-iOS/Fairleih-iOS/Managers/UserObjectManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "48"
-                  endingLineNumber = "48"
-                  offsetFromSymbolStart = "676">
-               </Location>
-               <Location
-                  uuid = "2A90E91E-25F1-471B-B52D-D821621953B0 - 83191466bd0ca8d2"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in closure #1 () -&gt; () in Fairleih_iOS.UserObjectManager.refreshInventory() -&gt; ()"
-                  moduleName = "Fairleih-iOS"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/fynnkiwitt/Desktop/Fairleih-iOS/Fairleih-iOS/Managers/UserObjectManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "44"
-                  endingLineNumber = "44"
-                  offsetFromSymbolStart = "21">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -370,6 +338,38 @@
             endingLineNumber = "94"
             landmarkName = "getInventory(inventory:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B23E01A7-099C-4AE9-9AF5-1494F935504C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trent/Views/Authentication/SignupView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DC900AD2-3C7D-4F9D-9620-9BAC95976D83"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trent/Views/Authentication/Authentication.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

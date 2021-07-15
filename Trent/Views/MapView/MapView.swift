@@ -20,53 +20,52 @@ struct MapView: View {
     @State var tabBar: UITabBar?
     
     var body: some View {
-        NavigationView {
-            ZStack(alignment: Alignment(horizontal: .center, vertical: .top), content: {
-                Map(coordinateRegion: $region, annotationItems: products, annotationContent: { current_item in
-                    MapAnnotation(coordinate: current_item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000)) {
-                        MapAnnotationButton(item: current_item)
-                    }
-                })
-                    .edgesIgnoringSafeArea(.all)
-                
-                VStack {
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(lineWidth: 1)
-                        .foregroundColor(.black)
-                        .background(RoundedRectangle(cornerRadius: 20).fill(Color.white))
-                        .frame(width: 250, height: 33, alignment: .center)
-                        .overlay(
-                            TextField("\(Image(systemName: "magnifyingglass")) What are you looking for?", text: $keyword, onEditingChanged: { editing in
-                                print("editing: \(editing)")
-                            }, onCommit: {
-                                UIApplication.shared.endEditing()
-                                print("Did commit: \(keyword)")
-                                DispatchQueue.global().async {
-                                    self.products = backendClient.query(keyword: keyword)
-                                }
-                            })
-                                .font(.system(size: 15, weight: .regular, design: .default))
-                                .multilineTextAlignment(.center)
-                                .frame(width: 250, height: 20, alignment: .center)
-                                .padding(5)
-                        )
-                    
-                    Spacer()
-                    DetailBottomView()
+        ZStack(alignment: Alignment(horizontal: .center, vertical: .top), content: {
+            Map(coordinateRegion: $region, annotationItems: products, annotationContent: { current_item in
+                MapAnnotation(coordinate: current_item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000)) {
+                    MapAnnotationButton(item: current_item)
                 }
-                
-                
-                
-                    
             })
-            .navigationBarTitle("")
-            .navigationBarHidden(true)
-            .introspectTabBarController { (UITabBarController) in
-                self.tabBar = UITabBarController.tabBar
+            .edgesIgnoringSafeArea(.all)
+            
+            VStack {
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(lineWidth: 1)
+                    .foregroundColor(.black)
+                    .background(RoundedRectangle(cornerRadius: 20).fill(Color.white))
+                    .frame(width: 250, height: 33, alignment: .center)
+                    .overlay(
+                        TextField("\(Image(systemName: "magnifyingglass")) What are you looking for?", text: $keyword, onEditingChanged: { editing in
+                            print("editing: \(editing)")
+                        }, onCommit: {
+                            UIApplication.shared.endEditing()
+                            print("Did commit: \(keyword)")
+                            DispatchQueue.global().async {
+                                self.products = backendClient.query(keyword: keyword)
+                            }
+                        })
+                        .font(.system(size: 15, weight: .regular, design: .default))
+                        .multilineTextAlignment(.center)
+                        .frame(width: 250, height: 20, alignment: .center)
+                        .padding(5)
+                    )
+                
+                Spacer()
+                DetailBottomView()
             }
-            .onAppear() {
-                self.tabBar?.isHidden = false
-            }
+            
+            
+            
+            
+        })
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
+        .navigationViewStyle(StackNavigationViewStyle())
+        .introspectTabBarController { (UITabBarController) in
+            self.tabBar = UITabBarController.tabBar
+        }
+        .onAppear() {
+            self.tabBar?.isHidden = false
         }
     }
 }

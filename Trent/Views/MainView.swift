@@ -9,48 +9,58 @@ import SwiftUI
 
 struct MainView: View {
     
+    @State var selectedItem = NavigationBarConfiguration(title: "Map", hidden: true, id: 0)
+    @State var oldValue = NavigationBarConfiguration(title: "Map", hidden: true, id: 0)
+    @ObservedObject var userObjectManager = UserObjectManager.shared
+    
     var body: some View {
-            TabView {
-                NavigationView {
-                    MapView()
-                    .navigationBarTitle("")
-                    .navigationBarHidden(true)
-                    .navigationViewStyle(StackNavigationViewStyle())
-                }
+        NavigationView {
+            TabView(selection: $selectedItem) {
+                MapView()
                     .tabItem {
                         Label("Map", systemImage: "map")
                     }
+                    .tag(NavigationBarConfiguration(title: "Map", hidden: true, id: 0))
                 
-                
-                NavigationView {
-                    InventoryView()
-                }
-                    .navigationViewStyle(StackNavigationViewStyle())
+                InventoryView()
+                    .navigationBarTitle("Inventory")
                     .tabItem {
                         Label("Inventory", systemImage: "books.vertical")
                     }
+                    .tag(NavigationBarConfiguration(title: "Inventory", hidden: false, id: 1))
+                    .navigationBarHidden(false)
                 
-                
-                NavigationView {
-                    InboxView()
-                }
-                    .navigationViewStyle(StackNavigationViewStyle())
+                InboxView()
                     .tabItem {
                         Label("Inbox", systemImage: "tray.and.arrow.down")
                     }
+                    .tag(NavigationBarConfiguration(title: "Inbox", hidden: false, id: 2))
+                    .navigationBarHidden(false)
                 
-                
-                NavigationView {
-                    AccountView()
-                        .navigationTitle("")
-                        .navigationBarHidden(true)
-//                        .navigationBarTitle("Account")
-//                        .navigationBarHidden(false)
-                }
-                .navigationViewStyle(DefaultNavigationViewStyle())
+                AccountView()
                     .tabItem {
                         Label("Account", systemImage: "person")
                     }
+                    .tag(NavigationBarConfiguration(title: "Account", hidden: true, id: 3))
             }
+            .navigationBarTitle(self.selectedItem.title, displayMode: .large)
+            .fullScreenCover(isPresented: $userObjectManager.showAuthentication, content: { AuthenticationView() })
+            .navigationBarHidden(self.selectedItem.hidden)
+            .onChange(of: self.selectedItem, perform: { value in
+                if value.id == 3 && !UserObjectManager.shared.loggedIn {
+                    userObjectManager.showAuthentication = true
+                    self.selectedItem = oldValue
+                } else {
+                    self.oldValue = selectedItem
+                }
+            })
+        }
     }
+}
+
+
+struct NavigationBarConfiguration: Hashable {
+    var title: String
+    var hidden: Bool
+    var id: Int
 }

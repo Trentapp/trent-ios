@@ -10,6 +10,8 @@ import Foundation
 class UserObjectManager: ObservableObject {
     static var shared = UserObjectManager()
     
+    @Published var showAuthentication = false
+    
     @Published var loggedIn = false {
         didSet {
             UserDefaults.standard.set(loggedIn, forKey: "loggedIn") //Bool

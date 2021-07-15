@@ -1,8 +1,8 @@
 //
-//  SignupView.swift
-//  Fairleih-iOS
+//  Authentication.swift
+//  Trent
 //
-//  Created by Fynn Kiwitt on 26.05.21.
+//  Created by Fynn Kiwitt on 14.07.21.
 //
 
 import SwiftUI
@@ -10,17 +10,9 @@ import Firebase
 import AuthenticationServices
 import CryptoKit
 
-struct SignupView: View {
-    
-    @State var name = ""
-    @State var mail = ""
-    @State var password = ""
-    @State var password_confirmed = ""
-    
-    @State var isShownPasswordAlert = false
-    
-    @ObservedObject var authenticationManager: AuthenticationManager = AuthenticationManager.shared
-    
+
+struct AuthenticationView: View {
+    @Environment(\.presentationMode) var presentationMode
     // Unhashed nonce.
     @State var currentNonce: String?
     
@@ -68,45 +60,30 @@ struct SignupView: View {
     }
     
     var body: some View {
-        NavigationView {
-            VStack(spacing: 20, content: {
+        ZStack{
+            Color.black
+                .ignoresSafeArea()
+            VStack {
                 Spacer()
-                    .frame(height:10)
-                TextField("name", text: $name)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .disableAutocorrection(true)
-                    .autocapitalization(.words)
-                    .padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                TextField("mail address", text: $mail)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .disableAutocorrection(true)
-                    .autocapitalization(.none)
-                    .padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                SecureField("password", text: $password)
-                    .textContentType(.newPassword)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .disableAutocorrection(true)
-                    .autocapitalization(.none)
-                    .padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                SecureField("confirm password", text: $password_confirmed)
-                    .textContentType(.newPassword)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .disableAutocorrection(true)
-                    .autocapitalization(.none)
-                    .padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                    .frame(height: 50)
+                Image("trent_beta")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 250)
                 
-                HStack{
-                    Spacer()
-                    Button("Sign up") {
-                        if(password == password_confirmed){
-                            authenticationManager.createNewUser(name: name, mail: mail, password: password)
-                        } else {
-                            isShownPasswordAlert.toggle()
-                        }
-                    }
-                    .padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                    
-                }
+                Spacer()
+                    .frame(height: 55)
+                
+                Text("Join the trent.")
+                    .bold()
+                    .italic()
+                    .font(.system(size: 50))
+                    .foregroundColor(.white)
+                    .tracking(1.5)
+                                
+                Spacer()
+                
+                
                 
                 SignInWithAppleButton(
                     onRequest: { request in
@@ -114,6 +91,7 @@ struct SignupView: View {
                         currentNonce = nonce
                         request.requestedScopes = [.fullName, .email]
                         request.nonce = sha256(nonce)
+
                     },
                     onCompletion: { result in
                         switch result {
@@ -132,7 +110,7 @@ struct SignupView: View {
                                     return
                                 }
                                 
-                                let credential = OAuthProvider.credential(withProviderID: "apple.com",idToken: idTokenString,rawNonce: nonce)
+                                let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString,rawNonce: nonce)
                                 Auth.auth().signIn(with: credential) { (authResult, error) in
                                     if (error != nil) {
                                         // Error. If error.code == .MissingOrInvalidNonce, make sure
@@ -142,7 +120,11 @@ struct SignupView: View {
                                         return
                                     }
                                     print("signed in")
-                                    BackendClient.shared.createNewUser(name: appleIDCredential.fullName!.description, mail: appleIDCredential.email!, uid: (authResult?.user.uid)!)
+                                    if(authResult?.additionalUserInfo?.isNewUser ?? false) {
+                                        let name = appleIDCredential.fullName!.givenName! + " " + appleIDCredential.fullName!.familyName!
+                                        BackendClient.shared.createNewUser(name: name, mail: appleIDCredential.email!, uid: (authResult?.user.uid)!)
+                                        print("registered")
+                                    }
                                 }
                                 
                                 print("\(String(describing: Auth.auth().currentUser?.uid))")
@@ -155,33 +137,55 @@ struct SignupView: View {
                         }
                     }
                 )
-                .frame(width: 280, height: 45)
-                Spacer()
+                .signInWithAppleButtonStyle(.white)
+                .frame(width: 275, height: 50)
+                .cornerRadius(25)
+                .padding(5)
                 
                 HStack {
-                    Spacer()
-                    NavigationLink("Already have an Account?", destination: LoginView())
-                    Spacer()
+                    Rectangle()
+                        .fill(Color.gray)
+                        .frame(width: 50, height: 1)
+                    Text("or")
+                        .padding(.horizontal)
+                        .foregroundColor(.gray)
+                    Rectangle()
+                        .fill(Color.gray)
+                        .frame(width: 50, height: 1)
+
                 }
-                .padding(.bottom, -20)
                 
-                NavigationLink("", destination: MainView().navigationBarHidden(true), isActive: $authenticationManager.loggedIn).hidden()
-            })
-            
-            .alert(isPresented: $isShownPasswordAlert, content: {
-                Alert(title: Text("Passwords don't match"), message: Text("Please make sure that you have entered the same password."), dismissButton: .default(Text("Okay")))
-            })
-            
-            .navigationTitle("Sign up")
-            .navigationBarHidden(false)
-            .navigationBarTitleDisplayMode(.large)
+                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 25)
+                            .stroke(lineWidth: 0.5)
+                            .frame(width: 275, height: 50)
+                            .foregroundColor(.white)
+                        
+                        Text("Sign up with mail")
+                            .foregroundColor(.white)
+                    }
+                    
+                })
+                .padding(5)
+                
+                Button(action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }, label: {
+                    Text("Skip for now")
+                        .font(.system(size: 12))
+                        .foregroundColor(.gray)
+                })
+                
+                Spacer()
+                    .frame(height: 50)
+            }
         }
     }
 }
 
-
-struct Signup_Previews: PreviewProvider {
+struct AuthenticationView_Previews: PreviewProvider {
     static var previews: some View {
-        SignupView()
+        AuthenticationView()
     }
 }

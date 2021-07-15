@@ -24,6 +24,8 @@
 		B051EADA26662E2B002CF297 /* InventoryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B051EAD926662E2B002CF297 /* InventoryCollectionView.swift */; };
 		B051EADF26662FBE002CF297 /* InventoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B051EADE26662FBE002CF297 /* InventoryItemView.swift */; };
 		B05F67FE2667681300A58505 /* PhotoPickerViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05F67FD2667681300A58505 /* PhotoPickerViews.swift */; };
+		B06E9331269EB25C00E96740 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B06E9330269EB25C00E96740 /* AuthenticationServices.framework */; };
+		B06E9333269F491200E96740 /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06E9332269F491200E96740 /* Authentication.swift */; };
 		B06F7978264A6B5500049EF2 /* TrentApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F7977264A6B5500049EF2 /* TrentApp.swift */; };
 		B06F797A264A6B5500049EF2 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F7979264A6B5500049EF2 /* MapView.swift */; };
 		B06F797C264A6B5700049EF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B06F797B264A6B5700049EF2 /* Assets.xcassets */; };
@@ -69,6 +71,9 @@
 		B051EAD926662E2B002CF297 /* InventoryCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryCollectionView.swift; sourceTree = "<group>"; };
 		B051EADE26662FBE002CF297 /* InventoryItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryItemView.swift; sourceTree = "<group>"; };
 		B05F67FD2667681300A58505 /* PhotoPickerViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerViews.swift; sourceTree = "<group>"; };
+		B06E932F269EB25700E96740 /* Trent.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Trent.entitlements; sourceTree = "<group>"; };
+		B06E9330269EB25C00E96740 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
+		B06E9332269F491200E96740 /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		B06F7974264A6B5500049EF2 /* Trent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trent.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B06F7977264A6B5500049EF2 /* TrentApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrentApp.swift; sourceTree = "<group>"; };
 		B06F7979264A6B5500049EF2 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
@@ -105,6 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B06E9331269EB25C00E96740 /* AuthenticationServices.framework in Frameworks */,
 				B20921BBE41D51D41EF5AA64 /* Pods_Fairleih_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -115,6 +121,7 @@
 		731D49436CA373D7ABEDA15D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B06E9330269EB25C00E96740 /* AuthenticationServices.framework */,
 				C9E465A03291B4E422354D3C /* Pods_Fairleih_iOS.framework */,
 			);
 			name = Frameworks;
@@ -209,6 +216,7 @@
 		B051EADD26662F72002CF297 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				B06E9332269F491200E96740 /* Authentication.swift */,
 				B0F37CC6265EDAD400D7905E /* SignupView.swift */,
 				B0F37CC2265ECC7000D7905E /* LoginView.swift */,
 			);
@@ -236,6 +244,7 @@
 		B06F7976264A6B5500049EF2 /* Trent */ = {
 			isa = PBXGroup;
 			children = (
+				B06E932F269EB25700E96740 /* Trent.entitlements */,
 				B06F7977264A6B5500049EF2 /* TrentApp.swift */,
 				B029AD0626623E2D00279911 /* Views */,
 				B01C139A267FE1390078E584 /* Managers */,
@@ -423,6 +432,7 @@
 				B0FD5576268DE09300460CBA /* DashboardView.swift in Sources */,
 				B029AD0526623C9500279911 /* AccountView.swift in Sources */,
 				B0989253268B319200574719 /* Transaction.swift in Sources */,
+				B06E9333269F491200E96740 /* Authentication.swift in Sources */,
 				B029AD0C2662925700279911 /* DetailBottomView.swift in Sources */,
 				B09698E726948DC000068BA3 /* Launchscreen.swift in Sources */,
 				B051EAD82664D05A002CF297 /* UserObject.swift in Sources */,
@@ -572,6 +582,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Trent/Trent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Trent/Preview Content\"";
 				DEVELOPMENT_TEAM = HJFU68N96J;
@@ -595,6 +606,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Trent/Trent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Trent/Preview Content\"";
 				DEVELOPMENT_TEAM = HJFU68N96J;

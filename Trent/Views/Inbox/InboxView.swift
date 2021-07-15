@@ -91,7 +91,9 @@ struct InboxView: View {
                 }
             }
         }
-        .navigationBarTitle("Inbox", displayMode: .large)
+        .navigationBarTitle(Text("Inbox"), displayMode: .large)
+        .navigationViewStyle(StackNavigationViewStyle())
+        .navigationBarHidden(false)
         .onAppear() {
             BackendClient.shared.getChats { chats in
                 self.chats = chats

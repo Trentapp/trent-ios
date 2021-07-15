@@ -24,12 +24,7 @@ struct TrentApp: App {
     
     var body: some Scene {
         WindowGroup {
-            if userObjectManager.loggedIn {
-                MainView()
-//                DashboardView()
-            } else {
-                SignupView()
-            }
+            MainView()
         }
         
     }

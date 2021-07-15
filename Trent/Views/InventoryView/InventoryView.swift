@@ -16,7 +16,6 @@ struct InventoryView: View {
     @State var tabBar: UITabBar?
     
     var body: some View {
-        
         ScrollView{
             VStack {
                 Button(action: {
@@ -51,7 +50,7 @@ struct InventoryView: View {
             }
         }
         .sheet(isPresented: $showAddProduct, content: { AddProductView() })
-        .navigationTitle("Inventory")
+        .navigationBarTitle(Text("Inventory"), displayMode: .large)
         .navigationViewStyle(StackNavigationViewStyle())
         .introspectTabBarController { (UITabBarController) in
             self.tabBar = UITabBarController.tabBar

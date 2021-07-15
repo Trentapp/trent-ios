@@ -51,6 +51,11 @@ struct AccountView: View {
                 }))
             })
         }
+        .navigationTitle("")
+        .navigationBarHidden(true)
+        //                        .navigationBarTitle("Account")
+        //                        .navigationBarHidden(false)
+        .navigationViewStyle(DefaultNavigationViewStyle())
     }
     
 }
