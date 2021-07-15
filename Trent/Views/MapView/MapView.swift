@@ -15,6 +15,8 @@ struct MapView: View {
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 49.4, longitude: 8.675), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
     @State var products: [Product] = []
     
+    @State var showFilter = false
+    
     @ObservedObject var backendClient = BackendClient.shared
     
 //    @State var tabBar: UITabBar?
@@ -34,37 +36,49 @@ struct MapView: View {
                     .stroke(lineWidth: 0.25)
                     .foregroundColor(.gray)
                     .background(RoundedRectangle(cornerRadius: 5).fill(Color.white))
-                    .frame(width: 350, height: 50, alignment: .center)
+                    .frame(width: 350, height: showFilter ? 200 : 50, alignment: .center)
                     .shadow(radius: 5)
+                    .animation(.easeInOut(duration: 0.3))
                     .overlay(
-                        HStack {
-                            Spacer()
-                                .frame(width: 15)
-                            TextField("\(Image(systemName: "magnifyingglass")) What are you looking for?", text: $keyword, onEditingChanged: { editing in
-                                print("editing: \(editing)")
-                            }, onCommit: {
-                                UIApplication.shared.endEditing()
-                                print("Did commit: \(keyword)")
-                                DispatchQueue.global().async {
-                                    self.products = backendClient.query(keyword: keyword)
+                        VStack {
+                            HStack {
+                                Spacer()
+                                    .frame(width: 15)
+                                TextField("\(Image(systemName: "magnifyingglass")) What are you looking for?", text: $keyword, onEditingChanged: { editing in
+                                    print("editing: \(editing)")
+                                }, onCommit: {
+                                    UIApplication.shared.endEditing()
+                                    print("Did commit: \(keyword)")
+                                    DispatchQueue.global().async {
+                                        self.products = backendClient.query(keyword: keyword)
+                                    }
+                                })
+                                .font(.system(size: 15, weight: .regular, design: .default))
+                                .multilineTextAlignment(.leading)
+                                //                            .frame(width: 250, height: 20, alignment: .center)
+                                .padding(5)
+                                Divider()
+                                Spacer()
+                                    .frame(width: 15)
+                                Button(action: {
+                                    self.showFilter.toggle()
+                                }, label: {
+                                    Image(systemName: "slider.horizontal.3")
+                                        .foregroundColor(.gray)
+                                        .font(.system(size: 20, weight: showFilter ? .bold : .regular))
+                                })
+                                Spacer()
+                                    .frame(width: 15)
+                            }
+                            .frame(width: 350, height: 50)
+                            if(showFilter){
+                                VStack {
+                                    Divider()
+                                    Spacer()
                                 }
-                            })
-                            .font(.system(size: 15, weight: .regular, design: .default))
-                            .multilineTextAlignment(.leading)
-                            //                            .frame(width: 250, height: 20, alignment: .center)
-                            .padding(5)
-                            Divider()
-                            Spacer()
-                                .frame(width: 15)
-                            Button(action: {}, label: {
-                                Image(systemName: "slider.horizontal.3")
-                                    .foregroundColor(.gray)
-                            })
-                            Spacer()
-                                .frame(width: 15)
+                            }
                         }
                     )
-                
                 Spacer()
                 DetailBottomView()
             }
