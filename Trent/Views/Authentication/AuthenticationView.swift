@@ -175,6 +175,7 @@ struct AuthenticationView: View {
                     Text("Skip for now")
                         .font(.system(size: 12))
                         .foregroundColor(.gray)
+                        .tracking(1.3)
                 })
                 
                 Spacer()

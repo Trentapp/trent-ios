@@ -25,13 +25,15 @@
 		B051EADF26662FBE002CF297 /* InventoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B051EADE26662FBE002CF297 /* InventoryItemView.swift */; };
 		B05F67FE2667681300A58505 /* PhotoPickerViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05F67FD2667681300A58505 /* PhotoPickerViews.swift */; };
 		B06E9331269EB25C00E96740 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B06E9330269EB25C00E96740 /* AuthenticationServices.framework */; };
-		B06E9333269F491200E96740 /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06E9332269F491200E96740 /* Authentication.swift */; };
+		B06E9333269F491200E96740 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06E9332269F491200E96740 /* AuthenticationView.swift */; };
 		B06F7978264A6B5500049EF2 /* TrentApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F7977264A6B5500049EF2 /* TrentApp.swift */; };
 		B06F797A264A6B5500049EF2 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F7979264A6B5500049EF2 /* MapView.swift */; };
 		B06F797C264A6B5700049EF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B06F797B264A6B5700049EF2 /* Assets.xcassets */; };
 		B06F797F264A6B5700049EF2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B06F797E264A6B5700049EF2 /* Preview Assets.xcassets */; };
 		B06F7987264A6E2800049EF2 /* BackendClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F7986264A6E2800049EF2 /* BackendClient.swift */; };
 		B06F798D264A76D700049EF2 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F798C264A76D700049EF2 /* LocationManager.swift */; };
+		B08F89E126A06B2600816A8D /* DualSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08F89E026A06B2600816A8D /* DualSlider.swift */; };
+		B08F89E326A1B12C00816A8D /* MonoSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08F89E226A1B12C00816A8D /* MonoSlider.swift */; };
 		B093B59A2685A0520051B7CC /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093B5992685A0520051B7CC /* UserProfile.swift */; };
 		B093B59C2685B6A90051B7CC /* UserProfilePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093B59B2685B6A90051B7CC /* UserProfilePageView.swift */; };
 		B093B59E2685C7650051B7CC /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093B59D2685C7650051B7CC /* ReviewView.swift */; };
@@ -73,7 +75,7 @@
 		B05F67FD2667681300A58505 /* PhotoPickerViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerViews.swift; sourceTree = "<group>"; };
 		B06E932F269EB25700E96740 /* Trent.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Trent.entitlements; sourceTree = "<group>"; };
 		B06E9330269EB25C00E96740 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
-		B06E9332269F491200E96740 /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
+		B06E9332269F491200E96740 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 		B06F7974264A6B5500049EF2 /* Trent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trent.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B06F7977264A6B5500049EF2 /* TrentApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrentApp.swift; sourceTree = "<group>"; };
 		B06F7979264A6B5500049EF2 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
@@ -82,6 +84,8 @@
 		B06F7980264A6B5700049EF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B06F7986264A6E2800049EF2 /* BackendClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendClient.swift; sourceTree = "<group>"; };
 		B06F798C264A76D700049EF2 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		B08F89E026A06B2600816A8D /* DualSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DualSlider.swift; sourceTree = "<group>"; };
+		B08F89E226A1B12C00816A8D /* MonoSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonoSlider.swift; sourceTree = "<group>"; };
 		B093B5992685A0520051B7CC /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		B093B59B2685B6A90051B7CC /* UserProfilePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePageView.swift; sourceTree = "<group>"; };
 		B093B59D2685C7650051B7CC /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
@@ -216,7 +220,7 @@
 		B051EADD26662F72002CF297 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				B06E9332269F491200E96740 /* Authentication.swift */,
+				B06E9332269F491200E96740 /* AuthenticationView.swift */,
 				B0F37CC6265EDAD400D7905E /* SignupView.swift */,
 				B0F37CC2265ECC7000D7905E /* LoginView.swift */,
 			);
@@ -280,6 +284,8 @@
 			isa = PBXGroup;
 			children = (
 				B09698E42693B23100068BA3 /* Global.swift */,
+				B08F89E026A06B2600816A8D /* DualSlider.swift */,
+				B08F89E226A1B12C00816A8D /* MonoSlider.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -419,6 +425,7 @@
 				B029AD0826623EBD00279911 /* AddProductView.swift in Sources */,
 				B029AD012662313400279911 /* MapAnnotationButton.swift in Sources */,
 				B0F37CC3265ECC7000D7905E /* LoginView.swift in Sources */,
+				B08F89E126A06B2600816A8D /* DualSlider.swift in Sources */,
 				B09698E52693B23100068BA3 /* Global.swift in Sources */,
 				B0E182172664140300F20D27 /* InventoryView.swift in Sources */,
 				B093B5A226860C750051B7CC /* Chat.swift in Sources */,
@@ -430,9 +437,10 @@
 				B093B59E2685C7650051B7CC /* ReviewView.swift in Sources */,
 				B093B5A726861FAD0051B7CC /* ChatView.swift in Sources */,
 				B0FD5576268DE09300460CBA /* DashboardView.swift in Sources */,
+				B08F89E326A1B12C00816A8D /* MonoSlider.swift in Sources */,
 				B029AD0526623C9500279911 /* AccountView.swift in Sources */,
 				B0989253268B319200574719 /* Transaction.swift in Sources */,
-				B06E9333269F491200E96740 /* Authentication.swift in Sources */,
+				B06E9333269F491200E96740 /* AuthenticationView.swift in Sources */,
 				B029AD0C2662925700279911 /* DetailBottomView.swift in Sources */,
 				B09698E726948DC000068BA3 /* Launchscreen.swift in Sources */,
 				B051EAD82664D05A002CF297 /* UserObject.swift in Sources */,

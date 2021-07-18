@@ -44,8 +44,8 @@ struct MainView: View {
                     .tag(NavigationBarConfiguration(title: "Account", hidden: true, id: 3))
             }
             .navigationBarTitle(self.selectedItem.title, displayMode: .large)
-            .fullScreenCover(isPresented: $userObjectManager.showAuthentication, content: { AuthenticationView() })
             .navigationBarHidden(self.selectedItem.hidden)
+            .fullScreenCover(isPresented: $userObjectManager.showAuthentication, content: { AuthenticationView() })
             .onChange(of: self.selectedItem, perform: { value in
                 if value.id == 3 && !UserObjectManager.shared.loggedIn {
                     userObjectManager.showAuthentication = true

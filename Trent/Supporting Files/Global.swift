@@ -7,4 +7,4 @@
 
 import Foundation
 
-let serverBaseURL = "https://trent.uber.space"
+let serverBaseURL = "https://trentapp.com"
