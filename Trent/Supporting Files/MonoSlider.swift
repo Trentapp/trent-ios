@@ -11,8 +11,13 @@ struct MonoSlider: View {
     var width: CGFloat
     
     @Binding var maxValue: CGFloat
+    @State private var maxDelta: CGFloat
     
-    @State private var maxDelta: CGFloat = 0
+    init(maxValue: Binding<CGFloat>, width: CGFloat) {
+        self._maxValue = maxValue
+        self.width = width
+        self.maxDelta = maxValue.wrappedValue * width - width
+    }
     
     var maxDrag: some Gesture {
         DragGesture(coordinateSpace: .global)

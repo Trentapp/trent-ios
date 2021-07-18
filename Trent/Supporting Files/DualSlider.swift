@@ -13,13 +13,23 @@ struct DualSlider: View {
     @Binding var minValue: CGFloat
     @Binding var maxValue: CGFloat
     
-    @State private var minDelta: CGFloat = 0
-    @State private var maxDelta: CGFloat = 0
+    @State private var minDelta: CGFloat
+    @State private var maxDelta: CGFloat
+    
+    init(minValue: Binding<CGFloat>, maxValue: Binding<CGFloat>, width: CGFloat) {
+        self._minValue = minValue
+        self._maxValue = maxValue
+        self.width = width
+        
+        self.minDelta = minValue.wrappedValue
+        self.maxDelta = maxValue.wrappedValue
+    }
     
     var minDrag: some Gesture {
         DragGesture(coordinateSpace: .global)
             .onChanged { gesture in
-                self.minValue = min(max(0, minDelta + gesture.translation.width), width - self.maxValue - 50) / width
+                self.minValue = min(max(0, minDelta + gesture.translation.width), self.maxValue * width - 10) / width
+                print("actual: \(max(0, minDelta + gesture.translation.width)); limited: \(self.maxValue * width - 54), total: \(self.minValue * width)")
             }
             .onEnded { gesture in
                 minDelta = self.minValue * width
@@ -29,7 +39,7 @@ struct DualSlider: View {
     var maxDrag: some Gesture {
         DragGesture(coordinateSpace: .global)
             .onChanged { gesture in
-                self.maxValue = (width - min((-1) * min(0, maxDelta + gesture.translation.width), width - self.minValue - 50)) / width
+                self.maxValue = (width - min((-1) * min(0, maxDelta + gesture.translation.width), width - self.minValue * width - 10)) / width
             }
             .onEnded { gesture in
                 maxDelta = (self.maxValue * width - width)
@@ -49,17 +59,20 @@ struct DualSlider: View {
                         .frame(width: width - self.minValue * width - (-1) * ( self.maxValue * width - width), height: 4)
                         .overlay(
                             HStack {
-                                Circle()
-                                    .foregroundColor(.white)
-                                    .shadow(radius: 3)
-                                    .frame(width: 27.5, height: 27.5)
+                                RoundedRectangle(cornerRadius: 2)
+                                    .stroke(Color.black, lineWidth: 0.2)
+                                    .background(RoundedRectangle(cornerRadius: 2).foregroundColor(.white))
+//                                    .shadow(radius: 3)
+                                    .frame(width: 5, height: 27.5)
                                     .gesture(minDrag)
                                 
                                 Spacer()
-                                Circle()
-                                    .foregroundColor(.white)
-                                    .shadow(radius: 3)
-                                    .frame(width: 27.5, height: 27.5)
+                                    .frame(minWidth: 0)
+                                RoundedRectangle(cornerRadius: 2)
+                                    .stroke(Color.black, lineWidth: 0.2)
+                                    .background(RoundedRectangle(cornerRadius: 2).foregroundColor(.white))
+//                                    .shadow(radius: 3)
+                                    .frame(width: 5, height: 27.5)
                                     .gesture(maxDrag)
                             }
                         )
