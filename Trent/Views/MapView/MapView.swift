@@ -55,7 +55,7 @@ struct MapView: View {
                     .stroke(lineWidth: 0.5)
                     .foregroundColor(.gray)
                     .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
-                    .frame(width: 375, height: showFilter ? 300 : 60, alignment: .center)
+                    .frame(width: 375, height: showFilter ? 170 : 60, alignment: .center)
                     .shadow(radius: 5)
                     .animation(suppressAnimation ? .none : .easeInOut(duration: 0.3))
                     .overlay(
@@ -69,7 +69,7 @@ struct MapView: View {
                                     Image(systemName: "chevron.backward")
                                         .foregroundColor(.black)
                                 }
-
+                                
                                 TextField("\(Image(systemName: "magnifyingglass"))  What are you looking for?", text: $keyword, onEditingChanged: { editing in
                                     print("editing: \(editing)")
                                 }, onCommit: {
@@ -102,34 +102,42 @@ struct MapView: View {
                             }
                             .frame(width: 375, height: 60)
                             
-                            if(showFilter) {
-                                Divider()
-                                HStack {
-                                    Image(systemName: "dollarsign.circle")
-                                        .font(.system(size:25))
-                                        //                                            .foregroundColor(.gray)
-                                        .padding(.horizontal, 10)
-                                        .padding(.vertical, 2)
-                                    DualSlider(minValue: $minPriceValue, maxValue: $maxPriceValue, width: 200)
-                                    Text("\(Int(round(minPriceValue * CGFloat(self.maxPrice))))€ - \(Int(round(maxPriceValue * CGFloat(self.maxPrice))))€")
-                                        .font(.system(size: 15, weight: .semibold))
-                                    Spacer()
-                                }
-                                HStack {
-                                    Image(systemName: "mappin.and.ellipse")
-                                        .font(.system(size:25))
-                                        //                                            .foregroundColor(.gray)
-                                        .padding(.horizontal, 10)
-                                        .padding(.vertical, 2)
-                                    MonoSlider(maxValue: $maxDistanceValue, width: 200)
-                                    Text("<= \(Int(round(maxDistanceValue * CGFloat(self.maxDistance))))km")
-                                        .font(.system(size: 15, weight: .semibold))
-                                    Spacer()
-                                }
-                                Spacer()
-                            }
                             
-                            
+//                            if(showFilter) {
+                                VStack {
+                                    
+                                    Divider()
+                                    HStack {
+                                        Image(systemName: "dollarsign.circle")
+                                            .font(.system(size:25))
+                                            //                                            .foregroundColor(.gray)
+                                            .padding(.horizontal, 10)
+                                            .padding(.vertical, 2)
+                                        DualSlider(minValue: $minPriceValue, maxValue: $maxPriceValue, width: 220)
+                                        Text("\(Int(round(minPriceValue * CGFloat(self.maxPrice))))€ - \(Int(round(maxPriceValue * CGFloat(self.maxPrice))))€")
+                                            .font(.system(size: 15, weight: .semibold))
+                                        Spacer()
+                                    }
+                                    HStack {
+                                        Image(systemName: "mappin.and.ellipse")
+                                            .font(.system(size:25))
+                                            //                                            .foregroundColor(.gray)
+                                            .padding(.horizontal, 10)
+                                            .padding(.vertical, 2)
+                                        MonoSlider(maxValue: $maxDistanceValue, width: 220)
+                                        Text("<= \(Int(round(maxDistanceValue * CGFloat(self.maxDistance))))km")
+                                            .font(.system(size: 15, weight: .semibold))
+                                        Spacer()
+                                    }
+                                    Spacer()
+                                    
+                                    
+                                }
+                                .frame(height: showFilter ? 110 : 0)
+                                .scaleEffect(CGSize(width: 1, height: showFilter ? 1 : 0), anchor: .top)
+                                .opacity(showFilter ? 1 : 0)
+                                .animation(.easeInOut(duration: 0.3))
+//                            }
                         }
                         
                     )
