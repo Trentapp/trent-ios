@@ -60,6 +60,8 @@ struct MapView: View {
                     .animation(suppressAnimation ? .none : .easeInOut(duration: 0.3))
                     .overlay(
                         VStack {
+                            Spacer()
+                                .frame(height: 2.5)
                             HStack {
                                 Spacer()
                                     .frame(width: 15)
