@@ -16,9 +16,9 @@ struct MainView: View {
     var body: some View {
         NavigationView {
             TabView(selection: $selectedItem) {
-                MapView()
+                ExploreView()
                     .tabItem {
-                        Label("Map", systemImage: "map")
+                        Label("Explore", systemImage: "map")
                     }
                     .tag(NavigationBarConfiguration(title: "Map", hidden: true, id: 0))
                 

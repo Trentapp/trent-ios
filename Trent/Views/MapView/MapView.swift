@@ -11,6 +11,8 @@ import MapKit
 
 struct MapView: View {
     
+    @Environment(\.presentationMode) var presentation
+    
     @State var keyword = ""
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 49.4, longitude: 8.675), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
     @State var products: [Product] = []
@@ -61,6 +63,13 @@ struct MapView: View {
                             HStack {
                                 Spacer()
                                     .frame(width: 15)
+                                Button {
+                                    self.presentation.wrappedValue.dismiss()
+                                } label: {
+                                    Image(systemName: "chevron.backward")
+                                        .foregroundColor(.black)
+                                }
+
                                 TextField("\(Image(systemName: "magnifyingglass"))  What are you looking for?", text: $keyword, onEditingChanged: { editing in
                                     print("editing: \(editing)")
                                 }, onCommit: {
