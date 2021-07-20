@@ -41,7 +41,7 @@ struct EditAccountView: View {
                 }
                 Section {
                     Button {
-                        AuthenticationManager.shared.deleteAccount()
+                        FirebaseAuthClient.shared.deleteAccount()
                     } label: {
                         Text("Delete Account")
                             .foregroundColor(.red)
@@ -70,7 +70,7 @@ struct EditAccountView: View {
 //            }
             
             if(newPassword != "" && newPassword == repeatNewPassword) {
-                AuthenticationManager.shared.changePassword(newPassword: newPassword) { success in
+                FirebaseAuthClient.shared.changePassword(newPassword: newPassword) { success in
                     if success {
                         self.presentationMode.wrappedValue.dismiss()
                     } else {

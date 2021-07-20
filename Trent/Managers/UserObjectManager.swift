@@ -30,27 +30,28 @@ class UserObjectManager: ObservableObject {
         self.loggedIn = UserDefaults.standard.bool(forKey: "loggedIn")
     }
     
-    func refresh() {
-        let uid = AuthenticationManager.shared.currentUser?.uid ?? ""
-        
-        DispatchQueue.main.async {
-            // Backendclient: getUserObject let user = BackendClient.shared.getUserObject(for: uid)
-            let user :UserObject? = UserObject(_id: "")
-            if user != nil { UserObjectManager.shared.user = user! }
-            self.refreshInventory()
+    func createNewUser(name: String, mail: String, password: String, completionHandler: @escaping (Bool, String?) -> Void) {
+        FirebaseAuthClient.shared.createNewUser(name: name, mail: mail, password: password) { uid, error in
+            if error == nil && uid != nil {
+                // Backendclient: createNewUser BackendClient.shared.createNewUser(name: name, mail: mail, uid: uid)
+            }
         }
+    }
+    
+    func refresh() {
+        let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
         
+        // Backendclient: getUserObject let user = BackendClient.shared.getUserObject(for: uid)
+        let user :UserObject? = UserObject(_id: "")
+        if user != nil { UserObjectManager.shared.user = user! }
+        self.refreshInventory()
         
     }
     
     private func refreshInventory() {
         var newInventory = [Product]()
         
-        DispatchQueue.global().async {
-            // Backendclient: getInventory newInventory = BackendClient.shared.getInventory(inventory: self.user?.inventory ?? [])
-            DispatchQueue.main.async {
-                UserObjectManager.shared.inventory = newInventory
-            }
-        }
+        // Backendclient: getInventory newInventory = BackendClient.shared.getInventory(inventory: self.user?.inventory ?? [])
+        UserObjectManager.shared.inventory = newInventory
     }
 }

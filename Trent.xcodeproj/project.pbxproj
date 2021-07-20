@@ -56,7 +56,7 @@
 		B0F01F61265FAFA300BDFA18 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F01F60265FAFA300BDFA18 /* Product.swift */; };
 		B0F37CC3265ECC7000D7905E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F37CC2265ECC7000D7905E /* LoginView.swift */; };
 		B0F37CC7265EDAD500D7905E /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F37CC6265EDAD400D7905E /* SignupView.swift */; };
-		B0F37CC9265EE8AA00D7905E /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F37CC8265EE8AA00D7905E /* AuthenticationManager.swift */; };
+		B0F37CC9265EE8AA00D7905E /* FirebaseAuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F37CC8265EE8AA00D7905E /* FirebaseAuthClient.swift */; };
 		B20921BBE41D51D41EF5AA64 /* Pods_Fairleih_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E465A03291B4E422354D3C /* Pods_Fairleih_iOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -113,7 +113,7 @@
 		B0F01F60265FAFA300BDFA18 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		B0F37CC2265ECC7000D7905E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		B0F37CC6265EDAD400D7905E /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
-		B0F37CC8265EE8AA00D7905E /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		B0F37CC8265EE8AA00D7905E /* FirebaseAuthClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthClient.swift; sourceTree = "<group>"; };
 		B18970A9C174AD27CC4B537B /* Pods-Fairleih-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fairleih-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Fairleih-iOS/Pods-Fairleih-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		C9E465A03291B4E422354D3C /* Pods_Fairleih_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fairleih_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED20EF8E80C52037F01618E3 /* Pods-Fairleih-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fairleih-iOS.release.xcconfig"; path = "Target Support Files/Pods-Fairleih-iOS/Pods-Fairleih-iOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -155,7 +155,7 @@
 			children = (
 				B051EAD52664CF2A002CF297 /* UserObjectManager.swift */,
 				B06F7986264A6E2800049EF2 /* BackendClient.swift */,
-				B0F37CC8265EE8AA00D7905E /* AuthenticationManager.swift */,
+				B0F37CC8265EE8AA00D7905E /* FirebaseAuthClient.swift */,
 				B06F798C264A76D700049EF2 /* LocationManager.swift */,
 			);
 			path = Managers;
@@ -467,7 +467,7 @@
 				B029AD142663A02900279911 /* ItemDetailView.swift in Sources */,
 				B093B59A2685A0520051B7CC /* UserProfile.swift in Sources */,
 				B01C1399267E63130078E584 /* Encodable.swift in Sources */,
-				B0F37CC9265EE8AA00D7905E /* AuthenticationManager.swift in Sources */,
+				B0F37CC9265EE8AA00D7905E /* FirebaseAuthClient.swift in Sources */,
 				B08F89EA26A70B1100816A8D /* Coordinates.swift in Sources */,
 				B01C13A02684CF810078E584 /* ContactView.swift in Sources */,
 				B029AD0A2662545800279911 /* PercentEncoding.swift in Sources */,

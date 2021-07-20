@@ -59,7 +59,7 @@ class BackendClient: ObservableObject {
     
     func postNewItem(parameters: [String : Any], photos: [UIImage] = [], completionHandler: @escaping (Bool) -> Void) {
         DispatchQueue.global().async {
-            let uid = AuthenticationManager.shared.currentUser?.uid ?? ""
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
             
             let body: [String : Any] = [
                 "product" : parameters,
@@ -133,7 +133,9 @@ class BackendClient: ObservableObject {
     func deleteProduct(with id: String, completionHandler: @escaping (Bool) -> Void) {
         DispatchQueue.global().async {
             let url = self.serverPath + "/products/products/delete/" + id
-            let parameters = ["uid" : AuthenticationManager.shared.currentUser?.uid ?? ""]
+            
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
+            let parameters = ["uid" : uid]
             
             AF.request(url, method: .delete, parameters: parameters, encoding: JSONEncoding.default)
                 .validate()
@@ -184,7 +186,7 @@ class BackendClient: ObservableObject {
     func getUserObject(completionHandler: @escaping (UserObject?) -> Void) {
         DispatchQueue.global().async {
             let url = self.serverPath + "/users/user"
-            let uid = AuthenticationManager.shared.currentUser?.uid ?? ""
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
             let parameters = ["uid" : uid]
             
             AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
@@ -246,8 +248,10 @@ class BackendClient: ObservableObject {
     func updateUserObject(name: String, street: String, houseNumber: String, zipcode: String, city: String, country: String, completionHandler: @escaping (Bool) -> Void) {
         DispatchQueue.global().async {
             let url = self.serverPath + "/users/update"
+            
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
             var userObject: [String : Any] = [
-                "uid" : AuthenticationManager.shared.currentUser?.uid ?? "",
+                "uid" : uid,
                 "name" : name
             ]
             
@@ -280,7 +284,7 @@ class BackendClient: ObservableObject {
         DispatchQueue.global().async {
             let url = self.serverPath + "/users/delete"
             
-            let uid = AuthenticationManager.shared.currentUser?.uid ?? ""
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
             let parameters = ["uid": uid]
             
             AF.request(url, method: .delete, parameters: parameters, encoding: JSONEncoding.default)
@@ -303,7 +307,7 @@ class BackendClient: ObservableObject {
         DispatchQueue.global().async {
             let url = self.serverPath + "/transactions/add"
             
-            let uid = AuthenticationManager.shared.currentUser?.uid ?? ""
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
             let parameters = [
                 "user_uid" : uid,
                 "product_id" : item_id
@@ -356,7 +360,7 @@ class BackendClient: ObservableObject {
         DispatchQueue.global().async {
             let url = self.serverPath + "/chats/get"
             
-            let uid = AuthenticationManager.shared.currentUser?.uid ?? ""
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
             let parameters = ["uid" : uid]
             
             AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
@@ -382,7 +386,7 @@ class BackendClient: ObservableObject {
         DispatchQueue.global().async {
             let url = self.serverPath + "/chats/sendMessage"
             
-            let uid = AuthenticationManager.shared.currentUser?.uid ?? ""
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
             let parameters = [
                 "user_uid" : uid,
                 "chat_id" : chat_id,
@@ -405,7 +409,7 @@ class BackendClient: ObservableObject {
     // VI.1    getTransactionsAsLender
     func getTransactionsAsLender(completionHandler: @escaping ([Transaction]?) -> Void) {
         DispatchQueue.global().async {
-            let uid = AuthenticationManager.shared.currentUser?.uid ?? ""
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
             let url = self.serverPath + "/transactions/findByLender/" + uid
             
             AF.request(url)

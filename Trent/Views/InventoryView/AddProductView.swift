@@ -130,7 +130,7 @@ struct AddProductView: View {
                                 photosData.append(photoData!)
                             }
                             
-                            let uid = AuthenticationManager.shared.currentUser?.uid ?? ""
+                            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
                             
                             let parameters: [String : Any] = [
                                 "name" : name,

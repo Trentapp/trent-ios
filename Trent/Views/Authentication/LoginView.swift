@@ -1,63 +1,63 @@
+////
+////  LoginView.swift
+////  Fairleih-iOS
+////
+////  Created by Fynn Kiwitt on 26.05.21.
+////
 //
-//  LoginView.swift
-//  Fairleih-iOS
+//import SwiftUI
+//import Firebase
 //
-//  Created by Fynn Kiwitt on 26.05.21.
+//struct LoginView: View {
+//    @State var mail = ""
+//    @State var password = ""
+//    
+//    @ObservedObject var userObjectManager = UserObjectManager.shared
+//    
+//    var body: some View {
+//        VStack(alignment: .trailing, spacing: 20, content: {
+//            Spacer()
+//                .frame(height:10)
+//            TextField("mail address", text: $mail)
+//                .textFieldStyle(RoundedBorderTextFieldStyle())
+//                .disableAutocorrection(true)
+//                .autocapitalization(.none)
+//                .padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+//            SecureField("password", text: $password)
+//                .textContentType(.password)
+//                .textFieldStyle(RoundedBorderTextFieldStyle())
+//                .disableAutocorrection(true)
+//                .autocapitalization(.none)
+//                .padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+//            HStack {
+//                Button("Forgot password"){
+//                    Auth.auth().sendPasswordReset(withEmail: mail) { error in
+//                        // Your code here
+//                    }
+//                }
+//                Spacer()
+//                Button("Log in") {
+//                    Auth.auth().signIn(withEmail: mail.lowercased(), password: password) { authResult, error in
+//                        let username = authResult?.additionalUserInfo?.username ?? "unknown"
+//                        let providerID = authResult?.additionalUserInfo?.providerID ?? "unknown"
+//                        print("User with name \(username) has successfully logged in. Provider ID: \(providerID)")
+//                        print(error.debugDescription)
+//                    }
+//                }
+//            }
+//            
+//            .padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+//            Spacer()
+//            NavigationLink("", destination: MainView(), isActive: $userObjectManager.loggedIn).hidden()
+//        })
+//        .navigationTitle("Log in")
+//    }
+//}
 //
-
-import SwiftUI
-import Firebase
-
-struct LoginView: View {
-    @State var mail = ""
-    @State var password = ""
-    
-    @ObservedObject var authenticationManager = AuthenticationManager.shared
-    
-    var body: some View {
-        VStack(alignment: .trailing, spacing: 20, content: {
-            Spacer()
-                .frame(height:10)
-            TextField("mail address", text: $mail)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .disableAutocorrection(true)
-                .autocapitalization(.none)
-                .padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-            SecureField("password", text: $password)
-                .textContentType(.password)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .disableAutocorrection(true)
-                .autocapitalization(.none)
-                .padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-            HStack {
-                Button("Forgot password"){
-                    Auth.auth().sendPasswordReset(withEmail: mail) { error in
-                        // Your code here
-                    }
-                }
-                Spacer()
-                Button("Log in") {
-                    Auth.auth().signIn(withEmail: mail.lowercased(), password: password) { authResult, error in
-                        let username = authResult?.additionalUserInfo?.username ?? "unknown"
-                        let providerID = authResult?.additionalUserInfo?.providerID ?? "unknown"
-                        print("User with name \(username) has successfully logged in. Provider ID: \(providerID)")
-                        print(error.debugDescription)
-                    }
-                }
-            }
-            
-            .padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-            Spacer()
-            NavigationLink("", destination: MainView(), isActive: $authenticationManager.loggedIn).hidden()
-        })
-        .navigationTitle("Log in")
-    }
-}
-
-
-struct LoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginView()
-    }
-}
-
+//
+//struct LoginView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        LoginView()
+//    }
+//}
+//

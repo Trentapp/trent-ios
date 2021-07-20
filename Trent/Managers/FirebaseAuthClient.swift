@@ -7,40 +7,32 @@
 
 import Firebase
 
-class AuthenticationManager: ObservableObject {
-    static let shared = AuthenticationManager()
+class FirebaseAuthClient: ObservableObject {
+    static let shared = FirebaseAuthClient()
     
     let handle = Auth.auth().addStateDidChangeListener { (auth, user) in
-        AuthenticationManager.shared.currentUser = user
+        FirebaseAuthClient.shared.currentUser = user
         print("Current User: \(user?.displayName) (\(user?.email)) with ID\(user?.uid)")
-    }
-    
-    @Published var loggedIn = false {
-        didSet {
-            UserObjectManager.shared.loggedIn = loggedIn
-        }
     }
     
     @Published var currentUser: User? = nil {
         didSet{
-            AuthenticationManager.shared.loggedIn = (currentUser != nil)
+            UserObjectManager.shared.loggedIn = (currentUser != nil)
             UserObjectManager.shared.refresh()
         }
     }
     
-    func createNewUser(name: String, mail: String, password: String) {
+    func createNewUser(name: String, mail: String, password: String, completionHandler: @escaping (String?, Error?) -> Void) {
         Auth.auth().createUser(withEmail: mail, password: password) { authResult, error in
-            if error == nil {
-                let uid = authResult?.user.uid ?? ""
-                // Backendclient: createNewUser BackendClient.shared.createNewUser(name: name, mail: mail, uid: uid)
-            }
+            let uid = authResult?.user.uid
+            completionHandler(uid, error)
         }
     }
     
     func logOut() {
         do {
             try Auth.auth().signOut()
-            AuthenticationManager.shared.loggedIn = false
+            //            AuthenticationManager.shared.loggedIn = false
             UserObjectManager.shared.user = nil
         } catch {
             
@@ -50,7 +42,7 @@ class AuthenticationManager: ObservableObject {
     func deleteAccount() {
         let uid = currentUser?.uid
         if uid == nil { return }
-        AuthenticationManager.shared.currentUser?.delete(completion: { error in
+        FirebaseAuthClient.shared.currentUser?.delete(completion: { error in
             if error == nil {
                 // Backendclient: deleteUserFromDB BackendClient.shared.deleteUserFromDB(with: uid!)
             } else {
