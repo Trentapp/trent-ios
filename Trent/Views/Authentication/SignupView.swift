@@ -142,7 +142,7 @@ struct SignupView: View {
                                         return
                                     }
                                     print("signed in")
-                                    BackendClient.shared.createNewUser(name: appleIDCredential.fullName!.description, mail: appleIDCredential.email!, uid: (authResult?.user.uid)!)
+                                    // Backendclient: createNewUser BackendClient.shared.createNewUser(name: appleIDCredential.fullName!.description, mail: appleIDCredential.email!, uid: (authResult?.user.uid)!)
                                 }
                                 
                                 print("\(String(describing: Auth.auth().currentUser?.uid))")

@@ -60,14 +60,14 @@ struct EditAccountView: View {
             .fontWeight(Font.Weight.regular)
         }), trailing: Button(action: {
             isUpdating = true
-            BackendClient.shared.updateUserObject(name: name, street: street, houseNumber: houseNumber, zipcode: zipcode, city: city, country: country) { success in
+            // Backendclient: updateUserObject BackendClient.shared.updateUserObject(name: name, street: street, houseNumber: houseNumber, zipcode: zipcode, city: city, country: country) { success in
                 isUpdating = false
-                if success {
-                    self.presentationMode.wrappedValue.dismiss()
-                } else {
-                    print("Error updating user")
-                }
-            }
+//                if success {
+//                    self.presentationMode.wrappedValue.dismiss()
+//                } else {
+//                    print("Error updating user")
+//                }
+//            }
             
             if(newPassword != "" && newPassword == repeatNewPassword) {
                 AuthenticationManager.shared.changePassword(newPassword: newPassword) { success in

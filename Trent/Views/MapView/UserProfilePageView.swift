@@ -57,7 +57,7 @@ struct UserProfilePageView: View {
             .navigationBarTitle(userProfile?.name ?? "User Profile", displayMode: .large)
             .onAppear(){
                 if !updated {
-                    self.inventory = BackendClient.shared.getInventory(inventory: userProfile?.inventory ?? [])
+                    //Backendclient: getInventory self.inventory = BackendClient.shared.getInventory(inventory: userProfile?.inventory ?? [])
                     self.updated = true
                 }
             }

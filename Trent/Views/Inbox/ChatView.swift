@@ -59,7 +59,7 @@ struct ChatView: View {
                         .background(Color.white)
                         .padding(.horizontal, 10)
                         Button {
-                            BackendClient.shared.sendMessage(chat_id: chat._id, content: message)
+                            // Backendclient: sendMessage BackendClient.shared.sendMessage(chat_id: chat._id, content: message)
                             self.message = ""
                         } label: {
                             ZStack {

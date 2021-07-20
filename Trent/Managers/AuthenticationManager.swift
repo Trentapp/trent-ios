@@ -32,7 +32,7 @@ class AuthenticationManager: ObservableObject {
         Auth.auth().createUser(withEmail: mail, password: password) { authResult, error in
             if error == nil {
                 let uid = authResult?.user.uid ?? ""
-                BackendClient.shared.createNewUser(name: name, mail: mail, uid: uid)
+                // Backendclient: createNewUser BackendClient.shared.createNewUser(name: name, mail: mail, uid: uid)
             }
         }
     }
@@ -52,7 +52,7 @@ class AuthenticationManager: ObservableObject {
         if uid == nil { return }
         AuthenticationManager.shared.currentUser?.delete(completion: { error in
             if error == nil {
-                BackendClient.shared.deleteUserFromDB(with: uid!)
+                // Backendclient: deleteUserFromDB BackendClient.shared.deleteUserFromDB(with: uid!)
             } else {
                 print("An error occurred deleting the account: \(error?.localizedDescription)")
             }

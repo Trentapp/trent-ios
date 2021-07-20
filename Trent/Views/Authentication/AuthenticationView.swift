@@ -122,7 +122,7 @@ struct AuthenticationView: View {
                                     print("signed in")
                                     if(authResult?.additionalUserInfo?.isNewUser ?? false) {
                                         let name = appleIDCredential.fullName!.givenName! + " " + appleIDCredential.fullName!.familyName!
-                                        BackendClient.shared.createNewUser(name: name, mail: appleIDCredential.email!, uid: (authResult?.user.uid)!)
+                                        // Backendclient: createNewUser BackendClient.shared.createNewUser(name: name, mail: appleIDCredential.email!, uid: (authResult?.user.uid)!)
                                         print("registered")
                                     }
                                 }

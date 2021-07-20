@@ -34,7 +34,8 @@ class UserObjectManager: ObservableObject {
         let uid = AuthenticationManager.shared.currentUser?.uid ?? ""
         
         DispatchQueue.main.async {
-            let user = BackendClient.shared.getUserObject(for: uid)
+            // Backendclient: getUserObject let user = BackendClient.shared.getUserObject(for: uid)
+            let user :UserObject? = UserObject(_id: "")
             if user != nil { UserObjectManager.shared.user = user! }
             self.refreshInventory()
         }
@@ -46,7 +47,7 @@ class UserObjectManager: ObservableObject {
         var newInventory = [Product]()
         
         DispatchQueue.global().async {
-            newInventory = BackendClient.shared.getInventory(inventory: self.user?.inventory ?? [])
+            // Backendclient: getInventory newInventory = BackendClient.shared.getInventory(inventory: self.user?.inventory ?? [])
             DispatchQueue.main.async {
                 UserObjectManager.shared.inventory = newInventory
             }

@@ -6,544 +6,424 @@
 //
 
 import Foundation
+import Alamofire
 
 class BackendClient: ObservableObject {
     static let shared = BackendClient()
     
     let serverPath = serverBaseURL + "/api"
     
+    // Overview: Backendclient
+    //
+    // I.   Products
+    // II.  User
+    // III. Transactions
+    // IV.  Chats
+    // V.   Reviews
     
-    func query(keyword: String) -> [Product]{
-        do {
-            let queryPath = serverPath + "/products?name=" + (keyword.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? "")
-            print("Querying: \(queryPath)")
-            let queryURL = URL(string: queryPath)!
-            let response = try String(contentsOf: queryURL)
-            //            print("Server response: \(response)")
-            let data = response.data(using: .utf8)!
-            let products = try JSONDecoder().decode([Product].self, from: data)
-            return products
-        } catch {
-            print("Error while retrieving status: \(error.localizedDescription)")
-            return []
-        }
-    }
     
-    func postNewItem(parameters: [String : Any], completionHandler: @escaping (Bool) -> Void) {
-        let postPath = serverPath + "/products/create"
-        let postURL = URL(string: postPath)!
-        var request = URLRequest(url: postURL)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.httpMethod = "POST"
-        //        request.httpBody = parameters.percentEncoded()!
-        
-        do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .withoutEscapingSlashes)
-        } catch let error {
-            print(error.localizedDescription)
-            completionHandler(false)
-        }
-        
-        print(request.description)
-        
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data,
-                  let response = response as? HTTPURLResponse,
-                  error == nil else{
-                completionHandler(false)
-                return
-            }
-            
-            guard (200 ... 299) ~= response.statusCode else {
-                print("HTTP response status code: \(response.statusCode)")
-                //                print("response: \(response)")
-                completionHandler(false)
-                return
-            }
-            
-            completionHandler(true)
-            UserObjectManager.shared.refresh()
-        }
-        
-        task.resume()
-    }
+    // I.   Products
+    //
+    // I.1  query
+    // I.2  postNewItem
+    // I.3  getProduct
+    // I.4  deleteProduct
     
-    func getProduct(for id: String) -> Product?{
-        do {
-            print("id: \(id)")
-            let queryPath = serverPath + "/products/product/" + id
-            let queryURL = URL(string: queryPath)!
-            let response = try String(contentsOf: queryURL)
-            let data = response.data(using: .utf8)!
-            let product = try JSONDecoder().decode(Product.self, from: data)
-            return product
-        } catch {
-            print("Error while retrieving product: \(error.localizedDescription)")
-            return nil
-        }
-    }
-    
-    func getInventory(inventory: [String]) -> [Product]{
-        var newInventory = [Product]()
-        
-        for productId in inventory {
-            let product = self.getProduct(for: productId)
-            if product != nil { newInventory.append(product!) }
-        }
-        
-        return newInventory
-    }
-    
-    func deleteProduct(with id: String) {
+    func query(keyword: String, completionHandler: @escaping ([Product]?, Bool) -> Void) {
         DispatchQueue.global().async {
-            let postPath = self.serverPath + "/products/product/delete/" + id
-            let postURL = URL(string: postPath)!
-            var request = URLRequest(url: postURL)
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            request.httpMethod = "DELETE"
+            let url = self.serverPath + "/products"
+            let parameters = ["name" : keyword]
             
-            print(request.description)
+            AF.request(url, parameters: parameters, encoding: JSONEncoding.default)
+                .validate()
+                .responseData { response in
+                    DispatchQueue.main.async {
+                        if response.data == nil {
+                            completionHandler(nil, false)
+                            return
+                        }
+                        
+                        do {
+                            let products = try JSONDecoder().decode([Product].self, from: response.data!)
+                            completionHandler(products, response.error == nil)
+                        } catch {
+                            print("Error while retrieving products")
+                            
+                            completionHandler(nil, false)
+                            
+                        }
+                    }
+                }
+        }
+    }
+    
+    func postNewItem(parameters: [String : Any], photos: [UIImage] = [], completionHandler: @escaping (Bool) -> Void) {
+        DispatchQueue.global().async {
+            let uid = AuthenticationManager.shared.currentUser?.uid ?? ""
             
-            let parameters = [
-                "uid" : AuthenticationManager.shared.currentUser?.uid ?? ""
+            let body: [String : Any] = [
+                "product" : parameters,
+                "user_uid" : uid
             ]
             
-            do {
-                request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .withoutEscapingSlashes)
-            } catch let error {
-                print(error.localizedDescription)
+            let bodyData = ((try? JSONSerialization.data(withJSONObject: body, options: [])) ?? Data())
+            
+            var photosData: [Data] = []
+            
+            for photo in photos {
+                let photoData = photo.jpegData(compressionQuality: 0)
+                if photoData == nil { continue }
+                photosData.append(photoData!)
             }
             
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                guard let data = data,
-                      let response = response as? HTTPURLResponse,
-                      error == nil else{
-                    
-                    return
+            AF.upload(multipartFormData: { multipartFormData in
+                for photo in photosData {
+                    multipartFormData.append(photo, withName: "image", fileName: "image")
                 }
                 
-                guard (200 ... 299) ~= response.statusCode else {
-                    print("HTTP response status code: \(response.statusCode)")
-                    //                    print("response: \(response)")
-                    print("Deleting product failed")
-                    return
+                multipartFormData.append(bodyData, withName: "product", fileName: "product")
+            }, to: serverBaseURL + "/api/products/create2")
+            .validate()
+            .response { dataResponse in
+                DispatchQueue.main.async {
+                    completionHandler(dataResponse.error == nil)
+                    UserObjectManager.shared.refresh()
                 }
-                
-                print("Deleting product succeeded")
-                UserObjectManager.shared.refresh()
             }
-            
-            task.resume()
-            
-            UserObjectManager.shared.refresh()
         }
     }
     
-    func getUserProfile(for id: String) -> UserProfile? {
-        do {
-            let queryPath = serverPath + "/users/user-profile/" + id
-            let queryURL = URL(string: queryPath)!
-            let response = try String(contentsOf: queryURL)
-            let data = response.data(using: .utf8)!
-            let user = try JSONDecoder().decode(UserProfile.self, from: data)
-            return user
-        } catch {
-            print("Error while retrieving user profile: \(error.localizedDescription)")
-            return nil
+    func getProduct(for id: String, completionHandler: @escaping (Product?) -> Void) {
+        DispatchQueue.global().async {
+            let url = self.serverPath + "/products/product" + id
+            
+            AF.request(url)
+                .validate()
+                .responseData { response in
+                    DispatchQueue.main.async {
+                        do {
+                            if response.data == nil {
+                                completionHandler(nil)
+                                return
+                            }
+                            let product = try JSONDecoder().decode(Product.self, from: response.data!)
+                            completionHandler(product)
+                        } catch {
+                            
+                            completionHandler(nil)
+                            
+                            print("Error while retrieving product")
+                        }
+                    }
+                }
         }
     }
     
-    func getUserObject(for uid: String) -> UserObject? {
-        do {
-            let queryPath = serverPath + "/users/user/" + uid
-            let queryURL = URL(string: queryPath)!
-            let response = try String(contentsOf: queryURL)
-            let data = response.data(using: .utf8)!
-            let user = try JSONDecoder().decode(UserObject.self, from: data)
-            return user
-        } catch {
-            print("Error while retrieving user: \(error.localizedDescription)")
-            return nil
+    //    func getInventory(inventory: [String]) -> [Product]{
+    //        var newInventory = [Product]()
+    //
+    //        for productId in inventory {
+    //            let product = self.getProduct(for: productId)
+    //            if product != nil { newInventory.append(product!) }
+    //        }
+    //
+    //        return newInventory
+    //    }
+    
+    func deleteProduct(with id: String, completionHandler: @escaping (Bool) -> Void) {
+        DispatchQueue.global().async {
+            let url = self.serverPath + "/products/products/delete/" + id
+            let parameters = ["uid" : AuthenticationManager.shared.currentUser?.uid ?? ""]
+            
+            AF.request(url, method: .delete, parameters: parameters, encoding: JSONEncoding.default)
+                .validate()
+                .response { response in
+                    DispatchQueue.main.async {
+                        completionHandler(response.error == nil)
+                    }
+                }
         }
     }
     
-    func createNewUser(name: String, mail: String, uid: String) {
-        let user: [String : Any] = [
-            "name" : name,
-            "mail" : mail,
-            "uid"  : uid
-        ]
-        
-        let parameters: [String: Any] = [
-            "user" : user
-        ]
-        
-        let postPath = serverPath + "/users/create"
-        let postURL = URL(string: postPath)!
-        var request = URLRequest(url: postURL)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.httpMethod = "POST"
-        //        request.httpBody = parameters.percentEncoded()!
-        
-        do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .withoutEscapingSlashes)
-        } catch let error {
-            print(error.localizedDescription)
-            //            return false
-        }
-        
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data,
-                  let response = response as? HTTPURLResponse,
-                  error == nil else{
-                //                return false
-                return
-            }
+    
+    
+    
+    // II.  User
+    //
+    // II.1 getUserProfile
+    // II.2 getUserObject
+    // II.3 createNewUser
+    // II.4 updateUserObject
+    // II.5 deleteUserFromDB
+    
+    func getUserProfile(for id: String, completionHandler: @escaping (UserProfile?) -> Void) {
+        DispatchQueue.global().async {
+            let url = self.serverPath + "/users/user-profile/" + id
             
-            guard (200 ... 299) ~= response.statusCode else {
-                print("HTTP response status code: \(response.statusCode)")
-                //                print("response: \(response)")
-                //                return false
-                return
-            }
-            
-            //            return true
-            UserObjectManager.shared.refresh()
+            AF.request(url)
+                .validate()
+                .responseData { response in
+                    DispatchQueue.main.async {
+                        do {
+                            if response.data == nil {
+                                completionHandler(nil)
+                                return
+                            }
+                            let profile = try JSONDecoder().decode(UserProfile.self, from: response.data!)
+                            
+                            completionHandler(profile)
+                        } catch {
+                            print("Error while retrieving user profile")
+                            completionHandler(nil)
+                        }
+                    }
+                }
         }
-        
-        task.resume()
+    }
+    
+    func getUserObject(completionHandler: @escaping (UserObject?) -> Void) {
+        DispatchQueue.global().async {
+            let url = self.serverPath + "/users/user"
+            let uid = AuthenticationManager.shared.currentUser?.uid ?? ""
+            let parameters = ["uid" : uid]
+            
+            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+                .validate()
+                .responseData { response in
+                    DispatchQueue.main.async {
+                        do {
+                            if response.data == nil {
+                                completionHandler(nil)
+                                return
+                            }
+                            let user = try JSONDecoder().decode(UserObject.self, from: response.data!)
+                            
+                            completionHandler(user)
+                        } catch {
+                            print("Error while retrieving user profile")
+                            completionHandler(nil)
+                        }
+                    }
+                }
+        }
+    }
+    
+    func createNewUser(name: String, mail: String, uid: String, completionHandler: @escaping (UserObject?) -> Void) {
+        DispatchQueue.global().async {
+            let url = self.serverPath + "/users/create"
+            
+            let user: [String : Any] = [
+                "name" : name,
+                "mail" : mail,
+                "uid"  : uid
+            ]
+            
+            let parameters: [String: Any] = [
+                "user" : user
+            ]
+            
+            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+                .validate()
+                .responseData { response in
+                    DispatchQueue.main.async {
+                        do {
+                            if response.data == nil {
+                                completionHandler(nil)
+                                return
+                            }
+                            let user = try JSONDecoder().decode(UserObject.self, from: response.data!)
+                            
+                            completionHandler(user)
+                        } catch {
+                            print("Error while retrieving user profile")
+                            completionHandler(nil)
+                        }
+                    }
+                }
+        }
     }
     
     func updateUserObject(name: String, street: String, houseNumber: String, zipcode: String, city: String, country: String, completionHandler: @escaping (Bool) -> Void) {
-        var userObject: [String : Any] = [
-            "uid" : AuthenticationManager.shared.currentUser?.uid ?? "",
-            "name" : name
-        ]
-        
-        if street != "" || houseNumber != "" || zipcode != "" || city != "" || country != "" {
-            let address = Address(street: street, houseNumber: houseNumber, zipcode: zipcode, city: city, country: country)
-            do {
-                userObject["address"] = try address.asDictionary()
-            } catch {
-                print("Error while convertig address to dict")
-            }
-            
-        }
-        
-        let parameters: [String: Any] = [
-            "user" : userObject
-        ]
-        
-        let postPath = self.serverPath + "/users/update"
-        let postURL = URL(string: postPath)!
-        var request = URLRequest(url: postURL)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.httpMethod = "PUT"
-        //        request.httpBody = parameters.percentEncoded()!
-        
-        do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .withoutEscapingSlashes)
-        } catch let error {
-            print(error.localizedDescription)
-            DispatchQueue.main.async {
-                completionHandler(false)
-            }
-        }
-        
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data,
-                  let response = response as? HTTPURLResponse,
-                  error == nil else{
-                DispatchQueue.main.async {
-                    completionHandler(false)
-                }
-                return
-            }
-            
-            guard (200 ... 299) ~= response.statusCode else {
-                print("HTTP response status code: \(response.statusCode)")
-                //                print("response: \(response)")
-                DispatchQueue.main.async {
-                    completionHandler(false)
-                }
-                return
-            }
-            
-            DispatchQueue.main.async {
-                completionHandler(true)
-                UserObjectManager.shared.refresh()
-            }
-        }
-        
-        task.resume()
-    }
-    
-    func deleteUserFromDB(with uid: String) {
         DispatchQueue.global().async {
-            let postPath = self.serverPath + "/users/delete"
-            let postURL = URL(string: postPath)!
-            var request = URLRequest(url: postURL)
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            request.httpMethod = "DELETE"
-            
-            let parameters = [
-                "uid" : uid
+            let url = self.serverPath + "/users/update"
+            var userObject: [String : Any] = [
+                "uid" : AuthenticationManager.shared.currentUser?.uid ?? "",
+                "name" : name
             ]
             
-            do {
-                request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .withoutEscapingSlashes)
-            } catch let error {
-                print(error.localizedDescription)
-            }
-            
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                guard let data = data,
-                      let response = response as? HTTPURLResponse,
-                      error == nil else{
-                    
-                    return
-                }
-                
-                guard (200 ... 299) ~= response.statusCode else {
-                    print("HTTP response status code: \(response.statusCode)")
-                    //                    print("response: \(response)")
-                    print("Deleting user failed")
-                    return
-                }
-                
-                print("Deleting user succeeded")
-                UserObjectManager.shared.refresh()
-            }
-            
-            task.resume()
-        }
-    }
-    
-    func addTransaction(item_id: String) {
-        let postPath = self.serverPath + "/transactions/add"
-        let postURL = URL(string: postPath)!
-        var request = URLRequest(url: postURL)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.httpMethod = "POST"
-        
-        let parameters = [
-            "user_uid" : AuthenticationManager.shared.currentUser?.uid ?? "",
-            "product_id" : item_id
-        ]
-        
-        do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .withoutEscapingSlashes)
-        } catch let error {
-            print(error.localizedDescription)
-        }
-        
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data,
-                  let response = response as? HTTPURLResponse,
-                  error == nil else{
-                
-                return
-            }
-            
-            guard (200 ... 299) ~= response.statusCode else {
-                print("HTTP response status code: \(response.statusCode)")
-                //                print("response: \(response)")
-                print("Adding transaction failed")
-                return
-            }
-            
-            
-            print("Adding transaction succeeded")
-            let transaction_id = String(data: data, encoding: .utf8)
-            print(transaction_id)
-            UserObjectManager.shared.refresh()
-        }
-        
-        task.resume()
-    }
-    
-    
-    //    func requestTransaction(transaction_id: String){
-    //        DispatchQueue.global().async {
-    //            let postPath = self.serverPath + "/transactions/add"
-    //            let postURL = URL(string: postPath)!
-    //            var request = URLRequest(url: postURL)
-    //            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-    //            request.addValue("application/json", forHTTPHeaderField: "Accept")
-    //            request.httpMethod = "DELETE"
-    //
-    //            let parameters = [
-    //                "user_uid" : AuthenticationManager.shared.currentUser?.uid ?? "",
-    //                "product_id" : item_id
-    //            ]
-    //
-    //            do {
-    //                request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .withoutEscapingSlashes)
-    //            } catch let error {
-    //                print(error.localizedDescription)
-    //            }
-    //
-    //            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-    //                guard let data = data,
-    //                      let response = response as? HTTPURLResponse,
-    //                      error == nil else{
-    //
-    //                    return
-    //                }
-    //
-    //                guard (200 ... 299) ~= response.statusCode else {
-    //                    print("HTTP response status code: \(response.statusCode)")
-    //                    print("response: \(response)")
-    //                    print("Deleting user failed")
-    //                    return
-    //                }
-    //
-    //                print("Deleting user succeeded")
-    //                UserObjectManager.shared.refresh()
-    //            }
-    //
-    //            task.resume()
-    //        }
-    //    }
-    
-    // Reviews
-    func getReviews(user_id: String) -> [Review]? {
-        do {
-            let queryPath = serverPath + "/reviews/user/" + user_id
-            let queryURL = URL(string: queryPath)!
-            let response = try String(contentsOf: queryURL)
-            let data = response.data(using: .utf8)!
-            let reviews = try JSONDecoder().decode([Review].self, from: data)
-            return reviews
-        } catch {
-            print("Error while retrieving product: \(error.localizedDescription)")
-            return nil
-        }
-    }
-    
-    
-    // Chats
-    func getChats(completionHandler: @escaping (([Chat]) -> Void)) {
-        DispatchQueue.global().async {
-            //            var chats = [Chat]()
-            
-            let parameters: [String: Any] = [
-                "uid" : AuthenticationManager.shared.currentUser?.uid ?? ""
-            ]
-            
-            let postPath = self.serverPath + "/chats/get"
-            let postURL = URL(string: postPath)!
-            var request = URLRequest(url: postURL)
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            request.httpMethod = "POST"
-            //        request.httpBody = parameters.percentEncoded()!
-            
-            do {
-                request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .withoutEscapingSlashes)
-            } catch let error {
-                completionHandler([])
-                print(error.localizedDescription)
-            }
-            
-            let task = URLSession.shared.dataTask(with: request) { data, response, err in
-                guard let data = data,
-                      let response = response as? HTTPURLResponse,
-                      err == nil else{
-                    completionHandler([])
-                    return
-                }
-                
-                guard (200 ... 299) ~= response.statusCode else {
-                    completionHandler([])
-                    return
-                }
-                
+            if street != "" || houseNumber != "" || zipcode != "" || city != "" || country != "" {
+                let address = Address(street: street, houseNumber: houseNumber, zipcode: zipcode, city: city, country: country)
                 do {
-                    let chats = try JSONDecoder().decode([Chat].self, from: data)
-                    completionHandler(chats)
+                    userObject["address"] = try address.asDictionary()
                 } catch {
-                    print("Error while decoding chat response: \(error)")
-                    completionHandler([])
+                    print("Error while convertig address to dict")
                 }
+                
             }
             
+            let parameters: [String: Any] = [
+                "user" : userObject
+            ]
             
-            task.resume()
-            
+            AF.request(url, method: .put, parameters: parameters)
+                .validate()
+                .response { response in
+                    DispatchQueue.main.async {
+                        UserObjectManager.shared.refresh()
+                        completionHandler(response.error == nil)
+                    }
+                }
         }
-        
     }
     
-    func sendMessage(chat_id: String, content: String) {
+    func deleteUserFromDB(completionHandler: @escaping (Bool) -> Void) {
         DispatchQueue.global().async {
-            //            var chats = [Chat]()
+            let url = self.serverPath + "/users/delete"
             
-            let parameters: [String: Any] = [
-                "user_uid" : AuthenticationManager.shared.currentUser?.uid ?? "",
+            let uid = AuthenticationManager.shared.currentUser?.uid ?? ""
+            let parameters = ["uid": uid]
+            
+            AF.request(url, method: .delete, parameters: parameters, encoding: JSONEncoding.default)
+                .validate()
+                .response { response in
+                    DispatchQueue.main.async {
+                        UserObjectManager.shared.refresh()
+                        completionHandler(response.error == nil)
+                    }
+                }
+        }
+    }
+    
+    
+    
+    // III.     Transactions
+    //
+    // III.1    addTransaction
+    func addTransaction(item_id: String, completionHandler: @escaping (Bool) -> Void) {
+        DispatchQueue.global().async {
+            let url = self.serverPath + "/transactions/add"
+            
+            let uid = AuthenticationManager.shared.currentUser?.uid ?? ""
+            let parameters = [
+                "user_uid" : uid,
+                "product_id" : item_id
+            ]
+            
+            AF.request(url, parameters: parameters, encoding: JSONEncoding.default)
+                .validate()
+                .response { response in
+                    DispatchQueue.main.async {
+                        completionHandler(response.error == nil)
+                        UserObjectManager.shared.refresh()
+                    }
+                }
+        }
+    }
+    
+    
+    
+    // IV.     Reviews
+    //
+    // IV.1     getReviews
+    func getReviews(user_id: String, completionHandler: @escaping ([Review]?) -> Void){
+        DispatchQueue.global().async {
+            let url = self.serverPath + "/revies/user" + user_id
+            
+            AF.request(url)
+                .validate()
+                .response { response in
+                    DispatchQueue.main.async {
+                        if response.data == nil {
+                            completionHandler(nil)
+                            return
+                        }
+                        do {
+                            let reviews = try JSONDecoder().decode([Review].self, from: response.data!)
+                            completionHandler(reviews)
+                        } catch {
+                            completionHandler(nil)
+                        }
+                    }
+                }
+        }    }
+    
+    
+    // V.     Chats
+    //
+    // V.1    getChats
+    // V.2    sendMessage
+    func getChats(completionHandler: @escaping ([Chat]?) -> Void) {
+        DispatchQueue.global().async {
+            let url = self.serverPath + "/chats/get"
+            
+            let uid = AuthenticationManager.shared.currentUser?.uid ?? ""
+            let parameters = ["uid" : uid]
+            
+            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+                .validate()
+                .response { response in
+                    DispatchQueue.main.async {
+                        do {
+                            if response.data == nil {
+                                completionHandler(nil)
+                                return
+                            }
+                            let chats = try JSONDecoder().decode([Chat].self, from: response.data!)
+                            completionHandler(chats)
+                        } catch {
+                            completionHandler(nil)
+                        }
+                    }
+                }
+        }
+    }
+    
+    func sendMessage(chat_id: String, content: String, completionHandler: @escaping (Bool) -> Void) {
+        DispatchQueue.global().async {
+            let url = self.serverPath + "/chats/sendMessage"
+            
+            let uid = AuthenticationManager.shared.currentUser?.uid ?? ""
+            let parameters = [
+                "user_uid" : uid,
                 "chat_id" : chat_id,
                 "content" : content
             ]
             
-            let postPath = self.serverPath + "/chats/sendMessage"
-            let postURL = URL(string: postPath)!
-            var request = URLRequest(url: postURL)
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            request.httpMethod = "POST"
-            //        request.httpBody = parameters.percentEncoded()!
-            
-            do {
-                request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .withoutEscapingSlashes)
-            } catch let error {
-                print(error.localizedDescription)
-            }
-            
-            let task = URLSession.shared.dataTask(with: request) { data, response, err in
-                guard let data = data,
-                      let response = response as? HTTPURLResponse,
-                      err == nil else {
-                    return
+            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+                .validate()
+                .response { response in
+                    DispatchQueue.main.async {
+                        completionHandler(response.error != nil)
+                    }
                 }
-                
-                guard (200 ... 299) ~= response.statusCode else {
-                    return
-                }
-                
-//                do {
-//                    let chats = try JSONDecoder().decode([Chat].self, from: data)
-//                } catch {
-//                    print("Error while decoding chat response: \(error)")
-//                }
-            }
-            
-            
-            task.resume()
-            
         }
-        
     }
     
     
-    // Requests
-    func getTransactionsAsLender() -> [Transaction]? {
-        do {
-            let queryPath = serverPath + "/transactions/findByLender/" + (UserObjectManager.shared.user?._id ?? "")
-            print("Querying: \(queryPath)")
-            let queryURL = URL(string: queryPath)!
-            let response = try String(contentsOf: queryURL)
-            let data = response.data(using: .utf8)!
-            let transactions = try JSONDecoder().decode([Transaction].self, from: data)
-            return transactions
-        } catch {
-            print("Error while retrieving user: \(error.localizedDescription)")
-            return nil
+    // VI.     Reviews
+    //
+    // VI.1    getTransactionsAsLender
+    func getTransactionsAsLender(completionHandler: @escaping ([Transaction]?) -> Void) {
+        DispatchQueue.global().async {
+            let uid = AuthenticationManager.shared.currentUser?.uid ?? ""
+            let url = self.serverPath + "/transactions/findByLender/" + uid
+            
+            AF.request(url)
+                .validate()
+                .response { response in
+                    DispatchQueue.main.async {
+                        do {
+                            if response.data == nil {
+                                completionHandler(nil)
+                                return
+                            }
+                            let transactions = try JSONDecoder().decode([Transaction].self, from: response.data!)
+                            completionHandler(transactions)
+                        } catch {
+                            completionHandler(nil)
+                        }
+                    }
+                }
         }
     }
     

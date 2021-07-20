@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Introspect
+//import Introspect
 
 struct InboxView: View {
     
@@ -16,7 +16,7 @@ struct InboxView: View {
     
     @State private var selectedSection = 0
     
-    @State var tabBar: UITabBar?
+//    @State var tabBar: UITabBar?
     
     var body: some View {
         ZStack {
@@ -36,14 +36,14 @@ struct InboxView: View {
                         ForEach(transactions ?? [] , id: \.self) { transaction in
                             HStack{
                                 VStack {
-                                    Text(transaction.borrower)
-                                    Text(transaction.item)
+                                    Text(transaction.borrower ?? "Borrower")
+                                    Text(transaction.item ?? "Item")
                                 }
                                 Spacer()
-                                if transaction.granted == 2 {
+                                if transaction.status == 2 {
                                     Text("Accepted")
                                         .foregroundColor(.green)
-                                } else if transaction.granted == 1 {
+                                } else if transaction.status == 1 {
                                     Text("Rejected")
                                         .foregroundColor(.green)
                                 } else {
@@ -71,7 +71,6 @@ struct InboxView: View {
                                     .buttonStyle(PlainButtonStyle())
                                 }
                             }
-                            
                         }
                     }
                     
@@ -95,21 +94,22 @@ struct InboxView: View {
         .navigationViewStyle(StackNavigationViewStyle())
         .navigationBarHidden(false)
         .onAppear() {
-            BackendClient.shared.getChats { chats in
-                self.chats = chats
+//            Backendclient: getChats BackendClient.shared.getChats { chats in
+                self.chats = nil //chats
                 isLoading = false
-            }
-            DispatchQueue.global().async {
-                let transactions = BackendClient.shared.getTransactionsAsLender()
-                DispatchQueue.main.async {
+//            }
+//            DispatchQueue.global().async {
+                // Backendclient getTransactionsAsLender let transactions = BackendClient.shared.getTransactionsAsLender()
+                let transactions: [Transaction]? = []
+//                DispatchQueue.main.async {
                     self.transactions = transactions
-                }
-            }
-            self.tabBar?.isHidden = false
+//                }
+//            }
+//            self.tabBar?.isHidden = false
         }
-        .introspectTabBarController { (UITabBarController) in
-            self.tabBar = UITabBarController.tabBar
-        }
+//        .introspectTabBarController { (UITabBarController) in
+//            self.tabBar = UITabBarController.tabBar
+//        }
     }
 }
 

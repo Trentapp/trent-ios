@@ -165,9 +165,7 @@ struct ItemDetailView: View {
                 Spacer()
                 Button(action: {
                     print("Requesting")
-                    DispatchQueue.global().async {
-                        BackendClient.shared.addTransaction(item_id: item?._id ?? "")
-                    }
+                    // BackendClient: addTransaction
                 }, label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 10)
@@ -192,7 +190,7 @@ struct ItemDetailView: View {
         .onAppear(){
 //            self.tabBar?.isHidden = true
             self.coordinateRegion = MKCoordinateRegion(center: item?.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0), latitudinalMeters: 750, longitudinalMeters: 750)
-            self.owner = BackendClient.shared.getUserProfile(for: item?.user?._id ?? "")
+            // Backendcleint: getUserProfile self.owner = BackendClient.shared.getUserProfile(for: item?.user?._id ?? "")
         }
     }
 }

@@ -14,12 +14,3 @@ struct Chat: Codable, Hashable {
     var item: Product
     var messages: [Message]
 }
-
-
-struct Message: Codable, Hashable {
-    var _id: String
-    var timestamp: String
-    var sender: String
-    var content: String
-    var read: Bool
-}

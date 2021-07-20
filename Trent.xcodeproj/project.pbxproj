@@ -35,6 +35,11 @@
 		B08F89E126A06B2600816A8D /* DualSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08F89E026A06B2600816A8D /* DualSlider.swift */; };
 		B08F89E326A1B12C00816A8D /* MonoSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08F89E226A1B12C00816A8D /* MonoSlider.swift */; };
 		B08F89E526A4A8BD00816A8D /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08F89E426A4A8BD00816A8D /* ExploreView.swift */; };
+		B08F89E826A70AE800816A8D /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08F89E726A70AE800816A8D /* Picture.swift */; };
+		B08F89EA26A70B1100816A8D /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08F89E926A70B1100816A8D /* Coordinates.swift */; };
+		B08F89EC26A70B2D00816A8D /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08F89EB26A70B2D00816A8D /* Address.swift */; };
+		B08F89EE26A70B5400816A8D /* Prices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08F89ED26A70B5400816A8D /* Prices.swift */; };
+		B08F89F026A70B7500816A8D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08F89EF26A70B7500816A8D /* Message.swift */; };
 		B093B59A2685A0520051B7CC /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093B5992685A0520051B7CC /* UserProfile.swift */; };
 		B093B59C2685B6A90051B7CC /* UserProfilePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093B59B2685B6A90051B7CC /* UserProfilePageView.swift */; };
 		B093B59E2685C7650051B7CC /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093B59D2685C7650051B7CC /* ReviewView.swift */; };
@@ -87,6 +92,11 @@
 		B08F89E026A06B2600816A8D /* DualSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DualSlider.swift; sourceTree = "<group>"; };
 		B08F89E226A1B12C00816A8D /* MonoSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonoSlider.swift; sourceTree = "<group>"; };
 		B08F89E426A4A8BD00816A8D /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
+		B08F89E726A70AE800816A8D /* Picture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
+		B08F89E926A70B1100816A8D /* Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
+		B08F89EB26A70B2D00816A8D /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		B08F89ED26A70B5400816A8D /* Prices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prices.swift; sourceTree = "<group>"; };
+		B08F89EF26A70B7500816A8D /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		B093B5992685A0520051B7CC /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		B093B59B2685B6A90051B7CC /* UserProfilePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePageView.swift; sourceTree = "<group>"; };
 		B093B59D2685C7650051B7CC /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
@@ -156,9 +166,14 @@
 			children = (
 				B051EAD72664D05A002CF297 /* UserObject.swift */,
 				B0F01F60265FAFA300BDFA18 /* Product.swift */,
+				B08F89ED26A70B5400816A8D /* Prices.swift */,
+				B08F89EB26A70B2D00816A8D /* Address.swift */,
+				B08F89E926A70B1100816A8D /* Coordinates.swift */,
+				B08F89E726A70AE800816A8D /* Picture.swift */,
 				B093B59F2685CA310051B7CC /* Review.swift */,
 				B093B5992685A0520051B7CC /* UserProfile.swift */,
 				B093B5A126860C750051B7CC /* Chat.swift */,
+				B08F89EF26A70B7500816A8D /* Message.swift */,
 				B0989252268B319200574719 /* Transaction.swift */,
 			);
 			path = Structures;
@@ -423,6 +438,7 @@
 			files = (
 				B05F67FE2667681300A58505 /* PhotoPickerViews.swift in Sources */,
 				B029AD0826623EBD00279911 /* AddProductView.swift in Sources */,
+				B08F89EE26A70B5400816A8D /* Prices.swift in Sources */,
 				B029AD012662313400279911 /* MapAnnotationButton.swift in Sources */,
 				B0F37CC3265ECC7000D7905E /* LoginView.swift in Sources */,
 				B08F89E126A06B2600816A8D /* DualSlider.swift in Sources */,
@@ -437,8 +453,10 @@
 				B01C139E2680A7790078E584 /* MapViewController.swift in Sources */,
 				B093B59E2685C7650051B7CC /* ReviewView.swift in Sources */,
 				B093B5A726861FAD0051B7CC /* ChatView.swift in Sources */,
+				B08F89F026A70B7500816A8D /* Message.swift in Sources */,
 				B08F89E326A1B12C00816A8D /* MonoSlider.swift in Sources */,
 				B029AD0526623C9500279911 /* AccountView.swift in Sources */,
+				B08F89E826A70AE800816A8D /* Picture.swift in Sources */,
 				B0989253268B319200574719 /* Transaction.swift in Sources */,
 				B06E9333269F491200E96740 /* AuthenticationView.swift in Sources */,
 				B029AD0C2662925700279911 /* DetailBottomView.swift in Sources */,
@@ -450,6 +468,7 @@
 				B093B59A2685A0520051B7CC /* UserProfile.swift in Sources */,
 				B01C1399267E63130078E584 /* Encodable.swift in Sources */,
 				B0F37CC9265EE8AA00D7905E /* AuthenticationManager.swift in Sources */,
+				B08F89EA26A70B1100816A8D /* Coordinates.swift in Sources */,
 				B01C13A02684CF810078E584 /* ContactView.swift in Sources */,
 				B029AD0A2662545800279911 /* PercentEncoding.swift in Sources */,
 				B029AD1026629C0D00279911 /* View.swift in Sources */,
@@ -461,6 +480,7 @@
 				B0F37CC7265EDAD500D7905E /* SignupView.swift in Sources */,
 				B093B59C2685B6A90051B7CC /* UserProfilePageView.swift in Sources */,
 				B093B5A426860D220051B7CC /* InboxView.swift in Sources */,
+				B08F89EC26A70B2D00816A8D /* Address.swift in Sources */,
 				B051EAD62664CF2A002CF297 /* UserObjectManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

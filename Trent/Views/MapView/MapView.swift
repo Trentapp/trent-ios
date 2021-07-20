@@ -77,9 +77,7 @@ struct MapView: View {
                                 }, onCommit: {
                                     UIApplication.shared.endEditing()
                                     print("Did commit: \(keyword)")
-                                    DispatchQueue.global().async {
-                                        self.products = backendClient.query(keyword: keyword)
-                                    }
+                                    // BackendClient: query
                                 })
                                 .foregroundColor((self.keyword == "") ? .gray : .black)
                                 .font(.system(size: 17, weight: .semibold, design: .default))
