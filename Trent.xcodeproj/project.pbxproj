@@ -23,6 +23,8 @@
 		B051EAD82664D05A002CF297 /* UserObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B051EAD72664D05A002CF297 /* UserObject.swift */; };
 		B051EADA26662E2B002CF297 /* InventoryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B051EAD926662E2B002CF297 /* InventoryCollectionView.swift */; };
 		B051EADF26662FBE002CF297 /* InventoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B051EADE26662FBE002CF297 /* InventoryItemView.swift */; };
+		B0529D4526A8336F001616AB /* MainViewProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0529D4426A8336F001616AB /* MainViewProperties.swift */; };
+		B0529D4726A8372C001616AB /* TabBarConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0529D4626A8372C001616AB /* TabBarConfigurations.swift */; };
 		B05F67FE2667681300A58505 /* PhotoPickerViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05F67FD2667681300A58505 /* PhotoPickerViews.swift */; };
 		B06E9331269EB25C00E96740 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B06E9330269EB25C00E96740 /* AuthenticationServices.framework */; };
 		B06E9333269F491200E96740 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06E9332269F491200E96740 /* AuthenticationView.swift */; };
@@ -77,6 +79,8 @@
 		B051EAD72664D05A002CF297 /* UserObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserObject.swift; sourceTree = "<group>"; };
 		B051EAD926662E2B002CF297 /* InventoryCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryCollectionView.swift; sourceTree = "<group>"; };
 		B051EADE26662FBE002CF297 /* InventoryItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryItemView.swift; sourceTree = "<group>"; };
+		B0529D4426A8336F001616AB /* MainViewProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewProperties.swift; sourceTree = "<group>"; };
+		B0529D4626A8372C001616AB /* TabBarConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarConfigurations.swift; sourceTree = "<group>"; };
 		B05F67FD2667681300A58505 /* PhotoPickerViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerViews.swift; sourceTree = "<group>"; };
 		B06E932F269EB25700E96740 /* Trent.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Trent.entitlements; sourceTree = "<group>"; };
 		B06E9330269EB25C00E96740 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
@@ -194,6 +198,8 @@
 			isa = PBXGroup;
 			children = (
 				B029AD02266237E200279911 /* MainView.swift */,
+				B0529D4626A8372C001616AB /* TabBarConfigurations.swift */,
+				B0529D4426A8336F001616AB /* MainViewProperties.swift */,
 				B09698E626948DC000068BA3 /* Launchscreen.swift */,
 				B08F89E626A4A8C400816A8D /* ExploreView */,
 				B051EADB26662F39002CF297 /* MapView */,
@@ -451,6 +457,7 @@
 				B08F89E526A4A8BD00816A8D /* ExploreView.swift in Sources */,
 				B029AD03266237E200279911 /* MainView.swift in Sources */,
 				B01C139E2680A7790078E584 /* MapViewController.swift in Sources */,
+				B0529D4526A8336F001616AB /* MainViewProperties.swift in Sources */,
 				B093B59E2685C7650051B7CC /* ReviewView.swift in Sources */,
 				B093B5A726861FAD0051B7CC /* ChatView.swift in Sources */,
 				B08F89F026A70B7500816A8D /* Message.swift in Sources */,
@@ -479,6 +486,7 @@
 				B06F7978264A6B5500049EF2 /* TrentApp.swift in Sources */,
 				B0F37CC7265EDAD500D7905E /* SignupView.swift in Sources */,
 				B093B59C2685B6A90051B7CC /* UserProfilePageView.swift in Sources */,
+				B0529D4726A8372C001616AB /* TabBarConfigurations.swift in Sources */,
 				B093B5A426860D220051B7CC /* InboxView.swift in Sources */,
 				B08F89EC26A70B2D00816A8D /* Address.swift in Sources */,
 				B051EAD62664CF2A002CF297 /* UserObjectManager.swift in Sources */,

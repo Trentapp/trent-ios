@@ -12,6 +12,9 @@ import CryptoKit
 
 
 struct AuthenticationView: View {
+    
+    var wantedTab: Int?
+    
     @Environment(\.presentationMode) var presentationMode
     // Unhashed nonce.
     @State var currentNonce: String?
@@ -122,8 +125,17 @@ struct AuthenticationView: View {
                                     print("signed in")
                                     if(authResult?.additionalUserInfo?.isNewUser ?? false) {
                                         let name = appleIDCredential.fullName!.givenName! + " " + appleIDCredential.fullName!.familyName!
-                                        // Backendclient: createNewUser BackendClient.shared.createNewUser(name: name, mail: appleIDCredential.email!, uid: (authResult?.user.uid)!)
+                                        BackendClient.shared.createNewUser(name: name, mail: appleIDCredential.email!, uid: (authResult?.user.uid)!, completionHandler: { userObject in
+                                            UserObjectManager.shared.user = userObject
+                                            if wantedTab != nil {
+                                                MainViewProperties.shared.selectedItem = tabBarConfigurations[wantedTab!]
+                                            }
+                                            self.presentationMode.wrappedValue.dismiss()
+                                        })
                                         print("registered")
+                                    } else {
+                                        MainViewProperties.shared.selectedItem = tabBarConfigurations[wantedTab!]
+                                        self.presentationMode.wrappedValue.dismiss()
                                     }
                                 }
                                 

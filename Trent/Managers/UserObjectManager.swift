@@ -10,8 +10,6 @@ import Foundation
 class UserObjectManager: ObservableObject {
     static var shared = UserObjectManager()
     
-    @Published var showAuthentication = false
-    
     @Published var loggedIn = false {
         didSet {
             UserDefaults.standard.set(loggedIn, forKey: "loggedIn") //Bool
@@ -33,19 +31,18 @@ class UserObjectManager: ObservableObject {
     func createNewUser(name: String, mail: String, password: String, completionHandler: @escaping (Bool, String?) -> Void) {
         FirebaseAuthClient.shared.createNewUser(name: name, mail: mail, password: password) { uid, error in
             if error == nil && uid != nil {
-                // Backendclient: createNewUser BackendClient.shared.createNewUser(name: name, mail: mail, uid: uid)
+                BackendClient.shared.createNewUser(name: name, mail: mail, uid: uid ?? "") { userObject in
+                    UserObjectManager.shared.user = userObject
+                }
             }
         }
     }
     
     func refresh() {
-        let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
-        
-        // Backendclient: getUserObject let user = BackendClient.shared.getUserObject(for: uid)
-        let user :UserObject? = UserObject(_id: "")
-        if user != nil { UserObjectManager.shared.user = user! }
-        self.refreshInventory()
-        
+        BackendClient.shared.getUserObject { user in
+            if user != nil { UserObjectManager.shared.user = user! }
+            self.refreshInventory()
+        }
     }
     
     private func refreshInventory() {
