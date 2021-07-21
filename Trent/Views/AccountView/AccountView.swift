@@ -50,7 +50,12 @@ struct AccountView: View {
             }
             .alert(isPresented: $isShownLogOutAlert, content: {
                 Alert(title: Text("Log out"), message: Text("Are you sure you want to log out of your current account? You will need to log back in with your password to gain access to your account again on this device."), primaryButton: .cancel(), secondaryButton: .destructive(Text("Log out"), action: {
-                    FirebaseAuthClient.shared.logOut()
+                    userObjectManager.logOut { success in
+                        if success {
+                            MainViewProperties.shared.selectedItem = tabBarConfigurations[0]
+                        }
+                    }
+                    
                 }))
             })
         }

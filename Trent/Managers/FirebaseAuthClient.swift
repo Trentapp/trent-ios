@@ -29,13 +29,12 @@ class FirebaseAuthClient: ObservableObject {
         }
     }
     
-    func logOut() {
+    func logOut(completionHandler: @escaping (Bool) -> Void) {
         do {
             try Auth.auth().signOut()
-            //            AuthenticationManager.shared.loggedIn = false
-            UserObjectManager.shared.user = nil
+            completionHandler(true)
         } catch {
-            
+            completionHandler(false)
         }
     }
     

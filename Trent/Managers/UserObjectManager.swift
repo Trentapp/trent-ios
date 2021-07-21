@@ -38,6 +38,15 @@ class UserObjectManager: ObservableObject {
         }
     }
     
+    func logOut(completionHandler: @escaping (Bool) -> Void) {
+        FirebaseAuthClient.shared.logOut { success in
+            if success {
+                UserObjectManager.shared.user = nil
+            }
+            completionHandler(success)
+        }
+    }
+    
     func refresh() {
         BackendClient.shared.getUserObject { user in
             if user != nil { UserObjectManager.shared.user = user! }
