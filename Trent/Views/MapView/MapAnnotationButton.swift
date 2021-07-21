@@ -40,7 +40,7 @@ struct MapAnnotationButton: View {
                 RoundedRectangle(cornerRadius: 12.5)
                     .foregroundColor(focused ? .black : .white)
                     .frame(width: 50, height: 25)
-                Text("\(Int(item.prices?.perHour ?? 0))€")
+                Text("\(Int(item.prices?.perDay ?? 0))€")
                     .font(.system(size: 15, weight: .bold, design: .default))
                     .foregroundColor(focused ? .white : .black)
             }
