@@ -34,7 +34,7 @@ class BackendClient: ObservableObject {
             let url = self.serverPath + "/products"
             let parameters = ["name" : keyword]
             
-            AF.request(url, parameters: parameters, encoding: JSONEncoding.default)
+            AF.request(url, parameters: parameters)
                 .validate()
                 .responseData { response in
                     DispatchQueue.main.async {

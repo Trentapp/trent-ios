@@ -16,17 +16,21 @@ struct MapView: View {
     @State var keyword = ""
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 49.4, longitude: 8.675), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
     @State var products: [Product] = []
+    @State var allowedToSet = true
     
     @State var showFilter = false {
         willSet {
-            if suppressAnimation {
-                suppressAnimation = false
+            suppressAnimation = false
+        }
+        
+        didSet {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.301) {
+                suppressAnimation = true
             }
         }
     }
-    @State var suppressAnimation = true
     
-    @ObservedObject var backendClient = BackendClient.shared
+    @State var suppressAnimation = true
     
     //    @State var tabBar: UITabBar?
     
@@ -40,7 +44,11 @@ struct MapView: View {
     
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .top), content: {
-            Map(coordinateRegion: $region, annotationItems: products, annotationContent: { current_item in
+            Map(coordinateRegion: $region, annotationItems: self.products, annotationContent: { current_item in
+//                MapMarker(coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0))//current_item.location!.CLcoordinates)
+//                MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: current_item.location!.coordinates[0], longitude: current_item.location!.coordinates[1])) {
+//                    MapAnnotationButton(item: current_item)
+//                }
                 MapAnnotation(coordinate: current_item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000)) {
                     MapAnnotationButton(item: current_item)
                 }
@@ -73,16 +81,15 @@ struct MapView: View {
                                 }
                                 
                                 TextField("\(Image(systemName: "magnifyingglass"))  What are you looking for?", text: $keyword, onEditingChanged: { editing in
-                                    print("editing: \(editing)")
                                 }, onCommit: {
                                     UIApplication.shared.endEditing()
-                                    print("Did commit: \(keyword)")
-                                    // BackendClient: query
+                                    BackendClient.shared.query(keyword: keyword) { products, success in
+                                        self.products = products ?? []
+                                    }
                                 })
                                 .foregroundColor((self.keyword == "") ? .gray : .black)
                                 .font(.system(size: 17, weight: .semibold, design: .default))
                                 .multilineTextAlignment(.leading)
-                                //                            .frame(width: 250, height: 20, alignment: .center)
                                 .padding(5)
                                 Divider()
                                 Button(action: {
@@ -136,7 +143,7 @@ struct MapView: View {
                                 .frame(height: showFilter ? 110 : 0)
                                 .scaleEffect(CGSize(width: 1, height: showFilter ? 1 : 0), anchor: .top)
                                 .opacity(showFilter ? 1 : 0)
-                                .animation(.easeInOut(duration: 0.3))
+                                .animation(suppressAnimation ? .none : .easeInOut(duration: 0.3))
 //                            }
                         }
                         
