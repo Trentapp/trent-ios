@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MapKit
 import Alamofire
 
 class BackendClient: ObservableObject {
@@ -29,10 +30,14 @@ class BackendClient: ObservableObject {
     // I.3  getProduct
     // I.4  deleteProduct
     
-    func query(keyword: String, completionHandler: @escaping ([Product]?, Bool) -> Void) {
+    func query(keyword: String, location: CLLocationCoordinate2D, completionHandler: @escaping ([Product]?, Bool) -> Void) {
         DispatchQueue.global().async {
             let url = self.serverPath + "/products"
-            let parameters = ["name" : keyword]
+            let parameters : [String: Any] = [
+                "name" : keyword,
+                "lat" : location.latitude,
+                "lng" : location.longitude
+            ]
             
             AF.request(url, parameters: parameters)
                 .validate()

@@ -12,10 +12,11 @@ import MapKit
 struct MapView: View {
     
     @Environment(\.presentationMode) var presentation
+    @ObservedObject var locationManager = LocationManager.shared
     
     @State var keyword = ""
-    @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 52, longitude: 10) , span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
-    @State var trackUser = MKUserTrackingMode.follow
+    @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 0, longitude: 0) , span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
+    @State var trackUser = MapUserTrackingMode.follow
     @State var products: [Product] = []
     @State var allowedToSet = true
     
@@ -83,10 +84,15 @@ struct MapView: View {
                                 
                                 TextField("\(Image(systemName: "magnifyingglass"))  What are you looking for?", text: $keyword, onEditingChanged: { editing in
                                 }, onCommit: {
-                                    trackUser = .none
-                                    let location = region.center
                                     UIApplication.shared.endEditing()
-                                    BackendClient.shared.query(keyword: keyword) { products, success in
+//                                    trackUser = .follow
+                                    let location = region.center
+                                    trackUser = .none
+                                    let minPrice = Int(round(self.minPriceValue * CGFloat(self.maxPrice)))
+                                    let maxPrice = Int(round(self.maxPriceValue * CGFloat(self.maxPrice)))
+                                    let maxDistance = Int(round(CGFloat(self.maxDistance) * self.maxDistanceValue))
+                                    
+                                    BackendClient.shared.query(keyword: self.keyword, location: location) { products, success in
                                         self.products = products ?? []
                                     }
                                 })
@@ -167,6 +173,7 @@ struct MapView: View {
         }
         .onAppear() {
             LocationManager.shared.requestAuthorization()
+            self.region.center = locationManager.currentLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
         }
         
         //        .introspectTabBarController { (UITabBarController) in
