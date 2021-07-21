@@ -9,14 +9,16 @@ import SwiftUI
 
 struct MonoSlider: View {
     var width: CGFloat
+    var didEndEditing: () -> Void
     
     @Binding var maxValue: CGFloat
     @State private var maxDelta: CGFloat
     
-    init(maxValue: Binding<CGFloat>, width: CGFloat) {
+    init(maxValue: Binding<CGFloat>, width: CGFloat, didEndEditing: @escaping () -> Void) {
         self._maxValue = maxValue
         self.width = width
         self.maxDelta = maxValue.wrappedValue * width - width
+        self.didEndEditing = didEndEditing
     }
     
     var maxDrag: some Gesture {
@@ -26,6 +28,7 @@ struct MonoSlider: View {
             }
             .onEnded { gesture in
                 maxDelta = (self.maxValue * width - width)
+                didEndEditing()
             }
     }
     

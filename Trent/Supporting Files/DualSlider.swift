@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DualSlider: View {
     var width: CGFloat
+    var didEndEditing: () -> Void
     
     @Binding var minValue: CGFloat
     @Binding var maxValue: CGFloat
@@ -16,13 +17,15 @@ struct DualSlider: View {
     @State private var minDelta: CGFloat
     @State private var maxDelta: CGFloat
     
-    init(minValue: Binding<CGFloat>, maxValue: Binding<CGFloat>, width: CGFloat) {
+    init(minValue: Binding<CGFloat>, maxValue: Binding<CGFloat>, width: CGFloat, didEndEditing: @escaping () -> Void) {
         self._minValue = minValue
         self._maxValue = maxValue
         self.width = width
         
         self.minDelta = minValue.wrappedValue
         self.maxDelta = maxValue.wrappedValue
+        
+        self.didEndEditing = didEndEditing
     }
     
     var minDrag: some Gesture {
@@ -33,6 +36,7 @@ struct DualSlider: View {
             }
             .onEnded { gesture in
                 minDelta = self.minValue * width
+                didEndEditing()
             }
     }
     

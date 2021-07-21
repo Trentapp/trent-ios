@@ -40,36 +40,12 @@ struct MapView: View {
     
     // Filter
     @State var maxPriceResults = 100.0
-    @State var minPriceValue: CGFloat = 0 {
-        didSet {
-            let minPrice = Int(round(self.minPriceValue * CGFloat(self.maxPriceResults)))
-            
-            if minPrice != self.lastMinPrice {
-                filterResults()
-            }
-        }
-    }
-    @State var maxPriceValue: CGFloat = 1 {
-        didSet {
-            let maxPrice = Int(round(self.maxPriceValue * CGFloat(self.maxPriceResults)))
-            
-            if maxPrice != self.lastMaxPrice {
-                filterResults()
-            }
-        }
-    }
+    @State var minPriceValue: CGFloat = 0
+    @State var maxPriceValue: CGFloat = 1
     
     
     var maxDistanceResults = 25
-    @State var maxDistanceValue: CGFloat = 1 {
-        didSet {
-            let maxDistance = Int(round(CGFloat(self.maxDistanceResults) * self.maxDistanceValue))
-            
-            if maxDistance != self.lastMaxDistance {
-                filterResults()
-            }
-        }
-    }
+    @State var maxDistanceValue: CGFloat = 1
     
     
     
@@ -97,9 +73,14 @@ struct MapView: View {
                     matches.append(item)
                 }
             }
+            
             DispatchQueue.main.async {
                 self.filteredResults = matches
             }
+            
+            lastMinPrice = Int(minPrice)
+            lastMaxPrice = Int(maxPrice)
+            lastMaxDistance = maxDistance
         }
     }
     
@@ -192,7 +173,14 @@ struct MapView: View {
                                             //                                            .foregroundColor(.gray)
                                             .padding(.horizontal, 10)
                                             .padding(.vertical, 2)
-                                        DualSlider(minValue: $minPriceValue, maxValue: $maxPriceValue, width: 220)
+                                        DualSlider(minValue: $minPriceValue, maxValue: $maxPriceValue, width: 220) {
+                                            let minPrice = Int(round(self.minPriceValue * CGFloat(self.maxPriceResults)))
+                                            let maxPrice = Int(round(self.maxPriceValue * CGFloat(self.maxPriceResults)))
+                                            
+                                            if (maxPrice != self.lastMaxPrice) || (minPrice != self.lastMinPrice){
+                                                filterResults()
+                                            }
+                                        }
                                         Text("\(Int(round(minPriceValue * CGFloat(self.maxPriceResults))))€ - \(Int(round(maxPriceValue * CGFloat(self.maxPriceResults))))€")
                                             .font(.system(size: 15, weight: .semibold))
                                         Spacer()
@@ -203,7 +191,13 @@ struct MapView: View {
                                             //                                            .foregroundColor(.gray)
                                             .padding(.horizontal, 10)
                                             .padding(.vertical, 2)
-                                        MonoSlider(maxValue: $maxDistanceValue, width: 220)
+                                        MonoSlider(maxValue: $maxDistanceValue, width: 220) {
+                                            let maxDistance = Int(round(CGFloat(self.maxDistanceResults) * self.maxDistanceValue))
+                                            
+                                            if maxDistance != self.lastMaxDistance {
+                                                filterResults()
+                                            }
+                                        }
                                         Text("<= \(Int(round(maxDistanceValue * CGFloat(self.maxDistanceResults))))km")
                                             .font(.system(size: 15, weight: .semibold))
                                         Spacer()
