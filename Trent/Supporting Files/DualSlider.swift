@@ -47,6 +47,7 @@ struct DualSlider: View {
             }
             .onEnded { gesture in
                 maxDelta = (self.maxValue * width - width)
+                didEndEditing()
             }
     }
     
