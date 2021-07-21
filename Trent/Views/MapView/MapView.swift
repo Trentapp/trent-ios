@@ -14,7 +14,8 @@ struct MapView: View {
     @Environment(\.presentationMode) var presentation
     
     @State var keyword = ""
-    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 49.4, longitude: 8.675), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
+    @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 52, longitude: 10) , span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
+    @State var trackUser = MKUserTrackingMode.follow
     @State var products: [Product] = []
     @State var allowedToSet = true
     
@@ -44,7 +45,7 @@ struct MapView: View {
     
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .top), content: {
-            Map(coordinateRegion: $region, annotationItems: self.products, annotationContent: { current_item in
+            Map(coordinateRegion: $region, showsUserLocation: true, userTrackingMode: $trackUser, annotationItems: self.products, annotationContent: { current_item in
 //                MapMarker(coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0))//current_item.location!.CLcoordinates)
 //                MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: current_item.location!.coordinates[0], longitude: current_item.location!.coordinates[1])) {
 //                    MapAnnotationButton(item: current_item)
@@ -82,6 +83,8 @@ struct MapView: View {
                                 
                                 TextField("\(Image(systemName: "magnifyingglass"))  What are you looking for?", text: $keyword, onEditingChanged: { editing in
                                 }, onCommit: {
+                                    trackUser = .none
+                                    let location = region.center
                                     UIApplication.shared.endEditing()
                                     BackendClient.shared.query(keyword: keyword) { products, success in
                                         self.products = products ?? []
@@ -161,6 +164,9 @@ struct MapView: View {
         .navigationViewStyle(StackNavigationViewStyle())
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
+        .onAppear() {
+            LocationManager.shared.requestAuthorization()
         }
         
         //        .introspectTabBarController { (UITabBarController) in

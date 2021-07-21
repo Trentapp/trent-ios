@@ -11,7 +11,7 @@ import Combine
 class MainViewProperties: ObservableObject {
     static var shared = MainViewProperties()
     
-    @Published var selectedItem = tabBarConfigurations[1]
-    @Published var oldValue = tabBarConfigurations[1]
+    @Published var selectedItem = tabBarConfigurations[0]
+    @Published var oldValue = tabBarConfigurations[0]
     @Published var showAuthentication = false
 }

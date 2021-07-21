@@ -15,21 +15,17 @@ class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
     
     let locationManager = CLLocationManager()
     @Published var currentLocation: CLLocation?
-    @Published public var coordinateRegion: MKCoordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 0, longitude: 0), latitudinalMeters: 1500, longitudinalMeters: 1500)
     
-    private override init() {
-        locationManager.requestWhenInUseAuthorization()
-    }
-    
-    func updateLocation(){
+    func requestAuthorization() {
         locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+//        locationManager.startUpdatingLocation()
         locationManager.requestLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("location: \(locations.last?.coordinate)")
         self.currentLocation = locations.last ?? nil
-        self.coordinateRegion = MKCoordinateRegion(center: self.currentLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0), latitudinalMeters: 1500, longitudinalMeters: 1500)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
