@@ -30,13 +30,14 @@ class BackendClient: ObservableObject {
     // I.3  getProduct
     // I.4  deleteProduct
     
-    func query(keyword: String, location: CLLocationCoordinate2D, completionHandler: @escaping ([Product]?, Bool) -> Void) {
+    func query(keyword: String, location: CLLocationCoordinate2D, maxDistance: Int, completionHandler: @escaping ([Product]?, Bool) -> Void) {
         DispatchQueue.global().async {
             let url = self.serverPath + "/products"
             let parameters : [String: Any] = [
                 "name" : keyword,
                 "lat" : location.latitude,
-                "lng" : location.longitude
+                "lng" : location.longitude,
+                "maxDistance" : maxDistance
             ]
             
             AF.request(url, parameters: parameters)
