@@ -12,11 +12,6 @@ import MapKit
 struct ItemDetailView: View {
     @State var item: Product?
     @State var coordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 0, longitude: 0), latitudinalMeters: 750, longitudinalMeters: 750)
-    @State var owner: UserProfile? {
-        didSet {
-            isMe = (owner?._id ?? "") == (UserObjectManager.shared.user?._id ?? "0")
-        }
-    }
     @State var isMe = false
     
 //    @State var tabBar: UITabBar?
@@ -91,7 +86,7 @@ struct ItemDetailView: View {
                     }
                     
                     HStack {
-                        NavigationLink(destination: UserProfilePageView(userProfile: owner), label: {
+                        NavigationLink(destination: UserProfilePageView(userProfile: item?.user), label: {
                             Image(systemName: "person.crop.circle")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
@@ -100,15 +95,15 @@ struct ItemDetailView: View {
                                 .frame(width: 50, height: 50)
                                 .padding()
                             VStack(alignment: .leading, spacing: 4) {
-                                Text((owner?.name ?? "Product owner") + (isMe ? " (Me)" : ""))
+                                Text((item?.user?.name ?? "Product owner") + (isMe ? " (Me)" : ""))
                                     .font(.system(size: 20, weight: .regular, design: .default))
                                     .foregroundColor(Color.black)
-                                if (owner?.numberOfRatings ?? 0) >= 5 {
+                                if (item?.user?.numberOfRatings ?? 0) >= 5 {
                                     HStack(alignment: .center, spacing: 2, content: {
                                         //                        Text("5/5")
                                         //                            .padding(.trailing, 5)
                                         ForEach(Range(uncheckedBounds: (lower: 0, upper: 5))) { index in
-                                            let isStarFilled = (index+1) <= Int(round((owner?.rating)!))
+                                            let isStarFilled = (index+1) <= Int(round((item?.user?.rating)!))
                                             Image(systemName: isStarFilled ? "star.fill" : "star")
 
                                                 .resizable()
@@ -189,8 +184,12 @@ struct ItemDetailView: View {
         
         .onAppear(){
 //            self.tabBar?.isHidden = true
+            let itemId = item?._id ?? ""
+            BackendClient.shared.getProduct(for: itemId) { item in
+                self.item = item
+                isMe = (item?.user?._id ?? "") == (UserObjectManager.shared.user?._id ?? "0")
+            }
             self.coordinateRegion = MKCoordinateRegion(center: item?.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0), latitudinalMeters: 750, longitudinalMeters: 750)
-            // Backendcleint: getUserProfile self.owner = BackendClient.shared.getUserProfile(for: item?.user?._id ?? "")
         }
     }
 }

@@ -101,7 +101,7 @@ class BackendClient: ObservableObject {
     
     func getProduct(for id: String, completionHandler: @escaping (Product?) -> Void) {
         DispatchQueue.global().async {
-            let url = self.serverPath + "/products/product" + id
+            let url = self.serverPath + "/products/product/" + id
             
             AF.request(url)
                 .validate()
@@ -115,9 +115,7 @@ class BackendClient: ObservableObject {
                             let product = try JSONDecoder().decode(Product.self, from: response.data!)
                             completionHandler(product)
                         } catch {
-                            
                             completionHandler(nil)
-                            
                             print("Error while retrieving product")
                         }
                     }
