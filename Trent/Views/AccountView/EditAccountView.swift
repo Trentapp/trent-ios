@@ -41,7 +41,11 @@ struct EditAccountView: View {
                 }
                 Section {
                     Button {
-                        FirebaseAuthClient.shared.deleteAccount()
+                        UserObjectManager.shared.deleteUser { success in
+                            if !success {
+                                // Tell the user
+                            }
+                        }
                     } label: {
                         Text("Delete Account")
                             .foregroundColor(.red)
@@ -60,14 +64,15 @@ struct EditAccountView: View {
             .fontWeight(Font.Weight.regular)
         }), trailing: Button(action: {
             isUpdating = true
-            // Backendclient: updateUserObject BackendClient.shared.updateUserObject(name: name, street: street, houseNumber: houseNumber, zipcode: zipcode, city: city, country: country) { success in
+            BackendClient.shared.updateUserObject(name: name, street: street, houseNumber: houseNumber, zipcode: zipcode, city: city, country: country) { success in
                 isUpdating = false
-//                if success {
-//                    self.presentationMode.wrappedValue.dismiss()
-//                } else {
-//                    print("Error updating user")
-//                }
-//            }
+                if success {
+                    self.presentationMode.wrappedValue.dismiss()
+                } else {
+                    // Tell the user
+                    print("Error updating user")
+                }
+            }
             
             if(newPassword != "" && newPassword == repeatNewPassword) {
                 FirebaseAuthClient.shared.changePassword(newPassword: newPassword) { success in

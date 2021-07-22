@@ -48,7 +48,12 @@ struct InventoryItemView: View {
                         })
                 
                 Button(action: {
-                    // Backendclient: deleteProduct BackendClient.shared.deleteProduct(with: item?._id ?? "")
+                    let item_id = item?._id ?? ""
+                    BackendClient.shared.deleteProduct(with: item_id) { success in
+                        if !success {
+                            // Tell the user it failed
+                        }
+                    }
                 }, label: {
                     Text("Delete")
                         .foregroundColor(.red)

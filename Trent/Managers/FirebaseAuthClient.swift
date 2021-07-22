@@ -38,13 +38,14 @@ class FirebaseAuthClient: ObservableObject {
         }
     }
     
-    func deleteAccount() {
+    func deleteAccount(completionHandler: @escaping (Bool) -> Void) {
         let uid = currentUser?.uid
         if uid == nil { return }
         FirebaseAuthClient.shared.currentUser?.delete(completion: { error in
             if error == nil {
-                // Backendclient: deleteUserFromDB BackendClient.shared.deleteUserFromDB(with: uid!)
+                completionHandler(true)
             } else {
+                completionHandler(false)
                 print("An error occurred deleting the account: \(error?.localizedDescription)")
             }
         })

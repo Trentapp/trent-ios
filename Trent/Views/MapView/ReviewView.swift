@@ -52,8 +52,10 @@ struct ReviewView: View {
         }
         .navigationBarTitle("Reviews", displayMode: .inline)
         .onAppear(){
-            DispatchQueue.global().async {
-                // Backendclient: getReviews self.reviews = BackendClient.shared.getReviews(user_id: userProfile?._id ?? "")
+            let user_id = userProfile?._id ?? ""
+            
+            BackendClient.shared.getReviews(user_id: user_id) { reviews in
+                self.reviews = reviews
                 self.isLoading = false
             }
         }

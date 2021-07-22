@@ -32,7 +32,6 @@ struct DualSlider: View {
         DragGesture(coordinateSpace: .global)
             .onChanged { gesture in
                 self.minValue = min(max(0, minDelta + gesture.translation.width), self.maxValue * width - 10) / width
-                print("actual: \(max(0, minDelta + gesture.translation.width)); limited: \(self.maxValue * width - 54), total: \(self.minValue * width)")
             }
             .onEnded { gesture in
                 minDelta = self.minValue * width

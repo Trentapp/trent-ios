@@ -38,6 +38,14 @@ class UserObjectManager: ObservableObject {
         }
     }
     
+    func deleteUser(completionHandler: @escaping (Bool) -> Void){
+        FirebaseAuthClient.shared.deleteAccount { success in
+            if(success) {
+                BackendClient.shared.deleteUserFromDB { success in }
+            }
+        }
+    }
+    
     func logOut(completionHandler: @escaping (Bool) -> Void) {
         FirebaseAuthClient.shared.logOut { success in
             if success {
