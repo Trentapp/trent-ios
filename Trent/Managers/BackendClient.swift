@@ -259,7 +259,10 @@ class BackendClient: ObservableObject {
             ]
             
             let bodyData = ((try? JSONSerialization.data(withJSONObject: body, options: [])) ?? Data())
-            let photoData = photo.jpegData(compressionQuality: 0)!
+            guard let photoData = photo.jpegData(compressionQuality: 0) else {
+                completionHandler(false)
+                return
+            }
             
             AF.upload(multipartFormData: { multipartFormData in
                 multipartFormData.append(photoData, withName: "image", fileName: "image")
@@ -272,6 +275,24 @@ class BackendClient: ObservableObject {
                     UserObjectManager.shared.refresh()
                 }
             }
+        }
+    }
+    
+    func deleteProfilePicture(completionHandler: @escaping (Bool) -> Void) {
+        DispatchQueue.global().async {
+            let url = self.serverPath + "/users/deleteProfilePicture"
+            
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
+            let parameters = [ "uid" : uid ]
+            
+            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+                .validate()
+                .response { response in
+                    DispatchQueue.main.async {
+                        UserObjectManager.shared.refresh()
+                        completionHandler(response.error != nil)
+                    }
+                }
         }
     }
     
