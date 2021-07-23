@@ -22,7 +22,7 @@ struct AccountView: View {
             Button(action:{
                 isShownActionSheet.toggle()
             }, label: {
-                Image(systemName: "person.crop.circle")
+                Image(uiImage: userObjectManager.user?.pictureUIImage ?? UIImage(systemName: "person.crop.circle")!)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .opacity(0.5)
