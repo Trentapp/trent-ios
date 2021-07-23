@@ -30,8 +30,8 @@
             filePath = "Trent/Managers/BackendClient.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "257"
-            endingLineNumber = "257"
+            startingLineNumber = "283"
+            endingLineNumber = "283"
             landmarkName = "updateUserObject(name:street:houseNumber:zipcode:city:country:completionHandler:)"
             landmarkType = "7">
          </BreakpointContent>

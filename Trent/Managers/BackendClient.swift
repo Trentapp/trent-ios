@@ -159,8 +159,9 @@ class BackendClient: ObservableObject {
     // II.1 getUserProfile
     // II.2 getUserObject
     // II.3 createNewUser
-    // II.4 updateUserObject
-    // II.5 deleteUserFromDB
+    // II.4 uploadNewProfilePicture
+    // II.5 updateUserObject
+    // II.6 deleteUserFromDB
     
     func getUserProfile(for id: String, completionHandler: @escaping (UserProfile?) -> Void) {
         DispatchQueue.global().async {
@@ -246,6 +247,31 @@ class BackendClient: ObservableObject {
                         }
                     }
                 }
+        }
+    }
+    
+    func uploadNewProfilePicture(photo: UIImage, completionHandler: @escaping (Bool) -> Void) {
+        DispatchQueue.global().async {
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
+            
+            let body: [String : Any] = [
+                "uid" : uid
+            ]
+            
+            let bodyData = ((try? JSONSerialization.data(withJSONObject: body, options: [])) ?? Data())
+            let photoData = photo.jpegData(compressionQuality: 0)!
+            
+            AF.upload(multipartFormData: { multipartFormData in
+                multipartFormData.append(photoData, withName: "image", fileName: "image")
+                multipartFormData.append(bodyData, withName: "parameters", fileName: "parameters")
+            }, to: serverBaseURL + "/api/users/uploadPicture")
+            .validate()
+            .response { dataResponse in
+                DispatchQueue.main.async {
+                    completionHandler(dataResponse.error == nil)
+                    UserObjectManager.shared.refresh()
+                }
+            }
         }
     }
     

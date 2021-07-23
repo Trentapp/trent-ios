@@ -81,7 +81,6 @@ struct AccountView: View {
         })
         
         .sheet(isPresented: $isShownPhotoLibrary) {
-            //ImagePicker(sourceType: .photoLibrary)
             SingleImagePicker(sourceType: .photoLibrary) { image in
                 //
             }
@@ -89,7 +88,9 @@ struct AccountView: View {
         
         .fullScreenCover(isPresented: $isShownCamera) {
             SingleImagePicker(sourceType: .camera) { image in
-                //
+                BackendClient.shared.uploadNewProfilePicture(photo: image) { success in
+                    //
+                }
             }
             .ignoresSafeArea()
         }
