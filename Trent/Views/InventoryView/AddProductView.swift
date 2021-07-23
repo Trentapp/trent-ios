@@ -104,7 +104,9 @@ struct AddProductView: View {
                     
                     if(item == nil){
                         Button(action: {
+                            // Return if nothing
                             
+                            isSaving = true
                             var prices: [String : Any] = [:]
 
                             if let priceHourNumber = Double(priceHour) {
@@ -115,22 +117,7 @@ struct AddProductView: View {
                                 prices["perDay"] = priceDayNumber
                             }
                             
-//                            let prices = Prices(perHour: Double(priceHour), perDay: Double(priceDay))
-                            
                             let address = (try? JSONSerialization.jsonObject(with: JSONEncoder().encode(UserObjectManager.shared.user?.address))) as? [String: Any] ?? [:]
-                            
-                            
-                            var photosData: [Data] = []
-                            
-                            for photo in photos {
-//                                let photo_data = resizeImage(image: photo, targetSize: CGSize(width: 100, height: 100)).jpegData(compressionQuality: 0)
-//                                let photo_b64 = photo_data?.base64EncodedString() ?? ""
-                                let photoData = photo.jpegData(compressionQuality: 0)
-                                if photoData == nil { continue }
-                                photosData.append(photoData!)
-                            }
-                            
-                            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
                             
                             let parameters: [String : Any] = [
                                 "name" : name,
@@ -138,58 +125,15 @@ struct AddProductView: View {
                                 "address" : address,
                                 "prices" : prices
                             ]
-                            
-                            let body: [String : Any] = [
-                                "product" : parameters,
-                                "user_uid" : uid
-                            ]
-                            
-//                            let parametersJSON = (try? JSONSerialization.jsonObject(with: JSONEncoder().encode(parameters)))
-                            let bodyData = ((try? JSONSerialization.data(withJSONObject: body, options: [])) ?? Data())
-                            
-//                            let request: [String : Any] = [
-//                                "user_uid" : uid,
-//                                "product" : parameters
-//                            ]
-                            
-                            if item != nil {
-                                // TODO: Update
-                                presentationMode.wrappedValue.dismiss()
-                            } else {
-                                isSaving = true
-                                
-                                AF.upload(multipartFormData: { multipartFormData in
-                                    for photo in photosData {
-                                        multipartFormData.append(photo, withName: "image", fileName: "image")
-                                    }
 
-                                    multipartFormData.append(bodyData, withName: "product", fileName: "product")
-                                }, to: serverBaseURL + "/api/products/create2")
-                                .response { dataResponse in
-                                    UserObjectManager.shared.refresh()
-                                    isSaving = false
-                                    
-                                    switch dataResponse.result {
-                                    case .success :
-                                        presentationMode.wrappedValue.dismiss()
-                                    
-                                    default:
-                                        showAlert = true
-                                    }
-                                    print(dataResponse.debugDescription)
+                            BackendClient.shared.postNewItem(parameters: parameters, photos: photos) { success in
+                                isSaving = false
+                                if success {
+                                    presentationMode.wrappedValue.dismiss()
+                                } else {
+                                    showAlert = true
                                 }
-                                
-//                                BackendClient.shared.postNewItem(parameters: request) { successful in
-//                                    isSaving = false
-//                                    print("successful: \(successful)")
-//                                    if successful {
-//                                        presentationMode.wrappedValue.dismiss()
-//                                    } else {
-//                                        showAlert = true
-//                                    }
-//                                }
                             }
-                            
                         }, label: {
                             ZStack {
                                 RoundedRectangle(cornerRadius: 15)

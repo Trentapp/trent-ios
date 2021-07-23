@@ -69,7 +69,7 @@ class BackendClient: ObservableObject {
             
             let body: [String : Any] = [
                 "product" : parameters,
-                "user_uid" : uid
+                "uid" : uid
             ]
             
             let bodyData = ((try? JSONSerialization.data(withJSONObject: body, options: [])) ?? Data())
@@ -88,7 +88,7 @@ class BackendClient: ObservableObject {
                 }
                 
                 multipartFormData.append(bodyData, withName: "product", fileName: "product")
-            }, to: serverBaseURL + "/api/products/create2")
+            }, to: serverBaseURL + "/api/products/create")
             .validate()
             .response { dataResponse in
                 DispatchQueue.main.async {
@@ -273,7 +273,7 @@ class BackendClient: ObservableObject {
                 "user" : userObject
             ]
             
-            AF.request(url, method: .put, parameters: parameters)
+            AF.request(url, method: .put, parameters: parameters, encoding: JSONEncoding.default)
                 .validate()
                 .response { response in
                     DispatchQueue.main.async {

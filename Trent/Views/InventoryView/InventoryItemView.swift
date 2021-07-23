@@ -10,7 +10,7 @@ import SwiftUI
 struct InventoryItemView: View {
     
     @State var showEditProduct = false
-    @State var item: Product?
+    var item: Product?
     
     var body: some View {
         NavigationLink(destination: ItemDetailView(item: item), label: {

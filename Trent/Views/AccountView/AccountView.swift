@@ -11,16 +11,25 @@ struct AccountView: View {
     
     @ObservedObject var userObjectManager = UserObjectManager.shared
     @State var isShownLogOutAlert = false
-//    @State var image = UIImage(systemName: "person.crop.circle")!
+    @State var isShownActionSheet = false
+    @State var isShownCamera = false
+    @State var isShownPhotoLibrary = false
+    @State var newPicture: Image?
+    //    @State var image = UIImage(systemName: "person.crop.circle")!
     
     var body: some View {
         VStack {
-            Image(systemName: "person.crop.circle")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .opacity(0.5)
-                .foregroundColor(.gray)
-                .frame(width: 100, height: 100)
+            Button(action:{
+                isShownActionSheet.toggle()
+            }, label: {
+                Image(systemName: "person.crop.circle")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .opacity(0.5)
+                    .foregroundColor(.gray)
+                    .frame(width: 100, height: 100)
+                    .clipShape(Circle())
+            })
             Text(userObjectManager.user?.name ?? "")
                 .font(.largeTitle)
                 .bold()
@@ -59,6 +68,31 @@ struct AccountView: View {
                 }))
             })
         }
+        .actionSheet(isPresented: $isShownActionSheet, content: {
+            ActionSheet(title: Text("Select source of photo"), message: nil, buttons: [
+                Alert.Button.default(Text("Camera"), action: {
+                    isShownCamera.toggle()
+                }),
+                Alert.Button.default(Text("Select from Library"), action: {
+                    isShownPhotoLibrary.toggle()
+                }),
+                Alert.Button.cancel()
+            ])
+        })
+        
+        .sheet(isPresented: $isShownPhotoLibrary) {
+            //ImagePicker(sourceType: .photoLibrary)
+            SingleImagePicker(sourceType: .photoLibrary) { image in
+                //
+            }
+        }
+        
+        .fullScreenCover(isPresented: $isShownCamera) {
+            SingleImagePicker(sourceType: .camera) { image in
+                //
+            }
+            .ignoresSafeArea()
+        }
         .navigationTitle("")
         .navigationBarHidden(true)
         //                        .navigationBarTitle("Account")
@@ -66,6 +100,58 @@ struct AccountView: View {
         .navigationViewStyle(DefaultNavigationViewStyle())
     }
     
+}
+
+public struct SingleImagePicker: UIViewControllerRepresentable {
+
+    private let sourceType: UIImagePickerController.SourceType
+    private let onImagePicked: (UIImage) -> Void
+    @Environment(\.presentationMode) private var presentationMode
+
+    public init(sourceType: UIImagePickerController.SourceType, onImagePicked: @escaping (UIImage) -> Void) {
+        self.sourceType = sourceType
+        self.onImagePicked = onImagePicked
+    }
+
+    public func makeUIViewController(context: Context) -> UIImagePickerController {
+        let picker = UIImagePickerController()
+        picker.sourceType = self.sourceType
+        picker.delegate = context.coordinator
+        return picker
+    }
+
+    public func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
+
+    public func makeCoordinator() -> Coordinator {
+        Coordinator(
+            onDismiss: { self.presentationMode.wrappedValue.dismiss() },
+            onImagePicked: self.onImagePicked
+        )
+    }
+
+    final public class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+
+        private let onDismiss: () -> Void
+        private let onImagePicked: (UIImage) -> Void
+
+        init(onDismiss: @escaping () -> Void, onImagePicked: @escaping (UIImage) -> Void) {
+            self.onDismiss = onDismiss
+            self.onImagePicked = onImagePicked
+        }
+
+        public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+            if let image = info[.originalImage] as? UIImage {
+                self.onImagePicked(image)
+            }
+            self.onDismiss()
+        }
+
+        public func imagePickerControllerDidCancel(_: UIImagePickerController) {
+            self.onDismiss()
+        }
+
+    }
+
 }
 
 struct AccountView_Previews: PreviewProvider {

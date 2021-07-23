@@ -13,6 +13,8 @@ struct ItemDetailView: View {
     @State var item: Product?
     @State var coordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 0, longitude: 0), latitudinalMeters: 750, longitudinalMeters: 750)
     @State var isMe = false
+    @State var isLoading = false
+    @State var updated = false
     
 //    @State var tabBar: UITabBar?
     @Environment(\.presentationMode) var presentation
@@ -40,7 +42,12 @@ struct ItemDetailView: View {
                 .padding(.bottom, -20)
             ScrollView{
                 VStack(alignment: .leading, spacing: 10, content: {
-                    ImageView(images: [item?.picturesUIImage.first ?? UIImage()])
+                    ZStack {
+                        ImageView(images: [item?.picturesUIImage.first ?? UIImage()])
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle())
+                            .hidden(!isLoading)
+                    }
                     .padding(.top, -10)
 
                     HStack {
@@ -77,7 +84,7 @@ struct ItemDetailView: View {
                                 //                                Map(coordinateRegion: $coordinateRegion, interactionModes: [], showsUserLocation: false, userTrackingMode: .none)
                                 //                                    .frame(width: 200, height: 150)
                                 //                                    .padding()
-                            Map(coordinateRegion: $coordinateRegion, interactionModes: [], annotationItems: [item!], annotationContent: { current_item in
+                            Map(coordinateRegion: $coordinateRegion, interactionModes: [], annotationItems: [item ?? Product(_id: "")], annotationContent: { current_item in
                                     MapMarker(coordinate: current_item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000))
                                 })
                                 .frame(width: 150, height: 100)
@@ -184,12 +191,17 @@ struct ItemDetailView: View {
         
         .onAppear(){
 //            self.tabBar?.isHidden = true
-            let itemId = item?._id ?? ""
-            BackendClient.shared.getProduct(for: itemId) { item in
-                self.item = item
-                isMe = (item?.user?._id ?? "") == (UserObjectManager.shared.user?._id ?? "0")
+            if !updated {
+                isLoading = true
+                let itemId = item?._id ?? ""
+                BackendClient.shared.getProduct(for: itemId) { item in
+                    isLoading = false
+                    self.item = item
+                    isMe = (item?.user?._id ?? "") == (UserObjectManager.shared.user?._id ?? "0")
+                }
+                self.coordinateRegion = MKCoordinateRegion(center: item?.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0), latitudinalMeters: 750, longitudinalMeters: 750)
+                self.updated = true
             }
-            self.coordinateRegion = MKCoordinateRegion(center: item?.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0), latitudinalMeters: 750, longitudinalMeters: 750)
         }
     }
 }

@@ -17,16 +17,14 @@ struct Product: Codable, Hashable, Identifiable {
     var address: Address?
     var location: Coordinates?
     var prices: Prices?
-    var thumbnail: String?
+    var thumbnail: Picture?
     var pictures: [Picture]?
     
     var thumbnailUIImage: UIImage? {
         get {
-            let data = Data(base64Encoded: thumbnail ?? "")
-            if data == nil { return nil }
-
-            let image = UIImage(data: data!)
-            return image
+            if thumbnail == nil { return nil }
+            let ui_thumbnail = UIImage(data: thumbnail!.data.convertedData as Data)
+            return ui_thumbnail
         }
     }
 

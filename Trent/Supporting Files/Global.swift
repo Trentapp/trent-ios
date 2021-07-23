@@ -7,4 +7,4 @@
 
 import Foundation
 
-let serverBaseURL = "https://trentapp.com"
+let serverBaseURL = "http://192.168.2.101:8000"//"https://trentapp.com"

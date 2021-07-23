@@ -9,7 +9,7 @@ import SwiftUI
 
 struct InventoryCollectionView: View {
     
-    @Binding var items: [Product]
+    var items: [Product]
     @State var numberOfItemsPerRow = max(2, Int(UIScreen.screenWidth / 200))
     
     var body: some View {

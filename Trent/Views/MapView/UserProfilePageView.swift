@@ -10,8 +10,8 @@ import SwiftUI
 struct UserProfilePageView: View {
     
     @State var userProfile: UserProfile?
-    @State var inventory = [Product]()
     @State var updated = false
+    @State var isLoading = false
     
     var body: some View {
         ScrollView {
@@ -49,15 +49,25 @@ struct UserProfilePageView: View {
                 
                 Spacer()
                     .frame(height: 10)
-                
-                InventoryCollectionView(items: $inventory)
+                ZStack {
+                    InventoryCollectionView(items: userProfile?.inventory ?? [])
+                        .hidden(isLoading)
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .hidden(!isLoading)
+                }
                 Spacer()
             }
         }
             .navigationBarTitle(userProfile?.name ?? "User Profile", displayMode: .large)
             .onAppear(){
                 if !updated {
-                    //Backendclient: getInventory self.inventory = BackendClient.shared.getInventory(inventory: userProfile?.inventory ?? [])
+                    isLoading = true
+                    let userId = userProfile?._id ?? ""
+                    BackendClient.shared.getUserProfile(for: userId) { userProfile in
+                        isLoading = false
+                        self.userProfile = userProfile
+                    }
                     self.updated = true
                 }
             }
