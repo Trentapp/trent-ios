@@ -15,6 +15,7 @@ struct AccountView: View {
     @State var isShownCamera = false
     @State var isShownPhotoLibrary = false
     @State var newPicture: Image?
+    @State var profilePictureEditButtons = [Alert.Button]()
     //    @State var image = UIImage(systemName: "person.crop.circle")!
     
     func rotateImage(image: UIImage) -> UIImage? {
@@ -31,6 +32,18 @@ struct AccountView: View {
     var body: some View {
         VStack {
             Button(action:{
+                if (userObjectManager.user?.picture == nil) && profilePictureEditButtons.count == 4 {
+                    profilePictureEditButtons.popLast()
+                } else if (userObjectManager.user?.picture != nil) && profilePictureEditButtons.count == 3 {
+                    profilePictureEditButtons.append(Alert.Button.destructive(Text("Delete profile picture"), action: {
+                        BackendClient.shared.deleteProfilePicture() { success in
+                            if !success {
+                                // Tell the user
+                            }
+                        }
+                    }))
+                }
+                
                 isShownActionSheet.toggle()
             }, label: {
                 ((userObjectManager.user?.pictureUIImage != nil) ? Image(uiImage: (userObjectManager.user?.pictureUIImage!)!) : Image(systemName: "person.crop.circle"))
@@ -67,6 +80,16 @@ struct AccountView: View {
             .listStyle(GroupedListStyle())
             .onAppear {
                 UITableView.appearance().isScrollEnabled = false
+                
+                profilePictureEditButtons = [
+                    Alert.Button.default(Text("Camera"), action: {
+                        isShownCamera.toggle()
+                    }),
+                    Alert.Button.default(Text("Select from Library"), action: {
+                        isShownPhotoLibrary.toggle()
+                    }),
+                    Alert.Button.cancel()
+                ]
             }
             .alert(isPresented: $isShownLogOutAlert, content: {
                 Alert(title: Text("Log out"), message: Text("Are you sure you want to log out of your current account? You will need to log back in with your password to gain access to your account again on this device."), primaryButton: .cancel(), secondaryButton: .destructive(Text("Log out"), action: {
@@ -80,22 +103,7 @@ struct AccountView: View {
             })
         }
         .actionSheet(isPresented: $isShownActionSheet, content: {
-            ActionSheet(title: Text("Select source of photo"), message: nil, buttons: [
-                Alert.Button.default(Text("Camera"), action: {
-                    isShownCamera.toggle()
-                }),
-                Alert.Button.default(Text("Select from Library"), action: {
-                    isShownPhotoLibrary.toggle()
-                }),
-                Alert.Button.destructive(Text("Delete profile picture"), action: {
-                    BackendClient.shared.deleteProfilePicture() { success in
-                        if !success {
-                            // Tell the user
-                        }
-                    }
-                }),
-                Alert.Button.cancel()
-            ])
+            ActionSheet(title: Text("Select source of photo"), message: nil, buttons: profilePictureEditButtons)
         })
         
         .sheet(isPresented: $isShownPhotoLibrary) {

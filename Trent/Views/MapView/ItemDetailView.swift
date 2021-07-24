@@ -12,7 +12,6 @@ import MapKit
 struct ItemDetailView: View {
     @State var item: Product?
     @State var coordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 0, longitude: 0), latitudinalMeters: 750, longitudinalMeters: 750)
-    @State var isMe = false
     @State var isLoading = false
     @State var updated = false
     
@@ -94,15 +93,16 @@ struct ItemDetailView: View {
                     
                     HStack {
                         NavigationLink(destination: UserProfilePageView(userProfile: item?.user), label: {
-                            Image(systemName: "person.crop.circle")
+                            ((item?.user?.pictureUIImage != nil) ? Image(uiImage: (item?.user?.pictureUIImage!)!) : Image(systemName: "person.crop.circle"))
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                                .opacity(0.5)
+                                .opacity((item?.user?.pictureUIImage != nil) ? 1 : 0.5)
+                                .clipShape(Circle())
                                 .foregroundColor(.gray)
                                 .frame(width: 50, height: 50)
                                 .padding()
                             VStack(alignment: .leading, spacing: 4) {
-                                Text((item?.user?.name ?? "Product owner") + (isMe ? " (Me)" : ""))
+                                Text((item?.user?.name ?? "Product owner") + ((item?.user?._id ?? "") == (UserObjectManager.shared.user?._id ?? "") ? " (Me)" : ""))
                                     .font(.system(size: 20, weight: .regular, design: .default))
                                     .foregroundColor(Color.black)
                                 if (item?.user?.numberOfRatings ?? 0) >= 5 {
@@ -144,7 +144,7 @@ struct ItemDetailView: View {
                             }
                         })
                         .padding()
-                        .hidden(isMe)
+                        .hidden((item?.user?._id ?? "") == (UserObjectManager.shared.user?._id ?? "0"))
                     }
                 })
             }
@@ -197,7 +197,6 @@ struct ItemDetailView: View {
                 BackendClient.shared.getProduct(for: itemId) { item in
                     isLoading = false
                     self.item = item
-                    isMe = (item?.user?._id ?? "") == (UserObjectManager.shared.user?._id ?? "0")
                 }
                 self.coordinateRegion = MKCoordinateRegion(center: item?.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0), latitudinalMeters: 750, longitudinalMeters: 750)
                 self.updated = true

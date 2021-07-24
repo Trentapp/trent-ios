@@ -13,7 +13,7 @@ struct InventoryView: View {
     @ObservedObject var userObjectManager = UserObjectManager.shared
     @State var showAddProduct = false
     
-//    @State var tabBar: UITabBar?
+    //    @State var tabBar: UITabBar?
     
     var body: some View {
         ScrollView{
@@ -36,10 +36,10 @@ struct InventoryView: View {
                             Text("Add new item")
                                 .bold()
                                 .foregroundColor(.white)
-//                            RoundedRectangle(cornerRadius: 10)
-//                                .frame(width: 100, height:40)
-//                                .stroke(Color.purple, lineWidth: 5)
-                                
+                            //                            RoundedRectangle(cornerRadius: 10)
+                            //                                .frame(width: 100, height:40)
+                            //                                .stroke(Color.purple, lineWidth: 5)
+                            
                         }
                     }
                 })
@@ -49,15 +49,23 @@ struct InventoryView: View {
                 Spacer()
             }
         }
-        .sheet(isPresented: $showAddProduct, content: { AddProductView() })
+        .sheet(isPresented: $showAddProduct, content: {
+            ZStack {
+                if (userObjectManager.user?.address != nil) {
+                    AddProductView()
+                } else {
+                    AddAddressView()
+                }
+            }
+        })
         .navigationBarTitle(Text("Inventory"), displayMode: .large)
         .navigationViewStyle(StackNavigationViewStyle())
-//        .introspectTabBarController { (UITabBarController) in
-//            self.tabBar = UITabBarController.tabBar
-//        }
+        //        .introspectTabBarController { (UITabBarController) in
+        //            self.tabBar = UITabBarController.tabBar
+        //        }
         .onAppear() {
-//            self.tabBar?.isHidden = false
-//            UserObjectManager.shared.refresh()
+            //            self.tabBar?.isHidden = false
+            //            UserObjectManager.shared.refresh()
         }
         
     }

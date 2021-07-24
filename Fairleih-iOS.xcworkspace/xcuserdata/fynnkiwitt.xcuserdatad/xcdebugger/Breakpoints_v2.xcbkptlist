@@ -7,33 +7,406 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D822D025-8A7B-49BE-BA1B-D266547FBEFF"
+            uuid = "2B04C1ED-0AEF-40C0-930E-E8124471F598"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Trent/Views/AccountView/EditAccountView.swift"
+            filePath = "Trent/Supporting Files/Keyboard.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "init(center:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6A0256A4-9165-47B4-8D03-FDD01AFF258C"
+            uuid = "7948D64C-8EF2-4DB4-8341-CEFC82847ACE"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Trent/Managers/BackendClient.swift"
+            filePath = "Trent/Supporting Files/Keyboard.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "304"
-            endingLineNumber = "304"
-            landmarkName = "updateUserObject(name:street:houseNumber:zipcode:city:country:completionHandler:)"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "keyBoardDidHide(notification:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C9E43AA5-0626-44DA-8395-1129D74288D0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trent/Supporting Files/Keyboard.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "keyBoardWillShow(notification:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E02C8AC3-D9E8-4F05-B1AD-9D1F20D546A8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trent/Supporting Files/Keyboard.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "KeyboardManager"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "E02C8AC3-D9E8-4F05-B1AD-9D1F20D546A8 - 8ca8fd76f1a85da4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trent.KeyboardManager.shared.unsafeMutableAddressor : Trent.KeyboardManager"
+                  moduleName = "Trent"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fynnkiwitt/Desktop/Fairleih-iOS/Trent/Supporting%20Files/Keyboard.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "8">
+               </Location>
+               <Location
+                  uuid = "E02C8AC3-D9E8-4F05-B1AD-9D1F20D546A8 - c1f62de9f65abaa8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "one-time initialization function for shared"
+                  moduleName = "Trent"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fynnkiwitt/Desktop/Fairleih-iOS/Trent/Supporting%20Files/Keyboard.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4872B79A-A101-489D-81DE-F195D6C5B1FC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trent/Supporting Files/Keyboard.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "KeyboardManager"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "4872B79A-A101-489D-81DE-F195D6C5B1FC - ed9992b30082d559"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "property wrapper backing initializer of Trent.KeyboardManager.isKeyboardShown : Swift.Bool"
+                  moduleName = "Trent"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fynnkiwitt/Desktop/Fairleih-iOS/Trent/Supporting%20Files/Keyboard.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "36">
+               </Location>
+               <Location
+                  uuid = "4872B79A-A101-489D-81DE-F195D6C5B1FC - dfcacb9c64ac1187"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trent.KeyboardManager.isKeyboardShown.getter : Swift.Bool"
+                  moduleName = "Trent"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fynnkiwitt/Desktop/Fairleih-iOS/Trent/Supporting%20Files/Keyboard.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "120">
+               </Location>
+               <Location
+                  uuid = "4872B79A-A101-489D-81DE-F195D6C5B1FC - 3c88f2f2c440c993"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trent.KeyboardManager.isKeyboardShown.setter : Swift.Bool"
+                  moduleName = "Trent"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fynnkiwitt/Desktop/Fairleih-iOS/Trent/Supporting%20Files/Keyboard.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "156">
+               </Location>
+               <Location
+                  uuid = "4872B79A-A101-489D-81DE-F195D6C5B1FC - 99f29228b90dcd70"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trent.KeyboardManager.isKeyboardShown.modify : Swift.Bool"
+                  moduleName = "Trent"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fynnkiwitt/Desktop/Fairleih-iOS/Trent/Supporting%20Files/Keyboard.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "56">
+               </Location>
+               <Location
+                  uuid = "4872B79A-A101-489D-81DE-F195D6C5B1FC - 20e4c0cefa7a3393"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trent.KeyboardManager.isKeyboardShown.modify : Swift.Bool with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "Trent"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fynnkiwitt/Desktop/Fairleih-iOS/Trent/Supporting%20Files/Keyboard.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "36">
+               </Location>
+               <Location
+                  uuid = "4872B79A-A101-489D-81DE-F195D6C5B1FC - 36d1649d0198ebe4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trent.KeyboardManager.$isKeyboardShown.getter : Combine.Published&lt;Swift.Bool&gt;.Publisher"
+                  moduleName = "Trent"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fynnkiwitt/Desktop/Fairleih-iOS/Trent/Supporting%20Files/Keyboard.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "112">
+               </Location>
+               <Location
+                  uuid = "4872B79A-A101-489D-81DE-F195D6C5B1FC - 73865a27542927f0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trent.KeyboardManager.$isKeyboardShown.setter : Combine.Published&lt;Swift.Bool&gt;.Publisher"
+                  moduleName = "Trent"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fynnkiwitt/Desktop/Fairleih-iOS/Trent/Supporting%20Files/Keyboard.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "268">
+               </Location>
+               <Location
+                  uuid = "4872B79A-A101-489D-81DE-F195D6C5B1FC - 75231cb83d549161"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trent.KeyboardManager.$isKeyboardShown.modify : Combine.Published&lt;Swift.Bool&gt;.Publisher"
+                  moduleName = "Trent"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fynnkiwitt/Desktop/Fairleih-iOS/%3Ccompiler-generated%3E"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "56">
+               </Location>
+               <Location
+                  uuid = "4872B79A-A101-489D-81DE-F195D6C5B1FC - d7d2e25cc7b03551"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trent.KeyboardManager.$isKeyboardShown.modify : Combine.Published&lt;Swift.Bool&gt;.Publisher with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "Trent"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fynnkiwitt/Desktop/Fairleih-iOS/Trent/Supporting%20Files/Keyboard.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "32">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3F58863A-FFA2-4686-9016-6DE725ED6F8B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trent/Views/AccountView/AddAddressView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "AddAddressView"
+            landmarkType = "14">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "360033E7-1243-411E-8956-C3F56F7D96B4"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trent/Views/AccountView/AddAddressView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "isKeyboardShown"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "360033E7-1243-411E-8956-C3F56F7D96B4 - 8db452e2a7c6fb78"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "property wrapper backing initializer of Trent.AddAddressView.isKeyboardShown : Trent.KeyboardManager"
+                  moduleName = "Trent"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fynnkiwitt/Desktop/Fairleih-iOS/Trent/Views/AccountView/AddAddressView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "19"
+                  endingLineNumber = "19"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  uuid = "360033E7-1243-411E-8956-C3F56F7D96B4 - 90795ddbd986801a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trent.AddAddressView.isKeyboardShown.getter : Trent.KeyboardManager"
+                  moduleName = "Trent"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fynnkiwitt/Desktop/Fairleih-iOS/Trent/Views/AccountView/AddAddressView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "19"
+                  endingLineNumber = "19"
+                  offsetFromSymbolStart = "76">
+               </Location>
+               <Location
+                  uuid = "360033E7-1243-411E-8956-C3F56F7D96B4 - abcd3049ee3a4dae"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trent.AddAddressView.isKeyboardShown.setter : Trent.KeyboardManager"
+                  moduleName = "Trent"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fynnkiwitt/Desktop/Fairleih-iOS/Trent/Views/AccountView/AddAddressView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "19"
+                  endingLineNumber = "19"
+                  offsetFromSymbolStart = "68">
+               </Location>
+               <Location
+                  uuid = "360033E7-1243-411E-8956-C3F56F7D96B4 - bb52fc6b4ba41fb2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trent.AddAddressView.isKeyboardShown.modify : Trent.KeyboardManager"
+                  moduleName = "Trent"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fynnkiwitt/Desktop/Fairleih-iOS/Trent/Views/AccountView/AddAddressView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "8">
+               </Location>
+               <Location
+                  uuid = "360033E7-1243-411E-8956-C3F56F7D96B4 - ce6559e79c0b634e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trent.AddAddressView.isKeyboardShown.modify : Trent.KeyboardManager with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "Trent"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fynnkiwitt/Desktop/Fairleih-iOS/Trent/Views/AccountView/AddAddressView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "19"
+                  endingLineNumber = "19"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  uuid = "360033E7-1243-411E-8956-C3F56F7D96B4 - 3a1ca3b3d47f0fa7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trent.AddAddressView.$isKeyboardShown.getter : SwiftUI.ObservedObject&lt;Trent.KeyboardManager&gt;.Wrapper"
+                  moduleName = "Trent"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fynnkiwitt/Desktop/Fairleih-iOS/Trent/Views/AccountView/AddAddressView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "19"
+                  endingLineNumber = "19"
+                  offsetFromSymbolStart = "104">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "719375DA-EF17-4175-A66C-3750D57FAD9C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trent/Supporting Files/Keyboard.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "init()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D43715C3-0166-4313-841A-BB5A5EB3A815"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trent/Views/AccountView/AddAddressView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "isKeyboardShown"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

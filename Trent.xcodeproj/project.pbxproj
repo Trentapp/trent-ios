@@ -25,6 +25,7 @@
 		B051EADF26662FBE002CF297 /* InventoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B051EADE26662FBE002CF297 /* InventoryItemView.swift */; };
 		B0529D4526A8336F001616AB /* MainViewProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0529D4426A8336F001616AB /* MainViewProperties.swift */; };
 		B0529D4726A8372C001616AB /* TabBarConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0529D4626A8372C001616AB /* TabBarConfigurations.swift */; };
+		B0529D4B26AAFAA1001616AB /* AddAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0529D4A26AAFAA1001616AB /* AddAddressView.swift */; };
 		B05F67FE2667681300A58505 /* PhotoPickerViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05F67FD2667681300A58505 /* PhotoPickerViews.swift */; };
 		B06E9331269EB25C00E96740 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B06E9330269EB25C00E96740 /* AuthenticationServices.framework */; };
 		B06E9333269F491200E96740 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06E9332269F491200E96740 /* AuthenticationView.swift */; };
@@ -59,6 +60,7 @@
 		B0F37CC3265ECC7000D7905E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F37CC2265ECC7000D7905E /* LoginView.swift */; };
 		B0F37CC7265EDAD500D7905E /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F37CC6265EDAD400D7905E /* SignupView.swift */; };
 		B0F37CC9265EE8AA00D7905E /* FirebaseAuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F37CC8265EE8AA00D7905E /* FirebaseAuthClient.swift */; };
+		B0F5594826AB64AC00BF3325 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F5594726AB64AC00BF3325 /* Keyboard.swift */; };
 		B20921BBE41D51D41EF5AA64 /* Pods_Fairleih_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E465A03291B4E422354D3C /* Pods_Fairleih_iOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +83,7 @@
 		B051EADE26662FBE002CF297 /* InventoryItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryItemView.swift; sourceTree = "<group>"; };
 		B0529D4426A8336F001616AB /* MainViewProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewProperties.swift; sourceTree = "<group>"; };
 		B0529D4626A8372C001616AB /* TabBarConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarConfigurations.swift; sourceTree = "<group>"; };
+		B0529D4A26AAFAA1001616AB /* AddAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAddressView.swift; sourceTree = "<group>"; };
 		B05F67FD2667681300A58505 /* PhotoPickerViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerViews.swift; sourceTree = "<group>"; };
 		B06E932F269EB25700E96740 /* Trent.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Trent.entitlements; sourceTree = "<group>"; };
 		B06E9330269EB25C00E96740 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
@@ -118,6 +121,7 @@
 		B0F37CC2265ECC7000D7905E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		B0F37CC6265EDAD400D7905E /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		B0F37CC8265EE8AA00D7905E /* FirebaseAuthClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthClient.swift; sourceTree = "<group>"; };
+		B0F5594726AB64AC00BF3325 /* Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		B18970A9C174AD27CC4B537B /* Pods-Fairleih-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fairleih-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Fairleih-iOS/Pods-Fairleih-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		C9E465A03291B4E422354D3C /* Pods_Fairleih_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fairleih_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED20EF8E80C52037F01618E3 /* Pods-Fairleih-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fairleih-iOS.release.xcconfig"; path = "Target Support Files/Pods-Fairleih-iOS/Pods-Fairleih-iOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -313,6 +317,7 @@
 			isa = PBXGroup;
 			children = (
 				B09698E42693B23100068BA3 /* Global.swift */,
+				B0F5594726AB64AC00BF3325 /* Keyboard.swift */,
 				B08F89E026A06B2600816A8D /* DualSlider.swift */,
 				B08F89E226A1B12C00816A8D /* MonoSlider.swift */,
 			);
@@ -324,6 +329,7 @@
 			children = (
 				B029AD0426623C9500279911 /* AccountView.swift */,
 				B0D4FB11267D0DBB00BADF68 /* EditAccountView.swift */,
+				B0529D4A26AAFAA1001616AB /* AddAddressView.swift */,
 			);
 			path = AccountView;
 			sourceTree = "<group>";
@@ -451,6 +457,7 @@
 				B09698E52693B23100068BA3 /* Global.swift in Sources */,
 				B0E182172664140300F20D27 /* InventoryView.swift in Sources */,
 				B093B5A226860C750051B7CC /* Chat.swift in Sources */,
+				B0529D4B26AAFAA1001616AB /* AddAddressView.swift in Sources */,
 				B0F01F61265FAFA300BDFA18 /* Product.swift in Sources */,
 				B01C13A22684D0380078E584 /* UINavigationController.swift in Sources */,
 				B0D4FB12267D0DBB00BADF68 /* EditAccountView.swift in Sources */,
@@ -463,6 +470,7 @@
 				B08F89F026A70B7500816A8D /* Message.swift in Sources */,
 				B08F89E326A1B12C00816A8D /* MonoSlider.swift in Sources */,
 				B029AD0526623C9500279911 /* AccountView.swift in Sources */,
+				B0F5594826AB64AC00BF3325 /* Keyboard.swift in Sources */,
 				B08F89E826A70AE800816A8D /* Picture.swift in Sources */,
 				B0989253268B319200574719 /* Transaction.swift in Sources */,
 				B06E9333269F491200E96740 /* AuthenticationView.swift in Sources */,

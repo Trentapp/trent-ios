@@ -22,6 +22,7 @@ struct DetailBottomView: View {
                     Image(uiImage: controler.currentlyFocusedItem?.thumbnailUIImage ?? UIImage())
                         .resizable()
                         .aspectRatio(contentMode: .fit)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
                         .frame(width: 55, height: 55)
                     VStack(alignment: .leading, spacing: 0, content: {
                         Text(controler.currentlyFocusedItem?.name ?? "Untitled item")
