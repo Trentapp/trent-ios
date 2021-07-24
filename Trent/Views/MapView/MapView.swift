@@ -231,6 +231,7 @@ struct MapView: View {
         .onAppear() {
             LocationManager.shared.requestAuthorization()
             self.region.center = locationManager.currentLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
+            MapViewController.shared.currentlyFocusedItem = nil
         }
         
         //        .introspectTabBarController { (UITabBarController) in
