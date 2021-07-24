@@ -5,8 +5,8 @@
 //  Created by Fynn Kiwitt on 27.05.21.
 //
 
-import Foundation
 import UIKit
+import MapKit
 
 struct Product: Codable, Hashable, Identifiable {
     let id = UUID()

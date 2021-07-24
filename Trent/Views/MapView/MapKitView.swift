@@ -18,7 +18,11 @@ struct MapKitView: UIViewRepresentable {
         mapView.showsUserLocation = true
         mapView.region = region
         mapView.userTrackingMode = MKUserTrackingMode.follow
+        mapView.isRotateEnabled = false
         mapView.delegate = context.coordinator
+        
+        let annotations = getAnnotations()
+        mapView.addAnnotations(annotations)
         
         return mapView
     }
@@ -26,6 +30,19 @@ struct MapKitView: UIViewRepresentable {
     func updateUIView(_ uiView: MKMapView, context: Context) {
         uiView.userTrackingMode = userTrackingMode
         uiView.region = region
+        
+        let annotations = getAnnotations()
+        uiView.removeAnnotations(uiView.annotations)
+        uiView.addAnnotations(annotations)
+    }
+    
+    func getAnnotations() -> [MKAnnotation] {
+        var annotations = [MKAnnotation]()
+        for item in annotationItems {
+            let annotation = ProductAnnotation(item: item)
+            annotations.append(annotation)
+        }
+        return annotations
     }
     
     func makeCoordinator() -> Coordinator {
@@ -47,5 +64,41 @@ struct MapKitView: UIViewRepresentable {
         func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
             updateMapKitView(sender: mapView)
         }
+        
+//        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+//            MKAnnotationView(annotation: <#T##MKAnnotation?#>, reuseIdentifier: <#T##String?#>)
+//        }
+//
+//        func mapView(_ mapView: MKMapView, clusterAnnotationForMemberAnnotations memberAnnotations: [MKAnnotation]) -> MKClusterAnnotation {
+//            <#code#>
+//        }
+        
+        func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+            if let productAnnotation = view.annotation as? ProductAnnotation {
+                MapViewController.shared.currentlyFocusedItem = productAnnotation.item
+            }
+        }
+        
+//        func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+//            if let productAnnotation = view.annotation as? ProductAnnotation {
+//                if productAnnotation.item == MapViewController.shared.currentlyFocusedItem {
+//                    MapViewController.shared.currentlyFocusedItem = nil
+//                }
+//            }
+//        }
+    }
+}
+
+
+class ProductAnnotation: NSObject, MKAnnotation {
+    var item: Product
+    var coordinate: CLLocationCoordinate2D {
+        get {
+            return item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000)
+        }
+    }
+    
+    init(item: Product) {
+        self.item = item
     }
 }

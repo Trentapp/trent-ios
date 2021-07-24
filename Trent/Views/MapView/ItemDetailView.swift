@@ -184,6 +184,7 @@ struct ItemDetailView: View {
         .ignoresSafeArea(.container, edges: .bottom)
         .navigationBarTitle("")
         .navigationBarHidden(true)
+        .navigationViewStyle(StackNavigationViewStyle())
 //        .introspectTabBarController { (UITabBarController) in
 //            self.tabBar = UITabBarController.tabBar
 //            self.tabBar?.isHidden = true
