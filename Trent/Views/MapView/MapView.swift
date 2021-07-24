@@ -17,7 +17,8 @@ struct MapView: View {
     @State var keyword = ""
     @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 49.40806, longitude: 8.679158) , span: MKCoordinateSpan(latitudeDelta: 0.25, longitudeDelta: 0.25))
     @State var cachedLocation = CLLocationCoordinate2D(latitude: 0, longitude: 0)
-    @State var trackUser = MapUserTrackingMode.follow
+//    @State var trackUser = MapUserTrackingMode.follow
+    @State var trackUser = MKUserTrackingMode.follow
     @State var allResults: [Product] = []
     @State var filteredResults: [Product] = []
     @State var allowedToSet = true
@@ -86,17 +87,19 @@ struct MapView: View {
     
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .top), content: {
-            Map(coordinateRegion: $region, showsUserLocation: true, userTrackingMode: $trackUser, annotationItems: self.filteredResults, annotationContent: { current_item in
-//                MapMarker(coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0))//current_item.location!.CLcoordinates)
-//                MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: current_item.location!.coordinates[0], longitude: current_item.location!.coordinates[1])) {
+//            Map(coordinateRegion: $region, showsUserLocation: true, userTrackingMode: $trackUser, annotationItems: self.filteredResults, annotationContent: { current_item in
+////                MapMarker(coordinate: current_item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000))
+////                MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: current_item.location!.coordinates[0], longitude: current_item.location!.coordinates[1])) {
+////                    MapAnnotationButton(item: current_item)
+////                }
+//                MapAnnotation(coordinate: current_item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000)) {
 //                    MapAnnotationButton(item: current_item)
 //                }
-                MapAnnotation(coordinate: current_item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000)) {
-                    MapAnnotationButton(item: current_item)
-                }
-            })
-            .gesture(DragGesture().onChanged{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil); self.showFilter = false })
-            .edgesIgnoringSafeArea(.all)
+//            })
+            
+            MapKitView(userTrackingMode: $trackUser, region: $region, annotationItems: self.$filteredResults)
+                .gesture(DragGesture().onChanged{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil); self.showFilter = false })
+                .edgesIgnoringSafeArea(.all)
             
             VStack {
                 Spacer()
