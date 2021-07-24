@@ -10,6 +10,7 @@ import Combine
 
 final class KeyboardResponder: ObservableObject {
     let didChange = PassthroughSubject<CGFloat, Never>()
+    var hasChanged: (Bool) -> Void
     private var _center: NotificationCenter
     private(set) var currentHeight: CGFloat = 0 {
         didSet {
@@ -17,10 +18,11 @@ final class KeyboardResponder: ObservableObject {
         }
     }
 
-    init(center: NotificationCenter = .default) {
+    init(hasChanged: @escaping (Bool) -> Void, center: NotificationCenter = .default) {
+        self.hasChanged = hasChanged
         _center = center
         _center.addObserver(self, selector: #selector(keyBoardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        _center.addObserver(self, selector: #selector(keyBoardDidHide(notification:)), name: UIResponder.keyboardDidHideNotification, object: nil)
+        _center.addObserver(self, selector: #selector(keyBoardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     deinit {
@@ -28,24 +30,14 @@ final class KeyboardResponder: ObservableObject {
     }
 
     @objc func keyBoardWillShow(notification: Notification) {
-        KeyboardManager.shared.isKeyboardShown = true
+        self.hasChanged(true)
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             currentHeight = keyboardSize.height
         }
     }
 
-    @objc func keyBoardDidHide(notification: Notification) {
-        KeyboardManager.shared.isKeyboardShown = false
+    @objc func keyBoardWillHide(notification: Notification) {
+        self.hasChanged(false)
         currentHeight = 0
-    }
-}
-
-class KeyboardManager: ObservableObject {
-    static var shared = KeyboardManager()
-    
-    @Published var isKeyboardShown = false
-    
-    init() {
-        KeyboardResponder()
     }
 }

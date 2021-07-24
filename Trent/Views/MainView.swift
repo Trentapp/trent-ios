@@ -12,6 +12,10 @@ struct MainView: View {
     @ObservedObject var mainViewProperties = MainViewProperties.shared
     @ObservedObject var userObjectManager = UserObjectManager.shared
     
+    init() {
+        defaultTableViewBackgroundColor = .secondarySystemBackground
+    }
+    
     var body: some View {
         NavigationView {
             TabView(selection: $mainViewProperties.selectedItem) {

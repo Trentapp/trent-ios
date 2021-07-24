@@ -79,6 +79,7 @@ struct AccountView: View {
             }
             .listStyle(GroupedListStyle())
             .onAppear {
+                UITableView.appearance().backgroundColor = defaultTableViewBackgroundColor
                 UITableView.appearance().isScrollEnabled = false
                 
                 profilePictureEditButtons = [

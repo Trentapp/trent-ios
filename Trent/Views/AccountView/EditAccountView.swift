@@ -92,6 +92,9 @@ struct EditAccountView: View {
                 Text("Save")
             }
         }))
+        .onAppear() {
+            UITableView.appearance().backgroundColor = defaultTableViewBackgroundColor
+        }
     }
 }
 

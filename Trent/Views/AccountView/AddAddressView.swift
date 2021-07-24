@@ -9,29 +9,18 @@ import SwiftUI
 
 struct AddAddressView: View {
     
+    @Environment(\.presentationMode) var presentationMode
+    
     @State var street = ""
     @State var houseNumber = ""
     @State var zipcode = ""
     @State var city = ""
     @State var country = "Germany"
     
-    @ObservedObject var keyboardResponder = KeyboardResponder()
-    @ObservedObject var isKeyboardShown = KeyboardManager.shared
-//    {
-//        didChange {
-//            UITableView.appearance().isScrollEnabled = KeyboardManager.shared.isKeyboardShown
-//        }
-//    }
-//    .isKeyboardShown {
-//        didSet {
-//            UITableView.appearance().isScrollEnabled = KeyboardManager.shared.isKeyboardShown
-//        }
-//    }
+    @State var isLoading = false
     
-    init(){
-        UITableView.appearance().backgroundColor = .clear
-        UITableView.appearance().isScrollEnabled = false
-    }
+    @State var showSetButton = true
+    @State var keyboardResponder: KeyboardResponder?
     
     var body: some View {
         NavigationView {
@@ -51,25 +40,50 @@ struct AddAddressView: View {
                             .textContentType(.countryName)
                     }
                 }
-                
                 Button {
-                    //
+                    isLoading = true
+                    BackendClient.shared.updateUserObject(name: UserObjectManager.shared.user?.name ?? "", street: street, houseNumber: houseNumber, zipcode: zipcode, city: city, country: country) { success in
+                        isLoading = false
+                    }
                 } label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 15)
                             .foregroundColor(.blue)
-                            .frame(height: 50)
+                            .frame(height: showSetButton ? 50 : 0)
                         Text("Set address")
                             .foregroundColor(.white)
                             .bold()
                     }
                     .padding()
                 }
+                .disabled(isLoading)
+                .frame(height: showSetButton ? 50 : 0)
                 
             }
-            
-            .ignoresSafeArea(.keyboard)
             .navigationBarTitle("Add your address", displayMode: .large)
+            .navigationBarItems(trailing:
+                ZStack {
+                    if isLoading {
+                        ProgressView().progressViewStyle(CircularProgressViewStyle()).hidden(!isLoading)
+                    } else {
+                        Button(action: {
+                            self.presentationMode.wrappedValue.dismiss()
+                        }, label: {
+                            Text("Cancel")
+                                .fontWeight(Font.Weight.regular)
+                        })
+                    }
+                    
+                }
+            )
+            .onAppear(){
+                UITableView.appearance().isScrollEnabled = true
+//                UITableView.appearance().backgroundColor = .clear
+                
+                self.keyboardResponder = KeyboardResponder { isShown in
+                    self.showSetButton = !isShown
+                }
+            }
         }
     }
 }
