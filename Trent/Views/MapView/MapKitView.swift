@@ -12,6 +12,7 @@ struct MapKitView: UIViewRepresentable {
     @Binding var userTrackingMode: MKUserTrackingMode
     @Binding var region: MKCoordinateRegion
     @Binding var annotationItems: [Product]
+    @Binding var displayedAnnotationItems: [Product]
     
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView()
@@ -23,6 +24,7 @@ struct MapKitView: UIViewRepresentable {
         
         let annotations = getAnnotations()
         mapView.addAnnotations(annotations)
+        self.displayedAnnotationItems = self.annotationItems
         
         return mapView
     }
@@ -31,9 +33,13 @@ struct MapKitView: UIViewRepresentable {
         uiView.userTrackingMode = userTrackingMode
         uiView.region = region
         
-        let annotations = getAnnotations()
-        uiView.removeAnnotations(uiView.annotations)
-        uiView.addAnnotations(annotations)
+        if displayedAnnotationItems != annotationItems {
+            let annotations = getAnnotations()
+            uiView.removeAnnotations(uiView.annotations)
+            uiView.addAnnotations(annotations)
+            
+            self.displayedAnnotationItems = self.annotationItems
+        }
     }
     
     func getAnnotations() -> [MKAnnotation] {
@@ -65,10 +71,38 @@ struct MapKitView: UIViewRepresentable {
             updateMapKitView(sender: mapView)
         }
         
-//        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-//            MKAnnotationView(annotation: <#T##MKAnnotation?#>, reuseIdentifier: <#T##String?#>)
-//        }
-//
+        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+            let buttonView = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 25))
+            buttonView.layer.cornerRadius = 12.5
+            buttonView.layer.masksToBounds = true
+            
+            if let annotationItem = annotation as? ProductAnnotation {
+                let item = annotationItem.item
+                buttonView.setTitle("\(Int(item.prices?.perDay ?? 0))€", for: .normal)
+                buttonView.setTitleColor(UIColor.black, for: .normal)
+                buttonView.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+                
+                if item == MapViewController.shared.currentlyFocusedItem {
+                    buttonView.backgroundColor = .black
+                    buttonView.setTitleColor(UIColor.black, for: .normal)
+                } else {
+                    buttonView.backgroundColor = .white
+                }
+            }
+            
+            let identifier = "Placemark"
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+            
+            if annotationView == nil {
+                annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                annotationView?.addSubview(buttonView)
+            } else {
+                annotationView?.annotation = annotation
+            }
+            
+            return annotationView
+        }
+
 //        func mapView(_ mapView: MKMapView, clusterAnnotationForMemberAnnotations memberAnnotations: [MKAnnotation]) -> MKClusterAnnotation {
 //            <#code#>
 //        }

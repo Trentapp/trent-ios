@@ -21,6 +21,7 @@ struct MapView: View {
     @State var trackUser = MKUserTrackingMode.follow
     @State var allResults: [Product] = []
     @State var filteredResults: [Product] = []
+    @State var _currentMapAnnoations: [Product] = []
     @State var allowedToSet = true
     
     @State var showFilter = false {
@@ -97,7 +98,7 @@ struct MapView: View {
 //                }
 //            })
             
-            MapKitView(userTrackingMode: $trackUser, region: $region, annotationItems: self.$filteredResults)
+            MapKitView(userTrackingMode: $trackUser, region: $region, annotationItems: self.$filteredResults, displayedAnnotationItems: self.$_currentMapAnnoations)
                 .gesture(DragGesture().onChanged{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil); self.showFilter = false })
                 .edgesIgnoringSafeArea(.all)
             
