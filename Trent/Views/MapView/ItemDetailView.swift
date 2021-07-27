@@ -42,7 +42,7 @@ struct ItemDetailView: View {
             ScrollView{
                 VStack(alignment: .leading, spacing: 10, content: {
                     ZStack {
-                        ImageView(images: [item?.picturesUIImage.first ?? UIImage()])
+                        ImageView(images: item?.picturesUIImage ?? [UIImage]())
                         ProgressView()
                             .progressViewStyle(CircularProgressViewStyle())
                             .hidden(!isLoading)
@@ -213,10 +213,15 @@ struct ImageView: View {
     var body: some View {
         HStack {
             Spacer()
-            Image(uiImage: self.images.first ?? UIImage())
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(height: 250)
+            TabView {
+                ForEach((0..<images.count), id: \.self){ i in
+                    Image(uiImage: images[i])
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                }
+            }
+            .tabViewStyle(PageTabViewStyle())
+            .frame(height: 250)
             //                .padding(.bottom, -35)
             //                .ignoresSafeArea(.container, edges: .top)
             Spacer()
