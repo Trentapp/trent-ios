@@ -17,7 +17,6 @@ struct MapView: View {
     @State var keyword = ""
     @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 49.40806, longitude: 8.679158) , span: MKCoordinateSpan(latitudeDelta: 0.25, longitudeDelta: 0.25))
     @State var cachedLocation = CLLocationCoordinate2D(latitude: 0, longitude: 0)
-//    @State var trackUser = MapUserTrackingMode.follow
     @State var trackUser = MKUserTrackingMode.follow
     @State var allResults: [Product] = []
     @State var filteredResults: [Product] = []
@@ -37,8 +36,6 @@ struct MapView: View {
     }
     
     @State var suppressAnimation = true
-    
-    //    @State var tabBar: UITabBar?
     
     // Filter
     @State var maxPriceResults = 100.0
@@ -88,16 +85,6 @@ struct MapView: View {
     
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .top), content: {
-//            Map(coordinateRegion: $region, showsUserLocation: true, userTrackingMode: $trackUser, annotationItems: self.filteredResults, annotationContent: { current_item in
-////                MapMarker(coordinate: current_item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000))
-////                MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: current_item.location!.coordinates[0], longitude: current_item.location!.coordinates[1])) {
-////                    MapAnnotationButton(item: current_item)
-////                }
-//                MapAnnotation(coordinate: current_item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000)) {
-//                    MapAnnotationButton(item: current_item)
-//                }
-//            })
-            
             MapKitView(userTrackingMode: $trackUser, region: $region, annotationItems: self.$filteredResults, displayedAnnotationItems: self.$_currentMapAnnoations)
                 .gesture(DragGesture().onChanged{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil); self.showFilter = false })
                 .edgesIgnoringSafeArea(.all)
@@ -129,7 +116,6 @@ struct MapView: View {
                                 TextField("\(Image(systemName: "magnifyingglass"))  What are you looking for?", text: $keyword, onEditingChanged: { editing in
                                 }, onCommit: {
                                     UIApplication.shared.endEditing()
-//                                    trackUser = .follow
                                     trackUser = .none
                                     
                                     let location = region.center
@@ -167,14 +153,12 @@ struct MapView: View {
                             .frame(width: 375, height: 60)
                             
                             
-//                            if(showFilter) {
                                 VStack {
                                     
                                     Divider()
                                     HStack {
                                         Image(systemName: "dollarsign.circle")
                                             .font(.system(size:25))
-                                            //                                            .foregroundColor(.gray)
                                             .padding(.horizontal, 10)
                                             .padding(.vertical, 2)
                                         DualSlider(minValue: $minPriceValue, maxValue: $maxPriceValue, width: 220) {
@@ -192,7 +176,6 @@ struct MapView: View {
                                     HStack {
                                         Image(systemName: "mappin.and.ellipse")
                                             .font(.system(size:25))
-                                            //                                            .foregroundColor(.gray)
                                             .padding(.horizontal, 10)
                                             .padding(.vertical, 2)
                                         MonoSlider(maxValue: $maxDistanceValue, width: 220) {
@@ -214,7 +197,6 @@ struct MapView: View {
                                 .scaleEffect(CGSize(width: 1, height: showFilter ? 1 : 0), anchor: .top)
                                 .opacity(showFilter ? 1 : 0)
                                 .animation(suppressAnimation ? .none : .easeInOut(duration: 0.3))
-//                            }
                         }
                         
                     )
@@ -237,13 +219,6 @@ struct MapView: View {
             self.region.center = locationManager.currentLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
             MapViewController.shared.currentlyFocusedItem = nil
         }
-        
-        //        .introspectTabBarController { (UITabBarController) in
-        //            self.tabBar = UITabBarController.tabBar
-        //        }
-        //        .onAppear() {
-        //            self.tabBar?.isHidden = false
-        //        }
     }
 }
 

@@ -24,7 +24,7 @@ struct MapKitView: UIViewRepresentable {
         
         let annotations = getAnnotations()
         mapView.addAnnotations(annotations)
-//        self.displayedAnnotationItems = self.annotationItems
+        //        self.displayedAnnotationItems = self.annotationItems
         
         return mapView
     }
@@ -38,7 +38,7 @@ struct MapKitView: UIViewRepresentable {
             uiView.removeAnnotations(uiView.annotations)
             uiView.addAnnotations(annotations)
             
-//            self.displayedAnnotationItems = self.annotationItems
+            //            self.displayedAnnotationItems = self.annotationItems
         }
     }
     
@@ -78,22 +78,25 @@ struct MapKitView: UIViewRepresentable {
                 annotationView.image = UIImage(named: "geo")
                 return annotationView
             }
-                
-            let buttonView = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 25))
+            
+            let buttonView = AnnotationButton(frame: CGRect(x: 0, y: 0, width: 50, height: 25))
             buttonView.layer.cornerRadius = 12.5
             buttonView.layer.masksToBounds = true
+            buttonView.isUserInteractionEnabled = false
             
             if let annotationItem = annotation as? ProductAnnotation {
                 let item = annotationItem.item
+                buttonView.item = item
                 buttonView.setTitle("\(Int(item.prices?.perDay ?? 0))€", for: .normal)
                 buttonView.setTitleColor(UIColor.black, for: .normal)
                 buttonView.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
                 
                 if item == MapViewController.shared.currentlyFocusedItem {
                     buttonView.backgroundColor = .black
-                    buttonView.setTitleColor(UIColor.black, for: .normal)
+                    buttonView.setTitleColor(.white, for: .normal)
                 } else {
                     buttonView.backgroundColor = .white
+                    buttonView.setTitleColor(.black, for: .normal)
                 }
             }
             
@@ -107,34 +110,57 @@ struct MapKitView: UIViewRepresentable {
                 annotationView?.priceTag?.removeFromSuperview()
             }
             
+//            if annotationView!.isSelected {
+//                buttonView.backgroundColor = .black
+//                buttonView.setTitleColor(.white, for: .normal)
+//            } else {
+//                buttonView.backgroundColor = .white
+//            }
+            
             annotationView?.priceTag = buttonView
+            
+            annotationView?.frame.size.width = 50
+            annotationView?.frame.size.height = 25
             annotationView?.addSubview((annotationView?.priceTag)!)
             
             return annotationView
         }
-
-//        func mapView(_ mapView: MKMapView, clusterAnnotationForMemberAnnotations memberAnnotations: [MKAnnotation]) -> MKClusterAnnotation {
-//            <#code#>
-//        }
+        
+        @objc func annotationPressed(_ sender: AnnotationButton){
+            MapViewController.shared.currentlyFocusedItem = sender.item
+        }
+        
+        //        func mapView(_ mapView: MKMapView, clusterAnnotationForMemberAnnotations memberAnnotations: [MKAnnotation]) -> MKClusterAnnotation {
+        //            <#code#>
+        //        }
         
         func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
             if let productAnnotation = view.annotation as? ProductAnnotation {
                 MapViewController.shared.currentlyFocusedItem = productAnnotation.item
             }
+            
+            if let annotationButton = view as? ProductAnnotationView {
+                annotationButton.priceTag?.backgroundColor = .black
+                annotationButton.priceTag?.setTitleColor(.white, for: .normal)
+            }
         }
         
-//        func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-//            if let productAnnotation = view.annotation as? ProductAnnotation {
-//                if productAnnotation.item == MapViewController.shared.currentlyFocusedItem {
-//                    MapViewController.shared.currentlyFocusedItem = nil
-//                }
-//            }
-//        }
+        func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+            if let annotationButton = view as? ProductAnnotationView {
+                annotationButton.priceTag?.backgroundColor = .white
+                annotationButton.priceTag?.setTitleColor(.black, for: .normal)
+            }
+
+        }
     }
 }
 
 class ProductAnnotationView: MKAnnotationView {
-    var priceTag: UIButton?
+    var priceTag: AnnotationButton?
+}
+
+class AnnotationButton: UIButton {
+    var item: Product?
 }
 
 class ProductAnnotation: NSObject, MKAnnotation {
@@ -142,6 +168,12 @@ class ProductAnnotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D {
         get {
             return item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000)
+        }
+    }
+    
+    var title: String? {
+        get {
+            return "\(Int(item.prices?.perDay ?? 0))€"
         }
     }
     
