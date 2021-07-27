@@ -11,8 +11,7 @@ import MapKit
 struct MapKitView: UIViewRepresentable {
     @Binding var userTrackingMode: MKUserTrackingMode
     @Binding var region: MKCoordinateRegion
-    @Binding var annotationItems: [Product]
-    @Binding var displayedAnnotationItems: [Product]
+    @Binding var annotationItems: [ProductAnnotation]
     
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView()
@@ -22,33 +21,21 @@ struct MapKitView: UIViewRepresentable {
         mapView.isRotateEnabled = false
         mapView.delegate = context.coordinator
         
-        let annotations = getAnnotations()
-        mapView.addAnnotations(annotations)
-        //        self.displayedAnnotationItems = self.annotationItems
+        mapView.addAnnotations(annotationItems)
         
         return mapView
     }
-    
+     
     func updateUIView(_ uiView: MKMapView, context: Context) {
+        let viewAnnotations = Set(uiView.annotations.filter(){$0.isMember(of: ProductAnnotation.self)} as! [ProductAnnotation])
+        let annotationItemsSet = Set(annotationItems)
+        
+        if viewAnnotations != annotationItemsSet {
+            uiView.removeAnnotations(uiView.annotations)
+            uiView.addAnnotations(annotationItems)
+        }
         uiView.userTrackingMode = userTrackingMode
         uiView.region = region
-        
-        if displayedAnnotationItems != annotationItems {
-            let annotations = getAnnotations()
-            uiView.removeAnnotations(uiView.annotations)
-            uiView.addAnnotations(annotations)
-            
-            //            self.displayedAnnotationItems = self.annotationItems
-        }
-    }
-    
-    func getAnnotations() -> [MKAnnotation] {
-        var annotations = [MKAnnotation]()
-        for item in annotationItems {
-            let annotation = ProductAnnotation(item: item)
-            annotations.append(annotation)
-        }
-        return annotations
     }
     
     func makeCoordinator() -> Coordinator {
@@ -135,9 +122,8 @@ struct MapKitView: UIViewRepresentable {
             MapViewController.shared.currentlyFocusedItem = sender.item
         }
         
-        //        func mapView(_ mapView: MKMapView, clusterAnnotationForMemberAnnotations memberAnnotations: [MKAnnotation]) -> MKClusterAnnotation {
-        //            <#code#>
-        //        }
+//        func mapView(_ mapView: MKMapView, clusterAnnotationForMemberAnnotations memberAnnotations: [MKAnnotation]) -> MKClusterAnnotation {
+//        }
         
         func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
             if let productAnnotation = view.annotation as? ProductAnnotation {
