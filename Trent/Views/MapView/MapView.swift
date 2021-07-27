@@ -20,11 +20,7 @@ struct MapView: View {
 //    @State var trackUser = MapUserTrackingMode.follow
     @State var trackUser = MKUserTrackingMode.follow
     @State var allResults: [Product] = []
-    @State var filteredResults: [Product] = [] {
-        didSet {
-            print("New results: \(filteredResults.count)")
-        }
-    }
+    @State var filteredResults: [Product] = []
     @State var _currentMapAnnoations: [Product] = []
     @State var allowedToSet = true
     

@@ -11,11 +11,7 @@ import MapKit
 struct MapKitView: UIViewRepresentable {
     @Binding var userTrackingMode: MKUserTrackingMode
     @Binding var region: MKCoordinateRegion
-    @Binding var annotationItems: [Product] {
-        didSet {
-            print("annotation Items changed: \(annotationItems.count)")
-        }
-    }
+    @Binding var annotationItems: [Product]
     @Binding var displayedAnnotationItems: [Product]
     
     func makeUIView(context: Context) -> MKMapView {
@@ -36,7 +32,6 @@ struct MapKitView: UIViewRepresentable {
     func updateUIView(_ uiView: MKMapView, context: Context) {
         uiView.userTrackingMode = userTrackingMode
         uiView.region = region
-        print(uiView.annotations.count)
         
         if displayedAnnotationItems != annotationItems {
             let annotations = getAnnotations()
@@ -45,8 +40,6 @@ struct MapKitView: UIViewRepresentable {
             
 //            self.displayedAnnotationItems = self.annotationItems
         }
-        
-        print(uiView.annotations.count)
     }
     
     func getAnnotations() -> [MKAnnotation] {
@@ -92,20 +85,6 @@ struct MapKitView: UIViewRepresentable {
             
             if let annotationItem = annotation as? ProductAnnotation {
                 let item = annotationItem.item
-                print("\(item.name): \(item.prices?.perDay ?? 0)€; \(item.location?.coordinates); \(item.location?.CLcoordinates)")
-                print(mapView.annotations.count)
-                if((annotation.coordinate.longitude != item.location?.CLcoordinates.longitude) || (annotation.coordinate.latitude != item.location?.CLcoordinates.latitude) || (annotation.coordinate.longitude != item.location?.coordinates[0]) || (annotation.coordinate.latitude != item.location?.coordinates[1]) || !mapKitView.annotationItems.contains(item)) {
-                    print("HELP PLZ")
-                    if (annotation.coordinate.longitude != item.location?.CLcoordinates.longitude) || (annotation.coordinate.latitude != item.location?.CLcoordinates.latitude) {
-                        print("first: \(annotation.coordinate) <-> \(item.location?.CLcoordinates)")
-                    }
-                    if (annotation.coordinate.longitude != item.location?.coordinates[0]) || (annotation.coordinate.latitude != item.location?.coordinates[1]) {
-                        print("second: \(annotation.coordinate) <-> \(item.location?.coordinates)")
-                    }
-                    if !mapKitView.annotationItems.contains(item) {
-                        print("third: \(item)")
-                    }
-                }
                 buttonView.setTitle("\(Int(item.prices?.perDay ?? 0))€", for: .normal)
                 buttonView.setTitleColor(UIColor.black, for: .normal)
                 buttonView.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
@@ -130,10 +109,6 @@ struct MapKitView: UIViewRepresentable {
             
             annotationView?.priceTag = buttonView
             annotationView?.addSubview((annotationView?.priceTag)!)
-            
-            if (annotationView?.annotation?.coordinate.longitude != annotation.coordinate.longitude) || (annotationView?.annotation?.coordinate.latitude != annotation.coordinate.latitude) {
-                print("Uff")
-            }
             
             return annotationView
         }
