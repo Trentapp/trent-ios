@@ -57,6 +57,7 @@ struct MapKitView: UIViewRepresentable {
     
     class Coordinator: NSObject, MKMapViewDelegate {
         var mapKitView: MapKitView
+        var currentlySelectedAnnotation: ProductAnnotationView?
         
         init(_ mapKitView: MapKitView){
             self.mapKitView = mapKitView
@@ -142,6 +143,11 @@ struct MapKitView: UIViewRepresentable {
             if let annotationButton = view as? ProductAnnotationView {
                 annotationButton.priceTag?.backgroundColor = .black
                 annotationButton.priceTag?.setTitleColor(.white, for: .normal)
+                
+                currentlySelectedAnnotation?.priceTag?.backgroundColor = .white
+                currentlySelectedAnnotation?.priceTag?.setTitleColor(.black, for: .normal)
+                
+                currentlySelectedAnnotation = annotationButton
             }
         }
         
