@@ -85,6 +85,8 @@ struct MapKitView: UIViewRepresentable {
             buttonView.layer.masksToBounds = true
             buttonView.isUserInteractionEnabled = false
             
+            var isSelected = false
+            
             if let annotationItem = annotation as? ProductAnnotation {
                 let item = annotationItem.item
                 buttonView.item = item
@@ -95,6 +97,7 @@ struct MapKitView: UIViewRepresentable {
                 if item == MapViewController.shared.currentlyFocusedItem {
                     buttonView.backgroundColor = .black
                     buttonView.setTitleColor(.white, for: .normal)
+                    isSelected = true
                 } else {
                     buttonView.backgroundColor = .white
                     buttonView.setTitleColor(.black, for: .normal)
@@ -120,6 +123,7 @@ struct MapKitView: UIViewRepresentable {
             
             annotationView?.priceTag = buttonView
             
+            annotationView?.isSelected = isSelected
             annotationView?.frame.size.width = 50
             annotationView?.frame.size.height = 25
             annotationView?.addSubview((annotationView?.priceTag)!)
@@ -146,6 +150,7 @@ struct MapKitView: UIViewRepresentable {
                 
                 currentlySelectedAnnotation?.priceTag?.backgroundColor = .white
                 currentlySelectedAnnotation?.priceTag?.setTitleColor(.black, for: .normal)
+                currentlySelectedAnnotation?.isSelected = false
                 
                 currentlySelectedAnnotation = annotationButton
             }
