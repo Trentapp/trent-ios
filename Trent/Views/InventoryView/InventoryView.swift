@@ -12,6 +12,7 @@ struct InventoryView: View {
     
     @ObservedObject var userObjectManager = UserObjectManager.shared
     @State var showAddProduct = false
+    @State var showAuthentication = false
     
     //    @State var tabBar: UITabBar?
     
@@ -19,7 +20,11 @@ struct InventoryView: View {
         ScrollView{
             VStack {
                 Button(action: {
-                    showAddProduct.toggle()
+                    if userObjectManager.loggedIn {
+                        showAddProduct = true
+                    } else {
+                        showAuthentication = true
+                    }
                 }, label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 10)
@@ -49,6 +54,7 @@ struct InventoryView: View {
                 Spacer()
             }
         }
+        .fullScreenCover(isPresented: $showAuthentication, content: { AuthenticationView(wantedTab: nil) })
         .sheet(isPresented: $showAddProduct, content: {
             ZStack {
                 if (userObjectManager.user?.address != nil) {
