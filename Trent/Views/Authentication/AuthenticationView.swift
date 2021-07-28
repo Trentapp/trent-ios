@@ -89,6 +89,13 @@ struct AuthenticationView: View {
         return hashString
     }
     
+    func successfullyConcluded() {
+        if wantedTab != nil {
+            MainViewProperties.shared.selectedItem = tabBarConfigurations[wantedTab!]
+        }
+        self.presentationMode.wrappedValue.dismiss()
+    }
+    
     var body: some View {
         ZStack{
             Color.black
@@ -152,15 +159,11 @@ struct AuthenticationView: View {
                                         let name = appleIDCredential.fullName!.givenName! + " " + appleIDCredential.fullName!.familyName!
                                         BackendClient.shared.createNewUser(name: name, mail: appleIDCredential.email!, uid: (authResult?.user.uid)!, completionHandler: { userObject in
                                             UserObjectManager.shared.user = userObject
-                                            if wantedTab != nil {
-                                                MainViewProperties.shared.selectedItem = tabBarConfigurations[wantedTab!]
-                                            }
-                                            self.presentationMode.wrappedValue.dismiss()
+                                            // here
                                         })
                                         print("registered")
                                     } else {
-                                        MainViewProperties.shared.selectedItem = tabBarConfigurations[wantedTab!]
-                                        self.presentationMode.wrappedValue.dismiss()
+                                        // here
                                     }
                                 }
                                 
@@ -248,7 +251,7 @@ struct AuthenticationView: View {
                         Text(createNewAccount ? "Already have an account?" : "Don't have an account yet?")
                             .font(.system(size: 12))
                             .foregroundColor(.gray)
-                            .tracking(1.3)
+//                            .tracking(1.3)
                     })
                 }
                 .foregroundColor(.white)
@@ -264,28 +267,33 @@ struct AuthenticationView: View {
                             isShownEmptyAlert = true
                             return
                         }
-                        if password != confirmPassword {
-                            isShownPasswordAlert = true
-                            return
-                        }
-                        isLoading = true
                         if createNewAccount {
-                            UserObjectManager.shared.createNewUser(name: name, mail: mail, password: password) { success in
-                                isLoading = false
-                                if !success {
-                                    isShownFailureAlert = true
-                                }
-                            }
-                        } else {
                             if name == ""{
                                 isShownEmptyAlert = true
                                 return
                             }
+                            if password != confirmPassword {
+                                isShownPasswordAlert = true
+                                return
+                            }
+                            isLoading = true
+                            UserObjectManager.shared.createNewUser(name: name, mail: mail, password: password) { success in
+                                isLoading = false
+                                if !success {
+                                    isShownFailureAlert = true
+                                } else {
+                                    successfullyConcluded()
+                                }
+                            }
+                        } else {
+                            isLoading = true
                             Auth.auth().signIn(withEmail: mail.lowercased(), password: password) { authResult, error in
                                 isLoading = false
                                 let success = (error == nil)
                                 if !success {
                                     isShownFailureAlert = true
+                                } else {
+                                    successfullyConcluded()
                                 }
                             }
                         }
@@ -303,7 +311,7 @@ struct AuthenticationView: View {
                         } else {
                             ProgressView()
                                 .progressViewStyle(CircularProgressViewStyle())
-                                .foregroundColor(.white)
+                                .colorInvert()
                         }
                     }
                     
