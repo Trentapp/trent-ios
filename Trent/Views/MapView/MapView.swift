@@ -57,6 +57,21 @@ struct MapView: View {
     @State var lastMaxPrice: Int?
     @State var lastMaxDistance: Int?
     
+    func query(location: CLLocationCoordinate2D) {
+        BackendClient.shared.query(keyword: self.keyword, location: location, maxDistance: maxDistanceResults) { products, success in
+            self.allResults = products ?? []
+//                                        for product in products ?? []  {
+//                                            let annotation = ProductAnnotation(item: product)
+//                                            self.allResults.append(annotation)
+//                                        }
+            if maxDistanceValue == 1 && maxPriceValue == 1 && minPriceValue == 0 {
+                filteredResults = allResults
+            } else {
+                filterResults()
+            }
+        }
+    }
+    
     func filterResults() {
         DispatchQueue.global().async {
             var matches = [Product]() //[ProductAnnotation]()
@@ -142,19 +157,7 @@ struct MapView: View {
                                     
                                     let location = region.center
                                     self.cachedLocation = location
-                                    
-                                    BackendClient.shared.query(keyword: self.keyword, location: location, maxDistance: maxDistanceResults) { products, success in
-                                        self.allResults = products ?? []
-//                                        for product in products ?? []  {
-//                                            let annotation = ProductAnnotation(item: product)
-//                                            self.allResults.append(annotation)
-//                                        }
-                                        if maxDistanceValue == 1 && maxPriceValue == 1 && minPriceValue == 0 {
-                                            filteredResults = allResults
-                                        } else {
-                                            filterResults()
-                                        }
-                                    }
+                                    query(location: cachedLocation)
                                 })
                                 .foregroundColor((self.keyword == "") ? .gray : .black)
                                 .font(.system(size: 17, weight: .semibold, design: .default))
@@ -245,6 +248,11 @@ struct MapView: View {
             if trackUser == MapUserTrackingMode.follow {
                 self.region.center = locationManager.currentLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
                 MapViewController.shared.currentlyFocusedItem = nil
+                LocationManager.shared.notifyOnNextUpdate {
+                    let location = LocationManager.shared.currentLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
+                    self.region.center = location
+                    query(location: location)
+                }
             }
         }
     }

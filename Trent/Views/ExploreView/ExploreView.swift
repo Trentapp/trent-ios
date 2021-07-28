@@ -34,7 +34,7 @@ struct ExploreView: View {
                             HStack {
                                 Spacer()
                                     .frame(width: 15)
-                                TextField("\(Image(systemName: "magnifyingglass"))  What are you looking for?", text: $keyword, onEditingChanged: { editing in
+                                TextField("What are you looking for?", text: $keyword, onEditingChanged: { editing in
                                     print("editing: \(editing)")
                                 }, onCommit: {
                                     search()

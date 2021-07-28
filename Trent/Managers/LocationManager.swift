@@ -16,6 +16,8 @@ class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
     let locationManager = CLLocationManager()
     @Published var currentLocation: CLLocation?
     
+    var notificationFunction: (() -> Void)?
+    
     func requestAuthorization() {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -26,9 +28,17 @@ class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("location: \(locations.last?.coordinate)")
         self.currentLocation = locations.last ?? nil
+        if notificationFunction != nil {
+            notificationFunction!()
+            notificationFunction = nil
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Error: \(error.localizedDescription)")
+    }
+    
+    func notifyOnNextUpdate(completionHandler: @escaping () -> Void){
+        self.notificationFunction = completionHandler
     }
 }
