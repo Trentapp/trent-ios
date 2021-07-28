@@ -28,12 +28,15 @@ class UserObjectManager: ObservableObject {
         self.loggedIn = UserDefaults.standard.bool(forKey: "loggedIn")
     }
     
-    func createNewUser(name: String, mail: String, password: String, completionHandler: @escaping (Bool, String?) -> Void) {
+    func createNewUser(name: String, mail: String, password: String, completionHandler: @escaping (Bool) -> Void) {
         FirebaseAuthClient.shared.createNewUser(name: name, mail: mail, password: password) { uid, error in
             if error == nil && uid != nil {
                 BackendClient.shared.createNewUser(name: name, mail: mail, uid: uid ?? "") { userObject in
                     UserObjectManager.shared.user = userObject
+                    completionHandler(userObject != nil)
                 }
+            } else {
+                completionHandler(false)
             }
         }
     }
