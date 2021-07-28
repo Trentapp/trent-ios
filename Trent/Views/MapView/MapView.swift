@@ -13,13 +13,17 @@ struct MapView: View {
     
     @Environment(\.presentationMode) var presentation
     @ObservedObject var locationManager = LocationManager.shared
+    @ObservedObject var viewController = MapViewController.shared
     
     @State var keyword = ""
     @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 49.40806, longitude: 8.679158) , span: MKCoordinateSpan(latitudeDelta: 0.25, longitudeDelta: 0.25))
     @State var cachedLocation = CLLocationCoordinate2D(latitude: 0, longitude: 0)
-    @State var trackUser = MKUserTrackingMode.follow
-    @State var allResults: [ProductAnnotation] = []
-    @State var filteredResults: [ProductAnnotation] = []
+//    @State var trackUser = MKUserTrackingMode.follow
+    @State var trackUser = MapUserTrackingMode.follow
+//    @State var allResults: [ProductAnnotation] = []
+//    @State var filteredResults: [ProductAnnotation] = []
+    @State var allResults: [Product] = []
+    @State var filteredResults: [Product] = []
     @State var allowedToSet = true
     @State var annotationsChanged = false
     
@@ -55,7 +59,7 @@ struct MapView: View {
     
     func filterResults() {
         DispatchQueue.global().async {
-            var matches = [ProductAnnotation]()
+            var matches = [Product]() //[ProductAnnotation]()
             
             let minPrice = Double(Int(round(self.minPriceValue * CGFloat(self.maxPriceResults))))
             let maxPrice = Double(Int(round(self.maxPriceValue * CGFloat(self.maxPriceResults))))
@@ -63,15 +67,15 @@ struct MapView: View {
             
             let originLocation = CLLocation(latitude: cachedLocation.latitude, longitude: cachedLocation.longitude)
             
-            for annotation in allResults {
-                let item = annotation.item
+            for item in allResults {
+//                let item = annotation.item
                 
                 let price = item.prices?.perDay ?? 0
                 let itemLocation = CLLocation(latitude: item.location?.CLcoordinates.latitude ?? 0, longitude: item.location?.CLcoordinates.longitude ?? 0)
                 let distance = itemLocation.distance(from: originLocation)
                 
                 if price >= minPrice && price <= maxPrice && distance <= Double(maxDistance * 1000) {
-                    matches.append(annotation)
+                    matches.append(item)
                 }
             }
             
@@ -87,7 +91,23 @@ struct MapView: View {
     
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .top), content: {
-            MapKitView(userTrackingMode: $trackUser, region: $region, annotationItems: self.$filteredResults)
+//            MapKitView(userTrackingMode: $trackUser, region: $region, annotationItems: self.$filteredResults)
+            Map(coordinateRegion: $region, showsUserLocation: true, userTrackingMode: $trackUser, annotationItems: self.filteredResults, annotationContent: { item in
+                MapAnnotation(coordinate: item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000)) {
+                    Button {
+                        viewController.currentlyFocusedItem = item
+                    } label: {
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 12.5)
+                                .foregroundColor((MapViewController.shared.currentlyFocusedItem == item) ? .black : .white)
+                                .frame(width: 50, height: 25)
+                            Text("\(Int(item.prices?.perDay ?? 0))€")
+                                .font(.system(size: 15, weight: .bold, design: .default))
+                                .foregroundColor((viewController.currentlyFocusedItem == item) ? .white : .black)
+                        }
+                    }
+                }
+            })
                 .gesture(DragGesture().onChanged{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil); self.showFilter = false })
                 .edgesIgnoringSafeArea(.all)
             
@@ -124,11 +144,11 @@ struct MapView: View {
                                     self.cachedLocation = location
                                     
                                     BackendClient.shared.query(keyword: self.keyword, location: location, maxDistance: maxDistanceResults) { products, success in
-                                        self.allResults = []
-                                        for product in products ?? []  {
-                                            let annotation = ProductAnnotation(item: product)
-                                            self.allResults.append(annotation)
-                                        }
+                                        self.allResults = products ?? []
+//                                        for product in products ?? []  {
+//                                            let annotation = ProductAnnotation(item: product)
+//                                            self.allResults.append(annotation)
+//                                        }
                                         if maxDistanceValue == 1 && maxPriceValue == 1 && minPriceValue == 0 {
                                             filteredResults = allResults
                                         } else {
@@ -222,8 +242,10 @@ struct MapView: View {
         }
         .onAppear() {
             LocationManager.shared.requestAuthorization()
-            self.region.center = locationManager.currentLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
-            MapViewController.shared.currentlyFocusedItem = nil
+            if trackUser == MapUserTrackingMode.follow {
+                self.region.center = locationManager.currentLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
+                MapViewController.shared.currentlyFocusedItem = nil
+            }
         }
     }
 }
