@@ -39,6 +39,10 @@ class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
     }
     
     func notifyOnNextUpdate(completionHandler: @escaping () -> Void){
-        self.notificationFunction = completionHandler
+        if currentLocation != nil {
+            completionHandler()
+        } else {
+            self.notificationFunction = completionHandler
+        }
     }
 }

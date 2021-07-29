@@ -18,6 +18,8 @@ struct ItemDetailView: View {
     @State var showAuthentication = false
     @State var showBooking = false
     
+    @State var model: BookingModelView?
+    
 //    @State var tabBar: UITabBar?
     @Environment(\.presentationMode) var presentation
     
@@ -172,6 +174,7 @@ struct ItemDetailView: View {
                     print("Requesting")
                     if UserObjectManager.shared.loggedIn {
                         if item != nil {
+                            self.model = BookingModelView(item: item!)
                             showBooking = true
                         }
                     } else {
@@ -190,8 +193,10 @@ struct ItemDetailView: View {
                 .padding(.horizontal, 15)
             }
             .padding(.bottom, 0)
-            NavigationLink("Booking", destination: BookingView(item: item),
-                isActive: $showBooking).hidden(true)
+            if model != nil {
+                NavigationLink("Booking", destination: BookingView(model: model!),
+                    isActive: $showBooking).hidden(true)
+            }
         })
         .ignoresSafeArea(.container, edges: .bottom)
         .navigationBarTitle("")

@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct BookingView: View {
-    var item: Product?
-    @State var transaction: Transaction?
+    
+    @ObservedObject var model: BookingModelView
+    
     @State var startDate = Date(timeIntervalSinceNow: 86400)
     @State var endDate = Date(timeIntervalSinceNow: 172800)
     
@@ -21,7 +22,7 @@ struct BookingView: View {
     
     func updatePrice() {
         let duration = (startDate.distance(to: endDate)) / (86400)
-        totalPrice = max((item?.prices?.perDay ?? 0) * ceil(duration), 0)
+        model.transaction?.totalPrice = max((model.item.prices?.perDay ?? 0) * ceil(duration), 0)
     }
     
     var body: some View {
@@ -48,7 +49,7 @@ struct BookingView: View {
                 
                 ZStack(alignment: .leading) {
                     if(message.isEmpty) {
-                        TextEditor(text: .constant("Message to \(item?.user?.name ?? "the lender")"))
+                        TextEditor(text: .constant("Message to \(model.item.user?.name ?? "the lender")"))
                             .foregroundColor(.gray)
                             .opacity(0.5)
                     }
@@ -58,7 +59,9 @@ struct BookingView: View {
                 }
                 .padding(.horizontal, 15)
                 .frame(height: 200)
-                
+                NavigationLink(
+                    "", destination:CheckoutView(model: model),
+                    isActive: $showPayment).hidden(true)
                 Spacer()
                 Divider()
                     .border(Color.black, width: 10)
@@ -89,14 +92,12 @@ struct BookingView: View {
                     .padding(.horizontal, 15)
                 }
                 .padding(.bottom, 0)
-                NavigationLink(
-                    "", destination: CheckoutView(item: item, transaction: transaction),
-                    isActive: $showPayment).hidden(true)
             }
             .navigationBarTitle("Booking details", displayMode: .large)
             .navigationBarHidden(false)
         }
         .onAppear() {
+            model.transaction = Transaction(lender: model.item.user?._id, borrower: UserObjectManager.shared.user?._id, item: model.item._id, startDate: "\(startDate.timeIntervalSince1970)", endDate: "\(endDate.timeIntervalSince1970)", status: 0, totalPrice: 0)
             updatePrice()
         }
         .onChange(of: startDate, perform: { value in
@@ -108,8 +109,8 @@ struct BookingView: View {
     }
 }
 
-struct BookingView_Previews: PreviewProvider {
-    static var previews: some View {
-        BookingView()
-    }
-}
+//struct BookingView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        BookingView(model: BookingModelView(item: <#Product#>, creditCardHolder: <#String#>, creditCardNumber: <#String#>, ccv: <#String#>, expirationYear: <#String#>, expirationMonth: <#String#>))
+//    }
+//}

@@ -10,6 +10,8 @@ import SweetCardScanner
 
 struct CreditCardScannerView: View {
     
+    @ObservedObject var model: BookingModelView
+    
     @Environment(\.presentationMode) var presentationMode
     @State var card: CreditCard?
     
@@ -34,6 +36,15 @@ struct CreditCardScannerView: View {
                     .onSuccess { card in
                         self.card = card
                         print(card)
+                        
+                        if !(card.isNotExpired ?? true) {
+                            
+                            return
+                        }
+                        
+                        model.creditCardHolder = card.name ?? ""
+                        model.creditCardNumber = card.number ?? ""
+                        
                         presentationMode.wrappedValue.dismiss()
 //                        self.navigationStatus = .pop
                     }
@@ -47,6 +58,9 @@ struct CreditCardScannerView: View {
                 
             }
         }
+        .alert(isPresented: .constant(false), content: {
+            Alert(title: Text("Card expired"), message: Text("Please use another card."), dismissButton: .default(Text("Okay")))
+        })
         .navigationBarTitle("Scan Credit Card", displayMode: .inline)
         .navigationBarItems(leading: Button(action: {
             presentationMode.wrappedValue.dismiss()

@@ -9,16 +9,13 @@ import SwiftUI
 
 struct CheckoutView: View {
     
-    var item: Product?
-    var transaction: Transaction?
+    @ObservedObject var model: BookingModelView
     
-    @State var name = ""
-    @State var cardNumber = ""
-    @State var ccv = ""
     @State var expirationMonth = ""
     @State var expirationYear = ""
     
     @State var showDatePicker = false
+    @State var showCardScanner = false
     
     var body: some View {
             VStack {
@@ -31,7 +28,7 @@ struct CheckoutView: View {
                             .foregroundColor(.init(.displayP3, white: 0.4, opacity: 0.5))
                             .padding(.horizontal, 20)
                             .padding(.vertical, 0)
-                        TextField("Name", text: $name)
+                        TextField("Name", text: $model.creditCardHolder)
                             .textContentType(.name)
                             .padding(.horizontal, 30)
                             .padding(.vertical, 10)
@@ -42,7 +39,7 @@ struct CheckoutView: View {
                             .foregroundColor(.init(.displayP3, white: 0.4, opacity: 0.5))
                             .padding(.horizontal, 20)
                             .padding(.vertical, 0)
-                        TextField("Card number", text: $cardNumber)
+                        TextField("Card number", text: $model.creditCardNumber)
                             .textContentType(.creditCardNumber)
                             .keyboardType(.numberPad)
                             .padding(.horizontal, 30)
@@ -65,7 +62,7 @@ struct CheckoutView: View {
                                 .foregroundColor(.init(.displayP3, white: 0.4, opacity: 0.5))
                                 .padding(.trailing, 20)
                                 .padding(.vertical, 0)
-                            TextField("CCV", text: $ccv)
+                            TextField("CCV", text: $model.ccv)
                                 .keyboardType(.numberPad)
                                 .padding(.leading, 30)
                                 .padding(.trailing, 10)
@@ -83,7 +80,7 @@ struct CheckoutView: View {
                     .border(Color.black, width: 10)
                 HStack{
                     VStack(alignment: .center, spacing: nil, content: {
-                        Text("\(String(format:"%.02f", (round((transaction?.totalPrice ?? 0)*100)/100)))€")
+                        Text("\(String(format:"%.02f", (round((model.transaction?.totalPrice ?? 0)*100)/100)))€")
                             .font(.system(size: 25))
                             .bold()
                         Text("Total Price")
@@ -110,12 +107,16 @@ struct CheckoutView: View {
             }
             .navigationBarTitle("Payment", displayMode: .large)
             .navigationBarHidden(false)
+            .sheet(isPresented: $showCardScanner, content: { CreditCardScannerView(model: model) })
+            .onAppear() {
+                showCardScanner = true
+            }
     }
 }
 
 
-struct CheckoutView_Previews: PreviewProvider {
-    static var previews: some View {
-        CheckoutView()
-    }
-}
+//struct CheckoutView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CheckoutView()
+//    }
+//}
