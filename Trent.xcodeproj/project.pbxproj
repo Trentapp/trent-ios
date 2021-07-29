@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -57,6 +57,7 @@
 		B0BF25A826B1A0C3005FDD4D /* BookingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF25A726B1A0C3005FDD4D /* BookingView.swift */; };
 		B0BF25AA26B2949F005FDD4D /* CheckoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF25A926B2949F005FDD4D /* CheckoutView.swift */; };
 		B0BF25AE26B2CC69005FDD4D /* CreditCardScannerVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF25AD26B2CC69005FDD4D /* CreditCardScannerVIew.swift */; };
+		B0BF25B126B2CCFA005FDD4D /* SweetCardScanner in Frameworks */ = {isa = PBXBuildFile; productRef = B0BF25B026B2CCFA005FDD4D /* SweetCardScanner */; };
 		B0D4FB12267D0DBB00BADF68 /* EditAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D4FB11267D0DBB00BADF68 /* EditAccountView.swift */; };
 		B0E182172664140300F20D27 /* InventoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E182162664140300F20D27 /* InventoryView.swift */; };
 		B0E2D93A26AC578A008DA3F3 /* MapKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E2D93926AC578A008DA3F3 /* MapKitView.swift */; };
@@ -141,6 +142,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B06E9331269EB25C00E96740 /* AuthenticationServices.framework in Frameworks */,
+				B0BF25B126B2CCFA005FDD4D /* SweetCardScanner in Frameworks */,
 				B20921BBE41D51D41EF5AA64 /* Pods_Fairleih_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -364,6 +366,9 @@
 			dependencies = (
 			);
 			name = Trent;
+			packageProductDependencies = (
+				B0BF25B026B2CCFA005FDD4D /* SweetCardScanner */,
+			);
 			productName = "Fairleih-iOS";
 			productReference = B06F7974264A6B5500049EF2 /* Trent.app */;
 			productType = "com.apple.product-type.application";
@@ -391,6 +396,9 @@
 				Base,
 			);
 			mainGroup = B06F796B264A6B5500049EF2;
+			packageReferences = (
+				B0BF25AF26B2CCFA005FDD4D /* XCRemoteSwiftPackageReference "SweetCardScanner" */,
+			);
 			productRefGroup = B06F7975264A6B5500049EF2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -706,6 +714,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B0BF25AF26B2CCFA005FDD4D /* XCRemoteSwiftPackageReference "SweetCardScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/aaronLab/SweetCardScanner.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B0BF25B026B2CCFA005FDD4D /* SweetCardScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0BF25AF26B2CCFA005FDD4D /* XCRemoteSwiftPackageReference "SweetCardScanner" */;
+			productName = SweetCardScanner;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B06F796C264A6B5500049EF2 /* Project object */;
 }

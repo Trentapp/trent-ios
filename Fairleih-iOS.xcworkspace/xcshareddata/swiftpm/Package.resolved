@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Reg",
+        "repositoryURL": "https://github.com/yhkaplan/Reg.git",
+        "state": {
+          "branch": null,
+          "revision": "c8f1f51bc088708b3b3ecf04523b5bedd6914222",
+          "version": "0.3.0"
+        }
+      },
+      {
+        "package": "SweetCardScanner",
+        "repositoryURL": "https://github.com/aaronLab/SweetCardScanner.git",
+        "state": {
+          "branch": null,
+          "revision": "fabdaec839b23856a5f1c843086950211fe25644",
+          "version": "1.0.3"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
