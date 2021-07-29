@@ -15,6 +15,9 @@ struct ItemDetailView: View {
     @State var isLoading = false
     @State var updated = false
     
+    @State var showAuthentication = false
+    @State var showBooking = false
+    
 //    @State var tabBar: UITabBar?
     @Environment(\.presentationMode) var presentation
     
@@ -154,19 +157,26 @@ struct ItemDetailView: View {
             Divider()
                 .border(Color.black, width: 10)
             HStack{
-                VStack(alignment: .center, spacing: nil, content: {
-                    Text("15€")
-                        .font(.system(size: 25))
-                        .bold()
-                    Text("Available")
-                        .font(.system(size: 15))
-                        .foregroundColor(.green)
-                })
-                .padding(.horizontal, 15)
+//                VStack(alignment: .center, spacing: nil, content: {
+//                    Text("15€")
+//                        .font(.system(size: 25))
+//                        .bold()
+//                    Text("Available")
+//                        .font(.system(size: 15))
+//                        .foregroundColor(.green)
+//                })
+//                .padding(.horizontal, 15)
 
                 Spacer()
                 Button(action: {
                     print("Requesting")
+                    if UserObjectManager.shared.loggedIn {
+                        if item != nil {
+                            showBooking = true
+                        }
+                    } else {
+                        showAuthentication = true
+                    }
                     // BackendClient: addTransaction
                 }, label: {
                     ZStack {
@@ -179,7 +189,9 @@ struct ItemDetailView: View {
                 })
                 .padding(.horizontal, 15)
             }
-            .padding(.bottom, 30)
+            .padding(.bottom, 0)
+            NavigationLink("Booking", destination: BookingView(item: item),
+                isActive: $showBooking).hidden(true)
         })
         .ignoresSafeArea(.container, edges: .bottom)
         .navigationBarTitle("")
@@ -203,6 +215,7 @@ struct ItemDetailView: View {
                 self.updated = true
             }
         }
+        .fullScreenCover(isPresented: $showAuthentication, content: { AuthenticationView(wantedTab: nil) })
     }
 }
 

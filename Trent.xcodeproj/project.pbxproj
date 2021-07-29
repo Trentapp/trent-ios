@@ -54,6 +54,8 @@
 		B09698E52693B23100068BA3 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09698E42693B23100068BA3 /* Global.swift */; };
 		B09698E726948DC000068BA3 /* Launchscreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09698E626948DC000068BA3 /* Launchscreen.swift */; };
 		B0989253268B319200574719 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0989252268B319200574719 /* Transaction.swift */; };
+		B0BF25A826B1A0C3005FDD4D /* BookingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF25A726B1A0C3005FDD4D /* BookingView.swift */; };
+		B0BF25AA26B2949F005FDD4D /* CheckoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF25A926B2949F005FDD4D /* CheckoutView.swift */; };
 		B0D4FB12267D0DBB00BADF68 /* EditAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D4FB11267D0DBB00BADF68 /* EditAccountView.swift */; };
 		B0E182172664140300F20D27 /* InventoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E182162664140300F20D27 /* InventoryView.swift */; };
 		B0E2D93A26AC578A008DA3F3 /* MapKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E2D93926AC578A008DA3F3 /* MapKitView.swift */; };
@@ -116,6 +118,8 @@
 		B09698E42693B23100068BA3 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		B09698E626948DC000068BA3 /* Launchscreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Launchscreen.swift; sourceTree = "<group>"; };
 		B0989252268B319200574719 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		B0BF25A726B1A0C3005FDD4D /* BookingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingView.swift; sourceTree = "<group>"; };
+		B0BF25A926B2949F005FDD4D /* CheckoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutView.swift; sourceTree = "<group>"; };
 		B0D4FB11267D0DBB00BADF68 /* EditAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountView.swift; sourceTree = "<group>"; };
 		B0E182162664140300F20D27 /* InventoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryView.swift; sourceTree = "<group>"; };
 		B0E2D93926AC578A008DA3F3 /* MapKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapKitView.swift; sourceTree = "<group>"; };
@@ -226,6 +230,8 @@
 				B01C139D2680A7790078E584 /* MapViewController.swift */,
 				B029AD002662313400279911 /* MapAnnotationButton.swift */,
 				B029AD132663A02900279911 /* ItemDetailView.swift */,
+				B0BF25A726B1A0C3005FDD4D /* BookingView.swift */,
+				B0BF25A926B2949F005FDD4D /* CheckoutView.swift */,
 				B093B59B2685B6A90051B7CC /* UserProfilePageView.swift */,
 				B01C139F2684CF810078E584 /* ContactView.swift */,
 				B093B59D2685C7650051B7CC /* ReviewView.swift */,
@@ -492,9 +498,11 @@
 				B029AD0A2662545800279911 /* PercentEncoding.swift in Sources */,
 				B029AD1026629C0D00279911 /* View.swift in Sources */,
 				B06F7987264A6E2800049EF2 /* BackendClient.swift in Sources */,
+				B0BF25AA26B2949F005FDD4D /* CheckoutView.swift in Sources */,
 				B051EADF26662FBE002CF297 /* InventoryItemView.swift in Sources */,
 				B093B5A02685CA310051B7CC /* Review.swift in Sources */,
 				B06F797A264A6B5500049EF2 /* MapView.swift in Sources */,
+				B0BF25A826B1A0C3005FDD4D /* BookingView.swift in Sources */,
 				B06F7978264A6B5500049EF2 /* TrentApp.swift in Sources */,
 				B0F37CC7265EDAD500D7905E /* SignupView.swift in Sources */,
 				B093B59C2685B6A90051B7CC /* UserProfilePageView.swift in Sources */,
