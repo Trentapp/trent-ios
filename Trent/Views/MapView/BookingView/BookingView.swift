@@ -26,7 +26,7 @@ struct BookingView: View {
     }
     
     var body: some View {
-        NavigationView {
+//        NavigationView {
             VStack {
                 HStack {
                     Text("When do you want to rent this item?")
@@ -95,7 +95,7 @@ struct BookingView: View {
             }
             .navigationBarTitle("Booking details", displayMode: .large)
             .navigationBarHidden(false)
-        }
+//        }
         .onAppear() {
             model.transaction = Transaction(lender: model.item.user?._id, borrower: UserObjectManager.shared.user?._id, item: model.item._id, startDate: "\(startDate.timeIntervalSince1970)", endDate: "\(endDate.timeIntervalSince1970)", status: 0, totalPrice: 0)
             updatePrice()

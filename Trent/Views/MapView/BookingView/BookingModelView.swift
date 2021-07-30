@@ -15,8 +15,8 @@ class BookingModelView: ObservableObject {
     @Published var creditCardHolder = ""
     @Published var creditCardNumber = ""
     @Published var ccv = ""
-    @Published var expirationYear: String?
-    @Published var expirationMonth: String?
+    @Published var expirationYear = 2021
+    @Published var expirationMonth = 8
     
     init(item: Product) {
         self.item = item

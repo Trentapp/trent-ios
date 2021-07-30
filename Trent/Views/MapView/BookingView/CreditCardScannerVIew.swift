@@ -15,6 +15,8 @@ struct CreditCardScannerView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var card: CreditCard?
     
+    @State var showExpirationError = false
+    
     var body: some View {
         NavigationView {
         GeometryReader { geometry in
@@ -38,12 +40,14 @@ struct CreditCardScannerView: View {
                         print(card)
                         
                         if !(card.isNotExpired ?? true) {
-                            
+                            showExpirationError = true
                             return
                         }
                         
                         model.creditCardHolder = card.name ?? ""
                         model.creditCardNumber = card.number ?? ""
+                        model.expirationMonth = card.expireDate?.month ?? 0
+                        model.expirationYear = card.expireDate?.year ?? 0
                         
                         presentationMode.wrappedValue.dismiss()
 //                        self.navigationStatus = .pop
@@ -58,7 +62,7 @@ struct CreditCardScannerView: View {
                 
             }
         }
-        .alert(isPresented: .constant(false), content: {
+        .alert(isPresented: $showExpirationError, content: {
             Alert(title: Text("Card expired"), message: Text("Please use another card."), dismissButton: .default(Text("Okay")))
         })
         .navigationBarTitle("Scan Credit Card", displayMode: .inline)

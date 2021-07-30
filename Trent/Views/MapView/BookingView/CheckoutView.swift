@@ -11,11 +11,12 @@ struct CheckoutView: View {
     
     @ObservedObject var model: BookingModelView
     
-    @State var expirationMonth = ""
-    @State var expirationYear = ""
-    
     @State var showDatePicker = false
     @State var showCardScanner = false
+    @State var showExiprationPicker = false
+    
+    @State var minimumMonth = 0
+    @State var minimumYear = 0
     
     var body: some View {
             VStack {
@@ -46,21 +47,14 @@ struct CheckoutView: View {
                             .padding(.vertical, 10)
                     }
                     HStack {
-                        Text("Expiration Date")
-                            .padding(.leading, 30)
-                        Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 10)
-                                Text("")
-                            }
-                        })
-                        Spacer()
-                            .frame(width: 55)
+//                        Text("Expiration Date")
+//                            .padding(.leading, 30)
+                        
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(lineWidth: 0.2)
                                 .foregroundColor(.init(.displayP3, white: 0.4, opacity: 0.5))
-                                .padding(.trailing, 20)
+                                .padding(.leading, 20)
                                 .padding(.vertical, 0)
                             TextField("CCV", text: $model.ccv)
                                 .keyboardType(.numberPad)
@@ -69,11 +63,50 @@ struct CheckoutView: View {
                         }
                         .frame(width: 100)
                         
+                        Spacer()
+//                            .frame(width: 55)
                         
+                        Button(action: {
+                            showExiprationPicker.toggle()
+                        }, label: {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .foregroundColor(Color( self.showExiprationPicker ? UIColor.systemFill : UIColor.systemGroupedBackground ))
+                                Text("\(String(format:"%02d", model.expirationMonth))/\(String(format:"%02d", model.expirationYear))")
+                                    .foregroundColor(.blue)
+                            }
+                            .frame(width: 150)
+                        })
+                        .padding(.trailing, 20)
                     }
                 }
                 .frame(height: 40)
                 
+                if showExiprationPicker {
+                    HStack {
+                        Spacer()
+                        Picker(selection: $model.expirationMonth, label: Text("Picker"), content: {
+                            ForEach(1..<13, id: \.self) { index in
+                                Text("\(String(format: "%02d",index))").tag(index)
+                            }
+                        })
+                        .animation(.easeInOut(duration: 0.2))
+                        .labelsHidden()
+                        .frame(width: 200)
+                        .clipped()
+                        Spacer()
+                        Picker(selection: $model.expirationYear, label: Text("Picker"), content: {
+                            ForEach((minimumYear)..<(minimumYear + 20), id: \.self) { index in
+                                Text(String(index)).tag(index)
+                            }
+                        })
+                        .animation(.easeInOut(duration: 0.2))
+                        .labelsHidden()
+                        .frame(width: 200)
+                        .clipped()
+                        Spacer()
+                    }
+                }
                 
                 Spacer()
                 Divider()
@@ -108,15 +141,37 @@ struct CheckoutView: View {
             .navigationBarTitle("Payment", displayMode: .large)
             .navigationBarHidden(false)
             .sheet(isPresented: $showCardScanner, content: { CreditCardScannerView(model: model) })
+            .onChange(of: model.expirationMonth, perform: { value in
+                if model.expirationYear == minimumYear && value < minimumMonth{
+                    model.expirationMonth = minimumMonth
+                }
+            })
+            .onChange(of: model.expirationYear, perform: { value in
+                if value == minimumYear && model.expirationMonth < minimumMonth{
+                    model.expirationMonth = minimumMonth
+                }
+            })
             .onAppear() {
                 showCardScanner = true
+                
+                let date = Date(timeIntervalSinceNow: 0)
+                let components = Calendar.current.dateComponents(in: Calendar.current.timeZone, from: date)
+                let currentMonth = components.month ?? 0
+                let currentYear = components.year ?? 0
+                
+                model.expirationMonth = currentMonth
+                model.expirationYear = currentYear
+                
+                minimumMonth = currentMonth
+                minimumYear = currentYear
             }
     }
 }
 
 
-//struct CheckoutView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CheckoutView()
-//    }
-//}
+struct CheckoutView_Previews: PreviewProvider {
+    static var previews: some View {
+        CheckoutView(model: BookingModelView(item: Product(_id: "")))
+            
+    }
+}
