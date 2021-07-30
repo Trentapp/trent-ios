@@ -56,7 +56,7 @@ struct CheckoutView: View {
                                 .foregroundColor(.init(.displayP3, white: 0.4, opacity: 0.5))
                                 .padding(.leading, 20)
                                 .padding(.vertical, 0)
-                            TextField("CCV", text: $model.ccv)
+                            TextField("CVV", text: $model.cvv)
                                 .keyboardType(.numberPad)
                                 .padding(.leading, 30)
                                 .padding(.trailing, 10)

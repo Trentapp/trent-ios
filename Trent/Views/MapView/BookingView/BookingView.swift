@@ -22,7 +22,7 @@ struct BookingView: View {
     
     func updatePrice() {
         let duration = (startDate.distance(to: endDate)) / (86400)
-        model.transaction?.totalPrice = max((model.item.prices?.perDay ?? 0) * ceil(duration), 0)
+        model.transaction?.totalPrice = max((model.item.prices?.perDay ?? 0) * ceil(duration - 59), 0)
     }
     
     var body: some View {
@@ -67,7 +67,7 @@ struct BookingView: View {
                     .border(Color.black, width: 10)
                 HStack{
                     VStack(alignment: .center, spacing: nil, content: {
-                        Text("\(String(format:"%.02f", (round(totalPrice*100)/100)))€")
+                        Text("\(String(format:"%.02f", (round((model.transaction?.totalPrice ?? 0)*100)/100)))€")
                             .font(.system(size: 25))
                             .bold()
                         Text("Total Price")
@@ -111,6 +111,6 @@ struct BookingView: View {
 
 //struct BookingView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        BookingView(model: BookingModelView(item: <#Product#>, creditCardHolder: <#String#>, creditCardNumber: <#String#>, ccv: <#String#>, expirationYear: <#String#>, expirationMonth: <#String#>))
+//        BookingView(model: BookingModelView(item: <#Product#>, creditCardHolder: <#String#>, creditCardNumber: <#String#>, cvv: <#String#>, expirationYear: <#String#>, expirationMonth: <#String#>))
 //    }
 //}
