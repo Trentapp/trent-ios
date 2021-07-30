@@ -18,6 +18,7 @@ struct DetailBottomView: View {
                     .foregroundColor(.white)
                     .frame(width: 300, height: 75)
                     .padding()
+                    .shadow(radius: 3)
                 HStack(alignment: .center, spacing: 10, content: {
                     Image(uiImage: controler.currentlyFocusedItem?.thumbnailUIImage ?? UIImage())
                         .resizable()
