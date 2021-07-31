@@ -13,7 +13,7 @@ struct InventoryItemView: View {
     var item: Product?
     
     var body: some View {
-        NavigationLink(destination: ItemDetailView(item: item), label: {
+        NavigationLink(destination: ItemDetailView(item: item!), label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 15)
                     .foregroundColor(.white)

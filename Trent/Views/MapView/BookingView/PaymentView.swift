@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CheckoutView: View {
+struct PaymentView: View {
     
     @ObservedObject var model: BookingModelView
     
@@ -113,7 +113,7 @@ struct CheckoutView: View {
                     .border(Color.black, width: 10)
                 HStack{
                     VStack(alignment: .center, spacing: nil, content: {
-                        Text("\(String(format:"%.02f", (round((model.transaction?.totalPrice ?? 0)*100)/100)))€")
+                        Text("\(String(format:"%.02f", (round(model.totalPrice * 100)/100)))€")
                             .font(.system(size: 25))
                             .bold()
                         Text("Total Price")
@@ -129,7 +129,7 @@ struct CheckoutView: View {
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
                                 .frame(width: 100, height:40)
-                            Text("Pay")
+                            Text("Next")
                                 .bold()
                                 .foregroundColor(.white)
                         }
@@ -154,7 +154,7 @@ struct CheckoutView: View {
             .onAppear() {
                 showCardScanner = true
                 
-                let date = Date(timeIntervalSinceNow: 0)
+                let date = Date()
                 let components = Calendar.current.dateComponents(in: Calendar.current.timeZone, from: date)
                 let currentMonth = components.month ?? 0
                 let currentYear = components.year ?? 0
@@ -171,7 +171,7 @@ struct CheckoutView: View {
 
 struct CheckoutView_Previews: PreviewProvider {
     static var previews: some View {
-        CheckoutView(model: BookingModelView(item: Product(_id: "")))
+        PaymentView(model: BookingModelView(item: Product(_id: "")))
             
     }
 }

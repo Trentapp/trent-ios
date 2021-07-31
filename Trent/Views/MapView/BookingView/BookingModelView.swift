@@ -10,7 +10,12 @@ import Foundation
 class BookingModelView: ObservableObject {
     @Published var item: Product
     
-    @Published var transaction: Transaction?
+//    @Published var transaction: Transaction?
+    
+    @Published var totalPrice: Double = 0
+    
+    @Published var startDate = Date()
+    @Published var endDate = Date()
     
     @Published var creditCardHolder = ""
     @Published var creditCardNumber = ""

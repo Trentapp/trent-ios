@@ -10,15 +10,16 @@ import MapKit
 //import Introspect
 
 struct ItemDetailView: View {
-    @State var item: Product?
+    
+    @State var model = BookingModelView(item: Product(_id: ""))
+    @State var item: Product
+    
     @State var coordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 0, longitude: 0), latitudinalMeters: 750, longitudinalMeters: 750)
     @State var isLoading = false
     @State var updated = false
     
     @State var showAuthentication = false
     @State var showBooking = false
-    
-    @State var model: BookingModelView?
     
 //    @State var tabBar: UITabBar?
     @Environment(\.presentationMode) var presentation
@@ -47,7 +48,7 @@ struct ItemDetailView: View {
             ScrollView{
                 VStack(alignment: .leading, spacing: 10, content: {
                     ZStack {
-                        ImageView(images: item?.picturesUIImage ?? [UIImage]())
+                        ImageView(images: item.picturesUIImage)
                         ProgressView()
                             .progressViewStyle(CircularProgressViewStyle())
                             .hidden(!isLoading)
@@ -55,13 +56,13 @@ struct ItemDetailView: View {
                     .padding(.top, -10)
 
                     HStack {
-                        Text(item?.name ?? "Untitled item")
+                        Text(item.name ?? "Untitled item")
                             .font(.system(size: 30, weight: .semibold, design: .default))
                             .padding(.horizontal, 15)
                         Spacer()
                         VStack(alignment: .leading, spacing: 10, content: {
                             Spacer()
-                            Text("\(String(format: "%.2f", round(100*(item?.prices?.perDay ?? 0))/100))€/day")
+                            Text("\(String(format: "%.2f", round(100*(item.prices?.perDay ?? 0))/100))€/day")
                                 .font(.system(size: 23, weight: .medium, design: .default))
                         })
 
@@ -71,18 +72,18 @@ struct ItemDetailView: View {
                     Divider()
                         .padding(.bottom, 10)
 
-                    Text(item?.desc ?? "")
+                    Text(item.desc ?? "")
                         .font(.system(size: 22, weight: .regular, design: .default))
                         .padding(.horizontal, 15)
                     HStack{
-                        AddressView(address: item?.address)
+                        AddressView(address: item.address)
                         .padding()
                         Spacer()
                         Button(action: {
-                            let place = MKPlacemark(coordinate: item?.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000))
+                            let place = MKPlacemark(coordinate: item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000))
 
                             let mapItem = MKMapItem(placemark: place)
-                            mapItem.name = (item?.address != nil) ?  "\(item?.address?.street ?? "") \(item?.address?.houseNumber ?? ""), \(item?.address?.zipcode ?? "") \(item?.address?.city ?? "")" : item?.name ?? ""
+                            mapItem.name = (item.address != nil) ?  "\(item.address?.street ?? "") \(item.address?.houseNumber ?? ""), \(item.address?.zipcode ?? "") \(item.address?.city ?? "")" : item.name ?? ""
                             mapItem.openInMaps(launchOptions: nil)
                         }, label: {
                                 //                                Map(coordinateRegion: $coordinateRegion, interactionModes: [], showsUserLocation: false, userTrackingMode: .none)
@@ -97,25 +98,25 @@ struct ItemDetailView: View {
                     }
                     
                     HStack {
-                        NavigationLink(destination: UserProfilePageView(userProfile: item?.user), label: {
-                            ((item?.user?.pictureUIImage != nil) ? Image(uiImage: (item?.user?.pictureUIImage!)!) : Image(systemName: "person.crop.circle"))
+                        NavigationLink(destination: UserProfilePageView(userProfile: item.user), label: {
+                            ((item.user?.pictureUIImage != nil) ? Image(uiImage: (item.user?.pictureUIImage!)!) : Image(systemName: "person.crop.circle"))
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                                .opacity((item?.user?.pictureUIImage != nil) ? 1 : 0.5)
+                                .opacity((item.user?.pictureUIImage != nil) ? 1 : 0.5)
                                 .clipShape(Circle())
                                 .foregroundColor(.gray)
                                 .frame(width: 50, height: 50)
                                 .padding()
                             VStack(alignment: .leading, spacing: 4) {
-                                Text((item?.user?.name ?? "Product owner") + ((item?.user?._id ?? "") == (UserObjectManager.shared.user?._id ?? "") ? " (Me)" : ""))
+                                Text((item.user?.name ?? "Product owner") + ((item.user?._id ?? "") == (UserObjectManager.shared.user?._id ?? "") ? " (Me)" : ""))
                                     .font(.system(size: 20, weight: .regular, design: .default))
                                     .foregroundColor(Color.black)
-                                if (item?.user?.numberOfRatings ?? 0) >= 5 {
+                                if (item.user?.numberOfRatings ?? 0) >= 5 {
                                     HStack(alignment: .center, spacing: 2, content: {
                                         //                        Text("5/5")
                                         //                            .padding(.trailing, 5)
                                         ForEach(Range(uncheckedBounds: (lower: 0, upper: 5))) { index in
-                                            let isStarFilled = (index+1) <= Int(round((item?.user?.rating)!))
+                                            let isStarFilled = (index+1) <= Int(round((item.user?.rating)!))
                                             Image(systemName: isStarFilled ? "star.fill" : "star")
 
                                                 .resizable()
@@ -149,11 +150,12 @@ struct ItemDetailView: View {
                             }
                         })
                         .padding()
-                        .hidden((item?.user?._id ?? "") == (UserObjectManager.shared.user?._id ?? "0"))
+                        .hidden((item.user?._id ?? "") == (UserObjectManager.shared.user?._id ?? "0"))
                     }
                 })
             }
             
+            NavigationLink("Booking", destination: BookingView(model: model), isActive: $showBooking).hidden(true)
             
             Spacer()
             Divider()
@@ -174,7 +176,7 @@ struct ItemDetailView: View {
                     print("Requesting")
                     if UserObjectManager.shared.loggedIn {
                         if item != nil {
-                            self.model = BookingModelView(item: item!)
+                            self.model.item = item
                             showBooking = true
                         }
                     } else {
@@ -193,12 +195,7 @@ struct ItemDetailView: View {
                 .padding(.horizontal, 15)
             }
             .padding(.bottom, 0)
-            if model != nil {
-                NavigationLink("Booking", destination: BookingView(model: model!),
-                    isActive: $showBooking).hidden(true)
-            }
         })
-        .ignoresSafeArea(.container, edges: .bottom)
         .navigationBarTitle("")
         .navigationBarHidden(true)
         .navigationViewStyle(StackNavigationViewStyle())
@@ -211,12 +208,14 @@ struct ItemDetailView: View {
 //            self.tabBar?.isHidden = true
             if !updated {
                 isLoading = true
-                let itemId = item?._id ?? ""
+                let itemId = item._id ?? ""
                 BackendClient.shared.getProduct(for: itemId) { item in
                     isLoading = false
-                    self.item = item
+                    if item != nil {
+                        self.item = item!
+                    }
                 }
-                self.coordinateRegion = MKCoordinateRegion(center: item?.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0), latitudinalMeters: 750, longitudinalMeters: 750)
+                self.coordinateRegion = MKCoordinateRegion(center: item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0), latitudinalMeters: 750, longitudinalMeters: 750)
                 self.updated = true
             }
         }
