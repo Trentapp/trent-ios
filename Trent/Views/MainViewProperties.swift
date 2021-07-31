@@ -14,4 +14,15 @@ class MainViewProperties: ObservableObject {
     @Published var selectedItem = tabBarConfigurations[0]
     @Published var oldValue = tabBarConfigurations[0]
     @Published var showAuthentication = false
+    
+    @Published var showBox = false
+    @Published var boxTitle = ""
+    
+    func showInfo(with title: String) {
+        boxTitle = title
+        showBox = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.showBox = false
+        }
+    }
 }

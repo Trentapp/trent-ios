@@ -29,7 +29,7 @@ struct ContactView: View {
                     .frame(width: 50, height: 50)
                     .padding()
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Max Mustermann")
+                    Text("John Doe")
                         .font(.system(size: 20, weight: .regular, design: .default))
                     HStack(alignment: .center, spacing: 2, content: {
                         //                        Text("5/5")
@@ -50,7 +50,7 @@ struct ContactView: View {
             }
             Spacer()
                 .frame(height: 50)
-            Text("Message regarding Product: \"Tent\"")
+            Text("Message about Product: \"Tent\"")
             ZStack(alignment: .leading) {
                 if(message.isEmpty) {
                     TextEditor(text: $placeholder)

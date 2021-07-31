@@ -123,9 +123,7 @@ struct PaymentView: View {
                     .padding(.horizontal, 15)
 
                     Spacer()
-                    Button(action: {
-                        //
-                    }, label: {
+                    NavigationLink(destination: BookingOverviewView(model: model), label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
                                 .frame(width: 100, height:40)

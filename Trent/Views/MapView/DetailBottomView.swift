@@ -12,7 +12,7 @@ struct DetailBottomView: View {
     @ObservedObject var controler = MapViewController.shared
     
     var body: some View {
-        NavigationLink(destination: ItemDetailView(item: controler.currentlyFocusedItem!)) {
+        NavigationLink(destination: ItemDetailView(item: controler.currentlyFocusedItem)) {
             ZStack {
                 RoundedRectangle(cornerRadius: 15)
                     .foregroundColor(.white)

@@ -16,8 +16,7 @@ struct BookingView: View {
     @State var showPayment = false
     
     func updatePrice() {
-        let duration = (model.startDate.distance(to: model.endDate) - 59) / (86400)
-        model.totalPrice = max((model.item.prices?.perDay ?? 0) * ceil(duration), 0)
+        model.totalPrice = (model.item.prices?.perDay ?? 0) * Double(model.duration)
     }
     
     var body: some View {
@@ -105,8 +104,8 @@ struct BookingView: View {
     }
 }
 
-//struct BookingView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        BookingView(model: BookingModelView(item: <#Product#>, creditCardHolder: <#String#>, creditCardNumber: <#String#>, cvv: <#String#>, expirationYear: <#String#>, expirationMonth: <#String#>))
-//    }
-//}
+struct BookingView_Previews: PreviewProvider {
+    static var previews: some View {
+        BookingView(model: BookingModelView(item: Product(_id:"")))
+    }
+}

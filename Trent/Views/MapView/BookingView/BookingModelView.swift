@@ -17,6 +17,12 @@ class BookingModelView: ObservableObject {
     @Published var startDate = Date()
     @Published var endDate = Date()
     
+    var duration: Int {
+        get {
+            return Int(max(ceil((startDate.distance(to: endDate) - 59) / (86400)), 0))
+        }
+    }
+    
     @Published var creditCardHolder = ""
     @Published var creditCardNumber = ""
     @Published var cvv = ""
