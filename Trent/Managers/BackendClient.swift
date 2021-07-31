@@ -354,17 +354,19 @@ class BackendClient: ObservableObject {
     // III.     Transactions
     //
     // III.1    addTransaction
-    func addTransaction(item_id: String, completionHandler: @escaping (Bool) -> Void) {
+    func addTransaction(item_id: String, startDate: Date, endDate: Date, completionHandler: @escaping (Bool) -> Void) {
         DispatchQueue.global().async {
-            let url = self.serverPath + "/transactions/add"
+            let url = self.serverPath + "/transactions/createTransaction"
             
             let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
             let parameters = [
-                "user_uid" : uid,
-                "product_id" : item_id
+                "uid" : uid,
+                "productId" : item_id,
+                "startDate" : startDate.iso8601,
+                "endDate" : endDate.iso8601
             ]
             
-            AF.request(url, parameters: parameters, encoding: JSONEncoding.default)
+            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
                 .validate()
                 .response { response in
                     DispatchQueue.main.async {

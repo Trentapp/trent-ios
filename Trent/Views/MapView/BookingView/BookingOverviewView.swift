@@ -82,7 +82,12 @@ struct BookingOverviewView: View {
         }
         }
             Button {
-                MainViewProperties.shared.showInfo(with: "Booked")
+                BackendClient.shared.addTransaction(item_id: model.item._id, startDate: model.startDate, endDate: model.endDate) { success in
+                    if success {
+                        MainViewProperties.shared.showInfo(with: "Booked")
+                        MainViewProperties.shared.selectedItem = tabBarConfigurations[2]
+                    }
+                }
             } label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 15)

@@ -29,6 +29,8 @@ class BookingModelView: ObservableObject {
     @Published var expirationYear = 2021
     @Published var expirationMonth = 8
     
+//    @Published var isBookingFinished = false
+    
     init(item: Product) {
         self.item = item
     }
