@@ -18,6 +18,8 @@ class MainViewProperties: ObservableObject {
     @Published var showBox = false
     @Published var boxTitle = ""
     
+    @Published var popToRootView = false
+    
     func showInfo(with title: String) {
         boxTitle = title
         showBox = true

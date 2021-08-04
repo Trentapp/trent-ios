@@ -72,6 +72,11 @@ struct CreditCardScannerView: View {
             Text("Cancel")
                 .fontWeight(Font.Weight.regular)
         }))
+        .onChange(of: MainViewProperties.shared.popToRootView , perform: { value in
+            if value {
+                self.presentationMode.wrappedValue.dismiss()
+            }
+        })
         }
     }
 }

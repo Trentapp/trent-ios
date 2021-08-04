@@ -84,8 +84,9 @@ struct BookingOverviewView: View {
             Button {
                 BackendClient.shared.addTransaction(item_id: model.item._id, startDate: model.startDate, endDate: model.endDate) { success in
                     if success {
-                        MainViewProperties.shared.showInfo(with: "Booked")
                         MainViewProperties.shared.selectedItem = tabBarConfigurations[2]
+                        MainViewProperties.shared.showInfo(with: "Booked")
+                        MainViewProperties.shared.popToRootView = true
                     }
                 }
             } label: {

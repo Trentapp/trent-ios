@@ -101,6 +101,12 @@ struct BookingView: View {
         .onChange(of: model.endDate, perform: { value in
             updatePrice()
         })
+        .onChange(of: MainViewProperties.shared.popToRootView , perform: { value in
+            if value {
+                showPayment = false
+                MainViewProperties.shared.popToRootView = false
+            }
+        })
     }
 }
 

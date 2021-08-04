@@ -10,6 +10,9 @@ import SwiftUI
 struct PaymentView: View {
     
     @ObservedObject var model: BookingModelView
+    @ObservedObject var mainViewProperties = MainViewProperties.shared
+    
+    @State var showOverview = false
     
     @State var showDatePicker = false
     @State var showCardScanner = false
@@ -123,7 +126,9 @@ struct PaymentView: View {
                     .padding(.horizontal, 15)
 
                     Spacer()
-                    NavigationLink(destination: BookingOverviewView(model: model), label: {
+                    Button(action: {
+                        showOverview = true
+                    }, label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
                                 .frame(width: 100, height:40)
@@ -135,6 +140,12 @@ struct PaymentView: View {
                     .padding(.horizontal, 15)
                 }
                 .padding(.bottom, 0)
+                NavigationLink(
+                    destination: BookingOverviewView(model: model),
+                    isActive: $showOverview,
+                    label: {
+                        EmptyView()
+                    })
             }
             .navigationBarTitle("Payment", displayMode: .large)
             .navigationBarHidden(false)
@@ -163,6 +174,11 @@ struct PaymentView: View {
                 minimumMonth = currentMonth
                 minimumYear = currentYear
             }
+            .onChange(of: mainViewProperties.popToRootView, perform: { value in
+                if value {
+                    showOverview = false
+                }
+            })
     }
 }
 

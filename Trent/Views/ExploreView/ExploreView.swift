@@ -81,6 +81,12 @@ struct ExploreView: View {
         }
         .navigationBarTitle("")
         .navigationBarHidden(true)
+        .onChange(of: MainViewProperties.shared.popToRootView , perform: { value in
+            if value {
+                showMap = false
+                MainViewProperties.shared.popToRootView = false
+            }
+        })
     }
 }
 

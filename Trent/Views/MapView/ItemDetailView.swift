@@ -220,6 +220,11 @@ struct ItemDetailView: View {
             }
         }
         .fullScreenCover(isPresented: $showAuthentication, content: { AuthenticationView(wantedTab: nil) })
+        .onChange(of: MainViewProperties.shared.popToRootView , perform: { value in
+            if value {
+                showBooking = false
+            }
+        })
     }
 }
 

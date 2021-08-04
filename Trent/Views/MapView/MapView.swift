@@ -255,6 +255,11 @@ struct MapView: View {
                 }
             }
         }
+        .onChange(of: MainViewProperties.shared.popToRootView , perform: { value in
+            if value {
+                MapViewController.shared.currentlyFocusedItem = nil
+            }
+        })
     }
 }
 

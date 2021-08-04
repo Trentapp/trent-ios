@@ -82,7 +82,7 @@ struct MainView: View {
                     }
                 }
 //                .hidden(!mainViewProperties.showBox)
-                .opacity(mainViewProperties.showBox ? 0.7 : 0)
+                .opacity(mainViewProperties.showBox ? 0.9 : 0)
                 .transition(.opacity)
                 .animation(.easeIn(duration: 0.2))
             }

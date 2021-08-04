@@ -50,7 +50,7 @@ struct InventoryView: View {
                 })
                 .frame(height: 50)
                 .padding()
-                InventoryCollectionView(items: userObjectManager.inventory)
+                InventoryCollectionView(items: userObjectManager.user?.inventory ?? [])
                 Spacer()
             }
         }
