@@ -21,7 +21,7 @@ struct InventoryCollectionView: View {
                             if (2*i+j) < items.count{
                                 InventoryItemView(item: items[2*i+j])
                                     .frame(height: 250)
-                                    .shadow(radius: 10)
+//                                    .shadow(radius: 10)
                                     .padding()
                             } else {
                                 Rectangle()

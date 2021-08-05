@@ -17,10 +17,14 @@ struct InventoryItemView: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 15)
                     .foregroundColor(.white)
+                    .shadow(radius: 10)
                 VStack(alignment: .center, spacing: 10, content: {
-                    //                        Image(uiImage: item?.thumbnailUIImage ?? UIImage())
-                    RoundedRectangle(cornerRadius: 10)
-                        .foregroundColor(.black)
+                    Image(uiImage: item?.thumbnailUIImage ?? UIImage())
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .cornerRadius(10)
+//                    RoundedRectangle(cornerRadius: 10)
+//                        .foregroundColor(.black)
                     HStack {
                         Text(item?.name ?? "Untitled item")
                             .bold()
@@ -30,7 +34,7 @@ struct InventoryItemView: View {
                     }
                     HStack {
                         Spacer()
-                        Text("\(String(format: "%.2f", round(100*(item?.prices?.perHour ?? 0))/100))€/hr")
+                        Text("\(String(format: "%.2f", round(100*(item?.prices?.perDay ?? 0))/100))€/day")
                             .multilineTextAlignment(.trailing)
                             .foregroundColor(.black)
                     }
