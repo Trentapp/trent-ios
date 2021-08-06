@@ -355,6 +355,7 @@ class BackendClient: ObservableObject {
     //
     // III.1    addTransaction
     // III.2    getTransactionsAsLender
+    // III.3    setTransactionStatus
     
     func addTransaction(item_id: String, startDate: Date, endDate: Date, completionHandler: @escaping (Bool) -> Void) {
         DispatchQueue.global().async {
@@ -407,6 +408,26 @@ class BackendClient: ObservableObject {
         }
     }
     
+    func setTransactionStatus(transactionId: String, transactionStatus: Int, completionHandler: @escaping (Bool) -> Void) {
+        DispatchQueue.global().async {
+            let url = self.serverPath + "/transactions/setTransactionStatus/" + transactionId
+            
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
+            let parameters : [ String : Any ] = [
+                "uid" : uid,
+                "status" : transactionStatus
+            ]
+            
+            AF.request(url, method: .patch, parameters: parameters, encoding: JSONEncoding.default)
+                .validate()
+                .response { response in
+                    DispatchQueue.main.async {
+                        completionHandler(response.error != nil)
+                    }
+                }
+        }
+    }
+    
     
     
     // IV.     Reviews
@@ -414,7 +435,7 @@ class BackendClient: ObservableObject {
     // IV.1     getReviews
     func getReviews(user_id: String, completionHandler: @escaping ([Review]?) -> Void){
         DispatchQueue.global().async {
-            let url = self.serverPath + "/revies/user" + user_id
+            let url = self.serverPath + "/reviews/user" + user_id
             
             AF.request(url)
                 .validate()
@@ -439,6 +460,7 @@ class BackendClient: ObservableObject {
     //
     // V.1    getChats
     // V.2    sendMessage
+    // V.3    getChat
     func getChats(completionHandler: @escaping ([Chat]?) -> Void) {
         DispatchQueue.global().async {
             let url = self.serverPath + "/chats/getChatsOfUser"

@@ -49,7 +49,13 @@ struct InboxView: View {
                                     Text("Rejected")
                                         .foregroundColor(.green)
                                 } else {
-                                    Button(action: {}, label: {
+                                    Button(action: {
+                                        BackendClient.shared.setTransactionStatus(transactionId: transaction._id, transactionStatus: 2) { success in
+                                            if !success {
+                                                // Tell user
+                                            }
+                                        }
+                                    }, label: {
                                         ZStack {
                                             Circle()
                                                 .foregroundColor(.green)
@@ -60,7 +66,13 @@ struct InboxView: View {
                                         .frame(width: 30, height: 30)
                                     })
                                     .buttonStyle(PlainButtonStyle())
-                                    Button(action: {}, label: {
+                                    Button(action: {
+                                        BackendClient.shared.setTransactionStatus(transactionId: transaction._id, transactionStatus: 1) { success in
+                                            if !success {
+                                                // Tell user
+                                            }
+                                        }
+                                    }, label: {
                                         ZStack {
                                             Circle()
                                                 .foregroundColor(.red)
