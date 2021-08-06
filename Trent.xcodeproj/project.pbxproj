@@ -56,6 +56,7 @@
 		B09698E52693B23100068BA3 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09698E42693B23100068BA3 /* Global.swift */; };
 		B09698E726948DC000068BA3 /* Launchscreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09698E626948DC000068BA3 /* Launchscreen.swift */; };
 		B0989253268B319200574719 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0989252268B319200574719 /* Transaction.swift */; };
+		B0B711FF26BD3CC100E544FB /* TransactionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B711FE26BD3CC100E544FB /* TransactionDetailView.swift */; };
 		B0BF25A826B1A0C3005FDD4D /* BookingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF25A726B1A0C3005FDD4D /* BookingView.swift */; };
 		B0BF25AA26B2949F005FDD4D /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF25A926B2949F005FDD4D /* PaymentView.swift */; };
 		B0BF25AE26B2CC69005FDD4D /* CreditCardScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF25AD26B2CC69005FDD4D /* CreditCardScannerView.swift */; };
@@ -125,6 +126,7 @@
 		B09698E42693B23100068BA3 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		B09698E626948DC000068BA3 /* Launchscreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Launchscreen.swift; sourceTree = "<group>"; };
 		B0989252268B319200574719 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		B0B711FE26BD3CC100E544FB /* TransactionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailView.swift; sourceTree = "<group>"; };
 		B0BF25A726B1A0C3005FDD4D /* BookingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingView.swift; sourceTree = "<group>"; };
 		B0BF25A926B2949F005FDD4D /* PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
 		B0BF25AD26B2CC69005FDD4D /* CreditCardScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardScannerView.swift; sourceTree = "<group>"; };
@@ -327,6 +329,7 @@
 			isa = PBXGroup;
 			children = (
 				B093B5A326860D220051B7CC /* InboxView.swift */,
+				B0B711FE26BD3CC100E544FB /* TransactionDetailView.swift */,
 				B093B5A626861FAD0051B7CC /* ChatView.swift */,
 			);
 			path = Inbox;
@@ -521,6 +524,7 @@
 				B0BF25B426B2F43C005FDD4D /* BookingModelView.swift in Sources */,
 				B029AD142663A02900279911 /* ItemDetailView.swift in Sources */,
 				B093B59A2685A0520051B7CC /* UserProfile.swift in Sources */,
+				B0B711FF26BD3CC100E544FB /* TransactionDetailView.swift in Sources */,
 				B01C1399267E63130078E584 /* Encodable.swift in Sources */,
 				B0F37CC9265EE8AA00D7905E /* FirebaseAuthClient.swift in Sources */,
 				B08F89EA26A70B1100816A8D /* Coordinates.swift in Sources */,

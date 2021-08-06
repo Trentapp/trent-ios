@@ -18,7 +18,7 @@ struct InboxView: View {
     
     @State private var selectedSection = 0
     
-//    @State var tabBar: UITabBar?
+    //    @State var tabBar: UITabBar?
     
     var body: some View {
         ZStack {
@@ -31,62 +31,72 @@ struct InboxView: View {
             } else {
                 List {
                     if transactions?.count ?? 0 != 0 {
-                    Section(header: Text("Requests")) {
-//                        if transactions?.count ?? 0 == 0 {
-//                            Text("No requests yet")
-//                                .foregroundColor(.gray)
-//                        }
+                        Section(header: Text("Requests")) {
+                            //                        if transactions?.count ?? 0 == 0 {
+                            //                            Text("No requests yet")
+                            //                                .foregroundColor(.gray)
+                            //                        }
                             ForEach(transactions ?? [] , id: \.self) { transaction in
-                                HStack{
-                                    VStack(alignment: .leading) {
-                                        Text(transaction.borrower?.name ?? "Borrower")
-                                            .bold()
-                                        Text(transaction.item?.name ?? "Item")
-                                    }
-                                    Spacer()
-                                    if transaction.status == 2 {
-                                        Text("Accepted")
-                                            .foregroundColor(.green)
-                                    } else if transaction.status == 1 {
-                                        Text("Rejected")
-                                            .foregroundColor(.green)
-                                    } else {
-                                        Button(action: {
-                                            BackendClient.shared.setTransactionStatus(transactionId: transaction._id, transactionStatus: 2) { success in
-                                                if !success {
-                                                    // Tell user
+                                NavigationLink(
+                                    destination: TransactionDetailView(transaction: transaction),
+                                    label: {
+                                        HStack{
+                                            VStack(alignment: .leading) {
+                                                Text(transaction.borrower?.name ?? "Borrower")
+                                                    .bold()
+                                                Text(transaction.product?.name ?? "Item")
+                                            }
+                                            Spacer()
+                                            if transaction.status == 2 {
+                                                Text("Accepted")
+                                                    .foregroundColor(.green)
+                                            } else if transaction.status == 1 {
+                                                Text("Rejected")
+                                                    .foregroundColor(.green)
+                                            } else {
+                                                if transaction.borrower?._id == UserObjectManager.shared.user?._id {
+                                                    Text("Pending")
+                                                        .foregroundColor(.gray)
+                                                } else {
+                                                    Button(action: {
+                                                        BackendClient.shared.setTransactionStatus(transactionId: transaction._id, transactionStatus: 2) { success in
+                                                            if !success {
+                                                                // Tell user
+                                                            }
+                                                        }
+                                                    }, label: {
+                                                        ZStack {
+                                                            Circle()
+                                                                .foregroundColor(.green)
+                                                                .opacity(0.5)
+                                                            Image(systemName: "checkmark")
+                                                                .foregroundColor(.green)
+                                                        }
+                                                        .frame(width: 30, height: 30)
+                                                    })
+                                                    .buttonStyle(PlainButtonStyle())
+                                                    Button(action: {
+                                                        BackendClient.shared.setTransactionStatus(transactionId: transaction._id, transactionStatus: 1) { success in
+                                                            if !success {
+                                                                // Tell user
+                                                            }
+                                                        }
+                                                    }, label: {
+                                                        ZStack {
+                                                            Circle()
+                                                                .foregroundColor(.red)
+                                                                .opacity(0.5)
+                                                            Image(systemName: "xmark")
+                                                                .foregroundColor(.red)
+                                                        }
+                                                        .frame(width: 30, height: 30)
+                                                    })
+                                                    .buttonStyle(PlainButtonStyle())
+                                                    
                                                 }
                                             }
-                                        }, label: {
-                                            ZStack {
-                                                Circle()
-                                                    .foregroundColor(.green)
-                                                    .opacity(0.5)
-                                                Image(systemName: "checkmark")
-                                                    .foregroundColor(.green)
-                                            }
-                                            .frame(width: 30, height: 30)
-                                        })
-                                        .buttonStyle(PlainButtonStyle())
-                                        Button(action: {
-                                            BackendClient.shared.setTransactionStatus(transactionId: transaction._id, transactionStatus: 1) { success in
-                                                if !success {
-                                                    // Tell user
-                                                }
-                                            }
-                                        }, label: {
-                                            ZStack {
-                                                Circle()
-                                                    .foregroundColor(.red)
-                                                    .opacity(0.5)
-                                                Image(systemName: "xmark")
-                                                    .foregroundColor(.red)
-                                            }
-                                            .frame(width: 30, height: 30)
-                                        })
-                                        .buttonStyle(PlainButtonStyle())
-                                    }
-                                }
+                                        }
+                                    })
                             }
                         }
                     }
@@ -109,7 +119,7 @@ struct InboxView: View {
         }
         .navigationBarTitle(Text("Inbox"), displayMode: .large)
         .navigationViewStyle(StackNavigationViewStyle())
-//        .navigationBarHidden(false)
+        //        .navigationBarHidden(false)
         .onAppear() {
             if firstLoad {
                 firstLoad = false
@@ -125,18 +135,18 @@ struct InboxView: View {
                     self.chats = chats
                 }
             }
-////            Backendclient: getChats BackendClient.shared.getChats { chats in
-//                self.chats = nil //chats
-//                isLoading = false
-////            }
-////            DispatchQueue.global().async {
-//                // Backendclient getTransactionsAsLender let transactions = BackendClient.shared.getTransactionsAsLender()
-//                let transactions: [Transaction]? = []
-////                DispatchQueue.main.async {
-//                    self.transactions = transactions
-////                }
-////            }
-////            self.tabBar?.isHidden = false
+            ////            Backendclient: getChats BackendClient.shared.getChats { chats in
+            //                self.chats = nil //chats
+            //                isLoading = false
+            ////            }
+            ////            DispatchQueue.global().async {
+            //                // Backendclient getTransactionsAsLender let transactions = BackendClient.shared.getTransactionsAsLender()
+            //                let transactions: [Transaction]? = []
+            ////                DispatchQueue.main.async {
+            //                    self.transactions = transactions
+            ////                }
+            ////            }
+            ////            self.tabBar?.isHidden = false
         }
     }
 }

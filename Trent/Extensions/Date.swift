@@ -16,4 +16,11 @@ extension Date {
             return dateAsISO8601
         }
     }
+    
+    var hrString: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm, E d MMM y"
+        let hrString = formatter.string(from: self)
+        return hrString
+    }
 }

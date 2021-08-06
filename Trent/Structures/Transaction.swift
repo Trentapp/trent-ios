@@ -11,9 +11,27 @@ struct Transaction: Codable, Hashable {
     var _id: String
     var lender: UserProfile?
     var borrower: UserProfile?
-    var item: Product?
+    var product: Product?
     var startDate: String?
     var endDate: String?
     var status: Int?
     var totalPrice: Double?
+    
+    var dateStartDate: Date? {
+        get {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+            let date = dateFormatter.date(from: self.startDate ?? "")
+            return date
+        }
+    }
+    
+    var dateEndDate: Date? {
+        get {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+            let date = dateFormatter.date(from: self.endDate ?? "")
+            return date
+        }
+    }
 }
