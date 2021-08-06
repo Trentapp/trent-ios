@@ -9,8 +9,8 @@ import Foundation
 
 struct Message: Codable, Hashable {
     var _id: String
-    var timestamp: String
-    var sender: String
-    var content: String
-    var read: Bool
+    var timestamp: String?
+    var sender: UserProfile?
+    var content: String?
+    var read: Bool?
 }

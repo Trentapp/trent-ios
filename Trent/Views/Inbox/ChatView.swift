@@ -20,12 +20,12 @@ struct ChatView: View {
                 ScrollView{
                     VStack(spacing: 10) {
                         ForEach(chat.messages , id: \.self) { message in
-                            let isFromMe = (message.sender == UserObjectManager.shared.user?._id)
+                            let isFromMe = (message.sender?._id == UserObjectManager.shared.user?._id)
                             HStack {
                                 if isFromMe { Spacer() }
                                     
                                 HStack {
-                                        Text(message.content)
+                                        Text(message.content ?? "")
                                             .foregroundColor(isFromMe ? .white : .black)
                                             .multilineTextAlignment(.leading)
                                             .padding(.vertical, 5)
@@ -77,7 +77,7 @@ struct ChatView: View {
                 .padding(.bottom, 30)
             }
         }
-        .navigationBarTitle(chat.borrower, displayMode: .inline)
+        .navigationBarTitle(chat.borrower?.name ?? "Borrower", displayMode: .inline)
         .ignoresSafeArea(.container, edges: .bottom)
         .introspectTabBarController { (UITabBarController) in
             self.tabBar = UITabBarController.tabBar

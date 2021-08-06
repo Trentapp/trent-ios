@@ -9,8 +9,8 @@ import Foundation
 
 struct Chat: Codable, Hashable {
     var _id: String
-    var lender: String
-    var borrower: String
-    var item: Product
+    var lender: UserProfile?
+    var borrower: UserProfile?
+    var item: Product?
     var messages: [Message]
 }

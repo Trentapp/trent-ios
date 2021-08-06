@@ -197,7 +197,7 @@ struct AddProductView: View {
             .onAppear(){
                 if item != nil {
                     self.name = self.item!.name ?? "Untitled Item"
-                    self.description = self.item!.desc!
+                    self.description = self.item!.desc ?? ""
                     
                     if item?.prices?.perHour != nil {
                         self.priceHour = "\(item!.prices!.perHour!)"

@@ -354,6 +354,8 @@ class BackendClient: ObservableObject {
     // III.     Transactions
     //
     // III.1    addTransaction
+    // III.2    getTransactionsAsLender
+    
     func addTransaction(item_id: String, startDate: Date, endDate: Date, completionHandler: @escaping (Bool) -> Void) {
         DispatchQueue.global().async {
             let url = self.serverPath + "/transactions/createTransaction"
@@ -372,6 +374,34 @@ class BackendClient: ObservableObject {
                     DispatchQueue.main.async {
                         completionHandler(response.error == nil)
                         UserObjectManager.shared.refresh()
+                    }
+                }
+        }
+    }
+    
+    func getTransactionsAsLender(completionHandler: @escaping ([Transaction]?) -> Void) {
+        DispatchQueue.global().async {
+            let url = self.serverPath + "/transactions/findByLender"
+            
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
+            let parameters = [
+                "uid" : uid
+            ]
+            
+            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+                .validate()
+                .response { response in
+                    DispatchQueue.main.async {
+                        do {
+                            if response.data == nil {
+                                completionHandler(nil)
+                                return
+                            }
+                            let transactions = try JSONDecoder().decode([Transaction].self, from: response.data!)
+                            completionHandler(transactions)
+                        } catch {
+                            completionHandler(nil)
+                        }
                     }
                 }
         }
@@ -411,7 +441,7 @@ class BackendClient: ObservableObject {
     // V.2    sendMessage
     func getChats(completionHandler: @escaping ([Chat]?) -> Void) {
         DispatchQueue.global().async {
-            let url = self.serverPath + "/chats/get"
+            let url = self.serverPath + "/chats/getChatsOfUser"
             
             let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
             let parameters = ["uid" : uid]
@@ -451,34 +481,6 @@ class BackendClient: ObservableObject {
                 .response { response in
                     DispatchQueue.main.async {
                         completionHandler(response.error != nil)
-                    }
-                }
-        }
-    }
-    
-    
-    // VI.     Reviews
-    //
-    // VI.1    getTransactionsAsLender
-    func getTransactionsAsLender(completionHandler: @escaping ([Transaction]?) -> Void) {
-        DispatchQueue.global().async {
-            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
-            let url = self.serverPath + "/transactions/findByLender/" + uid
-            
-            AF.request(url)
-                .validate()
-                .response { response in
-                    DispatchQueue.main.async {
-                        do {
-                            if response.data == nil {
-                                completionHandler(nil)
-                                return
-                            }
-                            let transactions = try JSONDecoder().decode([Transaction].self, from: response.data!)
-                            completionHandler(transactions)
-                        } catch {
-                            completionHandler(nil)
-                        }
                     }
                 }
         }

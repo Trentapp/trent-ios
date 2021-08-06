@@ -36,8 +36,8 @@ struct InboxView: View {
                         ForEach(transactions ?? [] , id: \.self) { transaction in
                             HStack{
                                 VStack {
-                                    Text(transaction.borrower ?? "Borrower")
-                                    Text(transaction.item ?? "Item")
+                                    Text(transaction.borrower?.name ?? "Borrower")
+                                    Text(transaction.item?.name ?? "Item")
                                 }
                                 Spacer()
                                 if transaction.status == 2 {
@@ -83,33 +83,42 @@ struct InboxView: View {
                             NavigationLink(
                                 destination: ChatView(chat: chat),
                                 label: {
-                                    Text(chat.lender)
+                                    Text(chat.lender?._id ?? "Lender")
                                 })
                         }
                     }
                 }
             }
         }
-        .navigationBarTitle(Text("Inbox"), displayMode: .large)
-        .navigationViewStyle(StackNavigationViewStyle())
-        .navigationBarHidden(false)
+//        .navigationBarTitle(Text("Inbox"), displayMode: .large)
+//        .navigationViewStyle(StackNavigationViewStyle())
+//        .navigationBarHidden(false)
         .onAppear() {
-//            Backendclient: getChats BackendClient.shared.getChats { chats in
-                self.chats = nil //chats
+            
+            isLoading = true
+            
+            BackendClient.shared.getTransactionsAsLender { transactions in
                 isLoading = false
-//            }
-//            DispatchQueue.global().async {
-                // Backendclient getTransactionsAsLender let transactions = BackendClient.shared.getTransactionsAsLender()
-                let transactions: [Transaction]? = []
-//                DispatchQueue.main.async {
-                    self.transactions = transactions
-//                }
-//            }
-//            self.tabBar?.isHidden = false
+                self.transactions = transactions
+            }
+            
+            BackendClient.shared.getChats { chats in
+                isLoading = false
+                self.chats = chats
+            }
+////            Backendclient: getChats BackendClient.shared.getChats { chats in
+//                self.chats = nil //chats
+//                isLoading = false
+////            }
+////            DispatchQueue.global().async {
+//                // Backendclient getTransactionsAsLender let transactions = BackendClient.shared.getTransactionsAsLender()
+//                let transactions: [Transaction]? = []
+////                DispatchQueue.main.async {
+//                    self.transactions = transactions
+////                }
+////            }
+////            self.tabBar?.isHidden = false
         }
-//        .introspectTabBarController { (UITabBarController) in
-//            self.tabBar = UITabBarController.tabBar
-//        }
     }
 }
 

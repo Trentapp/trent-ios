@@ -8,9 +8,10 @@
 import Foundation
 
 struct Transaction: Codable, Hashable {
-    var lender: String?
-    var borrower: String?
-    var item: String?
+    var _id: String
+    var lender: UserProfile?
+    var borrower: UserProfile?
+    var item: Product?
     var startDate: String?
     var endDate: String?
     var status: Int?
