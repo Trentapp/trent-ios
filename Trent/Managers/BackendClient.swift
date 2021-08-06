@@ -471,8 +471,8 @@ class BackendClient: ObservableObject {
             
             let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
             let parameters = [
-                "user_uid" : uid,
-                "chat_id" : chat_id,
+                "uid" : uid,
+                "chatId" : chat_id,
                 "content" : content
             ]
             
@@ -481,6 +481,32 @@ class BackendClient: ObservableObject {
                 .response { response in
                     DispatchQueue.main.async {
                         completionHandler(response.error != nil)
+                    }
+                }
+        }
+    }
+    
+    func getChat(chatId: String, completionHandler: @escaping (Chat?) -> Void) {
+        DispatchQueue.global().async {
+            let url = self.serverPath + "/chats/chat/" + chatId
+            
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
+            let parameters = ["uid" : uid]
+            
+            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+                .validate()
+                .response { response in
+                    DispatchQueue.main.async {
+                        do {
+                            if response.data == nil {
+                                completionHandler(nil)
+                                return
+                            }
+                            let chat = try JSONDecoder().decode(Chat.self, from: response.data!)
+                            completionHandler(chat)
+                        } catch {
+                            completionHandler(nil)
+                        }
                     }
                 }
         }

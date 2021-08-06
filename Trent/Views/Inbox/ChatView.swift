@@ -59,8 +59,17 @@ struct ChatView: View {
                         .background(Color.white)
                         .padding(.horizontal, 10)
                         Button {
-                            // Backendclient: sendMessage BackendClient.shared.sendMessage(chat_id: chat._id, content: message)
-                            self.message = ""
+                            BackendClient.shared.sendMessage(chat_id: chat._id, content: message) { success in
+                                if !success {
+                                    // tell user
+                                }
+                                self.message = ""
+                                BackendClient.shared.getChat(chatId: self.chat._id) { chat in
+                                    if chat != nil {
+                                        self.chat = chat!
+                                    }
+                                }
+                            }
                         } label: {
                             ZStack {
                                 Circle()

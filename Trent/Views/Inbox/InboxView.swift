@@ -14,6 +14,8 @@ struct InboxView: View {
     @State var transactions: [Transaction]?
     @State var isLoading = true
     
+    @State var firstLoad = true
+    
     @State private var selectedSection = 0
     
 //    @State var tabBar: UITabBar?
@@ -90,21 +92,23 @@ struct InboxView: View {
                 }
             }
         }
-//        .navigationBarTitle(Text("Inbox"), displayMode: .large)
-//        .navigationViewStyle(StackNavigationViewStyle())
+        .navigationBarTitle(Text("Inbox"), displayMode: .large)
+        .navigationViewStyle(StackNavigationViewStyle())
 //        .navigationBarHidden(false)
         .onAppear() {
-            
-            isLoading = true
-            
-            BackendClient.shared.getTransactionsAsLender { transactions in
-                isLoading = false
-                self.transactions = transactions
-            }
-            
-            BackendClient.shared.getChats { chats in
-                isLoading = false
-                self.chats = chats
+            if firstLoad {
+                firstLoad = false
+                isLoading = true
+                
+                BackendClient.shared.getTransactionsAsLender { transactions in
+                    isLoading = false
+                    self.transactions = transactions
+                }
+                
+                BackendClient.shared.getChats { chats in
+                    isLoading = false
+                    self.chats = chats
+                }
             }
 ////            Backendclient: getChats BackendClient.shared.getChats { chats in
 //                self.chats = nil //chats
