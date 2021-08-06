@@ -9,11 +9,25 @@ import SwiftUI
 import MapKit
 
 struct TransactionDetailView: View {
-    var transaction: Transaction
+    @State var transaction: Transaction
     @State var amILender = true
     @State var relevantUser: UserProfile?
     
     @Environment(\.presentationMode) var presentationMode
+    
+    func updateTransaction() {
+        BackendClient.shared.getTransaction(transactionId: self.transaction._id) { transaction in
+            if transaction != nil {
+                self.transaction = transaction!
+                setViewVariables()
+            }
+        }
+    }
+    
+    func setViewVariables() {
+        self.amILender = (transaction.lender?._id ?? "" == UserObjectManager.shared.user?._id ?? "0")
+        self.relevantUser = self.amILender ? transaction.borrower : transaction.lender
+    }
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -139,9 +153,10 @@ struct TransactionDetailView: View {
             }
             
             HStack {
-                if (transaction.status == 0 || transaction.status == 1) && amILender {
+                if ((transaction.status == 0) && amILender) {
                     Button(action: {
                         BackendClient.shared.setTransactionStatus(transactionId: transaction._id, transactionStatus: 2) { success in
+                            updateTransaction()
                             if !success {
                                 // tell user
                             } else {
@@ -159,8 +174,10 @@ struct TransactionDetailView: View {
                     })
                 }
                 
+                if transaction.status == 0 {
                 Button(action: {
                     BackendClient.shared.setTransactionStatus(transactionId: transaction._id, transactionStatus: 1) { success in
+                        updateTransaction()
                         if !success {
                             // tell user
                         } else {
@@ -177,14 +194,14 @@ struct TransactionDetailView: View {
                     }
                 })
             }
+            }
             .frame(height: 45)
             .padding(.horizontal)
             
         }
         .navigationBarTitle("", displayMode: .inline)
         .onAppear() {
-            self.amILender = (transaction.lender?._id ?? "" == UserObjectManager.shared.user?._id ?? "0")
-            self.relevantUser = self.amILender ? transaction.borrower : transaction.lender
+            setViewVariables()
         }
     }
 }

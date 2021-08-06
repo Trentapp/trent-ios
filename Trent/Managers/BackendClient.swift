@@ -356,7 +356,8 @@ class BackendClient: ObservableObject {
     // III.1    addTransaction
     // III.2    getTransactionsAsLender
     // III.3    setTransactionStatus
-    // III.4    gtTransactions
+    // III.4    getTransactions
+    // III.5    getTransaction
     
     func addTransaction(item_id: String, startDate: Date, endDate: Date, completionHandler: @escaping (Bool) -> Void) {
         DispatchQueue.global().async {
@@ -449,6 +450,34 @@ class BackendClient: ObservableObject {
                             }
                             let transactions = try JSONDecoder().decode([Transaction].self, from: response.data!)
                             completionHandler(transactions)
+                        } catch {
+                            completionHandler(nil)
+                        }
+                    }
+                }
+        }
+    }
+    
+    func getTransaction(transactionId: String, completionHandler: @escaping (Transaction?) -> Void) {
+        DispatchQueue.global().async {
+            let url = self.serverPath + "/transactions/transaction/" + transactionId
+            
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
+            let parameters = [
+                "uid" : uid
+            ]
+            
+            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+                .validate()
+                .response { response in
+                    DispatchQueue.main.async {
+                        do {
+                            if response.data == nil {
+                                completionHandler(nil)
+                                return
+                            }
+                            let transaction = try JSONDecoder().decode(Transaction.self, from: response.data!)
+                            completionHandler(transaction)
                         } catch {
                             completionHandler(nil)
                         }
