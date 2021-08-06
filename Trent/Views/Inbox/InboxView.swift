@@ -110,7 +110,17 @@ struct InboxView: View {
                             NavigationLink(
                                 destination: ChatView(chat: chat),
                                 label: {
-                                    Text((chat.borrower?._id == UserObjectManager.shared.user?._id) ? (chat.lender?.name ?? "Lender" ) : (chat.borrower?.name ?? "Borrower" ) )
+                                    HStack {
+//                                        (chat.borrower?._id == UserObjectManager.shared.user?._id) ? ((chat.lender?.pictureUIImage != nil) ? Image(uiImage: (chat.lender?.pictureUIImage)!) : Image(systemName: "person.crop.circle")) : ((chat.borrower?.pictureUIImage != nil) ? Image(uiImage: (chat.borrower?.pictureUIImage)!) : Image(systemName: "person.crop.circle"))
+//                                            .resizable()
+//                                            .aspectRatio(contentMode: .fit)
+//                                            .opacity((chat.borrower?._id == UserObjectManager.shared.user?._id) ? ((chat.lender?.pictureUIImage != nil) ? 1 : 0.5) : ((chat.borrower?.pictureUIImage != nil) ? 1 : 0.5))
+//                                            .clipShape(Circle())
+//                                            .foregroundColor(.gray)
+//                                            .frame(width: 50, height: 50)
+//                                            .padding()
+                                        Text((chat.borrower?._id == UserObjectManager.shared.user?._id) ? (chat.lender?.name ?? "Lender" ) : (chat.borrower?.name ?? "Borrower" ))
+                                    }
                                 })
                         }
                     }
