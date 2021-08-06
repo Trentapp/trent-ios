@@ -58,7 +58,7 @@
 		B0989253268B319200574719 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0989252268B319200574719 /* Transaction.swift */; };
 		B0BF25A826B1A0C3005FDD4D /* BookingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF25A726B1A0C3005FDD4D /* BookingView.swift */; };
 		B0BF25AA26B2949F005FDD4D /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF25A926B2949F005FDD4D /* PaymentView.swift */; };
-		B0BF25AE26B2CC69005FDD4D /* CreditCardScannerVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF25AD26B2CC69005FDD4D /* CreditCardScannerVIew.swift */; };
+		B0BF25AE26B2CC69005FDD4D /* CreditCardScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF25AD26B2CC69005FDD4D /* CreditCardScannerView.swift */; };
 		B0BF25B126B2CCFA005FDD4D /* SweetCardScanner in Frameworks */ = {isa = PBXBuildFile; productRef = B0BF25B026B2CCFA005FDD4D /* SweetCardScanner */; };
 		B0BF25B426B2F43C005FDD4D /* BookingModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF25B326B2F43C005FDD4D /* BookingModelView.swift */; };
 		B0D4FB12267D0DBB00BADF68 /* EditAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D4FB11267D0DBB00BADF68 /* EditAccountView.swift */; };
@@ -127,7 +127,7 @@
 		B0989252268B319200574719 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		B0BF25A726B1A0C3005FDD4D /* BookingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingView.swift; sourceTree = "<group>"; };
 		B0BF25A926B2949F005FDD4D /* PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
-		B0BF25AD26B2CC69005FDD4D /* CreditCardScannerVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardScannerVIew.swift; sourceTree = "<group>"; };
+		B0BF25AD26B2CC69005FDD4D /* CreditCardScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardScannerView.swift; sourceTree = "<group>"; };
 		B0BF25B326B2F43C005FDD4D /* BookingModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingModelView.swift; sourceTree = "<group>"; };
 		B0D4FB11267D0DBB00BADF68 /* EditAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountView.swift; sourceTree = "<group>"; };
 		B0E182162664140300F20D27 /* InventoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryView.swift; sourceTree = "<group>"; };
@@ -348,7 +348,7 @@
 			children = (
 				B0BF25B326B2F43C005FDD4D /* BookingModelView.swift */,
 				B0BF25A726B1A0C3005FDD4D /* BookingView.swift */,
-				B0BF25AD26B2CC69005FDD4D /* CreditCardScannerVIew.swift */,
+				B0BF25AD26B2CC69005FDD4D /* CreditCardScannerView.swift */,
 				B0BF25A926B2949F005FDD4D /* PaymentView.swift */,
 				B025A03A26B3E5B600346A6A /* BookingOverviewView.swift */,
 			);
@@ -534,7 +534,7 @@
 				B093B5A02685CA310051B7CC /* Review.swift in Sources */,
 				B06F797A264A6B5500049EF2 /* MapView.swift in Sources */,
 				B0BF25A826B1A0C3005FDD4D /* BookingView.swift in Sources */,
-				B0BF25AE26B2CC69005FDD4D /* CreditCardScannerVIew.swift in Sources */,
+				B0BF25AE26B2CC69005FDD4D /* CreditCardScannerView.swift in Sources */,
 				B06F7978264A6B5500049EF2 /* TrentApp.swift in Sources */,
 				B0F37CC7265EDAD500D7905E /* SignupView.swift in Sources */,
 				B093B59C2685B6A90051B7CC /* UserProfilePageView.swift in Sources */,

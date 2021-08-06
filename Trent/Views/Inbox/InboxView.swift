@@ -30,59 +30,62 @@ struct InboxView: View {
                     .foregroundColor(.gray)
             } else {
                 List {
+                    if transactions?.count ?? 0 != 0 {
                     Section(header: Text("Requests")) {
-                        if transactions == nil {
-                            Text("No requests yet")
-                                .foregroundColor(.gray)
-                        }
-                        ForEach(transactions ?? [] , id: \.self) { transaction in
-                            HStack{
-                                VStack {
-                                    Text(transaction.borrower?.name ?? "Borrower")
-                                    Text(transaction.item?.name ?? "Item")
-                                }
-                                Spacer()
-                                if transaction.status == 2 {
-                                    Text("Accepted")
-                                        .foregroundColor(.green)
-                                } else if transaction.status == 1 {
-                                    Text("Rejected")
-                                        .foregroundColor(.green)
-                                } else {
-                                    Button(action: {
-                                        BackendClient.shared.setTransactionStatus(transactionId: transaction._id, transactionStatus: 2) { success in
-                                            if !success {
-                                                // Tell user
+//                        if transactions?.count ?? 0 == 0 {
+//                            Text("No requests yet")
+//                                .foregroundColor(.gray)
+//                        }
+                            ForEach(transactions ?? [] , id: \.self) { transaction in
+                                HStack{
+                                    VStack(alignment: .leading) {
+                                        Text(transaction.borrower?.name ?? "Borrower")
+                                            .bold()
+                                        Text(transaction.item?.name ?? "Item")
+                                    }
+                                    Spacer()
+                                    if transaction.status == 2 {
+                                        Text("Accepted")
+                                            .foregroundColor(.green)
+                                    } else if transaction.status == 1 {
+                                        Text("Rejected")
+                                            .foregroundColor(.green)
+                                    } else {
+                                        Button(action: {
+                                            BackendClient.shared.setTransactionStatus(transactionId: transaction._id, transactionStatus: 2) { success in
+                                                if !success {
+                                                    // Tell user
+                                                }
                                             }
-                                        }
-                                    }, label: {
-                                        ZStack {
-                                            Circle()
-                                                .foregroundColor(.green)
-                                                .opacity(0.5)
-                                            Image(systemName: "checkmark")
-                                                .foregroundColor(.green)
-                                        }
-                                        .frame(width: 30, height: 30)
-                                    })
-                                    .buttonStyle(PlainButtonStyle())
-                                    Button(action: {
-                                        BackendClient.shared.setTransactionStatus(transactionId: transaction._id, transactionStatus: 1) { success in
-                                            if !success {
-                                                // Tell user
+                                        }, label: {
+                                            ZStack {
+                                                Circle()
+                                                    .foregroundColor(.green)
+                                                    .opacity(0.5)
+                                                Image(systemName: "checkmark")
+                                                    .foregroundColor(.green)
                                             }
-                                        }
-                                    }, label: {
-                                        ZStack {
-                                            Circle()
-                                                .foregroundColor(.red)
-                                                .opacity(0.5)
-                                            Image(systemName: "xmark")
-                                                .foregroundColor(.red)
-                                        }
-                                        .frame(width: 30, height: 30)
-                                    })
-                                    .buttonStyle(PlainButtonStyle())
+                                            .frame(width: 30, height: 30)
+                                        })
+                                        .buttonStyle(PlainButtonStyle())
+                                        Button(action: {
+                                            BackendClient.shared.setTransactionStatus(transactionId: transaction._id, transactionStatus: 1) { success in
+                                                if !success {
+                                                    // Tell user
+                                                }
+                                            }
+                                        }, label: {
+                                            ZStack {
+                                                Circle()
+                                                    .foregroundColor(.red)
+                                                    .opacity(0.5)
+                                                Image(systemName: "xmark")
+                                                    .foregroundColor(.red)
+                                            }
+                                            .frame(width: 30, height: 30)
+                                        })
+                                        .buttonStyle(PlainButtonStyle())
+                                    }
                                 }
                             }
                         }
@@ -97,7 +100,7 @@ struct InboxView: View {
                             NavigationLink(
                                 destination: ChatView(chat: chat),
                                 label: {
-                                    Text(chat.lender?._id ?? "Lender")
+                                    Text((chat.borrower?._id == UserObjectManager.shared.user?._id) ? (chat.lender?.name ?? "Lender" ) : (chat.borrower?.name ?? "Borrower" ) )
                                 })
                         }
                     }
