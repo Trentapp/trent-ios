@@ -53,11 +53,11 @@ struct ChatView: View {
                                 .stroke(lineWidth: 1)
                                 .foregroundColor(.gray)
                             TextField("Message", text: $message)
-                                .frame(width: geometry.size.width - 100)
+                                .frame(width: geometry.size.width - 75)
                                 .padding(.horizontal, 5)
                         }
                         .background(Color.white)
-                        .padding(.horizontal, 10)
+                        .padding(.leading, 10)
                         Button {
                             BackendClient.shared.sendMessage(chat_id: chat._id, content: message) { success in
                                 if !success {
@@ -74,11 +74,13 @@ struct ChatView: View {
                             ZStack {
                                 Circle()
                                     .foregroundColor(.blue)
+                                    .frame(width: 30)
                                 Image(systemName: "paperplane")
                                     .foregroundColor(.white)
-                                    .padding(2)
+                                    .frame(width: 20)
                             }
-                            .padding(.trailing, 10)
+                            .padding(.trailing, 7)
+                            
                         }
                     }
                 }
