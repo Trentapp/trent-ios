@@ -74,30 +74,6 @@ struct TransactionDetailView: View {
                     }
                 })
                 
-                if !amILender {
-                    HStack{
-                        AddressView(address: transaction.product?.address)
-                            .padding(.leading)
-                        Spacer()
-                        Button(action: {
-                            let place = MKPlacemark(coordinate: transaction.product?.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
-                            
-                            let mapItem = MKMapItem(placemark: place)
-                            mapItem.name = (transaction.product?.address != nil) ?  "\(transaction.product?.address?.street ?? "") \(transaction.product?.address?.houseNumber ?? ""), \(transaction.product?.address?.zipcode ?? "") \(transaction.product?.address?.city ?? "")" : transaction.product?.name ?? ""
-                            mapItem.openInMaps(launchOptions: nil)
-                        }, label: {
-                            //                                Map(coordinateRegion: $coordinateRegion, interactionModes: [], showsUserLocation: false, userTrackingMode: .none)
-                            //                                    .frame(width: 200, height: 150)
-                            //                                    .padding()
-                            Map(coordinateRegion: .constant(MKCoordinateRegion(center: transaction.product?.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0), latitudinalMeters: 750, longitudinalMeters: 750)), interactionModes: [], annotationItems: [transaction.product ?? Product(_id:"")], annotationContent: { current_item in
-                                MapMarker(coordinate: current_item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
-                            })
-                            .frame(width: 150, height: 100)
-                            .padding()
-                        })
-                    }
-                }
-                
                 Spacer()
                 
                 NavigationLink(destination: ContactView(), label: {
@@ -111,6 +87,30 @@ struct TransactionDetailView: View {
                     }
                 })
                 .padding()
+            }
+            
+            if !amILender {
+                HStack{
+                    AddressView(address: transaction.product?.address)
+                        .padding(.leading)
+                    Spacer()
+                    Button(action: {
+                        let place = MKPlacemark(coordinate: transaction.product?.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
+                        
+                        let mapItem = MKMapItem(placemark: place)
+                        mapItem.name = (transaction.product?.address != nil) ?  "\(transaction.product?.address?.street ?? "") \(transaction.product?.address?.houseNumber ?? ""), \(transaction.product?.address?.zipcode ?? "") \(transaction.product?.address?.city ?? "")" : transaction.product?.name ?? ""
+                        mapItem.openInMaps(launchOptions: nil)
+                    }, label: {
+                        //                                Map(coordinateRegion: $coordinateRegion, interactionModes: [], showsUserLocation: false, userTrackingMode: .none)
+                        //                                    .frame(width: 200, height: 150)
+                        //                                    .padding()
+                        Map(coordinateRegion: .constant(MKCoordinateRegion(center: transaction.product?.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0), latitudinalMeters: 750, longitudinalMeters: 750)), interactionModes: [], annotationItems: [transaction.product ?? Product(_id:"")], annotationContent: { current_item in
+                            MapMarker(coordinate: current_item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
+                        })
+                        .frame(width: 150, height: 100)
+                        .padding()
+                    })
+                }
             }
             
             HStack { Spacer() }
