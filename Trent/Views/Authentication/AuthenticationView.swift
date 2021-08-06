@@ -206,6 +206,8 @@ struct AuthenticationView: View {
                             TextField("Name", text: $name)
                                 .placeholder(when: name.isEmpty) { Text("Name").foregroundColor(.init(.displayP3, white: 1, opacity: 0.7)) }
                                 .textContentType(.name)
+                                .disableAutocorrection(true)
+                                .autocapitalization(UITextAutocapitalizationType.none)
                                 .padding(.horizontal, 40)
                                 .padding(.vertical, 10)
                         }
@@ -218,6 +220,8 @@ struct AuthenticationView: View {
                         TextField("Mail address", text: $mail)
                             .placeholder(when: mail.isEmpty) { Text("Mail address").foregroundColor(.init(.displayP3, white: 1, opacity: 0.7)) }
                             .textContentType(.emailAddress)
+                            .disableAutocorrection(true)
+                            .autocapitalization(UITextAutocapitalizationType.none)
                             .padding(.horizontal, 40)
                             .padding(.vertical, 10)
                     }

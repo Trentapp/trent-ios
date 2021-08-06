@@ -139,7 +139,7 @@ struct ItemDetailView: View {
                         
                         Spacer()
                         
-                        NavigationLink(destination: ContactView(), label: {
+                        NavigationLink(destination: ContactView(user: item?.user, product: item), label: {
                             ZStack {
                                 RoundedRectangle(cornerRadius: 5)
                                     .stroke(Color.blue, lineWidth: 1)

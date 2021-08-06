@@ -8,28 +8,29 @@
 import SwiftUI
 
 struct ContactView: View {
-    // @State var user: Profile
+    
+    @Environment(\.presentationMode) var presentationMode
+    
+    var user: UserProfile?
+    var product: Product?
     @State var placeholder = "Message..."
     @State var message = ""
-    
-    init() {
-        UITextView.appearance().backgroundColor = .clear
-    }
     
     var body: some View {
         VStack {
             
             
             HStack {
-                Image(systemName: "person.crop.circle")
+                ((user?.pictureUIImage != nil) ? Image(uiImage: (user?.pictureUIImage!)!) : Image(systemName: "person.crop.circle"))
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .opacity(0.5)
+                    .opacity((user?.pictureUIImage != nil) ? 1 : 0.5)
+                    .clipShape(Circle())
                     .foregroundColor(.gray)
                     .frame(width: 50, height: 50)
                     .padding()
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("John Doe")
+                    Text(user?.name ?? "User")
                         .font(.system(size: 20, weight: .regular, design: .default))
                     HStack(alignment: .center, spacing: 2, content: {
                         //                        Text("5/5")
@@ -41,24 +42,25 @@ struct ContactView: View {
                                 .foregroundColor(.yellow)
                                 .frame(width: 20, height: 20)
                             //                                        .padding()
-                            
+
                         }
                     })
                 }
-                
+
                 Spacer()
             }
             Spacer()
                 .frame(height: 50)
-            Text("Message about Product: \"Tent\"")
             ZStack(alignment: .leading) {
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(lineWidth: 0.3)
+                    .foregroundColor(.gray)
                 if(message.isEmpty) {
                     TextEditor(text: $placeholder)
                         .foregroundColor(.gray)
                         .opacity(0.5)
                 }
                 TextEditor(text: $message)
-                    .border(Color.black, width: 0.2)
             }
             .frame(height: 200)
             .padding()
@@ -66,7 +68,13 @@ struct ContactView: View {
             HStack{
                 Spacer()
                 Button(action: {
-                    print("Sending")
+                    BackendClient.shared.sendMessage(product_id: product?._id ?? "", content: message) { success in
+                        if !success {
+                            // tell user
+                        } else {
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
+                    }
                 }, label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 10)
@@ -82,11 +90,14 @@ struct ContactView: View {
             Spacer()
         }
         .navigationBarTitle("New Message", displayMode: .large)
+        .onAppear() {
+            UITextView.appearance().backgroundColor = .clear
+        }
     }
 }
 
-struct ContactView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContactView()
-    }
-}
+//struct ContactView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContactView()
+//    }
+//}

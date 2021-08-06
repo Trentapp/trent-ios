@@ -560,7 +560,28 @@ class BackendClient: ObservableObject {
                 .validate()
                 .response { response in
                     DispatchQueue.main.async {
-                        completionHandler(response.error != nil)
+                        completionHandler(response.error == nil)
+                    }
+                }
+        }
+    }
+    
+    func sendMessage(product_id: String, content: String, completionHandler: @escaping (Bool) -> Void) {
+        DispatchQueue.global().async {
+            let url = self.serverPath + "/chats/sendMessage"
+            
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
+            let parameters = [
+                "uid" : uid,
+                "productId" : product_id,
+                "content" : content
+            ]
+            
+            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+                .validate()
+                .response { response in
+                    DispatchQueue.main.async {
+                        completionHandler(response.error == nil)
                     }
                 }
         }
