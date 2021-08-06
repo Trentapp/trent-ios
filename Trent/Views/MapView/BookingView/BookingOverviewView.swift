@@ -49,7 +49,7 @@ struct BookingOverviewView: View {
                             .padding(.leading)
                         Spacer()
                         Button(action: {
-                            let place = MKPlacemark(coordinate: model.item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000))
+                            let place = MKPlacemark(coordinate: model.item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
                             
                             let mapItem = MKMapItem(placemark: place)
                             mapItem.name = (model.item.address != nil) ?  "\(model.item.address?.street ?? "") \(model.item.address?.houseNumber ?? ""), \(model.item.address?.zipcode ?? "") \(model.item.address?.city ?? "")" : model.item.name ?? ""
@@ -58,8 +58,8 @@ struct BookingOverviewView: View {
                             //                                Map(coordinateRegion: $coordinateRegion, interactionModes: [], showsUserLocation: false, userTrackingMode: .none)
                             //                                    .frame(width: 200, height: 150)
                             //                                    .padding()
-                            Map(coordinateRegion: .constant(MKCoordinateRegion(center: model.item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000), latitudinalMeters: 750, longitudinalMeters: 750)), interactionModes: [], annotationItems: [model.item], annotationContent: { current_item in
-                                MapMarker(coordinate: current_item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000))
+                            Map(coordinateRegion: .constant(MKCoordinateRegion(center: model.item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0), latitudinalMeters: 750, longitudinalMeters: 750)), interactionModes: [], annotationItems: [model.item], annotationContent: { current_item in
+                                MapMarker(coordinate: current_item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
                             })
                             .frame(width: 150, height: 100)
                             .padding()

@@ -164,7 +164,7 @@ class ProductAnnotation: NSObject, MKAnnotation {
     var item: Product
     var coordinate: CLLocationCoordinate2D {
         get {
-            return item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000)
+            return item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
         }
     }
     

@@ -80,7 +80,7 @@ struct ItemDetailView: View {
                         .padding()
                         Spacer()
                         Button(action: {
-                            let place = MKPlacemark(coordinate: item?.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000))
+                            let place = MKPlacemark(coordinate: item?.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
 
                             let mapItem = MKMapItem(placemark: place)
                             mapItem.name = (item?.address != nil) ?  "\(item?.address?.street ?? "") \(item?.address?.houseNumber ?? ""), \(item?.address?.zipcode ?? "") \(item?.address?.city ?? "")" : item?.name ?? ""
@@ -90,7 +90,7 @@ struct ItemDetailView: View {
                                 //                                    .frame(width: 200, height: 150)
                                 //                                    .padding()
                             Map(coordinateRegion: $coordinateRegion, interactionModes: [], annotationItems: [item ?? Product(_id: "")], annotationContent: { current_item in
-                                    MapMarker(coordinate: current_item?.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000))
+                                    MapMarker(coordinate: current_item?.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
                                 })
                                 .frame(width: 150, height: 100)
                                 .padding()

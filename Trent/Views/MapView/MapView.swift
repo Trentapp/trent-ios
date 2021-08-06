@@ -89,7 +89,7 @@ struct MapView: View {
                 let itemLocation = CLLocation(latitude: item.location?.CLcoordinates.latitude ?? 0, longitude: item.location?.CLcoordinates.longitude ?? 0)
                 let distance = itemLocation.distance(from: originLocation)
                 
-                if price >= minPrice && price <= maxPrice && distance <= Double(maxDistance * 1000) {
+                if price >= minPrice && price <= maxPrice && distance <= Double(maxDistance * 0) {
                     matches.append(item)
                 }
             }
@@ -108,7 +108,7 @@ struct MapView: View {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .top), content: {
 //            MapKitView(userTrackingMode: $trackUser, region: $region, annotationItems: self.$filteredResults)
             Map(coordinateRegion: $region, showsUserLocation: true, userTrackingMode: $trackUser, annotationItems: self.filteredResults, annotationContent: { item in
-                MapAnnotation(coordinate: item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 1000, longitude: 1000)) {
+                MapAnnotation(coordinate: item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)) {
                     Button {
                         viewController.currentlyFocusedItem = item
                     } label: {

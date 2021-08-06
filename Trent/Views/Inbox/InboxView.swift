@@ -125,9 +125,9 @@ struct InboxView: View {
                 firstLoad = false
                 isLoading = true
                 
-                BackendClient.shared.getTransactionsAsLender { transactions in
+                BackendClient.shared.getTransactions { transactions in
                     isLoading = false
-                    self.transactions = transactions
+                    self.transactions = transactions?.reversed()
                 }
                 
                 BackendClient.shared.getChats { chats in
