@@ -13,11 +13,31 @@ struct TransactionDetailView: View {
     @State var amILender = true
     @State var relevantUser: UserProfile?
     
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
         VStack(alignment: .leading) {
-            Text(transaction.product?.name ?? "Product Name")
-                .font(.system(size: 20, weight: .bold))
-                .padding()
+            HStack {
+                Text(transaction.product?.name ?? "Product Name")
+                    .font(.system(size: 20, weight: .bold))
+                    .padding()
+                
+                Spacer()
+                
+                if transaction.status == 0 {
+                    Text("Pending")
+                        .padding(.trailing)
+                        .foregroundColor(.gray)
+                } else if transaction.status == 1 {
+                    Text("Declined")
+                        .padding(.trailing)
+                        .foregroundColor(.red)
+                } else if transaction.status == 2 {
+                    Text("Accepted" + (amILender ? "" : " by owner"))
+                        .padding(.trailing)
+                        .foregroundColor(.green)
+                }
+            }
             Text("From: \(transaction.dateStartDate?.hrString ?? "")")
                 .padding(.horizontal)
             Text("Until: \(transaction.dateEndDate?.hrString ?? "")")
@@ -113,8 +133,53 @@ struct TransactionDetailView: View {
                 }
             }
             
-            HStack { Spacer() }
-            Spacer()
+            Group {
+                HStack { Spacer() }
+                Spacer()
+            }
+            
+            HStack {
+                if (transaction.status == 0 || transaction.status == 1) && amILender {
+                    Button(action: {
+                        BackendClient.shared.setTransactionStatus(transactionId: transaction._id, transactionStatus: 2) { success in
+                            if !success {
+                                // tell user
+                            } else {
+                                self.presentationMode.wrappedValue.dismiss()
+                            }
+                        }
+                    }, label: {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 15)
+                                .foregroundColor(.green)
+                            Text("Accept")
+                                .foregroundColor(.white)
+                                .bold()
+                        }
+                    })
+                }
+                
+                Button(action: {
+                    BackendClient.shared.setTransactionStatus(transactionId: transaction._id, transactionStatus: 1) { success in
+                        if !success {
+                            // tell user
+                        } else {
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
+                    }
+                }, label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 15)
+                            .foregroundColor(.red)
+                        Text("Cancel")
+                            .foregroundColor(.white)
+                            .bold()
+                    }
+                })
+            }
+            .frame(height: 45)
+            .padding(.horizontal)
+            
         }
         .navigationBarTitle("", displayMode: .inline)
         .onAppear() {
