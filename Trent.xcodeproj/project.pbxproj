@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B7FD627D8998B3444FF3345 /* Pods_Trent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28194E34FECC7FF05DA25531 /* Pods_Trent.framework */; };
 		B01C1399267E63130078E584 /* Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01C1398267E63130078E584 /* Encodable.swift */; };
 		B01C139E2680A7790078E584 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01C139D2680A7790078E584 /* MapViewController.swift */; };
 		B01C13A02684CF810078E584 /* ContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01C139F2684CF810078E584 /* ContactView.swift */; };
@@ -70,10 +71,12 @@
 		B0F37CC7265EDAD500D7905E /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F37CC6265EDAD400D7905E /* SignupView.swift */; };
 		B0F37CC9265EE8AA00D7905E /* FirebaseAuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F37CC8265EE8AA00D7905E /* FirebaseAuthClient.swift */; };
 		B0F5594826AB64AC00BF3325 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F5594726AB64AC00BF3325 /* Keyboard.swift */; };
-		B20921BBE41D51D41EF5AA64 /* Pods_Fairleih_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E465A03291B4E422354D3C /* Pods_Fairleih_iOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1671D662B8FD0A8E0F09B415 /* Pods-Trent.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trent.debug.xcconfig"; path = "Target Support Files/Pods-Trent/Pods-Trent.debug.xcconfig"; sourceTree = "<group>"; };
+		28194E34FECC7FF05DA25531 /* Pods_Trent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Trent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9BCC82BA3C4960BB717229A8 /* Pods-Trent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trent.release.xcconfig"; path = "Target Support Files/Pods-Trent/Pods-Trent.release.xcconfig"; sourceTree = "<group>"; };
 		B01C1398267E63130078E584 /* Encodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encodable.swift; sourceTree = "<group>"; };
 		B01C139D2680A7790078E584 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		B01C139F2684CF810078E584 /* ContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactView.swift; sourceTree = "<group>"; };
@@ -140,7 +143,6 @@
 		B0F37CC8265EE8AA00D7905E /* FirebaseAuthClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthClient.swift; sourceTree = "<group>"; };
 		B0F5594726AB64AC00BF3325 /* Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		B18970A9C174AD27CC4B537B /* Pods-Fairleih-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fairleih-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Fairleih-iOS/Pods-Fairleih-iOS.debug.xcconfig"; sourceTree = "<group>"; };
-		C9E465A03291B4E422354D3C /* Pods_Fairleih_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fairleih_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED20EF8E80C52037F01618E3 /* Pods-Fairleih-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fairleih-iOS.release.xcconfig"; path = "Target Support Files/Pods-Fairleih-iOS/Pods-Fairleih-iOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -151,7 +153,7 @@
 			files = (
 				B06E9331269EB25C00E96740 /* AuthenticationServices.framework in Frameworks */,
 				B0BF25B126B2CCFA005FDD4D /* SweetCardScanner in Frameworks */,
-				B20921BBE41D51D41EF5AA64 /* Pods_Fairleih_iOS.framework in Frameworks */,
+				8B7FD627D8998B3444FF3345 /* Pods_Trent.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,7 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				B06E9330269EB25C00E96740 /* AuthenticationServices.framework */,
-				C9E465A03291B4E422354D3C /* Pods_Fairleih_iOS.framework */,
+				28194E34FECC7FF05DA25531 /* Pods_Trent.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -172,6 +174,8 @@
 			children = (
 				B18970A9C174AD27CC4B537B /* Pods-Fairleih-iOS.debug.xcconfig */,
 				ED20EF8E80C52037F01618E3 /* Pods-Fairleih-iOS.release.xcconfig */,
+				1671D662B8FD0A8E0F09B415 /* Pods-Trent.debug.xcconfig */,
+				9BCC82BA3C4960BB717229A8 /* Pods-Trent.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -448,15 +452,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Fairleih-iOS/Pods-Fairleih-iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Trent/Pods-Trent-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Fairleih-iOS/Pods-Fairleih-iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Trent/Pods-Trent-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Fairleih-iOS/Pods-Fairleih-iOS-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Trent/Pods-Trent-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		82016D4655FCFEA947401BE6 /* [CP] Check Pods Manifest.lock */ = {
@@ -474,7 +478,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Fairleih-iOS-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Trent-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -670,11 +674,12 @@
 		};
 		B06F7984264A6B5700049EF2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B18970A9C174AD27CC4B537B /* Pods-Fairleih-iOS.debug.xcconfig */;
+			baseConfigurationReference = 1671D662B8FD0A8E0F09B415 /* Pods-Trent.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Trent/Trent.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Trent/Preview Content\"";
 				DEVELOPMENT_TEAM = HJFU68N96J;
@@ -687,6 +692,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.trentapp.Trent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -694,11 +700,12 @@
 		};
 		B06F7985264A6B5700049EF2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ED20EF8E80C52037F01618E3 /* Pods-Fairleih-iOS.release.xcconfig */;
+			baseConfigurationReference = 9BCC82BA3C4960BB717229A8 /* Pods-Trent.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Trent/Trent.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Trent/Preview Content\"";
 				DEVELOPMENT_TEAM = HJFU68N96J;
@@ -711,6 +718,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.trentapp.Trent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
