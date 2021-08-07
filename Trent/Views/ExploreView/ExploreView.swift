@@ -72,6 +72,9 @@ struct ExploreView: View {
             }
             
             Spacer()
+            Text("Explore new items")
+            Spacer()
+            
             NavigationLink(destination: MapView(keyword: keyword), isActive: $showMap) {
                 EmptyView()
             }

@@ -58,6 +58,10 @@
 		B09698E726948DC000068BA3 /* Launchscreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09698E626948DC000068BA3 /* Launchscreen.swift */; };
 		B0989253268B319200574719 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0989252268B319200574719 /* Transaction.swift */; };
 		B0B711FF26BD3CC100E544FB /* TransactionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B711FE26BD3CC100E544FB /* TransactionDetailView.swift */; };
+		B0B7124626BF38A200E544FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B0B7124826BF38A200E544FB /* Localizable.strings */; };
+		B0B7124D26BF38EB00E544FB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B0B7124A26BF38EB00E544FB /* InfoPlist.strings */; };
+		B0B7124E26BF38F000E544FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B0B7125026BF38F000E544FB /* Localizable.strings */; };
+		B0B7125126BF38F900E544FB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B0B7125326BF38F900E544FB /* InfoPlist.strings */; };
 		B0BF25A826B1A0C3005FDD4D /* BookingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF25A726B1A0C3005FDD4D /* BookingView.swift */; };
 		B0BF25AA26B2949F005FDD4D /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF25A926B2949F005FDD4D /* PaymentView.swift */; };
 		B0BF25AE26B2CC69005FDD4D /* CreditCardScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF25AD26B2CC69005FDD4D /* CreditCardScannerView.swift */; };
@@ -130,6 +134,10 @@
 		B09698E626948DC000068BA3 /* Launchscreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Launchscreen.swift; sourceTree = "<group>"; };
 		B0989252268B319200574719 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		B0B711FE26BD3CC100E544FB /* TransactionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailView.swift; sourceTree = "<group>"; };
+		B0B7124726BF38A200E544FB /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B0B7124B26BF38EB00E544FB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "../../../Localization/en.xcloc/Source Contents/Trent/en.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		B0B7124F26BF38F000E544FB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B0B7125426BF38FB00E544FB /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B0BF25A726B1A0C3005FDD4D /* BookingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingView.swift; sourceTree = "<group>"; };
 		B0BF25A926B2949F005FDD4D /* PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
 		B0BF25AD26B2CC69005FDD4D /* CreditCardScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardScannerView.swift; sourceTree = "<group>"; };
@@ -305,6 +313,7 @@
 				B01C139B267FE17E0078E584 /* Structures */,
 				B01C139C267FE18F0078E584 /* Extensions */,
 				B09698E32693B21C00068BA3 /* Supporting Files */,
+				B0B7123B26BF383700E544FB /* Localization */,
 				B06F797B264A6B5700049EF2 /* Assets.xcassets */,
 				B06F7980264A6B5700049EF2 /* Info.plist */,
 				B09698E12693B18000068BA3 /* GoogleService-Info.plist */,
@@ -348,6 +357,17 @@
 				B08F89E226A1B12C00816A8D /* MonoSlider.swift */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B0B7123B26BF383700E544FB /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				B0B7124A26BF38EB00E544FB /* InfoPlist.strings */,
+				B0B7125026BF38F000E544FB /* Localizable.strings */,
+				B0B7125326BF38F900E544FB /* InfoPlist.strings */,
+				B0B7124826BF38A200E544FB /* Localizable.strings */,
+			);
+			path = Localization;
 			sourceTree = "<group>";
 		};
 		B0BF25B226B2F3A9005FDD4D /* BookingView */ = {
@@ -418,6 +438,7 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
 			);
 			mainGroup = B06F796B264A6B5500049EF2;
 			packageReferences = (
@@ -437,7 +458,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0B7124626BF38A200E544FB /* Localizable.strings in Resources */,
+				B0B7124D26BF38EB00E544FB /* InfoPlist.strings in Resources */,
+				B0B7124E26BF38F000E544FB /* Localizable.strings in Resources */,
 				B06F797F264A6B5700049EF2 /* Preview Assets.xcassets in Resources */,
+				B0B7125126BF38F900E544FB /* InfoPlist.strings in Resources */,
 				B06F797C264A6B5700049EF2 /* Assets.xcassets in Resources */,
 				B09698E22693B18000068BA3 /* GoogleService-Info.plist in Resources */,
 			);
@@ -554,6 +579,41 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		B0B7124826BF38A200E544FB /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B0B7124726BF38A200E544FB /* de */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		B0B7124A26BF38EB00E544FB /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B0B7124B26BF38EB00E544FB /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		B0B7125026BF38F000E544FB /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B0B7124F26BF38F000E544FB /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		B0B7125326BF38F900E544FB /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B0B7125426BF38FB00E544FB /* de */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		B06F7981264A6B5700049EF2 /* Debug */ = {

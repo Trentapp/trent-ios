@@ -1,0 +1,8 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "Trent";
+/* Bundle name */
+"CFBundleName" = "Trent";
+/* Privacy - Camera Usage Description */
+"NSCameraUsageDescription" = "Zugriff aus die Kamera wird benötigt, um Bilder von Produkten zu machen.";
+/* Privacy - Location When In Use Usage Description */
+"NSLocationWhenInUseUsageDescription" = "Zugriff auf deinen Standort ist nötig, um Produkte in deiner Nähe zu filtern.";
