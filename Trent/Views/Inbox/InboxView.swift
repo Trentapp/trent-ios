@@ -131,6 +131,7 @@ struct InboxView: View {
         .navigationViewStyle(StackNavigationViewStyle())
         //        .navigationBarHidden(false)
         .onAppear() {
+            UITableView.appearance().isScrollEnabled = true
             if firstLoad {
                 firstLoad = false
                 isLoading = true

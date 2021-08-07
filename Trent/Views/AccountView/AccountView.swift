@@ -63,6 +63,10 @@ struct AccountView: View {
                         Button(""){}
                         NavigationLink("Edit Profile", destination: EditAccountView())
                     }
+                    ZStack{
+                        Button(""){}
+                        NavigationLink("Past Transactions", destination: PastTransactionView())
+                    }
                 }
                 Section {
                     HStack{

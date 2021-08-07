@@ -62,6 +62,7 @@
 		B0B7124D26BF38EB00E544FB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B0B7124A26BF38EB00E544FB /* InfoPlist.strings */; };
 		B0B7124E26BF38F000E544FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B0B7125026BF38F000E544FB /* Localizable.strings */; };
 		B0B7125126BF38F900E544FB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B0B7125326BF38F900E544FB /* InfoPlist.strings */; };
+		B0B7125626BF3C5E00E544FB /* PastTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B7125526BF3C5E00E544FB /* PastTransactionView.swift */; };
 		B0BF25A826B1A0C3005FDD4D /* BookingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF25A726B1A0C3005FDD4D /* BookingView.swift */; };
 		B0BF25AA26B2949F005FDD4D /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF25A926B2949F005FDD4D /* PaymentView.swift */; };
 		B0BF25AE26B2CC69005FDD4D /* CreditCardScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF25AD26B2CC69005FDD4D /* CreditCardScannerView.swift */; };
@@ -138,6 +139,7 @@
 		B0B7124B26BF38EB00E544FB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "../../../Localization/en.xcloc/Source Contents/Trent/en.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		B0B7124F26BF38F000E544FB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B0B7125426BF38FB00E544FB /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B0B7125526BF3C5E00E544FB /* PastTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastTransactionView.swift; sourceTree = "<group>"; };
 		B0BF25A726B1A0C3005FDD4D /* BookingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingView.swift; sourceTree = "<group>"; };
 		B0BF25A926B2949F005FDD4D /* PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
 		B0BF25AD26B2CC69005FDD4D /* CreditCardScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardScannerView.swift; sourceTree = "<group>"; };
@@ -388,6 +390,7 @@
 				B029AD0426623C9500279911 /* AccountView.swift */,
 				B0D4FB11267D0DBB00BADF68 /* EditAccountView.swift */,
 				B0529D4A26AAFAA1001616AB /* AddAddressView.swift */,
+				B0B7125526BF3C5E00E544FB /* PastTransactionView.swift */,
 			);
 			path = AccountView;
 			sourceTree = "<group>";
@@ -543,6 +546,7 @@
 				B029AD0526623C9500279911 /* AccountView.swift in Sources */,
 				B0F5594826AB64AC00BF3325 /* Keyboard.swift in Sources */,
 				B08F89E826A70AE800816A8D /* Picture.swift in Sources */,
+				B0B7125626BF3C5E00E544FB /* PastTransactionView.swift in Sources */,
 				B0989253268B319200574719 /* Transaction.swift in Sources */,
 				B06E9333269F491200E96740 /* AuthenticationView.swift in Sources */,
 				B029AD0C2662925700279911 /* DetailBottomView.swift in Sources */,
