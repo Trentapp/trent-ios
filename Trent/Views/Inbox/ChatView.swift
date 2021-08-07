@@ -88,7 +88,7 @@ struct ChatView: View {
                 .padding(.bottom, 30)
             }
         }
-        .navigationBarTitle(chat.borrower?.name ?? "Borrower", displayMode: .inline)
+        .navigationBarTitle((chat.borrower?._id == UserObjectManager.shared.user?._id) ? (chat.lender?.name ?? "Lender" ) : (chat.borrower?.name ?? "Borrower" ), displayMode: .inline)
         .ignoresSafeArea(.container, edges: .bottom)
         .introspectTabBarController { (UITabBarController) in
             self.tabBar = UITabBarController.tabBar
