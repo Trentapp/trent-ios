@@ -42,7 +42,7 @@ struct InboxView: View {
                                     label: {
                                         HStack{
                                             VStack(alignment: .leading) {
-                                                Text(transaction.borrower?.name ?? "Borrower")
+                                                Text((transaction.borrower?._id == UserObjectManager.shared.user?._id) ? (transaction.lender?.name ?? "Lender" ) : (transaction.borrower?.name ?? "Borrower" ))
                                                     .bold()
                                                 Text(transaction.product?.name ?? "Item")
                                             }
