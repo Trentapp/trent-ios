@@ -98,7 +98,7 @@ struct ItemDetailView: View {
                     }
                     
                     HStack {
-                        NavigationLink(destination: Text("")/*UserProfilePageView(userProfile: item?.user)*/, label: {
+                        NavigationLink(destination: UserProfilePageView(userProfile: item?.user), label: {
                             ((item?.user?.pictureUIImage != nil) ? Image(uiImage: (item?.user?.pictureUIImage!)!) : Image(systemName: "person.crop.circle"))
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)

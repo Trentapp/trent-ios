@@ -69,7 +69,7 @@ struct TransactionDetailView: View {
             Spacer()
                 .frame(height: 100)
             HStack {
-                NavigationLink(destination: Text("")/*UserProfilePageView(userProfile: item?.user)*/, label: {
+                NavigationLink(destination: UserProfilePageView(userProfile: relevantUser), label: {
                     ((relevantUser?.pictureUIImage != nil) ? Image(uiImage: (relevantUser?.pictureUIImage!)!) : Image(systemName: "person.crop.circle"))
                         .resizable()
                         .aspectRatio(contentMode: .fit)
