@@ -162,6 +162,7 @@ class BackendClient: ObservableObject {
     // II.4 uploadNewProfilePicture
     // II.5 updateUserObject
     // II.6 deleteUserFromDB
+    // II.7 addAPNToken
     
     func getUserProfile(for id: String, completionHandler: @escaping (UserProfile?) -> Void) {
         DispatchQueue.global().async {
@@ -343,6 +344,26 @@ class BackendClient: ObservableObject {
                 .response { response in
                     DispatchQueue.main.async {
                         UserObjectManager.shared.refresh()
+                        completionHandler(response.error == nil)
+                    }
+                }
+        }
+    }
+    
+    func addAPNToken(token: String, completionHandler: @escaping (Bool) -> Void) {
+        DispatchQueue.global().async {
+            let url = self.serverPath + "/users/addAPNToken"
+            
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
+            let parameters: [String : Any] = [
+                "uid" : uid,
+                "token" : token
+            ]
+            
+            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+                .validate()
+                .response { response in
+                    DispatchQueue.main.async {
                         completionHandler(response.error == nil)
                     }
                 }

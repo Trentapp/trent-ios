@@ -25,6 +25,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         //       self.sendDeviceTokenToServer(data: deviceToken)
         let deviceTokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
         print("success in registering for remote notifications with token \(deviceTokenString)")
+        BackendClient.shared.addAPNToken(token: deviceTokenString) { success in
+            if !success {
+                // well...
+            }
+        }
     }
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
