@@ -11,11 +11,10 @@ import Firebase
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        FirebaseApp.configure()
+        FirebaseAuthClient.shared
         
         application.registerForRemoteNotifications()
-        
-//        FirebaseApp.configure()
-//        FirebaseAuthClient.shared
         
         return true
     }
