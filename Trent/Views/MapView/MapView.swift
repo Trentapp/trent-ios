@@ -59,6 +59,7 @@ struct MapView: View {
     @State var lastMaxDistance: Int?
     
     func query(location: CLLocationCoordinate2D) {
+        self.cachedLocation = region.center
         BackendClient.shared.query(keyword: self.keyword, location: location, maxDistance: maxDistanceResults) { products, success in
             self.allResults = products ?? []
 //                                        for product in products ?? []  {
@@ -90,7 +91,7 @@ struct MapView: View {
                 let itemLocation = CLLocation(latitude: item.location?.CLcoordinates.latitude ?? 0, longitude: item.location?.CLcoordinates.longitude ?? 0)
                 let distance = itemLocation.distance(from: originLocation)
                 
-                if price >= minPrice && price <= maxPrice && distance <= Double(maxDistance * 0) {
+                if price >= minPrice && price <= maxPrice && distance <= Double(maxDistance * 1000) {
                     matches.append(item)
                 }
             }
