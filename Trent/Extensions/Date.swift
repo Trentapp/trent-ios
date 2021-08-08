@@ -23,4 +23,11 @@ extension Date {
         let hrString = formatter.string(from: self)
         return hrString
     }
+    
+    var hrStringDateOnly: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "E d MMM y"
+        let hrString = formatter.string(from: self)
+        return hrString
+    }
 }

@@ -158,43 +158,45 @@ struct ItemDetailView: View {
             NavigationLink("Booking", destination: BookingView(model: model), isActive: $showBooking).hidden(true)
             
             Spacer()
-            Divider()
-                .border(Color.black, width: 10)
-            HStack{
-//                VStack(alignment: .center, spacing: nil, content: {
-//                    Text("15€")
-//                        .font(.system(size: 25))
-//                        .bold()
-//                    Text("Available")
-//                        .font(.system(size: 15))
-//                        .foregroundColor(.green)
-//                })
-//                .padding(.horizontal, 15)
+            Group {
+                Divider()
+                    .border(Color.black, width: 10)
+                HStack{
+    //                VStack(alignment: .center, spacing: nil, content: {
+    //                    Text("15€")
+    //                        .font(.system(size: 25))
+    //                        .bold()
+    //                    Text("Available")
+    //                        .font(.system(size: 15))
+    //                        .foregroundColor(.green)
+    //                })
+    //                .padding(.horizontal, 15)
 
-                Spacer()
-                Button(action: {
-                    print("Requesting")
-                    if UserObjectManager.shared.loggedIn {
-                        if item != nil {
-                            self.model.item = item!
-                            showBooking = true
+                    Spacer()
+                    Button(action: {
+                        print("Requesting")
+                        if UserObjectManager.shared.loggedIn {
+                            if item != nil {
+                                self.model.item = item!
+                                showBooking = true
+                            }
+                        } else {
+                            showAuthentication = true
                         }
-                    } else {
-                        showAuthentication = true
-                    }
-                    // BackendClient: addTransaction
-                }, label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 10)
-                            .frame(width: 100, height:40)
-                        Text("Book")
-                            .bold()
-                            .foregroundColor(.white)
-                    }
-                })
-                .padding(.horizontal, 15)
-            }
-            .padding(.bottom, 0)
+                        // BackendClient: addTransaction
+                    }, label: {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 10)
+                                .frame(width: 100, height:40)
+                            Text("Book")
+                                .bold()
+                                .foregroundColor(.white)
+                        }
+                    })
+                    .padding(.horizontal, 15)
+                }
+                .padding(.bottom, 0)
+            }.hidden((item?.user?._id ?? "") == (UserObjectManager.shared.user?._id ?? "0"))
         })
         .navigationBarTitle("")
         .navigationBarHidden(true)

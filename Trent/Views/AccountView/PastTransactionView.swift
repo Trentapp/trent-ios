@@ -41,7 +41,7 @@ struct PastTransactionView: View {
                                             Text(transaction.product?.name ?? "Item")
                                         }
                                         Spacer()
-                                        Text(transaction.dateStartDate?.hrString ?? "Start date")
+                                        Text(transaction.dateStartDate?.hrStringDateOnly ?? "Start date")
                                             .foregroundColor(.gray)
                                     }
                                 })
