@@ -14,6 +14,8 @@ struct BookingView: View {
     @State var message = ""
     @State var showPayment = false
     
+    @Binding var dontPopBack: Bool
+    
     func updatePrice() {
         model.totalPrice = (model.item.prices?.perDay ?? 0) * Double(model.duration)
     }
@@ -55,7 +57,7 @@ struct BookingView: View {
                     .padding(.horizontal, 15)
                     .frame(height: 200)
                     NavigationLink(
-                        "", destination:PaymentView(model: model),
+                        "", destination:PaymentView(model: model, dontPopBack: $dontPopBack),
                         isActive: $showPayment).hidden(true)
                     Spacer()
                 }

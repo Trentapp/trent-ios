@@ -154,7 +154,7 @@ struct ItemDetailView: View {
                 })
             }
             
-            NavigationLink("Booking", destination: BookingView(model: model), isActive: $showBooking).hidden(true)
+            NavigationLink("Booking", destination: BookingView(model: model, dontPopBack: $showBooking), isActive: $showBooking).hidden(true)
             
             Spacer()
             Group {

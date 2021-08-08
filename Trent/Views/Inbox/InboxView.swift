@@ -20,6 +20,18 @@ struct InboxView: View {
     
     //    @State var tabBar: UITabBar?
     
+    func refresh() {
+        BackendClient.shared.getTransactions { transactions in
+            isLoading = false
+            self.transactions = transactions?.reversed()
+        }
+        
+        BackendClient.shared.getChats { chats in
+            isLoading = false
+            self.chats = chats
+        }
+    }
+    
     var body: some View {
         ZStack {
             if isLoading {
@@ -60,6 +72,7 @@ struct InboxView: View {
                                                 } else {
                                                     Button(action: {
                                                         BackendClient.shared.setTransactionStatus(transactionId: transaction._id, transactionStatus: 2) { success in
+                                                            refresh()
                                                             if !success {
                                                                 // Tell user
                                                             }
@@ -76,6 +89,7 @@ struct InboxView: View {
                                                     })
                                                     .buttonStyle(PlainButtonStyle())
                                                     Button(action: {
+                                                        refresh()
                                                         BackendClient.shared.setTransactionStatus(transactionId: transaction._id, transactionStatus: 1) { success in
                                                             if !success {
                                                                 // Tell user
@@ -129,6 +143,22 @@ struct InboxView: View {
         }
         .navigationBarTitle(Text("Inbox"), displayMode: .large)
         .navigationViewStyle(StackNavigationViewStyle())
+//        .navigationBarItems( trailing:
+//            Button(action: {
+//                BackendClient.shared.getTransactions { transactions in
+//                    isLoading = false
+//                    self.transactions = transactions?.reversed()
+//                }
+//
+//                BackendClient.shared.getChats { chats in
+//                    isLoading = false
+//                    self.chats = chats
+//                }
+//            }, label:{
+//                Text("refrsh")
+////                Image(systemName: "arrow.counterclockwise")
+//            })
+//        )
         //        .navigationBarHidden(false)
         .onAppear() {
 //            UITableView.appearance().isScrollEnabled = true
@@ -136,15 +166,7 @@ struct InboxView: View {
                 firstLoad = false
                 isLoading = true
                 
-                BackendClient.shared.getTransactions { transactions in
-                    isLoading = false
-                    self.transactions = transactions?.reversed()
-                }
-                
-                BackendClient.shared.getChats { chats in
-                    isLoading = false
-                    self.chats = chats
-                }
+                refresh()
             }
             ////            Backendclient: getChats BackendClient.shared.getChats { chats in
             //                self.chats = nil //chats

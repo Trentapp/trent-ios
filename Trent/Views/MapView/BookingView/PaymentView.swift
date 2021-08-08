@@ -22,6 +22,8 @@ struct PaymentView: View {
     @State var minimumMonth = 0
     @State var minimumYear = 0
     
+    @Binding var dontPopBack: Bool
+    
     var body: some View {
             VStack {
                 Spacer()
@@ -142,7 +144,7 @@ struct PaymentView: View {
                 }
                 .padding(.bottom, 0)
                 NavigationLink(
-                    destination: BookingOverviewView(model: model),
+                    destination: BookingOverviewView(model: model, dontPopBack: $dontPopBack),
                     isActive: $showOverview,
                     label: {
                         EmptyView()
@@ -163,7 +165,7 @@ struct PaymentView: View {
             })
             .onAppear() {
                 if firstTime {
-                    showCardScanner = true
+//                    showCardScanner = true
                     firstTime = false
                 }
                 

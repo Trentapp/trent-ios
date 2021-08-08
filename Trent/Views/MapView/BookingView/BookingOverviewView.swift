@@ -16,6 +16,8 @@ struct BookingOverviewView: View {
     @State var startDateString = ""
     @State var endDateString = ""
     
+    @Binding var dontPopBack: Bool
+    
     var body: some View {
         VStack {
             ScrollView {
@@ -86,6 +88,7 @@ struct BookingOverviewView: View {
                     if success {
                         MainViewProperties.shared.selectedItem = tabBarConfigurations[2]
                         MainViewProperties.shared.showInfo(with: "Booked")
+                        dontPopBack = false
                     }
                 }
             } label: {
