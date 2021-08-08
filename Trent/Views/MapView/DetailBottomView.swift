@@ -10,12 +10,13 @@ import SwiftUI
 struct DetailBottomView: View {
     
     @ObservedObject var controler = MapViewController.shared
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         NavigationLink(destination: ItemDetailView(item: controler.currentlyFocusedItem)) {
             ZStack {
                 RoundedRectangle(cornerRadius: 15)
-                    .foregroundColor(.white)
+                    .foregroundColor(colorScheme == .dark ? Color(UIColor.systemGray4) : .white)
                     .frame(width: 300, height: 75)
                     .padding()
                     .shadow(radius: 3)
@@ -28,7 +29,7 @@ struct DetailBottomView: View {
                     VStack(alignment: .leading, spacing: 0, content: {
                         Text(controler.currentlyFocusedItem?.name ?? "Untitled item")
                             .font(.system(size: 18, weight: .semibold, design: .default))
-                            .foregroundColor(.black)
+                            .foregroundColor(Color(UIColor.label))
                         Text(controler.currentlyFocusedItem?.desc ?? "")
                             .font(.system(size: 14, weight: .regular, design: .default))
                             .foregroundColor(.gray)
@@ -37,7 +38,7 @@ struct DetailBottomView: View {
                     Spacer()
     //                Text((item.prices?.pricePerHour == nil) ? ((item.prices?.pricePerDay == nil) ? "?/hr" : "\(item.prices?.pricePerDay!)/day") : item.prices?.pricePerHour!)
                     Text("\(Int(controler.currentlyFocusedItem?.prices?.perDay ?? 0))€/day")
-                        .foregroundColor(.black)
+                        .foregroundColor(Color(UIColor.label))
                 })
                 .frame(width: 280, height: 55)
                 

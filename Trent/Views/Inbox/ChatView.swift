@@ -14,6 +14,8 @@ struct ChatView: View {
     
     @State var message = ""
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         GeometryReader { geometry in
             VStack {
@@ -47,17 +49,19 @@ struct ChatView: View {
                     //                Rectangle()
                     //                    .foregroundColor(.gray)
                     HStack {
-                        ZStack {
-                            
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(lineWidth: 1)
-                                .foregroundColor(.gray)
-                            TextField("Message", text: $message)
-                                .frame(width: geometry.size.width - 75)
-                                .padding(.horizontal, 5)
-                        }
-                        .background(Color.white)
-                        .padding(.leading, 10)
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(lineWidth: 1)
+                            .foregroundColor(.gray)
+                            .overlay(
+                                TextField("Message", text: $message)
+                                    .padding(.horizontal, 5)
+                            )
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .foregroundColor(colorScheme == .dark ? Color(UIColor.systemGray4) : .white)
+                                )
+                            .frame(width: geometry.size.width - 75)
+                            .padding(.leading, 10)
                         Button {
                             BackendClient.shared.sendMessage(chat_id: chat._id, content: message) { success in
                                 if !success {
@@ -84,7 +88,7 @@ struct ChatView: View {
                         }
                     }
                 }
-                .frame(height: 30)
+                .frame(height: 35)
                 .padding(.bottom, 30)
             }
         }

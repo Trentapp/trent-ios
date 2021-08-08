@@ -93,7 +93,7 @@ struct EditAccountView: View {
             }
         }))
         .onAppear() {
-            UITableView.appearance().backgroundColor = defaultTableViewBackgroundColor
+            UITableView.appearance().backgroundColor = UIColor.systemBackground //defaultTableViewBackgroundColor
         }
     }
 }

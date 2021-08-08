@@ -12,6 +12,8 @@ struct ExploreView: View {
     @State var keyword = ""
     @State var showMap = false
     
+    @Environment(\.colorScheme) var colorScheme
+    
     func search(){
         UIApplication.shared.endEditing()
         showMap = true
@@ -26,7 +28,7 @@ struct ExploreView: View {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(lineWidth: 0.5)
                     .foregroundColor(.gray)
-                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+                    .background(RoundedRectangle(cornerRadius: 10).fill(colorScheme == .dark ? Color(UIColor.systemGray4) : .white))
                     .frame(width: 300, height: 60, alignment: .center)
                     .shadow(radius: 5)
                     .overlay(
@@ -39,7 +41,7 @@ struct ExploreView: View {
                                 }, onCommit: {
                                     search()
                                 })
-                                .foregroundColor((self.keyword == "") ? .gray : .black)
+                                .foregroundColor((self.keyword == "") ? .gray : Color(UIColor.label))
                                 .font(.system(size: 17, weight: .semibold, design: .default))
                                 .multilineTextAlignment(.leading)
                                 //                            .frame(width: 250, height: 20, alignment: .center)

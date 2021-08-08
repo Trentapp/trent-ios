@@ -92,7 +92,7 @@ struct AccountView: View {
                     .padding()
             })
             .onAppear {
-                UITableView.appearance().backgroundColor = defaultTableViewBackgroundColor
+                UITableView.appearance().backgroundColor = UIColor.systemBackground //defaultTableViewBackgroundColor
                 UITableView.appearance().isScrollEnabled = false
                 
                 profilePictureEditButtons = [

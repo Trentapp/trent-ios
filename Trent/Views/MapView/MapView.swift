@@ -12,6 +12,7 @@ import MapKit
 struct MapView: View {
     
     @Environment(\.presentationMode) var presentation
+    @Environment(\.colorScheme) var colorScheme
     @ObservedObject var locationManager = LocationManager.shared
     @ObservedObject var viewController = MapViewController.shared
     
@@ -132,7 +133,7 @@ struct MapView: View {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(lineWidth: 0.5)
                     .foregroundColor(.gray)
-                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+                    .background(RoundedRectangle(cornerRadius: 10).fill(colorScheme == .dark ? Color(UIColor.systemGray4) : .white))
                     .frame(width: 375, height: showFilter ? 170 : 60, alignment: .center)
                     .shadow(radius: 5)
                     .animation(suppressAnimation ? .none : .easeInOut(duration: 0.3))
@@ -147,7 +148,7 @@ struct MapView: View {
                                     self.presentation.wrappedValue.dismiss()
                                 } label: {
                                     Image(systemName: "chevron.backward")
-                                        .foregroundColor(.black)
+                                        .foregroundColor(Color(UIColor.label))
                                 }
                                 
                                 TextField("\(Image(systemName: "magnifyingglass"))  What are you looking for?", text: $keyword, onEditingChanged: { editing in
@@ -159,7 +160,7 @@ struct MapView: View {
                                     self.cachedLocation = location
                                     query(location: cachedLocation)
                                 })
-                                .foregroundColor((self.keyword == "") ? .gray : .black)
+                                .foregroundColor((self.keyword == "") ? .gray : Color(UIColor.label))
                                 .font(.system(size: 17, weight: .semibold, design: .default))
                                 .multilineTextAlignment(.leading)
                                 .padding(5)

@@ -81,7 +81,7 @@ struct TransactionDetailView: View {
                     VStack(alignment: .leading, spacing: 4) {
                         Text((relevantUser?.name ?? "Product owner") + ((relevantUser?._id ?? "") == (UserObjectManager.shared.user?._id ?? "") ? " (Me)" : ""))
                             .font(.system(size: 20, weight: .regular, design: .default))
-                            .foregroundColor(Color.black)
+                            .foregroundColor(Color(UIColor.label))
                         if amILender {
                             if (transaction.product?.user?.numberOfRatings ?? 0) >= 5 {
                                 HStack(alignment: .center, spacing: 2, content: {

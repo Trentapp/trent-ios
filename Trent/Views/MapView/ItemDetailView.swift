@@ -110,7 +110,7 @@ struct ItemDetailView: View {
                             VStack(alignment: .leading, spacing: 4) {
                                 Text((item?.user?.name ?? "Product owner") + ((item?.user?._id ?? "") == (UserObjectManager.shared.user?._id ?? "") ? " (Me)" : ""))
                                     .font(.system(size: 20, weight: .regular, design: .default))
-                                    .foregroundColor(Color.black)
+                                    .foregroundColor(Color(UIColor.label))
                                 if (item?.user?.numberOfRatings ?? 0) >= 5 {
                                     HStack(alignment: .center, spacing: 2, content: {
                                         //                        Text("5/5")

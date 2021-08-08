@@ -9,6 +9,7 @@ import SwiftUI
 
 struct InventoryItemView: View {
     
+    @Environment(\.colorScheme) var colorScheme
     @State var showEditProduct = false
     var item: Product?
     
@@ -16,7 +17,7 @@ struct InventoryItemView: View {
         NavigationLink(destination: ItemDetailView(item: item!), label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 15)
-                    .foregroundColor(.white)
+                    .foregroundColor(colorScheme == .dark ? Color(UIColor.systemGray4) : .white)
                     .shadow(radius: 10)
                 VStack(alignment: .center, spacing: 10, content: {
                     Image(uiImage: item?.thumbnailUIImage ?? UIImage())
@@ -29,14 +30,14 @@ struct InventoryItemView: View {
                         Text(item?.name ?? "Untitled item")
                             .bold()
                             .multilineTextAlignment(.leading)
-                            .foregroundColor(.black)
+                            .foregroundColor(Color(UIColor.label))
                         Spacer()
                     }
                     HStack {
                         Spacer()
                         Text("\(String(format: "%.2f", round(100*(item?.prices?.perDay ?? 0))/100))€/day")
                             .multilineTextAlignment(.trailing)
-                            .foregroundColor(.black)
+                            .foregroundColor(Color(UIColor.label))
                     }
                 })
                 .padding()
