@@ -69,6 +69,9 @@ struct AccountView: View {
                     }
                 }
                 Section {
+                    Link("Leave feedback", destination: URL(string: "mailto:support@trentapp.com?subject=Trent iOS App Feedback".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!)
+                }
+                Section {
                     HStack{
                         Spacer()
                         Button(action: {
@@ -82,6 +85,12 @@ struct AccountView: View {
                 }
             }
             .listStyle(GroupedListStyle())
+            .overlay(VStack {
+                Spacer()
+                Text("Made with ❤️ in Heidelberg")
+                    .foregroundColor(.gray)
+                    .padding()
+            })
             .onAppear {
                 UITableView.appearance().backgroundColor = defaultTableViewBackgroundColor
                 UITableView.appearance().isScrollEnabled = false
