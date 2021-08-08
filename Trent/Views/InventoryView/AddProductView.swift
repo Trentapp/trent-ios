@@ -224,18 +224,38 @@ struct PhotoView: View {
             .padding()
             .font(.system(size: 25, weight: .bold, design: .default))
         
-        Button(action: {
-            isShowActionSheet.toggle()
-        }, label: {
-            ZStack {
-                Rectangle()
+        HStack {
+            ForEach(0..<photos.count , id: \.self) { photo in
+                Image(uiImage: photos[photo])
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
                     .frame(width: 50, height: 50)
-                    .foregroundColor(.blue)
-                    .opacity(0.1)
-                Image(systemName: "plus")
-                    .font(.largeTitle.bold())
+                    .contextMenu(ContextMenu(menuItems: {
+                        Button(action: {
+                            photos.remove(at: photo)
+                        }, label: {
+                            Text("Delete")
+                                .foregroundColor(.red)
+                            Image(systemName: "trash")
+                                .foregroundColor(.red)
+                        })
+                    }))
             }
-        })
+            Button(action: {
+                isShowActionSheet.toggle()
+            }, label: {
+                ZStack {
+                    Rectangle()
+                        .frame(width: 50, height: 50)
+                        .foregroundColor(.blue)
+                        .opacity(0.1)
+                    Image(systemName: "plus")
+                        .font(.largeTitle.bold())
+                }
+            })
+        }
+        
+        
         .padding()
         
         Text("\(photos.count) image(s) selected")
