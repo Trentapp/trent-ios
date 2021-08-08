@@ -160,10 +160,12 @@ struct AuthenticationView: View {
                                         BackendClient.shared.createNewUser(name: name, mail: appleIDCredential.email!, uid: (authResult?.user.uid)!, completionHandler: { userObject in
                                             UserObjectManager.shared.user = userObject
                                             // here
+                                            successfullyConcluded()
                                         })
                                         print("registered")
                                     } else {
                                         // here
+                                        successfullyConcluded()
                                     }
                                 }
                                 
