@@ -322,14 +322,30 @@ struct AuthenticationView: View {
                 })
                 .padding(5)
                 
-                Button(action: {
-                    self.presentationMode.wrappedValue.dismiss()
-                }, label: {
-                    Text("Skip for now")
-                        .font(.system(size: 12))
-                        .foregroundColor(.gray)
-                        .tracking(1.3)
-                })
+                Group {
+                    Button(action: {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }, label: {
+                        Text("Skip for now")
+                            .font(.system(size: 12))
+                            .foregroundColor(.gray)
+                            .tracking(1.3)
+                    })
+                    Spacer()
+                        .frame(height: 20)
+//                    Button {
+//                        //
+//                    } label: {
+//                        Text("By singing up you confirm you have read our \(Text("Terms and Conditions").foregroundColor(.white)) and acceept them.")
+//                            .font(.system(size: 10))
+//                            .foregroundColor(.gray)
+//                    }
+                    Link(destination: URL(string: "https://trentapp.com/terms")!) {
+                        Text("By singing up you confirm you have read our \(Text("Terms and Conditions").foregroundColor(.white)) and acceept them.")
+                            .font(.system(size: 10))
+                            .foregroundColor(.gray)
+                    }
+                }
                 
 //                Spacer()
 //                    .frame(height: 50)
