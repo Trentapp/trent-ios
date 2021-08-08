@@ -21,6 +21,7 @@ struct EditAccountView: View {
     
     @State var isUpdating = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         VStack {
@@ -93,7 +94,8 @@ struct EditAccountView: View {
             }
         }))
         .onAppear() {
-            UITableView.appearance().backgroundColor = UIColor.systemBackground //defaultTableViewBackgroundColor
+//            UITableView.appearance().backgroundColor = (colorScheme == .dark) ? UIColor.systemBackground : defaultTableViewBackgroundColor
+//            UITableView.appearance().isScrollEnabled = true
         }
     }
 }

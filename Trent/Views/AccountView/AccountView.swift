@@ -9,6 +9,8 @@ import SwiftUI
 
 struct AccountView: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     @ObservedObject var userObjectManager = UserObjectManager.shared
     @State var isShownLogOutAlert = false
     @State var isShownActionSheet = false
@@ -92,8 +94,8 @@ struct AccountView: View {
                     .padding()
             })
             .onAppear {
-                UITableView.appearance().backgroundColor = UIColor.systemBackground //defaultTableViewBackgroundColor
-                UITableView.appearance().isScrollEnabled = false
+//                UITableView.appearance().backgroundColor = (colorScheme == .dark) ? UIColor.systemBackground : defaultTableViewBackgroundColor
+//                UITableView.appearance().isScrollEnabled = false
                 
                 profilePictureEditButtons = [
                     Alert.Button.default(Text("Camera"), action: {

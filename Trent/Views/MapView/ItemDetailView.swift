@@ -17,7 +17,6 @@ struct ItemDetailView: View {
     @State var coordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 0, longitude: 0), latitudinalMeters: 750, longitudinalMeters: 750)
     @State var isLoading = false
     @State var updated = false
-    
     @State var showAuthentication = false
     @State var showBooking = false
     
@@ -222,11 +221,6 @@ struct ItemDetailView: View {
             }
         }
         .fullScreenCover(isPresented: $showAuthentication, content: { AuthenticationView(wantedTab: nil) })
-        .onChange(of: MainViewProperties.shared.popToRootView , perform: { value in
-            if value {
-                showBooking = false
-            }
-        })
     }
 }
 

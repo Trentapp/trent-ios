@@ -77,7 +77,7 @@ struct AddAddressView: View {
                 }
             )
             .onAppear(){
-                UITableView.appearance().isScrollEnabled = true
+//                UITableView.appearance().isScrollEnabled = true
 //                UITableView.appearance().backgroundColor = .clear
                 
                 self.keyboardResponder = KeyboardResponder { isShown in

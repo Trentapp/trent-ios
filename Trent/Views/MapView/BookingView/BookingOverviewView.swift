@@ -86,7 +86,6 @@ struct BookingOverviewView: View {
                     if success {
                         MainViewProperties.shared.selectedItem = tabBarConfigurations[2]
                         MainViewProperties.shared.showInfo(with: "Booked")
-                        MainViewProperties.shared.popToRootView = true
                     }
                 }
             } label: {
@@ -114,8 +113,8 @@ struct BookingOverviewView: View {
     }
 }
 
-struct BookingOverviewView_Previews: PreviewProvider {
-    static var previews: some View {
-        BookingOverviewView(model: BookingModelView(item: Product(_id: "")))
-    }
-}
+//struct BookingOverviewView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        BookingOverviewView(model: BookingModelView(item: Product(_id: "")))
+//    }
+//}

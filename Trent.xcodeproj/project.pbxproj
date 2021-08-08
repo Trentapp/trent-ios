@@ -63,6 +63,7 @@
 		B0B7124E26BF38F000E544FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B0B7125026BF38F000E544FB /* Localizable.strings */; };
 		B0B7125126BF38F900E544FB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B0B7125326BF38F900E544FB /* InfoPlist.strings */; };
 		B0B7125626BF3C5E00E544FB /* PastTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B7125526BF3C5E00E544FB /* PastTransactionView.swift */; };
+		B0B7125826C0219300E544FB /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B7125726C0219300E544FB /* UIApplication.swift */; };
 		B0BF25A826B1A0C3005FDD4D /* BookingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF25A726B1A0C3005FDD4D /* BookingView.swift */; };
 		B0BF25AA26B2949F005FDD4D /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF25A926B2949F005FDD4D /* PaymentView.swift */; };
 		B0BF25AE26B2CC69005FDD4D /* CreditCardScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF25AD26B2CC69005FDD4D /* CreditCardScannerView.swift */; };
@@ -140,6 +141,7 @@
 		B0B7124F26BF38F000E544FB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B0B7125426BF38FB00E544FB /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B0B7125526BF3C5E00E544FB /* PastTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastTransactionView.swift; sourceTree = "<group>"; };
+		B0B7125726C0219300E544FB /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		B0BF25A726B1A0C3005FDD4D /* BookingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingView.swift; sourceTree = "<group>"; };
 		B0BF25A926B2949F005FDD4D /* PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
 		B0BF25AD26B2CC69005FDD4D /* CreditCardScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardScannerView.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				B01C1398267E63130078E584 /* Encodable.swift */,
+				B0B7125726C0219300E544FB /* UIApplication.swift */,
 				B01C13A12684D0380078E584 /* UINavigationController.swift */,
 				B029AD0F26629C0D00279911 /* View.swift */,
 				B03A822026B563BE00E671D3 /* Date.swift */,
@@ -568,6 +571,7 @@
 				B06F7987264A6E2800049EF2 /* BackendClient.swift in Sources */,
 				B0BF25AA26B2949F005FDD4D /* PaymentView.swift in Sources */,
 				B051EADF26662FBE002CF297 /* InventoryItemView.swift in Sources */,
+				B0B7125826C0219300E544FB /* UIApplication.swift in Sources */,
 				B093B5A02685CA310051B7CC /* Review.swift in Sources */,
 				B06F797A264A6B5500049EF2 /* MapView.swift in Sources */,
 				B0BF25A826B1A0C3005FDD4D /* BookingView.swift in Sources */,

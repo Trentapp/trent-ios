@@ -28,7 +28,7 @@ struct ChatView: View {
                                     
                                 HStack {
                                         Text(message.content ?? "")
-                                            .foregroundColor(isFromMe ? .white : .black)
+                                            .foregroundColor(isFromMe ? .white : Color(UIColor.label))
                                             .multilineTextAlignment(.leading)
                                             .padding(.vertical, 5)
                                             .padding(.leading, 10)
@@ -36,7 +36,7 @@ struct ChatView: View {
                                     }
                                     .background(
                                         RoundedRectangle(cornerRadius: 15)
-                                                    .foregroundColor(isFromMe ? .blue : Color(UIColor.lightGray)))
+                                                    .foregroundColor(isFromMe ? .blue : Color(UIColor.systemGray3)))
                                 if !isFromMe { Spacer() }
                             }
                         }

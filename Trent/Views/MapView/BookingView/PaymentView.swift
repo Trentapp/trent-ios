@@ -12,6 +12,7 @@ struct PaymentView: View {
     @ObservedObject var model: BookingModelView
     @ObservedObject var mainViewProperties = MainViewProperties.shared
     
+    @State var firstTime = true
     @State var showOverview = false
     
     @State var showDatePicker = false
@@ -161,7 +162,10 @@ struct PaymentView: View {
                 }
             })
             .onAppear() {
-                showCardScanner = true
+                if firstTime {
+                    showCardScanner = true
+                    firstTime = false
+                }
                 
                 let date = Date()
                 let components = Calendar.current.dateComponents(in: Calendar.current.timeZone, from: date)
@@ -174,18 +178,13 @@ struct PaymentView: View {
                 minimumMonth = currentMonth
                 minimumYear = currentYear
             }
-            .onChange(of: mainViewProperties.popToRootView, perform: { value in
-                if value {
-                    showOverview = false
-                }
-            })
     }
 }
 
 
-struct CheckoutView_Previews: PreviewProvider {
-    static var previews: some View {
-        PaymentView(model: BookingModelView(item: Product(_id: "")))
-            
-    }
-}
+//struct CheckoutView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PaymentView(model: BookingModelView(item: Product(_id: "")))
+//            
+//    }
+//}
