@@ -14,6 +14,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         FirebaseApp.configure()
         FirebaseAuthClient.shared
         
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            if error != nil {
+                UIApplication.shared.applicationIconBadgeNumber = 0
+            }
+        }
         application.registerForRemoteNotifications()
         
         return true
