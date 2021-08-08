@@ -108,11 +108,11 @@ struct AddProductView: View {
                             
                             isSaving = true
                             var prices: [String : Any] = [:]
-
+                            
                             if let priceHourNumber = Double(priceHour) {
                                 prices["perHour"] = priceHourNumber
                             }
-
+                            
                             if let priceDayNumber = Double(priceDay) {
                                 prices["perDay"] = priceDayNumber
                             }
@@ -125,7 +125,7 @@ struct AddProductView: View {
                                 "address" : address,
                                 "prices" : prices
                             ]
-
+                            
                             BackendClient.shared.postNewItem(parameters: parameters, photos: photos) { success in
                                 isSaving = false
                                 if success {
@@ -206,7 +206,9 @@ struct AddProductView: View {
                     if item?.prices?.perDay != nil {
                         self.priceDay = "\(item!.prices!.perDay!)"
                     } else { self.isAvailablePerDay = false }
-                    
+                    BackendClient.shared.getProduct(for: item?._id ?? "") { product in
+                        self.photos = product?.picturesUIImage ?? []
+                    }
                 }
             }
         }
