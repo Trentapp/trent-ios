@@ -749,6 +749,7 @@
 				CODE_SIGN_ENTITLEMENTS = Trent/Trent.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Trent/Preview Content\"";
 				DEVELOPMENT_TEAM = HJFU68N96J;
 				ENABLE_PREVIEWS = YES;
@@ -775,6 +776,7 @@
 				CODE_SIGN_ENTITLEMENTS = Trent/Trent.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Trent/Preview Content\"";
 				DEVELOPMENT_TEAM = HJFU68N96J;
 				ENABLE_PREVIEWS = YES;
