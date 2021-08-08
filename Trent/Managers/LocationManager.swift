@@ -27,7 +27,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("location: \(locations.last?.coordinate)")
-        self.currentLocation = locations.last ?? nil
+        self.currentLocation = locations.last
         if notificationFunction != nil {
             notificationFunction!()
             notificationFunction = nil

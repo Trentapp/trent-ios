@@ -188,7 +188,7 @@ struct MapView: View {
                                     Divider()
                                     HStack {
                                         Image(systemName: "dollarsign.circle")
-                                            .foregroundColor(.gray)
+                                            .foregroundColor((colorScheme == .dark) ? .gray : .black)
                                             .font(.system(size:25))
                                             .padding(.horizontal, 10)
                                             .padding(.vertical, 2)
@@ -201,14 +201,14 @@ struct MapView: View {
                                             }
                                         }
                                         Text("\(Int(round(minPriceValue * CGFloat(self.maxPriceResults))))€ - \(Int(round(maxPriceValue * CGFloat(self.maxPriceResults))))€")
-                                            .foregroundColor(.gray)
+                                            .foregroundColor((colorScheme == .dark) ? .gray : .black)
                                             .font(.system(size: 15, weight: .semibold))
                                         Spacer()
                                     }
                                     HStack {
                                         Image(systemName: "mappin.and.ellipse")
                                             .font(.system(size:25))
-                                            .foregroundColor(.gray)
+                                            .foregroundColor((colorScheme == .dark) ? .gray : .black)
                                             .padding(.horizontal, 10)
                                             .padding(.vertical, 2)
                                         MonoSlider(maxValue: $maxDistanceValue, width: 220) {
@@ -220,7 +220,7 @@ struct MapView: View {
                                         }
                                         Text("<= \(Int(round(maxDistanceValue * CGFloat(self.maxDistanceResults))))km")
                                             .font(.system(size: 15, weight: .semibold))
-                                            .foregroundColor(.gray)
+                                            .foregroundColor((colorScheme == .dark) ? .gray : .black)
                                         Spacer()
                                     }
                                     Spacer()
