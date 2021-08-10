@@ -61,6 +61,22 @@ struct AccountView: View {
                 .bold()
             List{
                 Section {
+                    ZStack {
+                        Button(""){}
+                        NavigationLink(destination: FinishRegistration()) {
+                            HStack {
+                                Text("Finish registration")
+                                Image(systemName: "exclamationmark.triangle.fill")
+                                    .foregroundColor(.yellow)
+                            }
+                        }
+                    }
+                    ZStack {
+                        Button(""){}
+                        NavigationLink("Become a lender", destination: Text("Become a lender"))
+                    }
+                }
+                Section {
                     ZStack{
                         Button(""){}
                         NavigationLink("Edit Profile", destination: EditAccountView())
