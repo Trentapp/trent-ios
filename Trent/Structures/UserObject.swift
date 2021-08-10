@@ -17,6 +17,8 @@ struct UserObject: Codable {
     var rating: Double?
     var numberOfRatings: Int?
     var picture: Picture?
+    var mangopayId: String?
+    var walletId: String?
     
     var pictureUIImage: UIImage? {
         get {

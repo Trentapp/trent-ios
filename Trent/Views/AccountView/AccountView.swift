@@ -71,11 +71,14 @@ struct AccountView: View {
                             }
                         }
                     }
+                    .hidden(userObjectManager.user?.mangopayId != nil)
                     ZStack {
                         Button(""){}
                         NavigationLink("Become a lender", destination: Text("Become a lender"))
                     }
                 }
+                .hidden(userObjectManager.user?.walletId != nil)
+                
                 Section {
                     ZStack{
                         Button(""){}
