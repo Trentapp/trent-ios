@@ -21,6 +21,7 @@ class BackendClient: ObservableObject {
     // III. Transactions
     // IV.  Chats
     // V.   Reviews
+    // VI.  Payment
     
     
     // I.   Products
@@ -663,4 +664,94 @@ class BackendClient: ObservableObject {
         }
     }
     
+    
+    // VI.      Payment
+    //
+    // VI.1     createMangopayUser
+    // VI.2     createCardRegistration
+    // VI.3     updateCardRegistration
+    // VI.4     payIn
+    
+    func createMangopayUser(birthday: Int, nationality: String, countryOfResidence: String, completionHandler: @escaping (Bool) -> Void) {
+        DispatchQueue.global().async {
+            let url = self.serverPath + "/payment/createMangopayUser"
+            
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
+            let parameters : [String : Any] = [
+                "uid" : uid,
+                "birthday" : birthday,
+                "nationality" : nationality,
+                "countryOfResidence":countryOfResidence
+            ]
+            
+            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+                .validate()
+                .response { response in
+                    DispatchQueue.main.async {
+                        completionHandler(response.error == nil)
+                    }
+                }
+        }
+    }
+    
+    func createCardRegistration(completionHandler: @escaping (Bool) -> Void) {
+        DispatchQueue.global().async {
+            let url = self.serverPath + "/payment/createCardRegistration"
+            
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
+            let parameters : [String : Any] = [
+                "uid" : uid
+            ]
+            
+            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+                .validate()
+                .response { response in
+                    DispatchQueue.main.async {
+                        completionHandler(response.error == nil)
+                    }
+                }
+        }
+    }
+    
+    func updateCardRegistration(registrationData: String, registrationId: String, completionHandler: @escaping (Bool) -> Void) {
+        DispatchQueue.global().async {
+            let url = self.serverPath + "/payment/updateCardRegistration"
+            
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
+            let parameters : [String : Any] = [
+                "uid" : uid,
+                "registrationData": registrationData,
+                "registrationId":registrationId
+            ]
+            
+            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+                .validate()
+                .response { response in
+                    DispatchQueue.main.async {
+                        completionHandler(response.error == nil)
+                    }
+                }
+        }
+    }
+    
+    func payIn(transactionId: String, cardId: String, completionHandler: @escaping (Bool) -> Void) {
+        DispatchQueue.global().async {
+            let url = self.serverPath + "/payment/payIn"
+            
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
+            let parameters : [String : Any] = [
+                "uid" : uid,
+                "transactionId": transactionId,
+                "cardId":cardId
+            ]
+            
+            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+                .validate()
+                .response { response in
+                    DispatchQueue.main.async {
+                        completionHandler(response.error == nil)
+                    }
+                }
+        }
+    }
 }
