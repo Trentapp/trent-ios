@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  FinishRegistrationView.swift
 //  Trent
 //
 //  Created by Fynn Kiwitt on 10.08.21.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FinishRegistration: View {
+struct FinishRegistrationView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
@@ -53,12 +53,16 @@ struct FinishRegistration: View {
             }, label: {
                 Text("Cancel")
                 .fontWeight(Font.Weight.regular)
-            }))
+            }), trailing: ProgressView().progressViewStyle(CircularProgressViewStyle()).hidden(!isLoading))
         }
         Button {
+            isLoading = true
             BackendClient.shared.createMangopayUser(birthday: Int(birthday.timeIntervalSince1970), nationality: nationality, countryOfResidence: countryOfResidence) { success in
                 if !success {
                     // tell user
+                } else {
+                    MainViewProperties.shared.showInfo(with: "Data submitted")
+                    self.presentationMode.wrappedValue.dismiss()
                 }
             }
         } label: {
@@ -71,13 +75,13 @@ struct FinishRegistration: View {
             }
             .frame(height: 50)
             .padding()
-        }
+        }.disabled(isLoading)
 
     }
 }
 
-struct FinishRegistration_Previews: PreviewProvider {
+struct FinishRegistrationView_Previews: PreviewProvider {
     static var previews: some View {
-        FinishRegistration()
+        FinishRegistrationView()
     }
 }

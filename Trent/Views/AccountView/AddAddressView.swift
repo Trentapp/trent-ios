@@ -11,8 +11,7 @@ struct AddAddressView: View {
     
     @Environment(\.presentationMode) var presentationMode
     
-    @State var street = ""
-    @State var houseNumber = ""
+    @State var streetWithNr = ""
     @State var zipcode = ""
     @State var city = ""
     @State var country = "Germany"
@@ -28,9 +27,7 @@ struct AddAddressView: View {
                 Form {
                     Text("Before you add your first product please tell us your address. This way we know for which people your products are relevant.")
                     Section {
-                        TextField("Street", text: $street)
-                            .textContentType(.streetAddressLine1)
-                        TextField("House number", text: $houseNumber)
+                        TextField("Street", text: $streetWithNr)
                             .textContentType(.streetAddressLine1)
                         TextField("Zipcode", text: $zipcode)
                             .textContentType(.postalCode)
@@ -42,7 +39,7 @@ struct AddAddressView: View {
                 }
                 Button {
                     isLoading = true
-                    BackendClient.shared.updateUserObject(name: UserObjectManager.shared.user?.name ?? "", street: street, houseNumber: houseNumber, zipcode: zipcode, city: city, country: country) { success in
+                    BackendClient.shared.updateUserObject(name: UserObjectManager.shared.user?.name ?? "", streetWithNr: streetWithNr, zipcode: zipcode, city: city, country: country) { success in
                         isLoading = false
                     }
                 } label: {

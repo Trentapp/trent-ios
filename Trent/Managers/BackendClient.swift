@@ -298,7 +298,7 @@ class BackendClient: ObservableObject {
         }
     }
     
-    func updateUserObject(name: String, street: String, houseNumber: String, zipcode: String, city: String, country: String, completionHandler: @escaping (Bool) -> Void) {
+    func updateUserObject(name: String, streetWithNr: String, zipcode: String, city: String, country: String, completionHandler: @escaping (Bool) -> Void) {
         DispatchQueue.global().async {
             let url = self.serverPath + "/users/update"
             
@@ -308,8 +308,8 @@ class BackendClient: ObservableObject {
                 "name" : name
             ]
             
-            if street != "" || houseNumber != "" || zipcode != "" || city != "" || country != "" {
-                let address = Address(street: street, houseNumber: houseNumber, zipcode: zipcode, city: city, country: country)
+            if streetWithNr != "" || zipcode != "" || city != "" || country != "" {
+                let address = Address(streetWithNr: streetWithNr, zipcode: zipcode, city: city, country: country)
                 do {
                     userObject["address"] = try address.asDictionary()
                 } catch {

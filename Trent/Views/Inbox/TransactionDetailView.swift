@@ -132,7 +132,7 @@ struct TransactionDetailView: View {
                         let place = MKPlacemark(coordinate: transaction.product?.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
                         
                         let mapItem = MKMapItem(placemark: place)
-                        mapItem.name = (transaction.product?.address != nil) ?  "\(transaction.product?.address?.street ?? "") \(transaction.product?.address?.houseNumber ?? ""), \(transaction.product?.address?.zipcode ?? "") \(transaction.product?.address?.city ?? "")" : transaction.product?.name ?? ""
+                        mapItem.name = (transaction.product?.address != nil) ?  "\(transaction.product?.address?.streetWithNr ?? ""), \(transaction.product?.address?.zipcode ?? "") \(transaction.product?.address?.city ?? "")" : transaction.product?.name ?? ""
                         mapItem.openInMaps(launchOptions: nil)
                     }, label: {
                         //                                Map(coordinateRegion: $coordinateRegion, interactionModes: [], showsUserLocation: false, userTrackingMode: .none)
@@ -209,6 +209,6 @@ struct TransactionDetailView: View {
 struct TransactionDetailView_Previews: PreviewProvider {
     
     static var previews: some View {
-        TransactionDetailView(transaction: Transaction(_id: "", lender: nil, borrower: UserProfile(_id: "", name: "John Doe", inventory: [], rating: 0, numberOfRatings: 0, picture: nil), product: Product(_id: "", user: nil, name: "Product", desc: "Description", address: Address(street: "Begrheimer Straße", houseNumber: "88", zipcode: "69115", city: "Heidelberg", country: "Germany"), location: Coordinates(coordinates: [47, 7]), prices: Prices(perHour: 12, perDay: 50), thumbnail: nil, pictures: []), startDate: "", endDate: "", status: 1, totalPrice: 20))
+        TransactionDetailView(transaction: Transaction(_id: "", lender: nil, borrower: UserProfile(_id: "", name: "John Doe", inventory: [], rating: 0, numberOfRatings: 0, picture: nil), product: Product(_id: "", user: nil, name: "Product", desc: "Description", address: Address(streetWithNr: "Begrheimer Straße 88", zipcode: "69115", city: "Heidelberg", country: "Germany"), location: Coordinates(coordinates: [47, 7]), prices: Prices(perHour: 12, perDay: 50), thumbnail: nil, pictures: []), startDate: "", endDate: "", status: 1, totalPrice: 20))
     }
 }

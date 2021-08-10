@@ -82,7 +82,7 @@ struct ItemDetailView: View {
                             let place = MKPlacemark(coordinate: item?.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
 
                             let mapItem = MKMapItem(placemark: place)
-                            mapItem.name = (item?.address != nil) ?  "\(item?.address?.street ?? "") \(item?.address?.houseNumber ?? ""), \(item?.address?.zipcode ?? "") \(item?.address?.city ?? "")" : item?.name ?? ""
+                            mapItem.name = (item?.address != nil) ?  "\(item?.address?.streetWithNr ?? ""), \(item?.address?.zipcode ?? "") \(item?.address?.city ?? "")" : item?.name ?? ""
                             mapItem.openInMaps(launchOptions: nil)
                         }, label: {
                                 //                                Map(coordinateRegion: $coordinateRegion, interactionModes: [], showsUserLocation: false, userTrackingMode: .none)
@@ -266,6 +266,6 @@ struct AddressView: View {
 
 struct ItemDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ItemDetailView(item: Product(_id: "000", user: UserProfile(_id: "", name: ""), name: "Kärcher High Pressure Washer", desc: "Super Kärcher High Pressure Washer. Cleans surfaces amazingly. Lorem ipsum dolor sit amit", address: Address(street: "Some Street", houseNumber: "42c", zipcode: "69115", city: "Heidelberg", country: "Germany"), location: Coordinates(coordinates: [7.8, 49.47]), prices: Prices(perHour: 7.5, perDay: 20)))
+        ItemDetailView(item: Product(_id: "000", user: UserProfile(_id: "", name: ""), name: "Kärcher High Pressure Washer", desc: "Super Kärcher High Pressure Washer. Cleans surfaces amazingly. Lorem ipsum dolor sit amit", address: Address(streetWithNr: "Some Street 42c", zipcode: "69115", city: "Heidelberg", country: "Germany"), location: Coordinates(coordinates: [7.8, 49.47]), prices: Prices(perHour: 7.5, perDay: 20)))
     }
 }

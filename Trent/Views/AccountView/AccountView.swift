@@ -63,7 +63,7 @@ struct AccountView: View {
                 Section {
                     ZStack {
                         Button(""){}
-                        NavigationLink(destination: FinishRegistration()) {
+                        NavigationLink(destination: FinishRegistrationView()) {
                             HStack {
                                 Text("Finish registration")
                                 Image(systemName: "exclamationmark.triangle.fill")

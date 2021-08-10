@@ -10,8 +10,7 @@ import SwiftUI
 struct EditAccountView: View {
     @State var name = UserObjectManager.shared.user?.name ?? ""
     
-    @State var street = UserObjectManager.shared.user?.address?.street ?? ""
-    @State var houseNumber = UserObjectManager.shared.user?.address?.houseNumber ?? ""
+    @State var streetWithNr = UserObjectManager.shared.user?.address?.streetWithNr ?? ""
     @State var zipcode = UserObjectManager.shared.user?.address?.zipcode ?? ""
     @State var city = UserObjectManager.shared.user?.address?.city ?? ""
     @State var country = UserObjectManager.shared.user?.address?.country ?? ""
@@ -30,11 +29,14 @@ struct EditAccountView: View {
                     TextField("Name", text: $name)
                 }
                 Section(header: Text("Address")) {
-                    TextField("Street", text: $street)
-                    TextField("House number", text: $houseNumber)
+                    TextField("Street", text: $streetWithNr)
+                        .textContentType(.streetAddressLine1)
                     TextField("Zipcode", text: $zipcode)
+                        .textContentType(.postalCode)
                     TextField("City", text: $city)
+                        .textContentType(.addressCity)
                     TextField("Country", text: $country)
+                        .textContentType(.countryName)
                 }
                 Section(header: Text("Change Password")) {
                     SecureField("New Password", text: $newPassword)
@@ -65,7 +67,7 @@ struct EditAccountView: View {
             .fontWeight(Font.Weight.regular)
         }), trailing: Button(action: {
             isUpdating = true
-            BackendClient.shared.updateUserObject(name: name, street: street, houseNumber: houseNumber, zipcode: zipcode, city: city, country: country) { success in
+            BackendClient.shared.updateUserObject(name: name, streetWithNr: streetWithNr, zipcode: zipcode, city: city, country: country) { success in
                 isUpdating = false
                 if success {
                     self.presentationMode.wrappedValue.dismiss()

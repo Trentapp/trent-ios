@@ -8,15 +8,14 @@
 import Foundation
 
 struct Address: Codable, Hashable {
-    var street: String?
-    var houseNumber: String?
+    var streetWithNr: String?
     var zipcode: String?
     var city: String?
     var country: String?
     
     var firstLine: String {
         get {
-            return (street ?? "Street") + " " + (houseNumber ?? "Number")
+            return streetWithNr ?? "Street 0"
         }
     }
     

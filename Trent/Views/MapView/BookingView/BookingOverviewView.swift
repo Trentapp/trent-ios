@@ -54,7 +54,7 @@ struct BookingOverviewView: View {
                             let place = MKPlacemark(coordinate: model.item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
                             
                             let mapItem = MKMapItem(placemark: place)
-                            mapItem.name = (model.item.address != nil) ?  "\(model.item.address?.street ?? "") \(model.item.address?.houseNumber ?? ""), \(model.item.address?.zipcode ?? "") \(model.item.address?.city ?? "")" : model.item.name ?? ""
+                            mapItem.name = (model.item.address != nil) ?  "\(model.item.address?.streetWithNr ?? ""), \(model.item.address?.zipcode ?? "") \(model.item.address?.city ?? "")" : model.item.name ?? ""
                             mapItem.openInMaps(launchOptions: nil)
                         }, label: {
                             //                                Map(coordinateRegion: $coordinateRegion, interactionModes: [], showsUserLocation: false, userTrackingMode: .none)
