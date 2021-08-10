@@ -60,24 +60,26 @@ struct AccountView: View {
                 .font(.largeTitle)
                 .bold()
             List{
-                Section {
-                    ZStack {
-                        Button(""){}
-                        NavigationLink(destination: FinishRegistrationView()) {
-                            HStack {
-                                Text("Finish registration")
-                                Image(systemName: "exclamationmark.triangle.fill")
-                                    .foregroundColor(.yellow)
+                if userObjectManager.user?.walletId != nil {
+                    Section {
+                        if userObjectManager.user?.mangopayId != nil {
+                            ZStack {
+                                Button(""){}
+                                NavigationLink(destination: FinishRegistrationView()) {
+                                    HStack {
+                                        Text("Finish registration")
+                                        Image(systemName: "exclamationmark.triangle.fill")
+                                            .foregroundColor(.yellow)
+                                    }
+                                }
                             }
                         }
-                    }
-                    .hidden(userObjectManager.user?.mangopayId != nil)
-                    ZStack {
-                        Button(""){}
-                        NavigationLink("Become a lender", destination: Text("Become a lender"))
+                        ZStack {
+                            Button(""){}
+                            NavigationLink("Become a lender", destination: LenderSignUpView())
+                        }
                     }
                 }
-                .hidden(userObjectManager.user?.walletId != nil)
                 
                 Section {
                     ZStack{

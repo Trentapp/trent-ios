@@ -10,9 +10,18 @@ import SwiftUI
 struct LenderSignUpView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State var birthday = Date()
-    @State var nationality = "DE"
-    @State var countryOfResidence = "DE"
+    @State var streetWithNr = ""
+    @State var zipcode = ""
+    @State var city = ""
+    @State var country = ""
+    
+    @State var iban = ""
+    
+    @State var kycDocumentFront: UIImage?
+    @State var kycDocumentBack: UIImage?
+    
+    @State var shootFrontPicture = false
+    @State var shootBackPicture = false
     
     @State var isLoading = false
     
@@ -33,18 +42,61 @@ struct LenderSignUpView: View {
     var body: some View {
         VStack {
             Form {
-                DatePicker("Date of birth" , selection: $birthday, displayedComponents: .date)
-                Picker(selection: $nationality, label: Text("Nationality"), content: {
-                    ForEach(self.countries, id: \.self) {
-                        Text($0[1]).tag($0[0])
+                Section(header: Text("Address")) {
+                    TextField("Street", text: $streetWithNr)
+                        .textContentType(.streetAddressLine1)
+                    TextField("Zipcode", text: $zipcode)
+                        .textContentType(.postalCode)
+                    TextField("City", text: $city)
+                        .textContentType(.addressCity)
+                    TextField("Country", text: $country)
+                        .textContentType(.countryName)
+                }
+                
+                Section(header: Text("Bank account")) {
+                    TextField("IBAN", text: $iban)
+                }
+                
+                Section(header: Text("ID card")) {
+                    Button {
+                        shootFrontPicture = true
+                    } label: {
+                        HStack {
+                            Text("Front image")
+                            Image(systemName: "checkmark")
+                                .foregroundColor(.green)
+                                .hidden(kycDocumentFront == nil)
+                        }
                     }
-                })
-                Picker(selection: $countryOfResidence, label: Text("Country of Residence"), content: {
-                    ForEach(self.countries, id: \.self) {
-                        Text($0[1]).tag($0[0])
+                    
+                    Button {
+                        shootBackPicture = true
+                    } label: {
+                        HStack {
+                            Text("Back image")
+                            Image(systemName: "checkmark")
+                                .foregroundColor(.green)
+                                .hidden(kycDocumentBack == nil)
+                        }
                     }
+
+                }
+            }
+            .fullScreenCover(isPresented: $shootFrontPicture) {
+                SingleImagePicker(sourceType: .camera, onImagePicked: { image in
+                    self.kycDocumentFront = image
                 })
-            }.navigationTitle("Become a lender")
+                    .ignoresSafeArea()
+            }
+            
+            .fullScreenCover(isPresented: $shootBackPicture) {
+                SingleImagePicker(sourceType: .camera, onImagePicked: { image in
+                    self.kycDocumentBack = image
+                })
+                    .ignoresSafeArea()
+            }
+            
+            .navigationTitle("Become a lender")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading: Button(action: {
@@ -56,14 +108,14 @@ struct LenderSignUpView: View {
         }
         Button {
             isLoading = true
-            BackendClient.shared.createMangopayUser(birthday: Int(birthday.timeIntervalSince1970), nationality: nationality, countryOfResidence: countryOfResidence) { success in
-                if !success {
-                    // tell user
-                } else {
-                    MainViewProperties.shared.showInfo(with: "Data submitted")
-                    self.presentationMode.wrappedValue.dismiss()
-                }
-            }
+//            BackendClient.shared.createMangopayUser(birthday: Int(birthday.timeIntervalSince1970), nationality: nationality, countryOfResidence: countryOfResidence) { success in
+//                if !success {
+//                    // tell user
+//                } else {
+//                    MainViewProperties.shared.showInfo(with: "Data submitted")
+//                    self.presentationMode.wrappedValue.dismiss()
+//                }
+//            }
         } label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 15)
