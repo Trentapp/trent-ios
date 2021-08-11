@@ -89,7 +89,7 @@ class BackendClient: ObservableObject {
                 }
                 
                 multipartFormData.append(bodyData, withName: "product", fileName: "product")
-            }, to: serverBaseURL + "/api/products/create")
+            }, to: self.serverPath + "/products/create")
             .validate()
             .response { dataResponse in
                 DispatchQueue.main.async {
@@ -457,7 +457,7 @@ class BackendClient: ObservableObject {
     
     func getTransactions(completionHandler: @escaping ([Transaction]?) -> Void) {
         DispatchQueue.global().async {
-            let url = self.serverPath + "/transactions/all"
+            let url = self.serverPath + "/transactions/getUpcoming"
             
             let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
             let parameters = [
@@ -673,6 +673,7 @@ class BackendClient: ObservableObject {
     // VI.2     createCardRegistration
     // VI.3     updateCardRegistration
     // VI.4     payIn
+    // VI.5     lenderRegistration
     
     func createMangopayUser(birthday: Int, nationality: String, countryOfResidence: String, completionHandler: @escaping (Bool) -> Void) {
         DispatchQueue.global().async {
@@ -754,6 +755,49 @@ class BackendClient: ObservableObject {
                         completionHandler(response.error == nil)
                     }
                 }
+        }
+    }
+    
+    func lenderRegistration(kycDocumentImages: [UIImage], iban: String, address: Address, completionHandler: @escaping (Bool) -> Void) {
+        DispatchQueue.global().async {
+            
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
+            
+            var body: [String : Any] = [
+                "uid" : uid,
+                "iban": iban
+            ]
+            
+            do {
+                body["address"] = try address.asDictionary()
+            } catch {
+                print("Error converting address to dict")
+            }
+            
+            let bodyData = ((try? JSONSerialization.data(withJSONObject: body, options: [])) ?? Data())
+            
+            var photosData: [Data] = []
+            
+            for photo in kycDocumentImages {
+                let photoData = photo.jpegData(compressionQuality: 0)
+                if photoData == nil { continue }
+                photosData.append(photoData!)
+            }
+            
+            AF.upload(multipartFormData: { multipartFormData in
+                for photo in photosData {
+                    multipartFormData.append(photo, withName: "image", fileName: "image")
+                }
+                
+                multipartFormData.append(bodyData, withName: "details", fileName: "details")
+            }, to: self.serverPath + "/payment/registerLender")
+            .validate()
+            .response { dataResponse in
+                DispatchQueue.main.async {
+                    completionHandler(dataResponse.error == nil)
+                    UserObjectManager.shared.refresh()
+                }
+            }
         }
     }
 }

@@ -107,13 +107,28 @@ struct LenderSignUpView: View {
             }), trailing: ProgressView().progressViewStyle(CircularProgressViewStyle()).hidden(!isLoading))
         }
         Button {
-            isLoading = true
-//            BackendClient.shared.createMangopayUser(birthday: Int(birthday.timeIntervalSince1970), nationality: nationality, countryOfResidence: countryOfResidence) { success in
+            if (streetWithNr == "" || zipcode == "" || city == "" || country == "" || iban == "" || kycDocumentFront == nil || kycDocumentBack == nil) {
+                // tell user
+                return
+            }
+            
+//            isLoading = true
+            
+//            let frontData = kycDocumentFront?.jpegData(compressionQuality: 0.7)
+//            let backData = kycDocumentBack?.jpegData(compressionQuality: 0.7)
+//            let front_b64 = frontData?.base64EncodedString() ?? ""
+//            let back_b64 = backData?.base64EncodedString() ?? ""
+//
+//            let kycDocumentImages = [front_b64, back_b64]
+            
+            let kycDocumentImages = [kycDocumentFront ?? UIImage(), kycDocumentBack ?? UIImage()]
+            let address = Address(streetWithNr: streetWithNr, zipcode: zipcode, city: city, country: country)
+            
+//            BackendClient.shared.lenderRegistration(kycDocumentImages: kycDocumentImages, iban: iban, address: address) { success in
 //                if !success {
-//                    // tell user
+//                    // Tell user
 //                } else {
-//                    MainViewProperties.shared.showInfo(with: "Data submitted")
-//                    self.presentationMode.wrappedValue.dismiss()
+//                    MainViewProperties.shared.showInfo(with: "Successfully registered")
 //                }
 //            }
         } label: {
@@ -126,7 +141,8 @@ struct LenderSignUpView: View {
             }
             .frame(height: 50)
             .padding()
-        }.disabled(isLoading)
+        }
+//            .disabled(isLoading)
 
     }
 }
