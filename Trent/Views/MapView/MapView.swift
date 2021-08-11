@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MapKit
+import BottomSheet
 //import Introspect
 
 struct MapView: View {
@@ -24,7 +25,13 @@ struct MapView: View {
 //    @State var allResults: [ProductAnnotation] = []
 //    @State var filteredResults: [ProductAnnotation] = []
     @State var allResults: [Product] = []
-    @State var filteredResults: [Product] = []
+    @State var filteredResults: [Product] = [] {
+        didSet {
+            if filteredResults.count > 0 {
+                bottomSheetPosition = .middle
+            }
+        }
+    }
     @State var allowedToSet = true
     @State var annotationsChanged = false
     
@@ -57,6 +64,8 @@ struct MapView: View {
     @State var lastMinPrice: Int?
     @State var lastMaxPrice: Int?
     @State var lastMaxDistance: Int?
+    
+    @State var bottomSheetPosition: BottomSheetPosition = .hidden
     
     func query(location: CLLocationCoordinate2D) {
         self.cachedLocation = region.center
@@ -125,7 +134,9 @@ struct MapView: View {
                     }
                 }
             })
-                .gesture(DragGesture().onChanged{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil); self.showFilter = false })
+                .gesture(DragGesture().onChanged{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil); self.showFilter = false
+                    self.bottomSheetPosition = .bottom
+                })
                 .edgesIgnoringSafeArea(.all)
             
             VStack {
@@ -242,6 +253,27 @@ struct MapView: View {
             
             
             
+        })
+        .bottomSheet(bottomSheetPosition: $bottomSheetPosition, options: [.appleScrollBehavior], headerContent: {Text("Title")}, mainContent: {
+            VStack {
+            ForEach(filteredResults, id: \.self) { result in
+                VStack {
+                    HStack{
+                        Image(uiImage: result.thumbnailUIImage ?? UIImage())
+                        VStack {
+                            Text(result.name ?? "Product")
+                                .bold()
+                            HStack {
+                                Spacer()
+                                Text("\(result.prices?.perDay ?? 0)/day")
+                            }
+                        }
+                    }
+                    Divider()
+                }
+                .frame(height: 250)
+            }
+            }
         })
         .navigationBarTitle("")
         .navigationBarHidden(true)

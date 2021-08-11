@@ -40,6 +40,7 @@
 		B06F798D264A76D700049EF2 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F798C264A76D700049EF2 /* LocationManager.swift */; };
 		B0852F7D26C2EC3C00CF0B07 /* FinishRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0852F7C26C2EC3C00CF0B07 /* FinishRegistrationView.swift */; };
 		B0852F7F26C30DA900CF0B07 /* LenderSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0852F7E26C30DA900CF0B07 /* LenderSignUpView.swift */; };
+		B0852F8226C4890900CF0B07 /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = B0852F8126C4890900CF0B07 /* BottomSheet */; };
 		B08F89E126A06B2600816A8D /* DualSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08F89E026A06B2600816A8D /* DualSlider.swift */; };
 		B08F89E326A1B12C00816A8D /* MonoSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08F89E226A1B12C00816A8D /* MonoSlider.swift */; };
 		B08F89E526A4A8BD00816A8D /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08F89E426A4A8BD00816A8D /* ExploreView.swift */; };
@@ -168,6 +169,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B06E9331269EB25C00E96740 /* AuthenticationServices.framework in Frameworks */,
+				B0852F8226C4890900CF0B07 /* BottomSheet in Frameworks */,
 				B0BF25B126B2CCFA005FDD4D /* SweetCardScanner in Frameworks */,
 				8B7FD627D8998B3444FF3345 /* Pods_Trent.framework in Frameworks */,
 			);
@@ -424,6 +426,7 @@
 			name = Trent;
 			packageProductDependencies = (
 				B0BF25B026B2CCFA005FDD4D /* SweetCardScanner */,
+				B0852F8126C4890900CF0B07 /* BottomSheet */,
 			);
 			productName = "Fairleih-iOS";
 			productReference = B06F7974264A6B5500049EF2 /* Trent.app */;
@@ -455,6 +458,7 @@
 			mainGroup = B06F796B264A6B5500049EF2;
 			packageReferences = (
 				B0BF25AF26B2CCFA005FDD4D /* XCRemoteSwiftPackageReference "SweetCardScanner" */,
+				B0852F8026C4890900CF0B07 /* XCRemoteSwiftPackageReference "BottomSheet" */,
 			);
 			productRefGroup = B06F7975264A6B5500049EF2 /* Products */;
 			projectDirPath = "";
@@ -826,6 +830,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B0852F8026C4890900CF0B07 /* XCRemoteSwiftPackageReference "BottomSheet" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/LucasMucGH/BottomSheet";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.0;
+			};
+		};
 		B0BF25AF26B2CCFA005FDD4D /* XCRemoteSwiftPackageReference "SweetCardScanner" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/aaronLab/SweetCardScanner.git";
@@ -837,6 +849,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B0852F8126C4890900CF0B07 /* BottomSheet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0852F8026C4890900CF0B07 /* XCRemoteSwiftPackageReference "BottomSheet" */;
+			productName = BottomSheet;
+		};
 		B0BF25B026B2CCFA005FDD4D /* SweetCardScanner */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B0BF25AF26B2CCFA005FDD4D /* XCRemoteSwiftPackageReference "SweetCardScanner" */;
