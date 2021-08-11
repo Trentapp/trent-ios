@@ -58,9 +58,9 @@ struct InventoryView: View {
         .sheet(isPresented: $showAddProduct, content: {
             ZStack {
                 if (userObjectManager.user?.address != nil) {
-                    AddProductView()
+//                    AddProductView()
                 } else {
-                    AddAddressView()
+//                    AddAddressView()
                 }
             }
         })

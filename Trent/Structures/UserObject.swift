@@ -11,6 +11,8 @@ import UIKit
 struct UserObject: Codable {
     var _id: String
     var name: String?
+    var firstName: String?
+    var lastName: String?
     var mail: String?
     var inventory: [Product]?
     var address: Address?

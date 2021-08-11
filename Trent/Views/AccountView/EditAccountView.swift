@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct EditAccountView: View {
-    @State var name = UserObjectManager.shared.user?.name ?? ""
+    @State var firstName = UserObjectManager.shared.user?.name ?? ""
+    @State var lastName = UserObjectManager.shared.user?.name ?? ""
     
     @State var streetWithNr = UserObjectManager.shared.user?.address?.streetWithNr ?? ""
     @State var zipcode = UserObjectManager.shared.user?.address?.zipcode ?? ""
@@ -26,7 +27,10 @@ struct EditAccountView: View {
         VStack {
             Form {
                 Section {
-                    TextField("Name", text: $name)
+                    TextField("First name", text: $firstName)
+                        .textContentType(.givenName)
+                    TextField("Last name", text: $lastName)
+                        .textContentType(.familyName)
                 }
                 Section(header: Text("Address")) {
                     TextField("Street", text: $streetWithNr)
@@ -67,7 +71,7 @@ struct EditAccountView: View {
             .fontWeight(Font.Weight.regular)
         }), trailing: Button(action: {
             isUpdating = true
-            BackendClient.shared.updateUserObject(name: name, streetWithNr: streetWithNr, zipcode: zipcode, city: city, country: country) { success in
+            BackendClient.shared.updateUserObject(firstName: firstName, lastName: lastName, streetWithNr: streetWithNr, zipcode: zipcode, city: city, country: country) { success in
                 isUpdating = false
                 if success {
                     self.presentationMode.wrappedValue.dismiss()

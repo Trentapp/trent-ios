@@ -37,7 +37,8 @@ struct AuthenticationView: View {
     @State var isShownFailureAlert = false
     @State var isShownEmptyAlert = false
     
-    @State var name = ""
+    @State var firstName = ""
+    @State var lastName = ""
     @State var mail = ""
     @State var password = ""
     @State var confirmPassword = ""
@@ -156,8 +157,9 @@ struct AuthenticationView: View {
                                     }
                                     print("signed in")
                                     if(authResult?.additionalUserInfo?.isNewUser ?? false) {
-                                        let name = appleIDCredential.fullName!.givenName! + " " + appleIDCredential.fullName!.familyName!
-                                        BackendClient.shared.createNewUser(name: name, mail: appleIDCredential.email!, uid: (authResult?.user.uid)!, completionHandler: { userObject in
+                                        let firstName = appleIDCredential.fullName!.givenName!
+                                        let lastName = appleIDCredential.fullName!.familyName!
+                                        BackendClient.shared.createNewUser(firstName: firstName, lastName: lastName, mail: appleIDCredential.email!, uid: (authResult?.user.uid)!, completionHandler: { userObject in
                                             UserObjectManager.shared.user = userObject
                                             // here
                                             successfullyConcluded()
@@ -200,18 +202,33 @@ struct AuthenticationView: View {
                 
                 VStack {
                     if createNewAccount {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 10)
-                                .foregroundColor(.init(.displayP3, white: 0.4, opacity: 0.5))
-                                .padding(.horizontal, 20)
-                                .padding(.vertical, 0)
-                            TextField("Name", text: $name)
-                                .placeholder(when: name.isEmpty) { Text("Name").foregroundColor(.init(.displayP3, white: 1, opacity: 0.7)) }
-                                .textContentType(.name)
-                                .disableAutocorrection(true)
-                                .autocapitalization(UITextAutocapitalizationType.none)
-                                .padding(.horizontal, 40)
-                                .padding(.vertical, 10)
+                        HStack {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .foregroundColor(.init(.displayP3, white: 0.4, opacity: 0.5))
+                                    .padding(.horizontal, 20)
+                                    .padding(.vertical, 0)
+                                TextField("First Name", text: $firstName)
+                                    .placeholder(when: firstName.isEmpty) { Text("First Name").foregroundColor(.init(.displayP3, white: 1, opacity: 0.7)) }
+                                    .textContentType(.familyName)
+                                    .disableAutocorrection(true)
+                                    .autocapitalization(UITextAutocapitalizationType.none)
+                                    .padding(.horizontal, 40)
+                                    .padding(.vertical, 10)
+                            }
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .foregroundColor(.init(.displayP3, white: 0.4, opacity: 0.5))
+                                    .padding(.horizontal, 20)
+                                    .padding(.vertical, 0)
+                                TextField("Last Name", text: $lastName)
+                                    .placeholder(when: lastName.isEmpty) { Text("Last Name").foregroundColor(.init(.displayP3, white: 1, opacity: 0.7)) }
+                                    .textContentType(.givenName)
+                                    .disableAutocorrection(true)
+                                    .autocapitalization(UITextAutocapitalizationType.none)
+                                    .padding(.horizontal, 40)
+                                    .padding(.vertical, 10)
+                            }
                         }
                     }
                     ZStack {
@@ -274,7 +291,7 @@ struct AuthenticationView: View {
                             return
                         }
                         if createNewAccount {
-                            if name == ""{
+                            if firstName == "" || lastName == "" {
                                 isShownEmptyAlert = true
                                 return
                             }
@@ -283,7 +300,7 @@ struct AuthenticationView: View {
                                 return
                             }
                             isLoading = true
-                            UserObjectManager.shared.createNewUser(name: name, mail: mail, password: password) { success in
+                            UserObjectManager.shared.createNewUser(firstName: firstName, lastName: lastName, mail: mail, password: password) { success in
                                 isLoading = false
                                 if !success {
                                     isShownFailureAlert = true

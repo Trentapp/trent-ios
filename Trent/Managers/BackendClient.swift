@@ -217,12 +217,13 @@ class BackendClient: ObservableObject {
         }
     }
     
-    func createNewUser(name: String, mail: String, uid: String, completionHandler: @escaping (UserObject?) -> Void) {
+    func createNewUser(firstName: String, lastName: String,mail: String, uid: String, completionHandler: @escaping (UserObject?) -> Void) {
         DispatchQueue.global().async {
             let url = self.serverPath + "/users/create"
             
             let user: [String : Any] = [
-                "name" : name,
+                "firstName" : firstName,
+                "lastName" : lastName,
                 "mail" : mail,
                 "uid"  : uid
             ]
@@ -298,14 +299,15 @@ class BackendClient: ObservableObject {
         }
     }
     
-    func updateUserObject(name: String, streetWithNr: String, zipcode: String, city: String, country: String, completionHandler: @escaping (Bool) -> Void) {
+    func updateUserObject(firstName: String, lastName: String, streetWithNr: String, zipcode: String, city: String, country: String, completionHandler: @escaping (Bool) -> Void) {
         DispatchQueue.global().async {
             let url = self.serverPath + "/users/update"
             
             let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
             var userObject: [String : Any] = [
                 "uid" : uid,
-                "name" : name
+                "firstName" : firstName,
+                "lastName" : lastName
             ]
             
             if streetWithNr != "" || zipcode != "" || city != "" || country != "" {

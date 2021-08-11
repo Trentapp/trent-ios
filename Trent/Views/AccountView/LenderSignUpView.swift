@@ -10,10 +10,10 @@ import SwiftUI
 struct LenderSignUpView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State var streetWithNr = ""
-    @State var zipcode = ""
-    @State var city = ""
-    @State var country = ""
+    @State var streetWithNr = UserObjectManager.shared.user?.address?.streetWithNr ?? ""
+    @State var zipcode = UserObjectManager.shared.user?.address?.zipcode ?? ""
+    @State var city = UserObjectManager.shared.user?.address?.city ?? ""
+    @State var country = UserObjectManager.shared.user?.address?.country ?? ""
     
     @State var iban = ""
     
