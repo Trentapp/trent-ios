@@ -80,6 +80,7 @@
 		B0F37CC7265EDAD500D7905E /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F37CC6265EDAD400D7905E /* SignupView.swift */; };
 		B0F37CC9265EE8AA00D7905E /* FirebaseAuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F37CC8265EE8AA00D7905E /* FirebaseAuthClient.swift */; };
 		B0F5594826AB64AC00BF3325 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F5594726AB64AC00BF3325 /* Keyboard.swift */; };
+		B0FF3C9526C5191600C16E66 /* CustomBottomSheetPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FF3C9426C5191600C16E66 /* CustomBottomSheetPosition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -159,6 +160,7 @@
 		B0F37CC6265EDAD400D7905E /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		B0F37CC8265EE8AA00D7905E /* FirebaseAuthClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthClient.swift; sourceTree = "<group>"; };
 		B0F5594726AB64AC00BF3325 /* Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
+		B0FF3C9426C5191600C16E66 /* CustomBottomSheetPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBottomSheetPosition.swift; sourceTree = "<group>"; };
 		B18970A9C174AD27CC4B537B /* Pods-Fairleih-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fairleih-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Fairleih-iOS/Pods-Fairleih-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		ED20EF8E80C52037F01618E3 /* Pods-Fairleih-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fairleih-iOS.release.xcconfig"; path = "Target Support Files/Pods-Fairleih-iOS/Pods-Fairleih-iOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -233,6 +235,7 @@
 				B01C1398267E63130078E584 /* Encodable.swift */,
 				B0B7125726C0219300E544FB /* UIApplication.swift */,
 				B01C13A12684D0380078E584 /* UINavigationController.swift */,
+				B0FF3C9426C5191600C16E66 /* CustomBottomSheetPosition.swift */,
 				B029AD0F26629C0D00279911 /* View.swift */,
 				B03A822026B563BE00E671D3 /* Date.swift */,
 				B029AD092662545800279911 /* PercentEncoding.swift */,
@@ -550,6 +553,7 @@
 				B0D4FB12267D0DBB00BADF68 /* EditAccountView.swift in Sources */,
 				B08F89E526A4A8BD00816A8D /* ExploreView.swift in Sources */,
 				B029AD03266237E200279911 /* MainView.swift in Sources */,
+				B0FF3C9526C5191600C16E66 /* CustomBottomSheetPosition.swift in Sources */,
 				B0E2D93A26AC578A008DA3F3 /* MapKitView.swift in Sources */,
 				B03A822126B563BE00E671D3 /* Date.swift in Sources */,
 				B01C139E2680A7790078E584 /* MapViewController.swift in Sources */,
