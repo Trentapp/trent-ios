@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct EditAccountView: View {
-    @State var firstName = UserObjectManager.shared.user?.name ?? ""
-    @State var lastName = UserObjectManager.shared.user?.name ?? ""
+    @State var firstName = UserObjectManager.shared.user?.firstName ?? ""
+    @State var lastName = UserObjectManager.shared.user?.lastName ?? ""
     
     @State var streetWithNr = UserObjectManager.shared.user?.address?.streetWithNr ?? ""
     @State var zipcode = UserObjectManager.shared.user?.address?.zipcode ?? ""
@@ -30,17 +30,27 @@ struct EditAccountView: View {
                 Section {
                     TextField("First name", text: $firstName)
                         .textContentType(.givenName)
+                        .disableAutocorrection(true)
+                        .autocapitalization(UITextAutocapitalizationType.none)
                     TextField("Last name", text: $lastName)
                         .textContentType(.familyName)
+                        .disableAutocorrection(true)
+                        .autocapitalization(UITextAutocapitalizationType.none)
                 }
                 Section(header: Text("Address [your address will be publicly visible]")) {
                     TextField("Street", text: $streetWithNr)
                         .textContentType(.streetAddressLine1)
+                        .disableAutocorrection(true)
+                        .autocapitalization(UITextAutocapitalizationType.none)
                     TextField("Zipcode", text: $zipcode)
                         .textContentType(.postalCode)
+                        .disableAutocorrection(true)
+                        .autocapitalization(UITextAutocapitalizationType.none)
                     TextField("City", text: $city)
                         .textContentType(.addressCity)
                     TextField("Country", text: $country)
+                        .disableAutocorrection(true)
+                        .autocapitalization(UITextAutocapitalizationType.none)
                         .textContentType(.countryName)
                 }
                 Section(header: Text("Change Password")) {

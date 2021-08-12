@@ -22,7 +22,11 @@ struct InventoryView: View {
             VStack {
                 Button(action: {
                     if userObjectManager.loggedIn {
-                        showAddProduct = true
+                        if userObjectManager.user?.address != nil {
+                            showAddProduct = true
+                        } else {
+                            showError = true
+                        }
                     } else {
                         showAuthentication = true
                     }
@@ -57,17 +61,13 @@ struct InventoryView: View {
         }
         .fullScreenCover(isPresented: $showAuthentication, content: { AuthenticationView(wantedTab: nil) })
         .sheet(isPresented: $showAddProduct, content: {
-            ZStack {
-                if (userObjectManager.user?.address != nil) {
+//            ZStack {
+//                if (userObjectManager.user?.address != nil) {
                     AddProductView()
-                } else {
+//                } else {
 //                    AddAddressView()
-                    EmptyView()
-                        .onAppear(){
-                            showError = true
-                        }
-                }
-            }
+//                }
+//            }
         })
         .navigationBarTitle(Text("Inventory"), displayMode: .large)
         .navigationViewStyle(StackNavigationViewStyle())

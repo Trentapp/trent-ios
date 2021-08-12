@@ -116,7 +116,7 @@
             landmarkType = "24">
             <Locations>
                <Location
-                  uuid = "EA8060F0-6B3A-4B3A-992A-5FABF63125DA - ec5bbf1b427f26fb"
+                  uuid = "EA8060F0-6B3A-4B3A-992A-5FABF63125DA - ec5bbf1b427f26b5"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -126,12 +126,12 @@
                   urlString = "file:///Users/fynnkiwitt/Desktop/Fairleih-iOS/Trent/Views/MapView/ItemDetailView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "213"
-                  endingLineNumber = "213"
+                  startingLineNumber = "215"
+                  endingLineNumber = "215"
                   offsetFromSymbolStart = "1048">
                </Location>
                <Location
-                  uuid = "EA8060F0-6B3A-4B3A-992A-5FABF63125DA - b47dec7c660321e5"
+                  uuid = "EA8060F0-6B3A-4B3A-992A-5FABF63125DA - b47dec7c660321ab"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -141,8 +141,8 @@
                   urlString = "file:///Users/fynnkiwitt/Desktop/Fairleih-iOS/Trent/Views/MapView/ItemDetailView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "214"
-                  endingLineNumber = "214"
+                  startingLineNumber = "216"
+                  endingLineNumber = "216"
                   offsetFromSymbolStart = "380">
                </Location>
             </Locations>
@@ -240,6 +240,22 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "363"
             endingLineNumber = "363"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BB9F48A1-3458-441D-9BBF-5F6FC47C4CD8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trent/Views/MainView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
