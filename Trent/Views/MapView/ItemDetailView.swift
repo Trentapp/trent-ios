@@ -61,7 +61,7 @@ struct ItemDetailView: View {
                         Spacer()
                         VStack(alignment: .leading, spacing: 10, content: {
                             Spacer()
-                            Text("\(String(format: "%.2f", round(100*(item?.prices?.perDay ?? 0))/100))€/day")
+                            Text("\(String(format: "%.2f", round((item?.prices?.perDay ?? 0))/100))€/day")
                                 .font(.system(size: 23, weight: .medium, design: .default))
                         })
 

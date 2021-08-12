@@ -17,6 +17,7 @@ struct InboxView: View {
     @State var firstLoad = true
     
     @State private var selectedSection = 0
+    @State var showError = false
     
     //    @State var tabBar: UITabBar?
     
@@ -74,7 +75,7 @@ struct InboxView: View {
                                                         BackendClient.shared.setTransactionStatus(transactionId: transaction._id, transactionStatus: 2) { success in
                                                             refresh()
                                                             if !success {
-                                                                // Tell user
+                                                                showError = true
                                                             }
                                                         }
                                                     }, label: {
@@ -92,7 +93,7 @@ struct InboxView: View {
                                                         refresh()
                                                         BackendClient.shared.setTransactionStatus(transactionId: transaction._id, transactionStatus: 1) { success in
                                                             if !success {
-                                                                // Tell user
+                                                                showError = true
                                                             }
                                                         }
                                                     }, label: {
@@ -181,6 +182,9 @@ struct InboxView: View {
             ////            }
             ////            self.tabBar?.isHidden = false
         }
+        .alert(isPresented: $showError, content: {
+            Alert(title: Text("Something went wrong"), message: Text("Please try again later."), dismissButton: .default(Text("Okay")))
+        })
     }
 }
 

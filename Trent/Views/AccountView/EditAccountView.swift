@@ -20,6 +20,7 @@ struct EditAccountView: View {
     @State var repeatNewPassword = ""
     
     @State var isUpdating = false
+    @State var showError = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.colorScheme) var colorScheme
     
@@ -50,7 +51,7 @@ struct EditAccountView: View {
                     Button {
                         UserObjectManager.shared.deleteUser { success in
                             if !success {
-                                // Tell the user
+                                showError = true
                             }
                         }
                     } label: {
@@ -76,7 +77,7 @@ struct EditAccountView: View {
                 if success {
                     self.presentationMode.wrappedValue.dismiss()
                 } else {
-                    // Tell the user
+                    showError = true
                     print("Error updating user")
                 }
             }
@@ -103,6 +104,9 @@ struct EditAccountView: View {
 //            UITableView.appearance().backgroundColor = (colorScheme == .dark) ? UIColor.systemBackground : defaultTableViewBackgroundColor
 //            UITableView.appearance().isScrollEnabled = true
         }
+        .alert(isPresented: $showError, content: {
+            Alert(title: Text("Something went wrong"), message: Text("Please try again later."), dismissButton: .default(Text("Okay")))
+        })
     }
 }
 

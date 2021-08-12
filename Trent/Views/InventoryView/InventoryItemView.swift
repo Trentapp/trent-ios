@@ -11,6 +11,7 @@ struct InventoryItemView: View {
     
     @Environment(\.colorScheme) var colorScheme
     @State var showEditProduct = false
+    @State var showError = false
     var item: Product?
     
     var body: some View {
@@ -35,7 +36,7 @@ struct InventoryItemView: View {
                     }
                     HStack {
                         Spacer()
-                        Text("\(String(format: "%.2f", round(100*(item?.prices?.perDay ?? 0))/100))€/day")
+                        Text("\(String(format: "%.2f", round((item?.prices?.perDay ?? 0))/100))€/day")
                             .multilineTextAlignment(.trailing)
                             .foregroundColor(Color(UIColor.label))
                     }
@@ -56,7 +57,7 @@ struct InventoryItemView: View {
                     let item_id = item?._id ?? ""
                     BackendClient.shared.deleteProduct(with: item_id) { success in
                         if !success {
-                            // Tell the user it failed
+                            showError = true
                         }
                     }
                 }, label: {
@@ -68,5 +69,8 @@ struct InventoryItemView: View {
             }
         }))
         .sheet(isPresented: $showEditProduct, content: { AddProductView(item: item) })
+        .alert(isPresented: $showError, content: {
+            Alert(title: Text("Something went wrong"), message: Text("Please try again later."), dismissButton: .default(Text("Okay")))
+        })
     }
 }

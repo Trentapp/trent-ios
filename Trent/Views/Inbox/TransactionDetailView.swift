@@ -12,6 +12,7 @@ struct TransactionDetailView: View {
     @State var transaction: Transaction
     @State var amILender = true
     @State var relevantUser: UserProfile?
+    @State var showError = false
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -158,7 +159,7 @@ struct TransactionDetailView: View {
                         BackendClient.shared.setTransactionStatus(transactionId: transaction._id, transactionStatus: 2) { success in
                             updateTransaction()
                             if !success {
-                                // tell user
+                                showError = true
                             } else {
                                 self.presentationMode.wrappedValue.dismiss()
                             }
@@ -179,7 +180,7 @@ struct TransactionDetailView: View {
                     BackendClient.shared.setTransactionStatus(transactionId: transaction._id, transactionStatus: 1) { success in
                         updateTransaction()
                         if !success {
-                            // tell user
+                            showError = true
                         } else {
                             self.presentationMode.wrappedValue.dismiss()
                         }
@@ -203,6 +204,9 @@ struct TransactionDetailView: View {
         .onAppear() {
             setViewVariables()
         }
+        .alert(isPresented: $showError, content: {
+            Alert(title: Text("Something went wrong"), message: Text("Please try again later."), dismissButton: .default(Text("Okay")))
+        })
     }
 }
 

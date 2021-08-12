@@ -95,8 +95,8 @@ struct MapView: View {
                 let originLocation = CLLocation(latitude: cachedLocation.latitude, longitude: cachedLocation.longitude)
                 
                 for product in self.allResults {
-                    if CGFloat(product.prices?.perDay ?? 0) > maxPriceValue {
-                        maxPriceValue = CGFloat(product.prices?.perDay ?? 0)
+                    if (CGFloat(product.prices?.perDay ?? 0)/100) > maxPriceValue {
+                        maxPriceValue = (CGFloat(product.prices?.perDay ?? 0) / 100)
                     }
                     
                     let itemLocation = CLLocation(latitude: product.location?.CLcoordinates.latitude ?? 0, longitude: product.location?.CLcoordinates.longitude ?? 0)
@@ -139,7 +139,7 @@ struct MapView: View {
             for item in allResults {
                 //                let item = annotation.item
                 
-                let price = item.prices?.perDay ?? 0
+                let price = (item.prices?.perDay ?? 0) / 100
                 let itemLocation = CLLocation(latitude: item.location?.CLcoordinates.latitude ?? 0, longitude: item.location?.CLcoordinates.longitude ?? 0)
                 let distance = itemLocation.distance(from: originLocation)
                 
@@ -171,7 +171,7 @@ struct MapView: View {
                             RoundedRectangle(cornerRadius: 12.5)
                                 .foregroundColor((MapViewController.shared.currentlyFocusedItem == item) ? .black : .white)
                                 .frame(width: 50, height: 25)
-                            Text("\(Int(item.prices?.perDay ?? 0))€")
+                            Text("\(Int((item.prices?.perDay ?? 0)/100))€")
                                 .font(.system(size: 15, weight: .bold, design: .default))
                                 .foregroundColor((viewController.currentlyFocusedItem == item) ? .white : .black)
                         }
@@ -333,7 +333,7 @@ struct MapView: View {
                                                                                                         Spacer()
                                                                                                         VStack {
                                                                                                             Spacer()
-                                                                                                            Text("\(Int(item.prices?.perDay ?? 0))€/day")
+                                                                                                            Text("\(Int((item.prices?.perDay ?? 0)/100))€/day")
                                                                                                                 .font(.system(size: 17))
                                                                                                                 .foregroundColor(Color(UIColor.label))
                                                                                                         }

@@ -70,7 +70,7 @@ struct BookingOverviewView: View {
                     //            Spacer()
                     
                     Group() {
-                        Text("\(model.duration)x \(String(format: "%.02f", model.item.prices?.perDay ?? 0))")
+                        Text("\(model.duration)x \(String(format: "%.02f", (model.item.prices?.perDay ?? 0)/100))")
                         Divider()
                             .frame(width: 200)
                         HStack {

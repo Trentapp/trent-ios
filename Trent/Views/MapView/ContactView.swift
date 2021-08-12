@@ -16,6 +16,8 @@ struct ContactView: View {
     @State var placeholder = "Message..."
     @State var message = ""
     
+    @State var showError = false
+    
     var body: some View {
         VStack {
             
@@ -70,7 +72,7 @@ struct ContactView: View {
                 Button(action: {
                     BackendClient.shared.sendMessage(product_id: product?._id ?? "", content: message) { success in
                         if !success {
-                            // tell user
+                            showError = true
                         } else {
                             self.presentationMode.wrappedValue.dismiss()
                         }
@@ -93,6 +95,9 @@ struct ContactView: View {
         .onAppear() {
             UITextView.appearance().backgroundColor = .clear
         }
+        .alert(isPresented: $showError, content: {
+            Alert(title: Text("Something went wrong"), message: Text("Please try again later."), dismissButton: .default(Text("Okay")))
+        })
     }
 }
 

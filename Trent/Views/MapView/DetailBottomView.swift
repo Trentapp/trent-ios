@@ -37,7 +37,7 @@ struct DetailBottomView: View {
                     })
                     Spacer()
     //                Text((item.prices?.pricePerHour == nil) ? ((item.prices?.pricePerDay == nil) ? "?/hr" : "\(item.prices?.pricePerDay!)/day") : item.prices?.pricePerHour!)
-                    Text("\(Int(controler.currentlyFocusedItem?.prices?.perDay ?? 0))€/day")
+                    Text("\(Int((controler.currentlyFocusedItem?.prices?.perDay ?? 0)/100))€/day")
                         .foregroundColor(Color(UIColor.label))
                 })
                 .frame(width: 280, height: 55)

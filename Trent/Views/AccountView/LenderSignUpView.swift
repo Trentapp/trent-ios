@@ -24,6 +24,7 @@ struct LenderSignUpView: View {
     @State var shootBackPicture = false
     
     @State var isLoading = false
+    @State var showError = false
     
     var countries : [[String]] {
         get {
@@ -108,7 +109,7 @@ struct LenderSignUpView: View {
         }
         Button {
             if (streetWithNr == "" || zipcode == "" || city == "" || country == "" || iban == "" || kycDocumentFront == nil || kycDocumentBack == nil) {
-                // tell user
+                showError = true
                 return
             }
             
@@ -146,6 +147,9 @@ struct LenderSignUpView: View {
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
+        .alert(isPresented: $showError, content: {
+            Alert(title: Text("Something went wrong"), message: Text("Please try again later."), dismissButton: .default(Text("Okay")))
+        })
     }
 }
 

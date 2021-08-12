@@ -15,6 +15,7 @@ struct ChatView: View {
     @State var message = ""
     
     @Environment(\.colorScheme) var colorScheme
+    @State var showError = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -65,7 +66,7 @@ struct ChatView: View {
                         Button {
                             BackendClient.shared.sendMessage(chat_id: chat._id, content: message) { success in
                                 if !success {
-                                    // tell user
+                                    showError = true
                                 }
                                 self.message = ""
                                 BackendClient.shared.getChat(chatId: self.chat._id) { chat in
@@ -101,5 +102,8 @@ struct ChatView: View {
         .onAppear() {
 //            self.tabBar?.isHidden = true
         }
+        .alert(isPresented: $showError, content: {
+            Alert(title: Text("Something went wrong"), message: Text("Please try again later."), dismissButton: .default(Text("Okay")))
+        })
     }
 }

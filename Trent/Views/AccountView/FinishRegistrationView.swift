@@ -16,6 +16,7 @@ struct FinishRegistrationView: View {
     @State var countryOfResidence = "DE"
     
     @State var isLoading = false
+    @State var showError = false
     
     var countries : [[String]] {
         get {
@@ -59,7 +60,7 @@ struct FinishRegistrationView: View {
             isLoading = true
             BackendClient.shared.createMangopayUser(birthday: Int(birthday.timeIntervalSince1970), nationality: nationality, countryOfResidence: countryOfResidence) { success in
                 if !success {
-                    // tell user
+                    showError = true
                 } else {
                     MainViewProperties.shared.showInfo(with: "Data submitted")
                     self.presentationMode.wrappedValue.dismiss()
@@ -79,6 +80,9 @@ struct FinishRegistrationView: View {
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
+        .alert(isPresented: $showError, content: {
+            Alert(title: Text("Something went wrong"), message: Text("Please try again later."), dismissButton: .default(Text("Okay")))
+        })
     }
 }
 

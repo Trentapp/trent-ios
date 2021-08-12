@@ -18,6 +18,7 @@ struct AccountView: View {
     @State var isShownPhotoLibrary = false
     @State var newPicture: Image?
     @State var profilePictureEditButtons = [Alert.Button]()
+    @State var showError = false
     //    @State var image = UIImage(systemName: "person.crop.circle")!
     
     func rotateImage(image: UIImage) -> UIImage? {
@@ -40,7 +41,7 @@ struct AccountView: View {
                     profilePictureEditButtons.append(Alert.Button.destructive(Text("Delete profile picture"), action: {
                         BackendClient.shared.deleteProfilePicture() { success in
                             if !success {
-                                // Tell the user
+                                showError = true
                             }
                         }
                     }))
@@ -165,6 +166,9 @@ struct AccountView: View {
         //                        .navigationBarTitle("Account")
         //                        .navigationBarHidden(false)
         .navigationViewStyle(DefaultNavigationViewStyle())
+        .alert(isPresented: $showError, content: {
+            Alert(title: Text("Something went wrong"), message: Text("Please try again later."), dismissButton: .default(Text("Okay")))
+        })
     }
     
 }

@@ -17,7 +17,7 @@ struct BookingView: View {
     @Binding var dontPopBack: Bool
     
     func updatePrice() {
-        model.totalPrice = (model.item.prices?.perDay ?? 0) * Double(model.duration)
+        model.totalPrice = ((model.item.prices?.perDay ?? 0)/100) * Double(model.duration)
     }
     
     var body: some View {

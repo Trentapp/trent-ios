@@ -110,11 +110,11 @@ struct AddProductView: View {
                             var prices: [String : Any] = [:]
                             
                             if let priceHourNumber = Double(priceHour) {
-                                prices["perHour"] = priceHourNumber
+                                prices["perHour"] = priceHourNumber * 100
                             }
                             
                             if let priceDayNumber = Double(priceDay) {
-                                prices["perDay"] = priceDayNumber
+                                prices["perDay"] = priceDayNumber * 100
                             }
                             
                             let address = (try? JSONSerialization.jsonObject(with: JSONEncoder().encode(UserObjectManager.shared.user?.address))) as? [String: Any] ?? [:]

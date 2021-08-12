@@ -77,7 +77,7 @@ struct MapKitView: UIViewRepresentable {
             if let annotationItem = annotation as? ProductAnnotation {
                 let item = annotationItem.item
                 buttonView.item = item
-                buttonView.setTitle("\(Int(item.prices?.perDay ?? 0))€", for: .normal)
+                buttonView.setTitle("\(Int((item.prices?.perDay ?? 0)/100))€", for: .normal)
                 buttonView.setTitleColor(UIColor.black, for: .normal)
                 buttonView.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
                 
@@ -170,7 +170,7 @@ class ProductAnnotation: NSObject, MKAnnotation {
     
     var title: String? {
         get {
-            return "\(Int(item.prices?.perDay ?? 0))€"
+            return "\(Int((item.prices?.perDay ?? 0)/100))€"
         }
     }
     
