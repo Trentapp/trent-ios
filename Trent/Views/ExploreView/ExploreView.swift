@@ -75,7 +75,7 @@ struct ExploreView: View {
             }
             
             Spacer()
-            Text("Explore new items")
+            Text("Explore new items here as they get uploaded")
             Spacer()
             
             NavigationLink(destination: MapView(keyword: keyword), isActive: $showMap) {

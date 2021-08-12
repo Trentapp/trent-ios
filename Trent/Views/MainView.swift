@@ -21,7 +21,7 @@ struct MainView: View {
         ZStack {
             NavigationView {
                 TabView(selection: $mainViewProperties.selectedItem) {
-                    MapView()
+                    ExploreView()
                         .tabItem {
                             Label("Explore", systemImage: "map")
                         }

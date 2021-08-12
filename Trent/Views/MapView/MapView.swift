@@ -361,15 +361,15 @@ struct MapView: View {
         }
         .onAppear() {
             LocationManager.shared.requestAuthorization()
-//            if trackUser == MapUserTrackingMode.follow {
-//                self.region.center = locationManager.currentLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
-//                MapViewController.shared.currentlyFocusedItem = nil
-//                LocationManager.shared.notifyOnNextUpdate {
-//                    let location = LocationManager.shared.currentLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
-//                    self.region.center = location
-//                    query(location: location)
-//                }
-//            }
+            if trackUser == MapUserTrackingMode.follow {
+                self.region.center = locationManager.currentLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
+                MapViewController.shared.currentlyFocusedItem = nil
+                LocationManager.shared.notifyOnNextUpdate {
+                    let location = LocationManager.shared.currentLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
+                    self.region.center = location
+                    query(location: location)
+                }
+            }
         }
         .onChange(of: self.priceRange, perform: { value in
             self.filterResults()
