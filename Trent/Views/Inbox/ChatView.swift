@@ -6,11 +6,11 @@
 //
 
 import SwiftUI
-import Introspect
+//import Introspect
 
 struct ChatView: View {
     @State var chat: Chat
-    @State var tabBar: UITabBar?
+//    @State var tabBar: UITabBar?
     
     @State var message = ""
     
@@ -94,12 +94,12 @@ struct ChatView: View {
         }
         .navigationBarTitle((chat.borrower?._id == UserObjectManager.shared.user?._id) ? (chat.lender?.name ?? "Lender" ) : (chat.borrower?.name ?? "Borrower" ), displayMode: .inline)
         .ignoresSafeArea(.container, edges: .bottom)
-        .introspectTabBarController { (UITabBarController) in
-            self.tabBar = UITabBarController.tabBar
-            self.tabBar?.isHidden = true
-        }
+//        .introspectTabBarController { (UITabBarController) in
+//            self.tabBar = UITabBarController.tabBar
+//            self.tabBar?.isHidden = true
+//        }
         .onAppear() {
-            self.tabBar?.isHidden = true
+//            self.tabBar?.isHidden = true
         }
     }
 }
