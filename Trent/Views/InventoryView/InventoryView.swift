@@ -12,7 +12,7 @@ struct InventoryView: View {
     
     @ObservedObject var userObjectManager = UserObjectManager.shared
     @State var showAddProduct = false
-    @State var showAuthentication = false+
+    @State var showAuthentication = false
     @State var showError = false
     
     //    @State var tabBar: UITabBar?
@@ -62,7 +62,10 @@ struct InventoryView: View {
                     AddProductView()
                 } else {
 //                    AddAddressView()
-                    showError = true
+                    EmptyView()
+                        .onAppear(){
+                            showError = true
+                        }
                 }
             }
         })

@@ -88,7 +88,7 @@ struct MainView: View {
                 .animation(.easeIn(duration: 0.2))
             }
         }
-        .alert(isPresented: $showError, content: {
+        .alert(isPresented: $showAlert, content: {
             Alert(title: Text("Still in beta"), message: Text("Awesome! You're one of the first trent user. Unfortunately you cannot rent items yet but only post your own. The next update is coming in the next few days."), dismissButton: .default(Text("Okay")))
         })
     }
