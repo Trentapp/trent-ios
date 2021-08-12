@@ -80,7 +80,7 @@ struct MapView: View {
     @State var bottomSheetPosition: BottomSheetPosition = .hidden
     
     func query(location: CLLocationCoordinate2D) {
-        self.cachedLocation = region.center
+        self.cachedLocation = location
         BackendClient.shared.query(keyword: self.keyword, location: location, maxDistance: maxDistanceResults) { products, success in
             self.allResults = products ?? []
             //                                        for product in products ?? []  {
@@ -88,7 +88,7 @@ struct MapView: View {
             //                                            self.allResults.append(annotation)
             //                                        }
             
-            DispatchQueue.global().async {
+//            DispatchQueue.global().async {
                 var maxDistanceValue: CGFloat = 0
                 var maxPriceValue: CGFloat = 0
                 
@@ -105,13 +105,13 @@ struct MapView: View {
                         maxDistanceValue = distance
                     }
                 }
-                DispatchQueue.main.async {
+//                DispatchQueue.main.async {
                     self.maxPriceResults = Int(maxPriceValue)
                     self.maxDistanceResults = Int(round(maxDistanceValue))
-                }
-            }
+//                }
+//            }
             
-            if maxDistance == 1 && priceRange.lowerBound == 1 && priceRange.upperBound == 0 {
+            if maxDistance == 1 && priceRange.upperBound == 1 && priceRange.lowerBound == 0 {
                 filteredResults = allResults
             } else {
                 filterResults()
@@ -158,6 +158,7 @@ struct MapView: View {
                 MapAnnotation(coordinate: item.location?.CLcoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)) {
                     Button {
                         viewController.currentlyFocusedItem = item
+                        self.bottomSheetPosition = .bottom
                     } label: {
                         ZStack{
                             RoundedRectangle(cornerRadius: 12.5)
@@ -206,10 +207,8 @@ struct MapView: View {
                                 }, onCommit: {
                                     UIApplication.shared.endEditing()
                                     trackUser = .none
-                                    
                                     let location = region.center
-                                    self.cachedLocation = location
-                                    query(location: cachedLocation)
+                                    query(location: location)
                                 })
                                 .foregroundColor((self.keyword == "") ? .gray : Color(UIColor.label))
                                 .font(.system(size: 17, weight: .semibold, design: .default))
@@ -293,11 +292,8 @@ struct MapView: View {
                 Spacer()
                 DetailBottomView()
                 Spacer()
-                    .frame(height: 75)
+                    .frame(height: (self.bottomSheetPosition == .hidden) ? 0 : 75)
             }
-            
-            
-            
             
         })
         .bottomSheet(bottomSheetPosition: $bottomSheetPosition, options: [.appleScrollBehavior, /*.showCloseButton(action: {
@@ -343,6 +339,10 @@ struct MapView: View {
                                                                                         }
                                                                                         .frame(height: 100)
                                                                                     }
+                                                                                    
+                                                                                }
+                                                                                NavigationLink(destination: EmptyView()) {
+                                                                                    EmptyView()
                                                                                 }
                                                                             }
                                                                           })

@@ -38,7 +38,7 @@ class BackendClient: ObservableObject {
                 "name" : keyword,
                 "lat" : location.latitude,
                 "lng" : location.longitude,
-                "maxDistance" : maxDistance
+//                "maxDistance" : maxDistance
             ]
             
             AF.request(url, parameters: parameters)
