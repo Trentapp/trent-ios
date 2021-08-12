@@ -120,7 +120,14 @@ struct MapView: View {
     }
     
     func filterResults() {
+        
+        if maxDistance == 1 && priceRange.upperBound == 1 && priceRange.lowerBound == 0 {
+            filteredResults = allResults
+            return
+        }
+        
         DispatchQueue.global().async {
+            
             var matches = [Product]() //[ProductAnnotation]()
             
             let minPrice = Double(Int(round(self.priceRange.lowerBound * CGFloat(self.maxPriceResults))))
