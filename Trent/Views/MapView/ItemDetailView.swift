@@ -19,6 +19,7 @@ struct ItemDetailView: View {
     @State var updated = false
     @State var showAuthentication = false
     @State var showBooking = false
+    @State var showError = false
     
 //    @State var tabBar: UITabBar?
     @Environment(\.presentationMode) var presentation
@@ -174,14 +175,15 @@ struct ItemDetailView: View {
                     Spacer()
                     Button(action: {
                         print("Requesting")
-                        if UserObjectManager.shared.loggedIn {
-                            if item != nil {
-                                self.model.item = item!
-                                showBooking = true
-                            }
-                        } else {
-                            showAuthentication = true
-                        }
+//                        if UserObjectManager.shared.loggedIn {
+//                            if item != nil {
+//                                self.model.item = item!
+//                                showBooking = true
+//                            }
+//                        } else {
+//                            showAuthentication = true
+//                        }
+                        showError = true
                         // BackendClient: addTransaction
                     }, label: {
                         ZStack {
@@ -221,6 +223,9 @@ struct ItemDetailView: View {
             }
         }
         .fullScreenCover(isPresented: $showAuthentication, content: { AuthenticationView(wantedTab: nil) })
+        .alert(isPresented: $showError, content: {
+            Alert(title: Text("Still in beta"), message: Text("Awesome! You're one of the first trent user. Unfortunately you cannot rent items yet but only post your own. The next update is coming in the next few days."), dismissButton: .default(Text("Okay")))
+        })
     }
 }
 
