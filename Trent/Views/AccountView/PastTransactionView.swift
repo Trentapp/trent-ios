@@ -53,6 +53,7 @@ struct PastTransactionView: View {
         }
         .navigationBarTitle(Text("Past Transactions"), displayMode: .inline)
         .navigationViewStyle(StackNavigationViewStyle())
+        .navigationBarHidden(false)
         .onAppear() {
 //            UITableView.appearance().isScrollEnabled = true
             if firstLoad {

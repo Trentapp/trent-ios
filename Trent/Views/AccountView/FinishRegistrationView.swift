@@ -76,7 +76,9 @@ struct FinishRegistrationView: View {
             .frame(height: 50)
             .padding()
         }.disabled(isLoading)
-
+        .onTapGesture {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
     }
 }
 

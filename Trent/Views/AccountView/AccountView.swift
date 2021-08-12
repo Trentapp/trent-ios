@@ -59,7 +59,7 @@ struct AccountView: View {
             Text(userObjectManager.user?.name ?? "")
                 .font(.largeTitle)
                 .bold()
-            List{
+            List {
                 if userObjectManager.user?.walletId == nil {
                     Section {
                         if userObjectManager.user?.mangopayId == nil {
@@ -108,12 +108,12 @@ struct AccountView: View {
                 }
             }
             .listStyle(GroupedListStyle())
-            .overlay(VStack {
-                Spacer()
-                Text("Made with ❤️ in Heidelberg")
-                    .foregroundColor(.gray)
-                    .padding()
-            })
+//            .overlay(VStack {
+//                Spacer()
+//                Text("Made with ❤️ in Heidelberg")
+//                    .foregroundColor(.gray)
+//                    .padding()
+//            })
             .onAppear {
 //                UITableView.appearance().backgroundColor = (colorScheme == .dark) ? UIColor.systemBackground : defaultTableViewBackgroundColor
 //                UITableView.appearance().isScrollEnabled = false

@@ -142,8 +142,10 @@ struct LenderSignUpView: View {
             .frame(height: 50)
             .padding()
         }
-//            .disabled(isLoading)
-
+            .disabled(isLoading)
+        .onTapGesture {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
     }
 }
 

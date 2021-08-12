@@ -118,6 +118,8 @@ struct AuthenticationView: View {
                     .font(.system(size: 50))
                     .foregroundColor(.white)
                     .tracking(1.5)
+                    .minimumScaleFactor(0.5)
+                    .lineLimit(1)
                 
                 Spacer()
                 
@@ -206,27 +208,31 @@ struct AuthenticationView: View {
                             ZStack {
                                 RoundedRectangle(cornerRadius: 10)
                                     .foregroundColor(.init(.displayP3, white: 0.4, opacity: 0.5))
-                                    .padding(.horizontal, 20)
+                                    .padding(.leading, 20)
+                                    .padding(.trailing, 5)
                                     .padding(.vertical, 0)
                                 TextField("First Name", text: $firstName)
                                     .placeholder(when: firstName.isEmpty) { Text("First Name").foregroundColor(.init(.displayP3, white: 1, opacity: 0.7)) }
                                     .textContentType(.familyName)
                                     .disableAutocorrection(true)
                                     .autocapitalization(UITextAutocapitalizationType.none)
-                                    .padding(.horizontal, 40)
+                                    .padding(.leading, 40)
+                                    .padding(.trailing, 25)
                                     .padding(.vertical, 10)
                             }
                             ZStack {
                                 RoundedRectangle(cornerRadius: 10)
                                     .foregroundColor(.init(.displayP3, white: 0.4, opacity: 0.5))
-                                    .padding(.horizontal, 20)
+                                    .padding(.trailing, 20)
+                                    .padding(.leading, 5)
                                     .padding(.vertical, 0)
                                 TextField("Last Name", text: $lastName)
                                     .placeholder(when: lastName.isEmpty) { Text("Last Name").foregroundColor(.init(.displayP3, white: 1, opacity: 0.7)) }
                                     .textContentType(.givenName)
                                     .disableAutocorrection(true)
                                     .autocapitalization(UITextAutocapitalizationType.none)
-                                    .padding(.horizontal, 40)
+                                    .padding(.trailing, 40)
+                                    .padding(.leading, 25)
                                     .padding(.vertical, 10)
                             }
                         }
@@ -370,6 +376,9 @@ struct AuthenticationView: View {
 //                    .frame(height: 50)
             }
             .animation(animate ? .easeInOut(duration: 0.3) : .none)
+        }
+        .onTapGesture {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
         .alert(isPresented: $isShownPasswordAlert, content: {
             Alert(title: Text("Passwords don't match"), message: Text("Please make sure that you have entered the same password."), dismissButton: .default(Text("Okay")))

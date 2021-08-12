@@ -8,6 +8,7 @@
 import SwiftUI
 import MapKit
 import BottomSheet
+import Sliders
 //import Introspect
 
 struct MapView: View {
@@ -52,13 +53,22 @@ struct MapView: View {
     @State var suppressAnimation = true
     
     // Filter
-    @State var maxPriceResults = 100.0
-    @State var minPriceValue: CGFloat = 0
-    @State var maxPriceValue: CGFloat = 1
+    
+//    @State var minPriceValue: CGFloat = 0
+//    @State var maxPriceValue: CGFloat = 1
+
     
     
-    var maxDistanceResults = 25
-    @State var maxDistanceValue: CGFloat = 1
+//    @State var maxDistanceValue: CGFloat = 1
+    
+    
+    // Slider Filter
+    @State var priceRange: ClosedRange<CGFloat> = 0...1
+    @State var maxDistance: CGFloat = 1
+    
+    @State var maxDistanceResults = 25
+    @State var maxPriceResults = 100
+    
     
     
     
@@ -77,7 +87,31 @@ struct MapView: View {
             //                                            let annotation = ProductAnnotation(item: product)
             //                                            self.allResults.append(annotation)
             //                                        }
-            if maxDistanceValue == 1 && maxPriceValue == 1 && minPriceValue == 0 {
+            
+            DispatchQueue.global().async {
+                var maxDistanceValue: CGFloat = 0
+                var maxPriceValue: CGFloat = 0
+                
+                let originLocation = CLLocation(latitude: cachedLocation.latitude, longitude: cachedLocation.longitude)
+                
+                for product in self.allResults {
+                    if CGFloat(product.prices?.perDay ?? 0) > maxPriceValue {
+                        maxPriceValue = CGFloat(product.prices?.perDay ?? 0)
+                    }
+                    
+                    let itemLocation = CLLocation(latitude: product.location?.CLcoordinates.latitude ?? 0, longitude: product.location?.CLcoordinates.longitude ?? 0)
+                    let distance = CGFloat(round(itemLocation.distance(from: originLocation) / 1000))
+                    if maxDistanceValue < distance {
+                        maxDistanceValue = distance
+                    }
+                }
+                DispatchQueue.main.async {
+                    self.maxPriceResults = Int(maxPriceValue)
+                    self.maxDistanceResults = Int(round(maxDistanceValue))
+                }
+            }
+            
+            if maxDistance == 1 && priceRange.lowerBound == 1 && priceRange.upperBound == 0 {
                 filteredResults = allResults
             } else {
                 filterResults()
@@ -89,9 +123,9 @@ struct MapView: View {
         DispatchQueue.global().async {
             var matches = [Product]() //[ProductAnnotation]()
             
-            let minPrice = Double(Int(round(self.minPriceValue * CGFloat(self.maxPriceResults))))
-            let maxPrice = Double(Int(round(self.maxPriceValue * CGFloat(self.maxPriceResults))))
-            let maxDistance = Int(round(CGFloat(self.maxDistanceResults) * self.maxDistanceValue))
+            let minPrice = Double(Int(round(self.priceRange.lowerBound * CGFloat(self.maxPriceResults))))
+            let maxPrice = Double(Int(round(self.priceRange.upperBound * CGFloat(self.maxPriceResults))))
+            let maxDistance = Int(round(self.maxDistance * CGFloat(self.maxDistanceResults)))
             
             let originLocation = CLLocation(latitude: cachedLocation.latitude, longitude: cachedLocation.longitude)
             
@@ -150,10 +184,11 @@ struct MapView: View {
                     .stroke(lineWidth: 0.5)
                     .foregroundColor(.gray)
                     .background(RoundedRectangle(cornerRadius: 10).fill(colorScheme == .dark ? Color(UIColor.systemGray4) : .white))
-                    .frame(width: 375, height: showFilter ? 170 : 60, alignment: .center)
+                    .frame(height: showFilter ? 170 : 60, alignment: .center)
                     .shadow(radius: 5)
                     .animation(suppressAnimation ? .none : .easeInOut(duration: 0.3))
                     .overlay(
+                        
                         VStack {
                             Spacer()
                                 .frame(height: 2.5)
@@ -196,7 +231,7 @@ struct MapView: View {
                                 })
                                 
                             }
-                            .frame(width: 375, height: 60)
+                            .frame(height: 60)
                             
                             
                             VStack {
@@ -208,15 +243,18 @@ struct MapView: View {
                                         .font(.system(size:25))
                                         .padding(.horizontal, 10)
                                         .padding(.vertical, 2)
-                                    DualSlider(minValue: $minPriceValue, maxValue: $maxPriceValue, width: 220) {
-                                        let minPrice = Int(round(self.minPriceValue * CGFloat(self.maxPriceResults)))
-                                        let maxPrice = Int(round(self.maxPriceValue * CGFloat(self.maxPriceResults)))
-                                        
-                                        if (maxPrice != self.lastMaxPrice) || (minPrice != self.lastMinPrice){
-                                            filterResults()
-                                        }
-                                    }
-                                    Text("\(Int(round(minPriceValue * CGFloat(self.maxPriceResults))))€ - \(Int(round(maxPriceValue * CGFloat(self.maxPriceResults))))€")
+                                    
+//                                    DualSlider(minValue: $minPriceValue, maxValue: $maxPriceValue, width: 220) {
+//                                        let minPrice = Int(round(self.minPriceValue * CGFloat(self.maxPriceResults)))
+//                                        let maxPrice = Int(round(self.maxPriceValue * CGFloat(self.maxPriceResults)))
+//
+//                                        if (maxPrice != self.lastMaxPrice) || (minPrice != self.lastMinPrice){
+//                                            filterResults()
+//                                        }
+//                                    }
+                                    
+                                    RangeSlider(range: $priceRange)
+                                    Text("\(Int(round(priceRange.lowerBound * CGFloat(self.maxPriceResults))))€ - \(Int(round(priceRange.upperBound * CGFloat(self.maxPriceResults))))€")
                                         .foregroundColor((colorScheme == .dark) ? .gray : .black)
                                         .font(.system(size: 15, weight: .semibold))
                                     Spacer()
@@ -227,14 +265,15 @@ struct MapView: View {
                                         .foregroundColor((colorScheme == .dark) ? .gray : .black)
                                         .padding(.horizontal, 10)
                                         .padding(.vertical, 2)
-                                    MonoSlider(maxValue: $maxDistanceValue, width: 220) {
-                                        let maxDistance = Int(round(CGFloat(self.maxDistanceResults) * self.maxDistanceValue))
-                                        
-                                        if maxDistance != self.lastMaxDistance {
-                                            filterResults()
-                                        }
-                                    }
-                                    Text("<= \(Int(round(maxDistanceValue * CGFloat(self.maxDistanceResults))))km")
+//                                    MonoSlider(maxValue: $maxDistanceValue, width: 220) {
+//                                        let maxDistance = Int(round(CGFloat(self.maxDistanceResults) * self.maxDistanceValue))
+//
+//                                        if maxDistance != self.lastMaxDistance {
+//                                            filterResults()
+//                                        }
+//                                    }
+                                    ValueSlider(value: $maxDistance)
+                                    Text("<= \(Int(round(maxDistance * CGFloat(self.maxDistanceResults))))km")
                                         .font(.system(size: 15, weight: .semibold))
                                         .foregroundColor((colorScheme == .dark) ? .gray : .black)
                                     Spacer()
@@ -250,6 +289,7 @@ struct MapView: View {
                         }
                         
                     )
+                    .padding(.horizontal, 15)
                 Spacer()
                 DetailBottomView()
                 Spacer()
@@ -261,51 +301,51 @@ struct MapView: View {
             
         })
         .bottomSheet(bottomSheetPosition: $bottomSheetPosition, options: [.appleScrollBehavior, /*.showCloseButton(action: {
-            self.bottomSheetPosition = .bottom
-        })*/], headerContent: {
-            Text((self.filteredResults.count > 0) ? "\(self.filteredResults.count) Results" : "")
-                .font(.system(size: 19))
-                .bold()
-//                .hidden(self.bottomSheetPosition != BottomSheetPosition.bottom)
-        }, mainContent: {
-            VStack {
-                ForEach(filteredResults, id: \.self) { item in
-                    NavigationLink(destination: ItemDetailView(item: item)) {
-                        VStack {
-                            HStack{
-                                Image(uiImage: item.thumbnailUIImage ?? UIImage())
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                                    .frame(width: 75, height: 75)
-                                    .padding()
-                                VStack(alignment: .leading) {
-                                    Text(item.name ?? "Product")
-                                        .font(.system(size: 22))
-                                        .foregroundColor(Color(UIColor.label))
-                                        .bold()
-                                    HStack {
-                                        Text(item.desc ?? "")
-                                            .foregroundColor(.gray)
-                                        Spacer()
-                                        VStack {
-                                            Spacer()
-                                            Text("\(Int(item.prices?.perDay ?? 0))€/day")
-                                                .font(.system(size: 17))
-                                                .foregroundColor(Color(UIColor.label))
-                                        }
-                                    }
-                                    Spacer()
-                                }
-                                .padding([.horizontal, .top])
-                            }
-                            Divider()
-                        }
-                        .frame(height: 100)
-                    }
-                }
-            }
-        })
+                                                                          self.bottomSheetPosition = .bottom
+                                                                          })*/], headerContent: {
+                                                                            Text((self.filteredResults.count > 0) ? "\(self.filteredResults.count) Results" : "")
+                                                                                .font(.system(size: 19))
+                                                                                .bold()
+                                                                            //                .hidden(self.bottomSheetPosition != BottomSheetPosition.bottom)
+                                                                          }, mainContent: {
+                                                                            VStack {
+                                                                                ForEach(filteredResults, id: \.self) { item in
+                                                                                    NavigationLink(destination: ItemDetailView(item: item)) {
+                                                                                        VStack {
+                                                                                            HStack{
+                                                                                                Image(uiImage: item.thumbnailUIImage ?? UIImage())
+                                                                                                    .resizable()
+                                                                                                    .aspectRatio(contentMode: .fit)
+                                                                                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                                                                                                    .frame(width: 75, height: 75)
+                                                                                                    .padding()
+                                                                                                VStack(alignment: .leading) {
+                                                                                                    Text(item.name ?? "Product")
+                                                                                                        .font(.system(size: 22))
+                                                                                                        .foregroundColor(Color(UIColor.label))
+                                                                                                        .bold()
+                                                                                                    HStack {
+                                                                                                        Text(item.desc ?? "")
+                                                                                                            .foregroundColor(.gray)
+                                                                                                        Spacer()
+                                                                                                        VStack {
+                                                                                                            Spacer()
+                                                                                                            Text("\(Int(item.prices?.perDay ?? 0))€/day")
+                                                                                                                .font(.system(size: 17))
+                                                                                                                .foregroundColor(Color(UIColor.label))
+                                                                                                        }
+                                                                                                    }
+                                                                                                    Spacer()
+                                                                                                }
+                                                                                                .padding([.horizontal, .top])
+                                                                                            }
+                                                                                            Divider()
+                                                                                        }
+                                                                                        .frame(height: 100)
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                          })
         .navigationBarTitle("")
         .navigationBarHidden(true)
         .navigationViewStyle(StackNavigationViewStyle())
@@ -324,6 +364,12 @@ struct MapView: View {
                 }
             }
         }
+        .onChange(of: self.priceRange, perform: { value in
+            self.filterResults()
+        })
+        .onChange(of: self.maxDistance, perform: { value in
+            self.filterResults()
+        })
     }
 }
 

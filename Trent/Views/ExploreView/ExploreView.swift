@@ -29,13 +29,13 @@ struct ExploreView: View {
                     .stroke(lineWidth: 0.5)
                     .foregroundColor(.gray)
                     .background(RoundedRectangle(cornerRadius: 10).fill(colorScheme == .dark ? Color(UIColor.systemGray4) : .white))
-                    .frame(width: 300, height: 60, alignment: .center)
+                    .frame(height: 60, alignment: .center)
                     .shadow(radius: 5)
                     .overlay(
                         VStack {
                             HStack {
                                 Spacer()
-                                    .frame(width: 15)
+                                    .frame(width: 20)
                                 TextField("What are you looking for?", text: $keyword, onEditingChanged: { editing in
                                     print("editing: \(editing)")
                                 }, onCommit: {
@@ -45,13 +45,14 @@ struct ExploreView: View {
                                 .font(.system(size: 17, weight: .semibold, design: .default))
                                 .multilineTextAlignment(.leading)
                                 //                            .frame(width: 250, height: 20, alignment: .center)
-                                .padding(5)
+                                .padding(.trailing, 15)
                                 
                             }
-                            .frame(width: 300, height: 60)
+                            .frame(height: 60)
                         }
                         
                     )
+                    .padding(.leading, 10)
                 
                 Spacer()
                     .frame(width: 10)

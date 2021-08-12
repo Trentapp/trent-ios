@@ -27,6 +27,15 @@
           "revision": "fabdaec839b23856a5f1c843086950211fe25644",
           "version": "1.0.3"
         }
+      },
+      {
+        "package": "Sliders",
+        "repositoryURL": "git@github.com:spacenation/swiftui-sliders.git",
+        "state": {
+          "branch": null,
+          "revision": "5109792d45a53c3c41680b8bdb0602b5dde39c9a",
+          "version": "1.0.0"
+        }
       }
     ]
   },
