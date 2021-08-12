@@ -36,6 +36,7 @@ struct AuthenticationView: View {
     @State var isShownPasswordAlert = false
     @State var isShownFailureAlert = false
     @State var isShownEmptyAlert = false
+    @State var isShownSingInFailureAlert = false
     
     @State var firstName = ""
     @State var lastName = ""
@@ -320,7 +321,7 @@ struct AuthenticationView: View {
                                 isLoading = false
                                 let success = (error == nil)
                                 if !success {
-                                    isShownFailureAlert = true
+                                    isShownSingInFailureAlert = true
                                 } else {
                                     successfullyConcluded()
                                 }
@@ -385,6 +386,13 @@ struct AuthenticationView: View {
         })
         .alert(isPresented: $isShownFailureAlert, content: {
             Alert(title: Text("Could not log in"), message: Text("An error occured while loggin in. Please try again later."), dismissButton: .default(Text("Okay")))
+        })
+        .alert(isPresented: $isShownSingInFailureAlert, content: {
+            Alert(title: Text("Could not log in"), message: Text("An error occured while loggin in. Please try again later."), primaryButton: .default(Text("Okay")), secondaryButton: .default(Text("Forgot password"), action: {
+                FirebaseAuthClient.shared.forgotPassword(mail: mail) { success in
+                    //
+                }
+            }))
         })
         .alert(isPresented: $isShownEmptyAlert, content: {
             Alert(title: Text("Empty fields"), message: Text("Please make sure to fill out all fields"), dismissButton: .default(Text("Okay")))

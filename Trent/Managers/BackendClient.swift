@@ -449,7 +449,7 @@ class BackendClient: ObservableObject {
                 .validate()
                 .response { response in
                     DispatchQueue.main.async {
-                        completionHandler(response.error != nil)
+                        completionHandler(response.error == nil)
                     }
                 }
         }

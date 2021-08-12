@@ -56,4 +56,10 @@ class FirebaseAuthClient: ObservableObject {
             completingHandler(error == nil)
         }
     }
+    
+    func forgotPassword(mail: String, completingHandler: @escaping (Bool) -> Void) {
+        Auth.auth().sendPasswordReset(withEmail: mail) { error in
+          completingHandler(error == nil)
+        }
+    }
 }
