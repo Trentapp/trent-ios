@@ -33,7 +33,7 @@ struct EditAccountView: View {
                     TextField("Last name", text: $lastName)
                         .textContentType(.familyName)
                 }
-                Section(header: Text("Address")) {
+                Section(header: Text("Address [your address will be publicly visible]")) {
                     TextField("Street", text: $streetWithNr)
                         .textContentType(.streetAddressLine1)
                     TextField("Zipcode", text: $zipcode)
