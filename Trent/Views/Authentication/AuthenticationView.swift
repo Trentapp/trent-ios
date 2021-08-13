@@ -366,7 +366,7 @@ struct AuthenticationView: View {
 //                            .font(.system(size: 10))
 //                            .foregroundColor(.gray)
 //                    }
-                    Link(destination: URL(string: "https://trentapp.com/terms")!) {
+                    Link(destination: URL(string: /*"https://trentapp.com/terms"*/"https://trentapp.com/AllgemeineNutzungsbedingungen.pdf")!) {
                         Text("By singing up you confirm you have read our \(Text("Terms and Conditions").foregroundColor(.white)) and acceept them.")
                             .font(.system(size: 10))
                             .foregroundColor(.gray)
