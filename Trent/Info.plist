@@ -44,7 +44,7 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Access to Camera is necessary to take product photos.</string>
+	<string>Access to Camera is necessary to take pictures of a product you want to post, help you scanning your credit card details or take profile pictures.</string>
 	<key>NSExceptionAllowsInsecureHTTPLoads</key>
 	<true/>
 	<key>NSIncludesSubdomains</key>

@@ -378,9 +378,9 @@ struct AuthenticationView: View {
             }
             .animation(animate ? .easeInOut(duration: 0.3) : .none)
         }
-        .onTapGesture {
-            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-        }
+//        .onTapGesture {
+//            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+//        }
         .alert(isPresented: $isShownPasswordAlert, content: {
             Alert(title: Text("Passwords don't match"), message: Text("Please make sure that you have entered the same password."), dismissButton: .default(Text("Okay")))
         })
