@@ -203,11 +203,11 @@ struct AddProductView: View {
                     self.description = self.item!.desc ?? ""
                     
                     if item?.prices?.perHour != nil {
-                        self.priceHour = "\(item!.prices!.perHour!)"
+                        self.priceHour = "\(item!.prices!.perHour! / 100)"
                     } else { self.isAvailablePerHour = false }
                     
                     if item?.prices?.perDay != nil {
-                        self.priceDay = "\(item!.prices!.perDay!)"
+                        self.priceDay = "\(item!.prices!.perDay! / 100)"
                     } else { self.isAvailablePerDay = false }
                     BackendClient.shared.getProduct(for: item?._id ?? "") { product in
                         self.photos = product?.picturesUIImage ?? []
