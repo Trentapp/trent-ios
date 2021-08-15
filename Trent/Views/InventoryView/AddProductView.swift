@@ -148,6 +148,9 @@ struct AddProductView: View {
                     }
                 })
             }
+            .onTapGesture {
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+            }
             .alert(isPresented: $showAlert) {
                 Alert(title: Text("Error"), message: Text("An error occured when trying to add your item. Please try again later."), dismissButton: .default(Text("Cancel")))
             }
