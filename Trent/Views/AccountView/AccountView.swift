@@ -61,9 +61,9 @@ struct AccountView: View {
                 .font(.largeTitle)
                 .bold()
             List {
-//                if userObjectManager.user?.walletId == nil {
+                if userObjectManager.user?.walletId == nil {
                     Section {
-//                        if userObjectManager.user?.mangopayId == nil {
+                        if userObjectManager.user?.mangopayId == nil {
                             ZStack {
                                 Button(""){}
                                 NavigationLink(destination: FinishRegistrationView()) {
@@ -74,13 +74,14 @@ struct AccountView: View {
                                     }
                                 }
                             }
-//                        }
-                        ZStack {
-                            Button(""){}
-                            NavigationLink("Become a lender", destination: LenderSignUpView())
+                        } else {
+                            ZStack {
+                                Button(""){}
+                                NavigationLink("Become a lender", destination: LenderSignUpView())
+                            }
                         }
                     }
-//                }
+                }
                 
                 Section {
                     ZStack{
