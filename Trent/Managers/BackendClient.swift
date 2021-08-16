@@ -676,128 +676,128 @@ class BackendClient: ObservableObject {
     // VI.5     lenderRegistration
     
     func createMangopayUser(birthday: Int, nationality: String, countryOfResidence: String, completionHandler: @escaping (Bool) -> Void) {
-//        DispatchQueue.global().async {
-//            let url = self.serverPath + "/payment/createMangopayUser"
-//
-//            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
-//            let parameters : [String : Any] = [
-//                "uid" : uid,
-//                "birthday" : birthday,
-//                "nationality" : nationality,
-//                "countryOfResidence":countryOfResidence
-//            ]
-//
-//            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
-//                .validate()
-//                .response { response in
-//                    DispatchQueue.main.async {
-//                        completionHandler(response.error == nil)
-//                    }
-//                }
-//        }
+        DispatchQueue.global().async {
+            let url = self.serverPath + "/payment/createMangopayUser"
+
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
+            let parameters : [String : Any] = [
+                "uid" : uid,
+                "birthday" : birthday,
+                "nationality" : nationality,
+                "countryOfResidence":countryOfResidence
+            ]
+
+            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+                .validate()
+                .response { response in
+                    DispatchQueue.main.async {
+                        completionHandler(response.error == nil)
+                    }
+                }
+        }
     }
     
     func createCardRegistration(completionHandler: @escaping (Bool) -> Void) {
-//        DispatchQueue.global().async {
-//            let url = self.serverPath + "/payment/createCardRegistration"
-//
-//            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
-//            let parameters : [String : Any] = [
-//                "uid" : uid
-//            ]
-//
-//            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
-//                .validate()
-//                .response { response in
-//                    DispatchQueue.main.async {
-//                        completionHandler(response.error == nil)
-//                    }
-//                }
-//        }
+        DispatchQueue.global().async {
+            let url = self.serverPath + "/payment/createCardRegistration"
+
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
+            let parameters : [String : Any] = [
+                "uid" : uid
+            ]
+
+            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+                .validate()
+                .response { response in
+                    DispatchQueue.main.async {
+                        completionHandler(response.error == nil)
+                    }
+                }
+        }
     }
     
     func updateCardRegistration(registrationData: String, registrationId: String, completionHandler: @escaping (Bool) -> Void) {
-//        DispatchQueue.global().async {
-//            let url = self.serverPath + "/payment/updateCardRegistration"
-//
-//            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
-//            let parameters : [String : Any] = [
-//                "uid" : uid,
-//                "registrationData": registrationData,
-//                "registrationId":registrationId
-//            ]
-//
-//            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
-//                .validate()
-//                .response { response in
-//                    DispatchQueue.main.async {
-//                        completionHandler(response.error == nil)
-//                    }
-//                }
-//        }
+        DispatchQueue.global().async {
+            let url = self.serverPath + "/payment/updateCardRegistration"
+
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
+            let parameters : [String : Any] = [
+                "uid" : uid,
+                "registrationData": registrationData,
+                "registrationId":registrationId
+            ]
+
+            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+                .validate()
+                .response { response in
+                    DispatchQueue.main.async {
+                        completionHandler(response.error == nil)
+                    }
+                }
+        }
     }
     
     func payIn(transactionId: String, cardId: String, completionHandler: @escaping (Bool) -> Void) {
-//        DispatchQueue.global().async {
-//            let url = self.serverPath + "/payment/payIn"
-//
-//            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
-//            let parameters : [String : Any] = [
-//                "uid" : uid,
-//                "transactionId": transactionId,
-//                "cardId":cardId
-//            ]
-//
-//            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
-//                .validate()
-//                .response { response in
-//                    DispatchQueue.main.async {
-//                        completionHandler(response.error == nil)
-//                    }
-//                }
-//        }
+        DispatchQueue.global().async {
+            let url = self.serverPath + "/payment/payIn"
+
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
+            let parameters : [String : Any] = [
+                "uid" : uid,
+                "transactionId": transactionId,
+                "cardId":cardId
+            ]
+
+            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+                .validate()
+                .response { response in
+                    DispatchQueue.main.async {
+                        completionHandler(response.error == nil)
+                    }
+                }
+        }
     }
     
     func lenderRegistration(kycDocumentImages: [UIImage], iban: String, address: Address, completionHandler: @escaping (Bool) -> Void) {
-//        DispatchQueue.global().async {
-//            
-//            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
-//            
-//            var body: [String : Any] = [
-//                "uid" : uid,
-//                "iban": iban
-//            ]
-//            
-//            do {
-//                body["address"] = try address.asDictionary()
-//            } catch {
-//                print("Error converting address to dict")
-//            }
-//            
-//            let bodyData = ((try? JSONSerialization.data(withJSONObject: body, options: [])) ?? Data())
-//            
-//            var photosData: [Data] = []
-//            
-//            for photo in kycDocumentImages {
-//                let photoData = photo.jpegData(compressionQuality: 0)
-//                if photoData == nil { continue }
-//                photosData.append(photoData!)
-//            }
-//            
-//            AF.upload(multipartFormData: { multipartFormData in
-//                for photo in photosData {
-//                    multipartFormData.append(photo, withName: "image", fileName: "image")
-//                }
-//                
-//                multipartFormData.append(bodyData, withName: "details", fileName: "details")
-//            }, to: self.serverPath + "/payment/registerLender")
-//            .validate()
-//            .response { dataResponse in
-//                DispatchQueue.main.async {
-//                    completionHandler(dataResponse.error == nil)
-//                    UserObjectManager.shared.refresh()
-//                }
-//            }
-//        }
+        DispatchQueue.global().async {
+            
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
+            
+            var body: [String : Any] = [
+                "uid" : uid,
+                "iban": iban
+            ]
+            
+            do {
+                body["address"] = try address.asDictionary()
+            } catch {
+                print("Error converting address to dict")
+            }
+            
+            let bodyData = ((try? JSONSerialization.data(withJSONObject: body, options: [])) ?? Data())
+            
+            var photosData: [Data] = []
+            
+            for photo in kycDocumentImages {
+                let photoData = photo.jpegData(compressionQuality: 0.75)
+                if photoData == nil { continue }
+                photosData.append(photoData!)
+            }
+            
+            AF.upload(multipartFormData: { multipartFormData in
+                for photo in photosData {
+                    multipartFormData.append(photo, withName: "image", fileName: "image")
+                }
+                
+                multipartFormData.append(bodyData, withName: "details", fileName: "details")
+            }, to: self.serverPath + "/payment/registerLender")
+            .validate()
+            .response { dataResponse in
+                DispatchQueue.main.async {
+                    completionHandler(dataResponse.error == nil)
+                    UserObjectManager.shared.refresh()
+                }
+            }
+        }
     }
 }

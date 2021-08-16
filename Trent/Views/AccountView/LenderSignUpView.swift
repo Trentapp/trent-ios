@@ -125,13 +125,13 @@ struct LenderSignUpView: View {
             let kycDocumentImages = [kycDocumentFront ?? UIImage(), kycDocumentBack ?? UIImage()]
             let address = Address(streetWithNr: streetWithNr, zipcode: zipcode, city: city, country: country)
             
-//            BackendClient.shared.lenderRegistration(kycDocumentImages: kycDocumentImages, iban: iban, address: address) { success in
-//                if !success {
-//                    // Tell user
-//                } else {
-//                    MainViewProperties.shared.showInfo(with: "Successfully registered")
-//                }
-//            }
+            BackendClient.shared.lenderRegistration(kycDocumentImages: kycDocumentImages, iban: iban, address: address) { success in
+                if !success {
+                    // Tell user
+                } else {
+                    MainViewProperties.shared.showInfo(with: "Successfully registered")
+                }
+            }
         } label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 15)
