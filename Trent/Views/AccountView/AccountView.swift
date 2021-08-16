@@ -62,24 +62,24 @@ struct AccountView: View {
                 .bold()
             List {
 //                if userObjectManager.user?.walletId == nil {
-//                    Section {
+                    Section {
 //                        if userObjectManager.user?.mangopayId == nil {
-//                            ZStack {
-//                                Button(""){}
-//                                NavigationLink(destination: FinishRegistrationView()) {
-//                                    HStack {
-//                                        Text("Finish registration")
-//                                        Image(systemName: "exclamationmark.triangle.fill")
-//                                            .foregroundColor(.yellow)
-//                                    }
-//                                }
-//                            }
+                            ZStack {
+                                Button(""){}
+                                NavigationLink(destination: FinishRegistrationView()) {
+                                    HStack {
+                                        Text("Finish registration")
+                                        Image(systemName: "exclamationmark.triangle.fill")
+                                            .foregroundColor(.yellow)
+                                    }
+                                }
+                            }
 //                        }
-//                        ZStack {
-//                            Button(""){}
-//                            NavigationLink("Become a lender", destination: LenderSignUpView())
-//                        }
-//                    }
+                        ZStack {
+                            Button(""){}
+                            NavigationLink("Become a lender", destination: LenderSignUpView())
+                        }
+                    }
 //                }
                 
                 Section {
