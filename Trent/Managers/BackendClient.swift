@@ -671,9 +671,11 @@ class BackendClient: ObservableObject {
     //
     // VI.1     createMangopayUser
     // VI.2     createCardRegistration
-    // VI.3     updateCardRegistration
-    // VI.4     payIn
-    // VI.5     lenderRegistration
+    // VI.3     sendCardDetailsToTokenizationServer
+    // VI.4     updateCardRegistration
+    // VI.5     createCard
+    // VI.6     payIn
+    // VI.7     lenderRegistration
     
     func createMangopayUser(birthday: Int, nationality: String, countryOfResidence: String, completionHandler: @escaping (Bool) -> Void) {
         DispatchQueue.global().async {
@@ -691,13 +693,14 @@ class BackendClient: ObservableObject {
                 .validate()
                 .response { response in
                     DispatchQueue.main.async {
+                        UserObjectManager.shared.refresh()
                         completionHandler(response.error == nil)
                     }
                 }
         }
     }
     
-    func createCardRegistration(completionHandler: @escaping (Bool) -> Void) {
+    private func createCardRegistration(completionHandler: @escaping (CardRegistrationResult?) -> Void) {
         DispatchQueue.global().async {
             let url = self.serverPath + "/payment/createCardRegistration"
 
@@ -710,13 +713,50 @@ class BackendClient: ObservableObject {
                 .validate()
                 .response { response in
                     DispatchQueue.main.async {
-                        completionHandler(response.error == nil)
+                        do {
+                            if response.data == nil {
+                                completionHandler(nil)
+                                return
+                            }
+                            let result = try JSONDecoder().decode(CardRegistrationResult.self, from: response.data!)
+                            completionHandler(result)
+                        } catch {
+                            completionHandler(nil)
+                        }
                     }
                 }
         }
     }
     
-    func updateCardRegistration(registrationData: String, registrationId: String, completionHandler: @escaping (Bool) -> Void) {
+    private func sendCardDetailsToTokenizationServer(url: URL, accessKey: String, data: String, cardNumber: String, expirationDate: String, cvx: String, completionHandler: @escaping (String?) -> Void) {
+        DispatchQueue.global().async {
+            let parameters : [String : Any] = [
+                "accessKeyRef": accessKey,
+                "data": data,
+                "cardNumber": cardNumber,
+                "cardExpirationDate": expirationDate,
+                "cardCvx": cvx
+            ]
+            
+            let headers: HTTPHeaders = [ "Content-Type" : "application/x-www-form-urlencoded; charset=UTF-8" ]
+
+            AF.request(url, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: headers)
+                .validate()
+                .response { response in
+                    DispatchQueue.main.async {
+                        if response.error == nil && response.data != nil {
+                            if let dataString = String(data: response.data!, encoding: .utf8) {
+                                completionHandler(dataString)
+                            } else {
+                                completionHandler(nil)
+                            }
+                        }
+                    }
+                }
+        }
+    }
+    
+    private func updateCardRegistration(registrationData: String, registrationId: String, completionHandler: @escaping (Bool) -> Void) {
         DispatchQueue.global().async {
             let url = self.serverPath + "/payment/updateCardRegistration"
 
@@ -734,6 +774,24 @@ class BackendClient: ObservableObject {
                         completionHandler(response.error == nil)
                     }
                 }
+        }
+    }
+    
+    func createCard(cardNumber: String, expirationDate: String, cvx: String, completionHandler: @escaping (Bool) -> Void) {
+        createCardRegistration { result in
+            if result != nil {
+                self.sendCardDetailsToTokenizationServer(url: result!.registrationURL!, accessKey: result!.AccessKey, data: result!.PreregistrationData, cardNumber: cardNumber, expirationDate: expirationDate, cvx: cvx) { dataString in
+                    if dataString != nil {
+                        self.updateCardRegistration(registrationData: dataString!, registrationId: result!.CardRegistrationId) { success in
+                            completionHandler(success)
+                        }
+                    } else {
+                        completionHandler(false)
+                    }
+                }
+            } else {
+                completionHandler(false)
+            }
         }
     }
     

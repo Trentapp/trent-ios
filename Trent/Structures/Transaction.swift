@@ -15,7 +15,9 @@ struct Transaction: Codable, Hashable {
     var startDate: String?
     var endDate: String?
     var status: Int?
-    var totalPrice: Double?
+    var totalPrice: Int?
+    var lenderEarnings: Int?
+    var isPaid: Bool?
     
     var dateStartDate: Date? {
         get {

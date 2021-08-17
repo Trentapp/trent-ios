@@ -10,7 +10,7 @@ import SweetCardScanner
 
 struct CreditCardScannerView: View {
     
-    @ObservedObject var model: BookingModelView
+    @ObservedObject var model: PaymentViewModel
     
     @Environment(\.presentationMode) var presentationMode
     @State var card: CreditCard?

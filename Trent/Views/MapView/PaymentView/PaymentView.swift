@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PaymentView: View {
     
-    @ObservedObject var model: BookingModelView
+    @ObservedObject var model: PaymentViewModel
     @ObservedObject var mainViewProperties = MainViewProperties.shared
     
     @State var firstTime = true
@@ -21,8 +21,6 @@ struct PaymentView: View {
     
     @State var minimumMonth = 0
     @State var minimumYear = 0
-    
-    @Binding var dontPopBack: Bool
     
     var body: some View {
             VStack {
@@ -62,7 +60,7 @@ struct PaymentView: View {
                                 .foregroundColor(.init(.displayP3, white: 0.4, opacity: 0.5))
                                 .padding(.leading, 20)
                                 .padding(.vertical, 0)
-                            TextField("CVV", text: $model.cvv)
+                            TextField("CVV", text: $model.cvx)
                                 .keyboardType(.numberPad)
                                 .padding(.leading, 30)
                                 .padding(.trailing, 10)
@@ -130,7 +128,13 @@ struct PaymentView: View {
 
                     Spacer()
                     Button(action: {
-                        showOverview = true
+                        BackendClient.shared.createCard(cardNumber: model.creditCardNumber, expirationDate: model.expirationDate, cvx: model.cvx) { success in
+                            if success {
+                                // do smth
+                            } else {
+                                // tell user
+                            }
+                        }
                     }, label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
@@ -143,23 +147,17 @@ struct PaymentView: View {
                     .padding(.horizontal, 15)
                 }
                 .padding(.bottom, 0)
-                NavigationLink(
-                    destination: BookingOverviewView(model: model, dontPopBack: $dontPopBack),
-                    isActive: $showOverview,
-                    label: {
-                        EmptyView()
-                    })
             }
             .navigationBarTitle("Payment", displayMode: .large)
             .navigationBarHidden(false)
             .sheet(isPresented: $showCardScanner, content: { CreditCardScannerView(model: model) })
             .onChange(of: model.expirationMonth, perform: { value in
-                if model.expirationYear == minimumYear && value < minimumMonth{
+                if model.expirationYear == minimumYear && value < minimumMonth {
                     model.expirationMonth = minimumMonth
                 }
             })
             .onChange(of: model.expirationYear, perform: { value in
-                if value == minimumYear && model.expirationMonth < minimumMonth{
+                if value == minimumYear && model.expirationMonth < minimumMonth {
                     model.expirationMonth = minimumMonth
                 }
             })

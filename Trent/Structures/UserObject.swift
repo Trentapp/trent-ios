@@ -21,6 +21,7 @@ struct UserObject: Codable {
     var picture: Picture?
     var mangopayId: String?
     var walletId: String?
+    var bankaccountId: String?
     
     var pictureUIImage: UIImage? {
         get {

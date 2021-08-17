@@ -38,7 +38,7 @@ struct InboxView: View {
             if isLoading {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle())
-            } else if (chats ?? []).isEmpty {
+            } else if (chats ?? []).isEmpty && (transactions ?? []).isEmpty {
                 Text("No new messages")
                     .foregroundColor(.gray)
             } else {

@@ -23,12 +23,6 @@ class BookingModelView: ObservableObject {
         }
     }
     
-    @Published var creditCardHolder = ""
-    @Published var creditCardNumber = ""
-    @Published var cvv = ""
-    @Published var expirationYear = 2021
-    @Published var expirationMonth = 8
-    
 //    @Published var isBookingFinished = false
     
     init(item: Product) {

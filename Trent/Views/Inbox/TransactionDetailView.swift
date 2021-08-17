@@ -194,9 +194,23 @@ struct TransactionDetailView: View {
                             .bold()
                     }
                 })
+                } else if transaction.status == 2 && transaction.isPaid != nil {
+                    if !transaction.isPaid! {
+                    NavigationLink(
+                        destination: PaymentView(model: PaymentViewModel(transaction: transaction)),
+                        label: {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 15)
+                                    .foregroundColor(.blue)
+                                Text("Pay now")
+                                    .foregroundColor(.white)
+                                    .bold()
+                            }
+                        })
+                    }
+                }
             }
-            }
-            .frame(height: 45)
+            .frame(height: 50)
             .padding(.horizontal)
             
         }

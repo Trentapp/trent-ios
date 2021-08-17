@@ -175,16 +175,16 @@ struct ItemDetailView: View {
                     Spacer()
                     Button(action: {
                         print("Requesting")
-//                        if UserObjectManager.shared.loggedIn {
-//                            if item != nil {
-//                                self.model.item = item!
-//                                showBooking = true
-//                            }
-//                        } else {
-//                            showAuthentication = true
-//                        }
-                        showError = true
-                        // BackendClient: addTransaction
+                        if UserObjectManager.shared.loggedIn {
+                            if item != nil {
+                                self.model.item = item!
+                                showBooking = true
+                            }
+                        } else {
+                            showAuthentication = true
+                        }
+//                        showError = true
+//                         BackendClient: addTransaction
                     }, label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)

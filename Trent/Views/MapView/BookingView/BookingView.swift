@@ -57,7 +57,7 @@ struct BookingView: View {
                     .padding(.horizontal, 15)
                     .frame(height: 200)
                     NavigationLink(
-                        "", destination:PaymentView(model: model, dontPopBack: $dontPopBack),
+                        "", destination:BookingOverviewView(model: model, dontPopBack: $dontPopBack),
                         isActive: $showPayment).hidden(true)
                     Spacer()
                 }

@@ -61,7 +61,7 @@ struct AccountView: View {
                 .font(.largeTitle)
                 .bold()
             List {
-                if userObjectManager.user?.walletId == nil {
+                if userObjectManager.user?.bankaccountId == nil {
                     Section {
                         if userObjectManager.user?.mangopayId == nil {
                             ZStack {
