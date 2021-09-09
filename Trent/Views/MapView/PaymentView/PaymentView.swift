@@ -24,6 +24,22 @@ struct PaymentView: View {
                             selectedCard = card.Id
                         } label: {
                             HStack {
+                                Group {
+                                    let cardNumberPrefix = card.Alias.prefix(1)
+                                    
+                                    if cardNumberPrefix == "4" {            // Visa
+                                        Image("visa_symbol")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                    } else if cardNumberPrefix == "" {      // MasterCard
+                                        Image("mc_symbol")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                    } else {
+                                        Spacer()
+                                    }
+                                }
+                                .frame(width: 35)
                                 Group{
                                     VStack {
                                         HStack {
