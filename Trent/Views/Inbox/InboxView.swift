@@ -115,28 +115,29 @@ struct InboxView: View {
                             }
                         }
                     }
-                    
-                    Section(header: Text("Messages")) {
-                        if chats == nil {
-                            Text("No chats yet")
-                                .foregroundColor(.gray)
-                        }
-                        ForEach(chats ?? [] , id: \.self) { chat in
-                            NavigationLink(
-                                destination: ChatView(chat: chat),
-                                label: {
-                                    HStack {
-//                                        (chat.borrower?._id == UserObjectManager.shared.user?._id) ? ((chat.lender?.pictureUIImage != nil) ? Image(uiImage: (chat.lender?.pictureUIImage)!) : Image(systemName: "person.crop.circle")) : ((chat.borrower?.pictureUIImage != nil) ? Image(uiImage: (chat.borrower?.pictureUIImage)!) : Image(systemName: "person.crop.circle"))
-//                                            .resizable()
-//                                            .aspectRatio(contentMode: .fit)
-//                                            .opacity((chat.borrower?._id == UserObjectManager.shared.user?._id) ? ((chat.lender?.pictureUIImage != nil) ? 1 : 0.5) : ((chat.borrower?.pictureUIImage != nil) ? 1 : 0.5))
-//                                            .clipShape(Circle())
-//                                            .foregroundColor(.gray)
-//                                            .frame(width: 50, height: 50)
-//                                            .padding()
-                                        Text((chat.borrower?._id == UserObjectManager.shared.user?._id) ? (chat.lender?.name ?? "Lender" ) : (chat.borrower?.name ?? "Borrower" ))
-                                    }
-                                })
+                    if transactions?.count ?? 0 != 0 {
+                        Section(header: Text("Messages")) {
+                            if chats == nil {
+                                Text("No chats yet")
+                                    .foregroundColor(.gray)
+                            }
+                            ForEach(chats ?? [] , id: \.self) { chat in
+                                NavigationLink(
+                                    destination: ChatView(chat: chat),
+                                    label: {
+                                        HStack {
+    //                                        (chat.borrower?._id == UserObjectManager.shared.user?._id) ? ((chat.lender?.pictureUIImage != nil) ? Image(uiImage: (chat.lender?.pictureUIImage)!) : Image(systemName: "person.crop.circle")) : ((chat.borrower?.pictureUIImage != nil) ? Image(uiImage: (chat.borrower?.pictureUIImage)!) : Image(systemName: "person.crop.circle"))
+    //                                            .resizable()
+    //                                            .aspectRatio(contentMode: .fit)
+    //                                            .opacity((chat.borrower?._id == UserObjectManager.shared.user?._id) ? ((chat.lender?.pictureUIImage != nil) ? 1 : 0.5) : ((chat.borrower?.pictureUIImage != nil) ? 1 : 0.5))
+    //                                            .clipShape(Circle())
+    //                                            .foregroundColor(.gray)
+    //                                            .frame(width: 50, height: 50)
+    //                                            .padding()
+                                            Text((chat.borrower?._id == UserObjectManager.shared.user?._id) ? (chat.lender?.name ?? "Lender" ) : (chat.borrower?.name ?? "Borrower" ))
+                                        }
+                                    })
+                            }
                         }
                     }
                 }

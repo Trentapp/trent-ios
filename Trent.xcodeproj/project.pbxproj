@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8B7FD627D8998B3444FF3345 /* Pods_Trent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28194E34FECC7FF05DA25531 /* Pods_Trent.framework */; };
+		B002F8E926EA39B5008E1775 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = B002F8E826EA39B5008E1775 /* Card.swift */; };
 		B01C1399267E63130078E584 /* Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01C1398267E63130078E584 /* Encodable.swift */; };
 		B01C139E2680A7790078E584 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01C139D2680A7790078E584 /* MapViewController.swift */; };
 		B01C13A02684CF810078E584 /* ContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01C139F2684CF810078E584 /* ContactView.swift */; };
@@ -77,6 +78,7 @@
 		B0E2D93A26AC578A008DA3F3 /* MapKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E2D93926AC578A008DA3F3 /* MapKitView.swift */; };
 		B0E94B0E26CBDF8B00F62EF3 /* PaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E94B0D26CBDF8B00F62EF3 /* PaymentViewModel.swift */; };
 		B0E94B1026CBEADF00F62EF3 /* CardRegistrationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E94B0F26CBEADF00F62EF3 /* CardRegistrationResult.swift */; };
+		B0E94B1226CC0D3600F62EF3 /* AddCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E94B1126CC0D3600F62EF3 /* AddCardView.swift */; };
 		B0F01F61265FAFA300BDFA18 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F01F60265FAFA300BDFA18 /* Product.swift */; };
 		B0F37CC3265ECC7000D7905E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F37CC2265ECC7000D7905E /* LoginView.swift */; };
 		B0F37CC7265EDAD500D7905E /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F37CC6265EDAD400D7905E /* SignupView.swift */; };
@@ -89,6 +91,7 @@
 		1671D662B8FD0A8E0F09B415 /* Pods-Trent.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trent.debug.xcconfig"; path = "Target Support Files/Pods-Trent/Pods-Trent.debug.xcconfig"; sourceTree = "<group>"; };
 		28194E34FECC7FF05DA25531 /* Pods_Trent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Trent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BCC82BA3C4960BB717229A8 /* Pods-Trent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trent.release.xcconfig"; path = "Target Support Files/Pods-Trent/Pods-Trent.release.xcconfig"; sourceTree = "<group>"; };
+		B002F8E826EA39B5008E1775 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		B01C1398267E63130078E584 /* Encodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encodable.swift; sourceTree = "<group>"; };
 		B01C139D2680A7790078E584 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		B01C139F2684CF810078E584 /* ContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactView.swift; sourceTree = "<group>"; };
@@ -159,6 +162,7 @@
 		B0E2D93926AC578A008DA3F3 /* MapKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapKitView.swift; sourceTree = "<group>"; };
 		B0E94B0D26CBDF8B00F62EF3 /* PaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewModel.swift; sourceTree = "<group>"; };
 		B0E94B0F26CBEADF00F62EF3 /* CardRegistrationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardRegistrationResult.swift; sourceTree = "<group>"; };
+		B0E94B1126CC0D3600F62EF3 /* AddCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCardView.swift; sourceTree = "<group>"; };
 		B0F01F60265FAFA300BDFA18 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		B0F37CC2265ECC7000D7905E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		B0F37CC6265EDAD400D7905E /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
@@ -230,6 +234,7 @@
 				B08F89EF26A70B7500816A8D /* Message.swift */,
 				B0989252268B319200574719 /* Transaction.swift */,
 				B0E94B0F26CBEADF00F62EF3 /* CardRegistrationResult.swift */,
+				B002F8E826EA39B5008E1775 /* Card.swift */,
 			);
 			path = Structures;
 			sourceTree = "<group>";
@@ -418,6 +423,7 @@
 			children = (
 				B0E94B0D26CBDF8B00F62EF3 /* PaymentViewModel.swift */,
 				B0BF25A926B2949F005FDD4D /* PaymentView.swift */,
+				B0E94B1126CC0D3600F62EF3 /* AddCardView.swift */,
 				B0BF25AD26B2CC69005FDD4D /* CreditCardScannerView.swift */,
 			);
 			path = PaymentView;
@@ -561,9 +567,11 @@
 				B0E182172664140300F20D27 /* InventoryView.swift in Sources */,
 				B093B5A226860C750051B7CC /* Chat.swift in Sources */,
 				B0852F7D26C2EC3C00CF0B07 /* FinishRegistrationView.swift in Sources */,
+				B002F8E926EA39B5008E1775 /* Card.swift in Sources */,
 				B0529D4B26AAFAA1001616AB /* AddAddressView.swift in Sources */,
 				B0F01F61265FAFA300BDFA18 /* Product.swift in Sources */,
 				B01C13A22684D0380078E584 /* UINavigationController.swift in Sources */,
+				B0E94B1226CC0D3600F62EF3 /* AddCardView.swift in Sources */,
 				B0D4FB12267D0DBB00BADF68 /* EditAccountView.swift in Sources */,
 				B08F89E526A4A8BD00816A8D /* ExploreView.swift in Sources */,
 				B029AD03266237E200279911 /* MainView.swift in Sources */,

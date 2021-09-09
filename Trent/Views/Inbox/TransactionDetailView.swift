@@ -202,7 +202,7 @@ struct TransactionDetailView: View {
                             ZStack {
                                 RoundedRectangle(cornerRadius: 15)
                                     .foregroundColor(.blue)
-                                Text("Pay now")
+                                Text("Continue to pay")
                                     .foregroundColor(.white)
                                     .bold()
                             }

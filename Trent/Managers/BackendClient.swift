@@ -676,6 +676,7 @@ class BackendClient: ObservableObject {
     // VI.5     createCard
     // VI.6     payIn
     // VI.7     lenderRegistration
+    // VI.7     getCards
     
     func createMangopayUser(birthday: Int, nationality: String, countryOfResidence: String, completionHandler: @escaping (Bool) -> Void) {
         DispatchQueue.global().async {
@@ -858,4 +859,31 @@ class BackendClient: ObservableObject {
             }
         }
     }
+    
+    func getCards(completionHandler: @escaping ([Card]?) -> Void) {
+        DispatchQueue.global().async {
+            let url = self.serverPath + "/payment/getCardsOfUser"
+            
+            let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
+            let parameters = ["uid" : uid]
+            
+            AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+                .validate()
+                .response { response in
+                    DispatchQueue.main.async {
+                        do {
+                            if response.data == nil {
+                                completionHandler(nil)
+                                return
+                            }
+                            let cards = try JSONDecoder().decode([Card].self, from: response.data!)
+                            completionHandler(cards)
+                        } catch {
+                            completionHandler(nil)
+                        }
+                    }
+                }
+        }
+    }
+
 }
