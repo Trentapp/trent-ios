@@ -11,6 +11,7 @@ struct PaymentView: View {
     @ObservedObject var model: PaymentViewModel
     @ObservedObject var mainViewProperties = MainViewProperties.shared
     
+    @State var isLoading = false
     @State private var selectedCard = ""
     @State var cards: [Card]?
     
@@ -63,9 +64,21 @@ struct PaymentView: View {
                             }
                         }
                     }
+                    .hidden(isLoading)
+                    
+                    if isLoading {
+                        HStack {
+                            Spacer()
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle())
+                            Spacer()
+                        }
+                    }
+                    
                     Button(action: {}, label: {
                         Text("Add a new card")
                     })
+                    
                 }
             }
             
@@ -108,9 +121,11 @@ struct PaymentView: View {
         .navigationBarTitle("Payment", displayMode: .large)
         .navigationBarHidden(false)
         .onAppear() {
+            isLoading = true
             // load cards
             BackendClient.shared.getCards { cards in
                 self.cards = cards
+                isLoading = false
             }
         }
     }
