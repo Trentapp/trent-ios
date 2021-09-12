@@ -10,13 +10,14 @@ import SwiftUI
 struct AddCardView: View {
     @ObservedObject var model: PaymentViewModel
     @ObservedObject var mainViewProperties = MainViewProperties.shared
+    @Environment (\.presentationMode) var presentationMode
     
     @State var firstTime = true
-    
+
     @State var showDatePicker = false
     @State var showCardScanner = false
     @State var showExiprationPicker = false
-    
+
     @State var minimumMonth = 0
     @State var minimumYear = 0
     
@@ -51,7 +52,7 @@ struct AddCardView: View {
                     HStack {
 //                        Text("Expiration Date")
 //                            .padding(.leading, 30)
-                        
+
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(lineWidth: 0.2)
@@ -64,10 +65,10 @@ struct AddCardView: View {
                                 .padding(.trailing, 10)
                         }
                         .frame(width: 100)
-                        
+
                         Spacer()
 //                            .frame(width: 55)
-                        
+
                         Button(action: {
                             showExiprationPicker.toggle()
                         }, label: {
@@ -83,7 +84,7 @@ struct AddCardView: View {
                     }
                 }
                 .frame(height: 40)
-                
+
                 if showExiprationPicker {
                     HStack {
                         Spacer()
@@ -109,7 +110,7 @@ struct AddCardView: View {
                         Spacer()
                     }
                 }
-                
+
                 Spacer()
                 Divider()
                     .border(Color.black, width: 10)
@@ -128,7 +129,7 @@ struct AddCardView: View {
                     Button(action: {
                         BackendClient.shared.createCard(cardNumber: model.creditCardNumber, expirationDate: model.expirationDate, cvx: model.cvx) { success in
                             if success {
-                                // do smth
+                                presentationMode.wrappedValue.dismiss()
                             } else {
                                 // tell user
                             }
@@ -137,7 +138,7 @@ struct AddCardView: View {
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
                                 .frame(width: 100, height:40)
-                            Text("Next")
+                            Text("Add card")
                                 .bold()
                                 .foregroundColor(.white)
                         }
@@ -164,15 +165,15 @@ struct AddCardView: View {
 //                    showCardScanner = true
                     firstTime = false
                 }
-                
+
                 let date = Date()
                 let components = Calendar.current.dateComponents(in: Calendar.current.timeZone, from: date)
                 let currentMonth = components.month ?? 0
                 let currentYear = components.year ?? 0
-                
+
                 model.expirationMonth = currentMonth
                 model.expirationYear = currentYear
-                
+
                 minimumMonth = currentMonth
                 minimumYear = currentYear
             }

@@ -11,54 +11,59 @@ struct PaymentView: View {
     @ObservedObject var model: PaymentViewModel
     @ObservedObject var mainViewProperties = MainViewProperties.shared
     
+    @Environment(\.presentationMode) var presentationMode
+    
+    @State var addCardViewIsShown = false
+    
     @State var isLoading = false
     @State private var selectedCard = ""
     @State var cards: [Card]?
     
     var body: some View {
         VStack {
-            
             Form {
                 Section(header: Text("Select credit card")) {
                     ForEach(cards ?? [], id: \.Id) { card in
                         Button {
                             selectedCard = card.Id
                         } label: {
-                            HStack {
-                                Group {
-                                    let cardNumberPrefix = card.Alias.prefix(1)
-                                    
-                                    if cardNumberPrefix == "4" {            // Visa
-                                        Image("visa_symbol")
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                    } else if cardNumberPrefix == "" {      // MasterCard
-                                        Image("mc_symbol")
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                    } else {
-                                        Spacer()
-                                    }
-                                }
-                                .frame(width: 35)
-                                Group{
-                                    VStack {
-                                        HStack {
-                                            Text("\(card.Alias)")
-                                                .foregroundColor(Color(UIColor.label))
-                                            Spacer()
-                                        }
-                                        HStack {
-                                            Text("\(card.expirationDateHR)")
-                                                .foregroundColor(.gray)
-                                                .font(.system(size: 15))
+                            if card.Active {
+                                HStack {
+                                    Group {
+                                        let cardNumberPrefix = card.Alias.prefix(1)
+                                        
+                                        if cardNumberPrefix == "4" {            // Visa
+                                            Image("visa_symbol")
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                        } else if cardNumberPrefix == "" {      // MasterCard
+                                            Image("mc_symbol")
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                        } else {
                                             Spacer()
                                         }
                                     }
-                                    if selectedCard == card.Id {
-                                        Spacer()
-                                        Image(systemName: "checkmark")
-                                            .foregroundColor(.blue)
+                                    .frame(width: 35)
+                                    Group{
+                                        VStack {
+                                            HStack {
+                                                Text("\(card.Alias)")
+                                                    .foregroundColor(Color(UIColor.label))
+                                                Spacer()
+                                            }
+                                            HStack {
+                                                Text("\(card.expirationDateHR)")
+                                                    .foregroundColor(.gray)
+                                                    .font(.system(size: 15))
+                                                Spacer()
+                                            }
+                                        }
+                                        if selectedCard == card.Id {
+                                            Spacer()
+                                            Image(systemName: "checkmark")
+                                                .foregroundColor(.blue)
+                                        }
                                     }
                                 }
                             }
@@ -75,7 +80,9 @@ struct PaymentView: View {
                         }
                     }
                     
-                    Button(action: {}, label: {
+                    Button(action: {
+                        addCardViewIsShown = true
+                    }, label: {
                         Text("Add a new card")
                     })
                     
@@ -98,13 +105,14 @@ struct PaymentView: View {
                 
                 Spacer()
                 Button(action: {
-                    BackendClient.shared.createCard(cardNumber: model.creditCardNumber, expirationDate: model.expirationDate, cvx: model.cvx) { success in
+                    BackendClient.shared.pay(transactionId: model.transaction?._id ?? "", cardId: selectedCard, completionHandler: { success in
                         if success {
-                            // do smth
+                            MainViewProperties.shared.showInfo(with: "Paid")
+                            presentationMode.wrappedValue.dismiss()
                         } else {
                             // tell user
                         }
-                    }
+                    })
                 }, label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 10)
@@ -120,10 +128,17 @@ struct PaymentView: View {
         }
         .navigationBarTitle("Payment", displayMode: .large)
         .navigationBarHidden(false)
+        .sheet(isPresented: $addCardViewIsShown, content: { AddCardView(model: model) })
         .onAppear() {
             isLoading = true
             // load cards
-            BackendClient.shared.getCards { cards in
+            BackendClient.shared.getCards { results in
+                var cards = [Card]()
+                for result in (results ?? [] ){
+                    if result.Active {
+                        cards.append(result)
+                    }
+                }
                 self.cards = cards
                 isLoading = false
             }

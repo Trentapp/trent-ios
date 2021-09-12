@@ -796,9 +796,9 @@ class BackendClient: ObservableObject {
         }
     }
     
-    func payIn(transactionId: String, cardId: String, completionHandler: @escaping (Bool) -> Void) {
+    func pay(transactionId: String, cardId: String, completionHandler: @escaping (Bool) -> Void) {
         DispatchQueue.global().async {
-            let url = self.serverPath + "/payment/payIn"
+            let url = self.serverPath + "/payment/pay"
 
             let uid = FirebaseAuthClient.shared.currentUser?.uid ?? ""
             let parameters : [String : Any] = [
